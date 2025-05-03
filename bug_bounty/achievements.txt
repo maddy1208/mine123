@@ -1,0 +1,14 @@
+totol bugs found: 4
+
+LOW      : 2
+MEDIUM   : 2
+HIGH     : 0
+CRITICAL : 0
+
+
+
+DES:
+1.csrf on bigbasket.com
+2.sens info disclosure on flow.com
+3.email spoofing on flow.com
+4.broken link hijacking on flow.com
