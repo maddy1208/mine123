@@ -1,0 +1,18 @@
+https://example.com\\.account.target.com
+https://target.com.example.com
+https://target@example.com
+https://target.com%3F.example.com/
+https://target.com%2523.example.com/
+https://target?c=.example.com
+https://target.com?#=.example.com
+https://target.com@example.com
+aHR0cHM6Ly9nb29nbGUuY29t (base64 encode)
+https%3A%2F%2Fevil.com (url encode)
+@example.com
+https:example.com
+https://example.com\.target.com/dashboard
+//example.com
+.example.com
+-example.com
+https://example-target.com
+/%0d/evil.com

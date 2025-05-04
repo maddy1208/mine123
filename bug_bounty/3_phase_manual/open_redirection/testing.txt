@@ -1,0 +1,38 @@
+ using gdork:
+ 
+ getting urls : manual,use dorking.py
+ 
+ site:target (inurl:url= OR inurl:return= OR inurl:next= OR inurl:redirect= OR inurl:redir= OR inurl:ret= OR inurl:r2= OR inurl:page= OR inurl:dest= OR inurl:target= OR inurl:redirect_uri= OR inurl:redirect_url= OR inurl:checkout_url= OR inurl:continue= OR inurl:return_path= OR inurl:returnTo= OR inurl:out= OR inurl:go= OR inurl:login?to= OR inurl:origin= OR inurl:callback_url= OR inurl:jump= OR inurl:action_url= OR inurl:forward= OR inurl:src= OR inurl:http OR inurl:&)
+
+
+🔹 Dork 1 – Open Redirect Keywords (Set 1):
+
+site:domain.com (inurl:redir OR inurl:redirect OR inurl:redirect_uri OR inurl:redirect_url OR inurl:uri OR inurl:url OR inurl:next OR inurl:out OR inurl:to OR inurl:forward OR inurl:view)
+
+🔹 Dork 2 – Auth/OAuth-related Keywords (Set 2):
+
+site:domain.com (inurl:oauth OR inurl:auth OR inurl:client OR inurl:response OR inurl:code OR inurl:sso OR inurl:authorize OR inurl:token OR inurl:secret OR inurl:type)
+
+🔹 Dork 3 – Encoded/Version Patterns (Set 3):
+
+site:domain.com (inurl:v1 OR inurl:v2 OR inurl:v3 OR inurl:v4 OR inurl:2F OR inurl:3A)
+
+🧠 Note: 2F means /, 3A means : so these may catch encoded URLs like http3A2F2Fexample.com.
+🔹 Dork 4 – Login and Identity Keywords (Set 4):
+
+site:domain.com (inurl:login OR inurl:identity OR inurl:iam OR inurl:oidc OR inurl:saml)
+
+🎯 Optional Power Dork (Set1 + Set2):
+
+site:domain.com (inurl:redir OR inurl:redirect OR inurl:redirect_uri OR inurl:url) (inurl:oauth OR inurl:token OR inurl:auth)
+
+site:.ru(inurl:url= | inurl:return= | inurl:next= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= | inurl:dest= | inurl:target= | inurl:redirect_uri= | inurl:redirect_url= | inurl:checkout_url= | inurl:continue= | inurl:return_path= | inurl:returnTo= | inurl:out= | inurl:go= | inurl:login?to= | inurl:origin= | inurl:callback_url= | inurl:jump= | inurl:action_url= | inurl:forward= | inurl:src= | inurl:http | inurl:qurl= | inurl:redirect_url= | inurl:location= | inurl:redirect_to= | inurl:forward_url= | inurl:destination_url= | inurl:go_to= | inurl:goto_url= | inurl:target_url= | inurl:redirect= | inurl:redirect_uri= | inurl:redirect_url= | inurl:returnUrl= | inurl:continue= | inurl:dest=/destination= | inurl:forward= | inurl:go= | inurl:goto= | inurl:login_url= | inurl:logout= | inurl:next= | inurl:out= | inurl:redirect_to= | inurl:jump_url= | inurl:originUrl= | inurl:desturl= | inurl:u= | inurl:Redirect= | inurl:location= | inurl:ReturnUrl= | inurl:redirect_url= | inurl:redirect_to= | inurl:forward_to= | inurl:forward_url= | inurl:destination_url= | inurl:jump_tov= | inurl:go_to= | inurl:goto_url= | inurl:target_url= | inurl:redirect | inurl:&)
+
+
+
+cat urls-from_gdork.txt | gf redirect | uro |  qsreplace "https://evil.com" | httpx -silent -fr -mr "evil.com"
+
+cat urls-from_gdork.txt | gf redirect | uro | sed 's/=.*/=/'>loxs.txt
+mow use loxs tool
+
+

