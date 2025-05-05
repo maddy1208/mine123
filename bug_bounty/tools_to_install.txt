@@ -5,3 +5,8 @@ socialhunter
 blc
 coffinxp loxs
 coffinxp gf pattern
+crlfsuite
+crlfuzz
+burp cors
+subzy
+subjack

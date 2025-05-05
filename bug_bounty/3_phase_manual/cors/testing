@@ -1,0 +1,3 @@
+curl -X OPTIONS https://localhost:5001/api/resource \
+  -H "Origin: https://example.com" \
+  -H "Access-Control-Request-Method: PUT"

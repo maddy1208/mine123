@@ -16,3 +16,4 @@ https://example.com\.target.com/dashboard
 -example.com
 https://example-target.com
 /%0d/evil.com
+https://exampetarget.com
