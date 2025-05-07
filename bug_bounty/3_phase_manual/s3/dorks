@@ -1,0 +1,34 @@
+    site: s3.amazonaws.com example.com
+
+    site: s3.amazonaws.com filetype:xls password example.com
+
+    site: s3.amazonaws.com filetype:txt password example.com
+
+    site: s3.amazonaws.com filetype:sql example.com
+
+    site: s3.amazonaws.com inurl:backup example.com
+
+    site: s3.amazonaws.com intext:apikey example.com
+
+    site: s3.amazonaws.com ext:log example.com
+    
+    Inurl: s3.amazonaws.com/legacy/
+
+    Inurl: s3.amazonaws.com/uploads/
+
+    Inurl: s3.amazonaws.com/backup/
+
+    Inurl: s3.amazonaws.com/mp3/
+
+    Inurl: s3.amazonaws.com/movie/
+
+    Inurl: s3.amazonaws.com/video/
+
+    inurl: s3.amazonaws.com
+    
+    site:s3.amazonaws.com "<bucket-name>"
+    
+    site:.s3.amazonaws.com "company" 
+site:http://s3.amazonaws.com intitle:index.of.bucket “”
+site:s3.amazonaws.com "index of /" s3 
+inurl:s3.amazonaws.com intitle:"AWS S3 Explorer"

@@ -10,3 +10,8 @@ crlfuzz
 burp cors
 subzy
 subjack
+wpscan
+s3enum
+aws extender (burp)
+Web-Cache-Vulnerability-Scanner 
+ jwt-cracker

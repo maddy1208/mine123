@@ -1,0 +1,54 @@
+WordPress Bug Hunting Notes  
+Date: 2025-05-07
+
+===========================
+🔍 Nmap Commands
+===========================
+
+* Version and theme detection using http-wordpress-info script:
+nmap -sV --script http-wordpress-info
+
+* Password selection by dictionaries:
+nmap -p80 --script http-wordpress-brute --script-args 'userdb=users.txt,passdb=passwords.txt' example.com
+
+===========================
+⚙️ Metasploit Modules
+===========================
+
+* Module for determining the version:
+auxiliary/scanner/http/wordpress_scanner
+
+* Module for defining username:
+auxiliary/scanner/http/wordpress_login_enum
+
+===========================
+🛡️ WPScan Commands
+===========================
+general:
+wpscan --url example.com --random-user-agent
+
+
+* Listing the installed plugins:
+wpscan --url www.example.com --enumerate p
+
+* Enumeration of the installed themes:
+wpscan --url www.example.com --enumerate t
+
+* Transfer set timthumbs:
+wpscan --url www.example.com --enumerate tt
+
+* Defining username:
+wpscan --url www.example.com --enumerate u
+
+* Password guessing dictionary for user admin:
+wpscan --url www.example.com --wordlist wordlist.txt --username admin
+
+* Selection of the password using the username/password with 50 threads:
+wpscan --url www.example.com --wordlist wordlist.txt --threads 50
+
+* 🌀 Using random User-Agent to evade detection:
+wpscan --url www.example.com --random-user-agent
+
+* Combine random User-Agent with enumeration:
+wpscan --url www.example.com --enumerate u --random-user-agent
+

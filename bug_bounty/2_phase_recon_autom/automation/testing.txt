@@ -244,3 +244,10 @@ nuclei -l hosts.txt -t subdomain-takeover-detect-all-takeovers.yaml
 
 using subzy:
 subzy run -targets domains.txt
+
+wordpress:
+nuclei -u https://target.com -t wordpress/
+cat alive.txt | nuclei -t ~/nuclei-templates/technologies/wordpress-detect.yaml
+
+s3:
+nuclei -t s3-bucket-takeover.yaml -u http://<bucket-name>.s3.amazonaws.com

@@ -1,0 +1,37 @@
+1) Testing for misconfigured list permissions in AWS S3:
+
+aws s3 ls s3://{BUCKET_NAME}
+aws s3 ls s3://{BUCKET_NAME} --no-sign-request
+
+2) Testing for misconfigured read permissions in AWS S3:
+
+aws s3api get-bucket-acl --bucket <bucket-name>
+aws s3api get-public-access-block --bucket <bucket-name>
+aws s3api get-object --bucket {BUCKET_NAME} --key archive.zip ./OUTPUT --no-sign-request
+
+3) Testing for misconfigured download permissions in AWS S3:
+aws s3 cp s3://{BUCKET_NAME}/intigriti.txt ./ --no-sign-request
+
+4) Testing for misconfigured write permissions in AWS S3:
+aws s3 cp intigriti.txt s3://{BUCKET_NAME}/intigriti-ac5765a7-1337-4543-ab45-1d3c8b468ad3.txt --no-sign-request
+
+5) Testing for read permissions on Access Control Lists (ACLs):
+aws s3api get-bucket-acl --bucket {BUCKET_NAME} --no-sign-request
+
+aws s3api get-object-acl --bucket {BUCKET_NAME} --key index.html --no-sign-request
+
+6) Testing for write permissions on Access Control Lists (ACLs)
+aws s3api put-bucket-acl --bucket {BUCKET_NAME} --grant-full-control emailaddress={EMAIL} --no-sign-request
+
+aws s3api put-bucket-acl --bucket [bucketname] [ACLPERMISSIONS] --no-sign-request
+
+aws s3api put-object-acl --bucket [bucketname] --key file.txt [ACLPERMISSIONS] --no-sign-request
+
+
+IAM PERMISSIONS:
+aws sts get-caller-identity
+aws iam list-attached-user-policies --user-name <username>
+
+
+8) Testing for S3 versioning
+aws s3api get-bucket-versioning --bucket {BUCKET_NAME} --no-sign-request

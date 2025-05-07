@@ -1,0 +1,6 @@
+.py3
+__pycache__
+*.txt
+todo.md
+dev/
+logs/*.log

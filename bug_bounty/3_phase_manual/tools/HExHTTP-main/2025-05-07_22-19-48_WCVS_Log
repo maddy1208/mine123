@@ -1,0 +1,42 @@
+2025/05/07 22:19:48 Web-Cache-Vulnerability-Scanner --url https://amazon.in -v 2
+2025/05/07 22:19:48 Published by Hackmanit under http://www.apache.org/licenses/LICENSE-2.0
+2025/05/07 22:19:48 Author: Maximilian Hildebrand
+2025/05/07 22:19:48 Repository: https://github.com/Hackmanit/Web-Cache-Vulnerability-Scanner
+
+2025/05/07 22:19:48 WCVS v1.4.0 started at 2025-05-07_22-19-48
+2025/05/07 22:19:48 
+Testing website(1/1): https://amazon.in
+2025/05/07 22:19:48 ===============================================================
+2025/05/07 22:19:48 Setting up client
+2025/05/07 22:19:49 [*] The default status code was set to 301
+2025/05/07 22:19:49 [!] No x-cache (or other cache hit/miss header) header was found
+The time will be measured as cache hit/miss indicator
+2025/05/07 22:19:49 [!] Time measurement as indicator is deactivated, skipping cachebuster tests
+2025/05/07 22:19:49 [!] No cache indicator could be found
+2025/05/07 22:19:49 [!] Use -f/-force to force the test
+2025/05/07 22:19:49 [*] Statistics:
+General: map[sub_total:1]
+Indicator: map[none:1 total:1]
+Cachebuster: map[none:1 total:1]
+Once_Indicator: map[none:1 total:1]
+Once_Cachebuster: map[none:1 total:1]
+Total_Indicator: map[none:1 total:1]
+Total_Cachebuster: map[none:1 total:1]
+TimeFalseNeg: [0 0]: []
+TimeFalsePos: [0 0]: []
+2025/05/07 22:19:49 
+ --------------------------------------------------------------
+| Web Cache Deception
+ --------------------------------------------------------------
+2025/05/07 22:19:49 Testing for Web Cache Deception
+2025/05/07 22:19:50 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/.css'
+2025/05/07 22:19:50 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/nonexistent1.css'
+2025/05/07 22:19:51 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/../nonexistent2.css'
+2025/05/07 22:19:52 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%2e%2e/nonexistent3.css'
+2025/05/07 22:19:53 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%0Anonexistent4.css'
+2025/05/07 22:19:54 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%00nonexistent5.css'
+2025/05/07 22:19:55 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%09nonexistent6.css'
+2025/05/07 22:19:56 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%3Bnonexistent7.css'
+2025/05/07 22:19:57 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%23nonexistent8.css'
+2025/05/07 22:19:58 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%3Fname=valnonexistent9.css'
+2025/05/07 22:19:59 Curl command: curl -X 'GET' -H 'User-Agent: WebCacheVulnerabilityScanner v1.4.0' 'https://amazon.in/%26name=valnonexistent10.css'
