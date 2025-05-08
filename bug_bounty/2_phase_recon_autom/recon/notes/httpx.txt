@@ -1,0 +1,41 @@
+2..httpx and tech analysis ..---------------------------------------------------------------DE3TECETINBG WAF--------------------------------------------------------------------------------------------------
+
+wafw00f -i alive-subdomains.txt -o wafs.txt
+
+\---------------------------------------------------------------HTTPX & TECH STACK ANALYSIS--------------------------------------------------------------------------------------------
+httpx -l livedomains.txt&#x20;
+-ports 80,443,8000,8009,8080,8081,8090,8180,8443,8888&#x20;
+-threads 200&#x20;
+-random-agent&#x20;
+-x GET,POST&#x20;
+-tech-detect&#x20;
+-status-code&#x20;
+-follow-redirects&#x20;
+-title&#x20;
+-content-length&#x20;
+-ip&#x20;
+-server&#x20;
+-wc | tee httpx\_results.txt
+
+# Find "Index of /" Pages
+
+```
+cat httpx_results.txt | grep -i "Index of /" | anew index_pages.txt
+```
+
+\#Find backup files: (302 res have high probability)
+
+```
+cat httpx_results.txt | grep 302 | awk '{print $1}' | anew 3_redir_status.txt
+cat httpx_results.txt | grep 301 | awk '{print $1}' | anew 3_redir_status.txt
+cat 3_redir_status.txt | nuclei -t /home/lolita/nuclei-templates/http/exposures/backups/ -c 40  -rl 400 -v | anew nuclei_results_backup.txt
+
+
+```
+
+\#Find admin,interesting,403,404 based domains:
+cat httpx\_results | grep -E "admin|panel|portal|secure|dashboard|internal|api|stag|dev|priv|test|sam|dash" | tee important\_subdomains.txt (will be used for manual testing)
+cat httpx\_results.txt | grep -E "4\[0-9]{2}|5\[0-9]{2}" | awk '{print \$1}' | anew 4s\_5s\_status.txt
+cat httpx\_results.txt | grep -E "404" | awk '{print \$1}' | anew 404\_status.txt
+cat httpx\_results.txt | grep -E "2\[0-9]{2}|3\[0-9]{2}" | awk '{print \$1}' | anew 3s\_3s\_status.txt..so after httpx if it has 302 or 301 it run nuclei and results saved to file also if ot found index of termunak higltust "vulnerbaility found directory listing like this" also those 404 are saved to 404, and 5seris 403 402 are saved to that file like that and grep impoirtant ;ike admin|prod|test and this should eb save dto important doamins o that i can maually etst this theses results should be saved insde a directpry httpx
+

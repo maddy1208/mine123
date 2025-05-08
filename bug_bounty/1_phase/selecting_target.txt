@@ -1,0 +1,200 @@
+1.selecting by programs like,
+ -hackerone
+ -bugcrowd
+ -intigriti
+ -yeswehack
+ -openbugbounty
+ etc..
+ 
+=>use https://bbradar.io/ to select latest programs
+
+2.through gdorks:
+
+
+1️⃣ VDP (Vulnerability Disclosure Program)
+The basic and general
+
+vulnerability disclosure program -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+VDP with rewards🤑 (unique area)
+
+vulnerability disclosure program "reward" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+vulnerability disclosure program "bounty" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+
+This can be considered something less dorked. We are searching for VDP, which also pays in return for valid bugs.
+
+
+
+site:*.in vulnerability disclosure program "reward" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+
+
+Rupees
+
+vulnerability disclosure program "reward" "₹" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+Dollars
+
+vulnerability disclosure program "reward" "$" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+Euros
+
+vulnerability disclosure program "reward" "€" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+Bitcoin
+
+vulnerability disclosure program "reward" "bitcoin" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+Payment Method
+
+Paypal
+
+vulnerability disclosure program "reward" "paypal" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+Wire Transfer
+
+vulnerability disclosure program "reward" "wire transfer" -site:hackerone.com -site:bugcrowd.com -site:yeswehack.com -site:intigriti.com
+
+
+
+   general:
+   inurl /bug bounty
+   inurl : / responsible-disclosure/ bounty
+   responsible disclosure bounty r=h:nl
+   White hat program
+   Responsible disclosure Europe
+   responsible disclosure:sites
+   responsible disclosure bounty r=h:eu
+   "if you find a security issue" "reward"
+    site:example.com inurl:bug inurl:bounty
+    site:example.com inurl:security intext:bounty
+    site:example.com inurl:security ext:txt
+    site:example.com inurl:responsible-disclosure
+    site:example.com inurl:/.well-known/security
+    site:example.com intext:bug bounty program
+    site:example.com intext:responsible disclosure program
+    site:example.com intext:vulnerability disclosure program
+    site:example.com intext:security rewards
+    site:example.com intext:bug bounty payout
+    site:example.com inurl:security ext:txt -inurl:hackerone -inurl:bugcrowd -inurl:synack
+    site:example.com inurl:responsible-disclosure -inurl:hackerone -inurl:bugcrowd -inurl:synack
+    site:example.com intext:bug bounty -inurl:hackerone -inurl:bugcrowd -inurl:synack
+    inurl:/security
+    inurl:/responsible-disclosure/ swag
+    inurl:’/responsible disclosure’ hoodie
+    responsible disclosure hall of fame
+    inurl:responsible disclosure $50
+    responsible disclosure europe
+    responsible disclosure white hat
+    white hat program
+    responsible disclosure r=h:nl
+    responsible disclosure r=h:uk
+    responsible disclosure r=h:eu
+    responsible disclosure bounty r=h:nl
+    responsible disclosure bounty r=h:uk
+    responsible disclosure bounty r=h:eu
+    responsible disclosure swag r=h:nl
+    responsible disclosure swag r=h:uk
+    responsible disclosure swag r=h:eu
+    responsible disclosure reward r=h:nl
+    responsible disclosure reward r=h:uk
+    responsible disclosure reward r=h:eu
+    “powered by bugcrowd” -site:bugcrowd.com
+    “submit vulnerability report”
+    “submit vulnerability report” | “powered by bugcrowd” | “powered by hackerone”
+    intext:”we take security very seriously”
+    site:responsibledisclosure.com
+    inurl:’vulnerability-disclosure-policy’ reward
+    site:..nl intext: security report reward
+
+
+2️⃣ BBP (Bug Bounty Program)
+
+The basic and general
+bug bounty program -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+BBP with rewards🤑 (unique area)
+
+bug bounty program "reward" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+bug bounty program "bounty" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+\*\*\*\*\*\*\*note: Try to leverage the built-in Google search engine tools
+
+Country level domains:
+site:\*.in bug bounty program "reward" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+REWARD CURRENCY:
+
+Rupees
+bug bounty program "reward" "₹" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Dollars
+bug bounty program "reward" "\$" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Euros
+bug bounty program "reward" "€" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Bitcoin
+bug bounty program "reward" "bitcoin" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Payment Method
+
+Paypal
+bug bounty program "reward" "paypal" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Wire Transfer
+bug bounty program "reward" "wire transfer" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+---
+
+3️⃣ RDP (Responsible Disclosure Program)
+
+The basic and general
+responsible disclosure program -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+RDP with rewards🤑 (unique area)
+
+responsible disclosure program "reward" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+responsible disclosure program "bounty" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+\*\*\*\*\*\*\*note: Try to leverage the built-in Google search engine tools
+
+Country level domains:
+site:\*.in responsible disclosure program "reward" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+REWARD CURRENCY:
+
+Rupees
+responsible disclosure program "reward" "₹" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Dollars
+responsible disclosure program "reward" "\$" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Euros
+responsible disclosure program "reward" "€" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Bitcoin
+responsible disclosure program "reward" "bitcoin" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Payment Method
+
+Paypal
+responsible disclosure program "reward" "paypal" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+Wire Transfer
+responsible disclosure program "reward" "wire transfer" -site\:hackerone.com -site\:bugcrowd.com -site\:yeswehack.com -site\:intigriti.com
+
+
+
+3.some other ways:
+cat waymore_bugcrowd.com | grep -i "external/report$"
+cat waymore_bugcrowd.com | grep -i "external/report$" | sort -u 
+
+But with a form like this below where the company or target name is visible, now we can directly go to the website and check the footer and other tab sections for vulnerability or responsible disclosure policy, you will observe the Bugcrowd Embedded submission form there and then we can safely check the scope of the program and submit bugs.
+
+
+cat hackerone_urls.txt | grep "embedded_submission"
+cat hackerone_urls.txt | grep "embedded_submission" | grep "new$"
+
+

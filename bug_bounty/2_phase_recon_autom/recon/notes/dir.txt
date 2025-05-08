@@ -1,0 +1,26 @@
+-------------------------------------------------------------------------------DIRECTORY BRUTEFORCE:--------------------------------------------------------------------------------
+
+
+FFUF:
+
+ffuf -u https://target.com/FUZZ -w /usr/share/dirb/wordlists/common.txt -t 200 -recursion -fc 404
+refer:/usr/share/dirb/wordlists/common.txt
+
+ffuf -u https://target.com/FUZZ -w /home/lolita/hacking/bug_bounty/tools_dep/fuzz_onelistforallshort -t 500 -recursion -fc 404
+refer:/home/lolita/hacking/bug_bounty/tools_dep/fuzz_onelistforallshort
+   	
+ffuf -u https://redacted.com/FUZZ -w  /home/lolita/hacking/bug_bounty/tools_dep/db.txt
+refer: /home/lolita/hacking/bug_bounty/tools_dep/db.txt
+
+ffuf -u https://redacted.com/FUZZ -w /home/lolita/hacking/bug_bounty/tools_dep/dirs.txt
+refer: /home/lolita/hacking/bug_bounty/tools_dep/dirs.txt
+
+
+fffuf -w /home/lolita/hacking/bug_bounty/tools_dep/SecLists/Discovery/Web-Content/quickhits.txt -u https://test.sam.com/FUZZ -mc 200
+fffuf -w /home/lolita/hacking/bug_bounty/tools_dep/SecLists/Discovery/Web-Content/common.txt -u https://test.sam.com/FUZZ -mc 200
+refer: tools_dep/seclists
+
+
+DIRSEARCH: (-r naa recursive so romba romba time edukum)
+
+dirsearch -u https://target.com -t 150  --random-agent -x 404 (default wordlist)

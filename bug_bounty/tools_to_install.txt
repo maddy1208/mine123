@@ -15,3 +15,17 @@ s3enum
 aws extender (burp)
 Web-Cache-Vulnerability-Scanner 
  jwt-cracker
+ amass
+sublist3r
+subfinder
+assetfinder
+anew
+waymore
+gau
+waybackurls
+gospider
+uros
+dirb
+ffuf
+seclists
+dirserach (from github )
