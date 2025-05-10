@@ -1,1 +1,6 @@
 see infodisclosure/cves
+
+inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
+nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
+
+intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)

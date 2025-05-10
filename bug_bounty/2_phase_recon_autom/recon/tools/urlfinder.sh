@@ -51,9 +51,14 @@ function active_crawling() {
     print_msg "blue" "🛠 Starting Active Crawling..."
 
     # Gospider
-    print_msg "yellow" "Running Gospider..."
-    cat live-domains.txt | xargs -I {} gospider -S {} -o "$OUTPUT_DIR/urls/gospider_output" -d 3 -c 10 --js
-    print_msg "green" "Gospider finished. URLs saved to gospider_output."
+  print_msg "yellow" "Running Gospider..."
+  while read -r domain; do
+      safe_name=$(echo "$domain" | sed 's|https\?://||;s|/|_|g')
+      out_dir="$OUTPUT_DIR/urls/gospider_output/$safe_name"
+      mkdir -p "$out_dir"
+      gospider -s "$domain" -o "$out_dir" -d 3 -c 10 --js
+  done < live-domains.txt
+  print_msg "green" "Gospider finished. URLs saved to gospider_output/ per domain."
 
     # Katana
     print_msg "yellow" "Running Katana..."
@@ -131,10 +136,10 @@ function categorize_sensitive_info() {
 
 # Execute all functions
 print_msg "bold" "Starting URL Enumeration and Categorization..."
-passive_enumeration
+#passive_enumeration
 active_crawling
-combine_urls
-categorize_sensitive_info
+#combine_urls
+#categorize_sensitive_info
 
 print_msg "bold" "✅ Automation Complete! Check the output directories for results."
 

@@ -1,0 +1,723 @@
+visit: dorks.faisalahmed.me
+visit: odfinder.github.io
+visit: opendirsearch.abifog.com
+
+JUICY ENDPOINTS & SENSITIVE FILES:
+site:tesla.com -www -shop -share -ir -mfa
+site:blob.core.windows.net "target.com"
+site:googleapis.com "target.com"
+site:drive.google.com "target.com"
+site:target.com filetype:pem "PRIVATE KEY"
+site:target.com filetype:ppk intext:"PuTTY"
+site:target.com inurl:"id_rsa" filetye:key
+inurl:config pass "target"
+inurl:config secret "target"
+inurl:config.php dbpasswd "target"
+inurl:config.php pass "target"
+inurl:config.php password "target"
+inurl:configuration "target"
+inurl:env "target"
+inurl:setting "target"
+filetype:log "target"
+intext:"Index of /" +.htaccess "target"
+intitle:"index of" "target"
+
+inurl:& intext:search "target"
+inurl:config secret "target"
+inurl:backup "target"
+inurl:backup.zip "target"
+inurl:quiz inurl:& "target"
+inurl:Makefile.toml "target"
+hostname user password filetype:xml "target"
+secret inurl:js filetype:txt "target"
+
+GDOCS:
+site\:docs.google.com inurl:"/d/" "target"
+
+ONEDRIVE:
+site:onedrive.live.com "target"
+
+DROPBOX:
+site\:dropbox.com/s "target"
+
+BOX:
+site\:box.com/s "target"
+
+AZURE DEVOPS:
+site:dev.azure.com "target"
+
+SHAREPOINT:
+site:http://sharepoint.com "target"
+
+DIGITALOCEAN SPACES:
+
+site:digitaloceanspaces.com "target"
+
+JFROG:
+site\:jfrog.io "target"
+
+RABBITMQ:
+
+site:rabbitmq.*.*.com "target"
+site:rabbitmq.*.gov.* "target"
+site:rabbitmq.*.edu.* "target"
+site:rabbitmq.*.*.ccTLD "target"
+
+PORTAINER: (GUI to interact with Docker and Kubernetes Environment )
+site\:portainer.*.*.uk "target"
+site\:portainer.*.uk "target"
+site\:portainer.*.au "target"
+site\:portainer.*.*.au "target"
+site\:portainer.*.*.gov.\* "target"
+site\:portainer.\*.edu "target"
+
+GRAFANA DASHBOARD (ALERTING):
+inurl:dashboards inurl:alerting -site:gitub.com "Manage folder dashboards and permissions" "target"
+
+STORYBOOK:
+site:storybook.*.*.uk "target"
+site:storybook.*.nl "target"
+site:storybook.*.* site:org -site:storybook.js.org "target"
+	
+
+
+REPORT VIEWER:
+inurl:ReportViewer.aspx -site:github.com "target"
+inurl:ReportViewer.aspx inurl:& -site:github.com "target"
+inurl:ReportViewer.aspx inurl:? -site:github.com "target"
+inurl:ReportViewer.aspx inurl:& inurl:& -site:github.com "target"
+inurl:ReportViewer.aspx -site:github.com site:ccTLD "target"
+
+
+SUBDOMAIN:
+site:*.*.\*.redacted.com
+
+ADMIN PAGES:
+inurl:& intext:admin intext:login "target"
+site:target.com inurl:admin "target"
+intitle:login site:website.com "target"
+intitle:/admin site:website.com "target"
+inurl:admin "target"
+intitle:admin "target"
+intext:admin "target"
+site:target.com inurl:admin | inurl:login | inurl:dashboard
+"set up the administrator user" inurl:pivot  (We can enter any username and password, create the admin account and then manage the site :)
+
+MONITORING:
+inurl:awstats "target"
+inurl:monitoring "target"
+inurl:monitoring1 "target"
+inurl:monitoring2 "target"
+inurl:stats "target"
+inurl:monitor "target"
+inurl:monitor2 "target"
+inurl:monitor1 "target"
+inurl:monitor01 "target"
+inurl:monitor02 "target"
+inurl:monitoramento "target"
+inurl:ipmonitor "target"
+inurl:webstats "target"
+inurl:netstats "target"
+inurl:labstats "target"
+inurl:logtstats "target"
+inurl:log "target"
+inurl:livestats "target"
+inurl:livemonitoring  "target"
+"Parent Directory" "Last modified" monitoring "target"
+inurl:nagios/side.php  "target"
+inurl:kibana "target"
+intitle:"Apollo Server" "query this graph" "target"
+inurl:grafana "target"
+inurl:cacti "target"
+inurl:munin "target"
+inurl:/plesk-stat/webstat "2024" "target"
+inurl:/plesk-stat/webstat "2023" "target"
+ntopng Traffic Dashboard  "target"
+intitle:"ntopng - Traffic Dashboard" "ntopng Community" "target"
+intitle:"7D2D dashboard" "target"
+inurl:kibana inurl:app "target"
+inurl:kibana inurl:app inurl:5601 "target"
+intitle:dashboard-confluence "target"
+
+FOR WEB SERVER:
+"About Mac OS Personal Web Sharing" "target"
+"AnWeb/1.42h" intitle:index.of "target"
+"Application Blocked!" "Google bot" "target"
+"CERN httpd 3.0B (VAX VMS)" "target"
+"Cisco Systems, Inc. All Rights Reserved." -cisco.com filetype:jsp "target"
+"I have been invoked by servletToJSP" "target"
+"JRun Web Server" intitle:index.of "target"
+"MaXX/3.1" intitle:index.of "target"
+"Microsoft-IIS/* server at" intitle:index.of "target"
+"Microsoft-IIS/4.0" intitle:index.of "target"
+"Microsoft-IIS/5.0 server at" "target"
+"Microsoft-IIS/6.0" intitle:index.of "target"
+"NTRIP Caster Table Contents" "This is a SNIP NTRIP Caster" "target"
+"Netware * Home" inurl:nav.html "target"
+"Novell, Inc" WEBACCESS Username Password "Version *.*" Copyright -inurl:help -guides|guide "target"
+"OmniHTTPd/2.10" intitle:index.of "target"
+"OpenSA/1.0.4" intitle:index.of "target"
+"PHP Credits" "Configuration" "PHP Core" ext:php inurl:info "target"
+"Powered by 123LogAnalyzer" "target"
+"Powered by BOINC" "target"
+"Powered by phpBB" inurl:"index.php?s" OR inurl:"index.php?style" "target"
+"Powered by vShare" "target"
+"Powered by" "target"
+"Proudly created with Wix.com" "target"
+"RDServer Product information" | inurl:"/rdagent.jsp" "target"
+"Red Hat Secure/2.0" "target"
+"Red Hat Secure/3.0 server at" "target"
+"Switch to table format" inurl:table|plain "target"
+"This server is operated by OpenX." "target"
+"Wowza Streaming Engine 4 Developer Edition" "target"
+"httpd+ssl/kttd" * server at intitle:index.of "target"
+"index of /private" -site:net -site:com -site:org "target"
+"powered by openbsd" +"powered by apache" "target"
+"powered by" "shoutstats" hourly daily "target"
+"seeing this instead" intitle:"test page for apache" "target"
+"var miner = new CoinHive" intext:document.domain "target"
+(intitle:"502 Proxy Error")|(intitle:"503 Proxy Error") "The proxy server could not handle the request" -topic -mail -4suite -list -site:geocrawler.co  "target"
+(inurl:81-cobalt | inurl:cgi-bin/.cobalt) "target"
+-pub -pool intitle:"index of" "Served by" "Web Server" "target"
+Coldbox | contentbox | commandbox "Powered by ContentBox" "target"
+Fwd: intitle:"STEP by STIBO Systems" "Launch STEPworkbench" "Web UI Component Report" "target"
+HTTP_USER_AGENT=Googlebot "target"
+Powered.by.RaidenHTTPD intitle:index.of "target"
+XAMPP "inurl:xampp/index" "target"
+aboutprinter.shtml "target"
+allintext:"Index Of" "sftp-config.json" "target"
+allintext:"Powered by LionMax Software" "WWW File Share" "target"
+allintitle:"Pi-hole Admin Console" "target"
+allintitle:Netscape FastTrack Server Home Page "target"
+allinurl:".nsconfig" -sample -howto -tutorial "target"
+ext:php | intitle:phpinfo "published by the PHP Group" "target"
+ext:svc inurl:wsdl "target"
+filetype:asmx inurl:(_vti_bin|api|webservice) "target"
+filetype:axd inurl:/elmah.axd "target"
+fitweb-wwws * server at intitle:index.of "target"
+i_index.shtml Ready "target"
+intext:" - 2019 Cott Systems, Inc." "target"
+intext:"404 Object Not Found" Microsoft-IIS/5.0 "target"
+intext:"Brought to you by eVetSites" "target"
+intext:"Healthy" + "Product model" + " Client IP" + "Ethernet" "target"
+intext:"Powered by (Quantum | Quantum CMS | CMS) "target"
+intext:"Powered by Abyss Web Server" "target"
+intext:"Powered by GetSimple" -site:get-simple.info "target"
+intext:"Powered by Nesta" "target"
+intext:"Powered by Sentora" -github.com "target"
+intext:"Powered by Typesetter" "target"
+intext:"Powered by phpSQLiteCMS" | intitle:"phpSQLiteCMS - A simple & lightweight CMS" "target"
+intext:"SonarQube" + "by SonarSource SA." + "LGPL v3" "target"
+intext:"Target Multicast Group" "beacon" "target"
+intext:"This is the default welcome page used to test the correct operation of the Apache2 server" "target"
+intext:"Welcome to CodeIgniter!" "target"
+intext:"index of /" "Index of" access_log "target"
+intext:Apache/2.2.29 (Unix) mod_ssl/2.2.29 | intitle:"Index of /" "target"
+intitle: "Welcome to nginx!" + "Thank you for using nginx." "target"
+intitle:"300 multiple choices" "target"
+intitle:"Accueil WAMPSERVER" intext:"Configuration Serveur" "target"
+intitle:"Apache HTTP Server" intitle:"documentation" "target"
+intitle:"Apache Status" "Apache Server Status for" "target"
+intitle:"Apache Status" | intext:"Apache Server Status" "target"
+intitle:"Apache2 Debian Default Page: It works" "target"
+intitle:"Apache2 Ubuntu Default Page: It works" "target"
+intitle:"Axis Happiness Page" "Examining webapp configuration" "target"
+intitle:"BadBlue: the file-sharing web server anyone can use" "target"
+intitle:"Current Network Status" "Nagios" "target"
+intitle:"Directory Listing, Index of /*/" "target"
+intitle:"Document title goes here" intitle:"used by web search tools" " example of a simple Home Page" "target"
+intitle:"Domain Default page" "Parallels IP Holdings GmbH" "target"
+intitle:"GlassFish Server - Server Running" "target"
+intitle:"HFS" "Server Uptime" "Server time" "target"
+intitle:"IIS Windows Server" -inurl:"IIS Windows Server" "target"
+intitle:"IPC@CHIP Infopage" "target"
+intitle:"Icecast Streaming Media Server" "target"
+intitle:"Index of *" mode links bytes last-changed name "target"
+intitle:"Index of /" "Proudly Served by Surftown at" "target"
+intitle:"Index of" "Apache/2.4.7 (Ubuntu) Server" "target"
+intitle:"Index of" site:.gov intext:"Server at" "target"
+intitle:"Lists Web Service" "target"
+intitle:"Lotus Domino Go Webserver:" "Tuning your webserver" -site:ibm.com "target"
+intitle:"Microsoft Internet Information Services 8" -IIS "target"
+intitle:"Miniweb Start Page" | "/CSS/Miniweb.css" "target"
+intitle:"Monsta ftp" intext:"Lock session to IP" "target"
+intitle:"Object not found!" intext:"Apache/2.0.* (Linux/SuSE)" "target"
+intitle:"Object not found" netware "apache 1.." "target"
+intitle:"Open WebMail" "Open WebMail version (2.20|2.21|2.30) " "target"
+intitle:"Page rev */*/*" inurl:"admin "target"
+intitle:"Resin Default Home Page" "target"
+intitle:"SOGo" site:webmail.* "target"
+intitle:"STEP by STIBO Systems" "Launch STEPworkbench" "Web UI Component Report" "target"
+intitle:"Server Backup Manager SE" "target"
+intitle:"Shoutcast Administrator" "target"
+intitle:"Shoutcast server" inurl:"/index.html" "SHOUTcast Server" "target"
+intitle:"Success!" intext:"Your new web server is ready to use." "target"
+intitle:"Sucuri WebSite Firewall - Access Denied" "target"
+intitle:"Test Page for Apache" "target"
+intitle:"Test Page for Apache" "It Worked!" "target"
+intitle:"Test Page for Apache" "It Worked!" "on this web" "target"
+intitle:"Test Page for the Apache HTTP Server on Fedora Core" intext:"Fedora Core Test Page" "target"
+intitle:"Test Page for the HTTP Server on Fedora" "target"
+intitle:"WAMPSERVER homepage" "Server Configuration" "Apache Version" "target"
+intitle:"WATASHI SERVICE" "target"
+intitle:"Web Server's Default Page" intext:"hosting using Plesk" -www "target"
+intitle:"Welcome To Xitami" -site:xitami.com "target"
+intitle:"Welcome To Your WebSTAR Home Page" "target"
+intitle:"Welcome to 602LAN SUITE *" "target"
+intitle:"Welcome to IIS 4.0" "target"
+intitle:"Welcome to JBoss" "target"
+intitle:"Welcome to OpenResty!" "target"
+intitle:"Welcome to WildFly" intext:"Administration Console" "target"
+intitle:"Welcome to Windows 2000 Internet Services" "target"
+intitle:"Welcome to Windows Small Business Server 2003" "target"
+intitle:"Welcome to Your New Home Page!" "by the Debian release" "target"
+intitle:"Welcome to nginx!" intext:"Welcome to nginx on Debian!" intext:"Thank you for" "target"
+intitle:"Welcome to the Advanced Extranet Server, ADVX!" "target"
+intitle:"Welcome" intext:"LiteSpeed Technologies, Inc. All Rights Reserved." "target"
+intitle:"apache tomcat/" "Apache Tomcat examples" "target"
+intitle:"apache tomcat/" + "Find additional important configuration information in:" "target"
+intitle:"error 404" "From RFC 2068 " "target"
+intitle:"miniProxy" "target"
+intitle:"nPerfServer" "target"
+intitle:”PHP Version” intext:”PHP Version” "target"
+intitle:"web server login" intext:"site ip" "target"
+intitle:"welcome to mono xsp" "target"
+intitle:AnswerBook2 inurl:ab2/ (inurl:8888 | inurl:8889) "target"
+intitle:HTTP Server Test Page powered by CentOS "target"
+intitle:Snap.Server inurl:Func= "target"
+intitle:Snoop Servlet "target"
+intitle:Test Page for the Nginx HTTP Server on Fedora "target"
+intitle:livezilla "Server Time" "target"
+inurl *:8080/login.php "target"
+inurl: /ftp intitle:"office" "target"
+inurl:"/app/kibana#" "target"
+inurl:"/domcfg.nsf" " Web Server Configuration" "target"
+inurl:"/phpmyadmin/user_password.php "target"
+inurl:"/web-console/" intitle:"Administration Console" "target"
+inurl:":8088/cluster/apps" "target"
+inurl:"WebPortal?bankid" "target"
+inurl:"id=*" & intext:"warning mysql_fetch_array()" "target"
+inurl:"server-status" "Server Version: Apache/" "Server Built: " "Server uptime:" "Total accesses" "CPU Usage:" "target"
+inurl:"web/database/selector" "target"
+inurl:/Portal0000.htm "target"
+inurl:/_catalogs "target"
+inurl:/_hcms/ "target"
+inurl:/config/device/wcd "target"
+inurl:/iisstart.htm intitle:"IIS7" "target"
+inurl:/javax.faces.resource/ "target"
+inurl:/php/info.php "target"
+inurl:/phpPgAdmin/browser.php "target"
+inurl:/phpmyadmin/changelog.php -github -gitlab "target"
+inurl:/pub/ inurl:_ri_ "target"
+inurl:/server-status + "Server MPM:" "target"
+inurl:/uploads/affwp-debug.log "target"
+inurl:/xprober ext:php "target"
+inurl:2506/jana-admin "target"
+inurl:?XDEBUG_SESSION_START=phpstorm "target"
+inurl:CFIDE/adminapi "target"
+inurl:OrganizationChart.cc "target"
+inurl:_vti_bin/Authentication.asmx "target"
+inurl:composer.json codeigniter -site:github.com "target"
+inurl:domcfg.nsf "target"
+inurl:jsmol.php "target"
+inurl:nnls_brand.html OR inurl:nnls_nav.html "target"
+inurl:oraweb -site:oraweb.org "target"
+inurl:phpinfo.php intext:build 2600 "target"
+inurl:phpmyadmin/themes intext:"pmahomme" "target"
+inurl:phpsysinfo/index.php?disp=dynamic "target"
+inurl:readme.md intext:"Laravel" "target"
+inurl:readme.md intext:"typo3" "target"
+inurl:readme.rst intext:"CodeIgniter" "target"
+inurl:rvsindex.php & /rvsindex.php?/user/login "target"
+inurl:tech-support inurl:show Cisco "target"
+inurl:tests/mocks intext:autoloader "target"
+inurl:user_guide intext:"CodeIgniter User Guide" "target"
+inurl:wl.exe inurl:?SS1= intext:"Operating system:" -edu -gov -mil "target"
+intext:"Apache server status for" "target"
+site:ftp.*.com "Web File Manager" "target"
+
+GIT:
+inurl:.git-credentials "target"
+inurl:.gitconfig "target"
+intext:"index of /.git" "parent directory" "target"
+filetype\:git -github.com inurl:"/.git" "target"
+(intext:"index of /.git") ("parent directory") "target"
+inurl\:ORIG\_HEAD "target"
+intitle:"index of" ".gitignore" "target"
+".git" intitle:"Index of" "target"
+(intext:"index of /.git") ("parent directory") "target"
+"Parent Directory" "Last modified" git "target"
+inurl\:git "target"
+site\:target.com ext\:git "target"
+
+Errors:
+inurl:"error" | intitle:"exception" | intitle:"failure" | intitle:"server at" | inurl:exception | "database error" | "SQL syntax" | "undefined index" | "unhandled exception" | "stack trace" "target"
+
+API Docs:
+inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer "target"
+
+Test Environments:
+inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo "target"
+
+Adobe Experience Manager (AEM):
+inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de "target"
+intitle:xprober intext:CPU "target"
+inurl:/xprober ext:php "target"
+
+Cloud Storage:
+site:target.com ("s3 bucket" OR "bucket-name" OR "s3.amazonaws.com" OR "s3-us-west-2.amazonaws.com" OR "s3.amazonaws.com/bucket-name" OR "s3.amazonaws.com/bucket/" OR "s3.amazonaws.com/bucket?prefix=" OR "s3.amazonaws.com/bucket-name/")
+site:s3.amazonaws.com "target"
+site:blob.core.windows.net "target"
+site:googleapis.com "target"
+site:drive.google.com "target"
+site:dev.azure.com "target"
+site:onedrive.live.com "target"
+site:digitaloceanspaces.com "target"
+site:sharepoint.com "target"
+site:s3-external-1.amazonaws.com "target"
+site:s3.dualstack.us-east-1.amazonaws.com "target"
+site:dropbox.com/s "target"
+site:box.com/s "target"
+site:docs.google.com inurl:"/d/" "target"
+
+JFrog Artifactory:
+site:jfrog.io "target"
+
+Firebase:
+site:firebaseio.com "target"
+
+JAVA:
+intitle:Error-javax.el.ELException+error+xhtml "target"
+intitle:"Java Applet Page" inurl:ml "target"
+
+CONF FILES:
+site:target.com ext:conf | ext:cnf | ext:config | ext:ini
+
+ERROR:
+site:target.com intext:"error" | intext:"warning" | intext:"not found" | intext:"exception"
+"not found in C:\" "target"
+"not found in D:\" "target"
+"not found in E:\" "target"
+"not found in F:\" "target"
+
+DIRECTORY LISTING:
+intitle:"Index of / backup" "target"
+intitle:"Index of / database" "target"
+intitle:index.of "target"
+"parent directory" "target"
+inurl:wp- | inurl:joomla | inurl:drupal | inurl:magento "target"
+intitle:"index of" "/homedir/etc/" "target"
+intitle:"index of" "Served by Sun-ONE" "target"
+intitle:"index of" "debug.log" OR "debug-log" "target"
+intitle:"index of" "docker.yml" "target"
+intitle:"index of" "powered by apache " "port 80" "target"
+intitle:"index of" "server at" "target"
+intitle:"index of" AND inurl:magento AND inurl:/dev "target"
+intitle:"index of" site:.gov.in "target"
+intitle:"index of" "debian.cnf" "target"
+intitle:"index of" "debian.conf" "target"
+intitle:\"Welcome to nginx!\" intext:\"Welcome to nginx on Debian!\" intext:\"Thank you for\" "target"
+intitle:index of /wp-content "target"
+intitle:index of /wp-content/uploads "target"
+intitle:index of /wp-content/bak "target"
+intitle:index of /wp-content/backup "target"
+intitle:index of /wp-content/2024 "target"
+inurl:/wp-content/ inurl:private "target"
+inurl:/wp-content/ inurl:internal "target"
+
+
+SESN FILES:
+filetype:sh "target"
+site:target.com ext:php intext:"phpinfo()" | intext:"PHP Version"
+site:target.com inurl:sessionid | inurl:JSESSIONID | inurl:PHPSESSID
+inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:& site:target.com
+site:target.com intext:"PHPSESSID="
+site:target.com intext:"session_token="
+site:target.com inurl:".env"
+site:github.com "target.com" AND ("password" OR "API_KEY")
+site:docs.google.com "target.com confidential"
+page.url:config.zip "target"
+page.url:config AND page.url:zip "target"
+site:target.com ext:log
+site:target.com  ext:doc | ext:docx | ext:pdf | ext:xls | ext:xlsx | ext:ppt | ext:pptx
+site:target.com inurl:.git
+intitle:"index of" "access.log" or "error.log"
+ext:env | ext:yaml | ext:json "target"
+ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup  "target"
+site:*.gov ext:old  "target"
+site:target.com ext:pdf
+site:target.com ext:pdf "CONFIDENTIAL"
+site:target.com ext:pdf "STRICTLY CONFIDENTIAL"
+site:target.com ext:pdf "HIGHLY CONFIDENTIAL"
+site:target.com ext:pdf "PRIVATE"
+site:target.com ext:pdf "PRIVATE AND CONFIDENTIAL"
+site:target.com ext:pdf "PRIVATE AND SENSITIVE"
+site:target.com ext:pdf "TRADE SECRET"
+site:target.com ext:pdf "NOT FOR DISTRIBUTION"
+site:target.com ext:pdf "NOT FOR PUBLIC RELEASE"
+site:target.com ext:pdf "EMPLOYEE ONLY"
+site:target.com ext:pdf "INTERNAL USE ONLY"
+site:target.com ext:pdf "INTERNAL ONLY"
+site:target.com ext:pdf "COMPANY SENSITIVE"
+site:target.com (ext:pdf OR ext:doc OR ext:docx OR ext:zip OR ext:bak OR ext:txt OR ext:ppt OR ext:pptx OR ext:xls OR ext:xlsx)
+site:target.com ext:xls
+site:target.com ext:xlsx
+inurl:wp-content/uploads/ ext:xlsx site:target.com
+inurl:wp-content/uploads/ ext:xls site:target.com
+inurl:wp-content/uploads/ ext:xls "@gmail.com" site:target.com
+inurl:wp-content/uploads/ ext:xlsx "@gmail.com" site:target.com
+inurl:wp-content/uploads/ ext:xls "date of birth" site:target.com
+inurl:wp-content/uploads/ ext:xlsx "date of birth" site:target.com
+inurl:wp-content/uploads/ ext:xls "INTERNAL USE ONLY" site:target.com
+inurl:wp-content/uploads/ ext:xlsx "INTERNAL USE ONLY" site:target.com
+inurl:wp-content/uploads/ ext:pdf site:target.com
+inurl:wp-content/uploads/ ext:pdf "@gmail.com" site:target.com
+inurl:wp-content/uploads/ ext:pdf "date of birth" site:target.com
+inurl:wp-content/uploads/ ext:pdf "INTERNAL USE ONLY" site:target.com
+site:target.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx
+intext:“confidential” | intext:“Not for Public Release” | intext:”internal use only” | intext:“do not distribute” "target"
+site:target.com inurl:/content/dam ext:xls
+site:target.com inurl:/content/dam ext:xlsx
+site:target.com inurl:/content/dam ext:csv
+site:target.com "join.slack"
+site:target.com "join.slack" ext:pdf
+site:target.com "join.slack" ext:doc
+site:target.com "join.slack" ext:docx
+site:target.com "join.slack" ext:odt
+site:target.com "join.slack" ext:odf
+site:target.com "join.slack" ext:csv
+site:target.com "join.slack" ext:xls
+site:target.com "join.slack" ext:xlsx
+site:target.com "join.slack" ext:txt
+site:"target.com" (ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json)  
+OR  
+site:"target.com" (inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php)
+site:target.com ext:env OR ext:yaml OR ext:yml OR ext:json OR ext:xml OR ext:zip OR  ext:log OR ext:sql OR ext:ini OR ext:bak OR ext:conf OR ext:config OR ext:db OR ext:dbf OR ext:tar OR ext:gz OR ext:backup OR ext:swp OR ext:old OR ext:key OR ext:pem OR ext:crt OR ext:pfx OR ext:pdf OR ext:xlsx OR ext:xls OR ext:ppt OR ext:pptx "target"
+"Confidential" filetype:pdf site:*.gov.in "target"
+filetype:docx "Standard Operating Procedure" site:*.target.com
+intext:"internal use only" filetype:xls site:*.target.com
+site:*.target.com"restricted access" filetype:pdf
+"not for public release" site:*.edu "target"
+filetype:pdf "policy document" site:*.gov.in "target"
+filetype:doc "for internal use" site:*.org "target"
+site:*.mil.in "mission report" "target"
+filetype:xlsx "incident response" site:*.target.com
+filetype:pdf "incident log" site:*.target.com
+filetype:xlsx "student data" "target"
+filetype:pdf "resume" "confidential" site:*.gov.in "target"
+"CV" "private" filetype:doc "target"
+"Aadhar" filetype:xls "target"
+"PAN number" filetype:pdf site:*.gov.in "target"
+inurl:cv_uploads filetype:docx site:*.target.com
+"employee information" filetype:xlsx "target"
+filetype:csv "contact list" "target"
+filetype:xlsx "phone number" "target"
+intext:"SSN" filetype:xls "target"
+
+PROMETHEUS SENS FILES:
+"Prometheus Time Series Collection and Processing Server" -site:prometheus.io "target"
+site:prometheus.*.*.gov "target"
+site:prometheus.*.gov "target"
+site:prometheus.*.*.gov.* "target"
+site:prometheus.*.gov.* "target"
+inurl:http://confluence. login.action "target"
+inurl:https://wiki. .com/confluence/ "target"
+allinurl: /confluence/login.action? "target"
+"/spacedirectory/view.action" "target"
+"/pages/viewpage.action?" "target"
+"/pages/releaseview.action?" "target"
+"aboutconfluencepage.action" "target"
+
+PHPMYADMIN:
+inurl:main ext:php "Welcome to phpMyAdmin" "running on" "target"
+"Welcome to phpMyAdmin" "running on" inurl:main.php "target"
+inurl:main.php phpMyAdmin "target"
+inurl:main.php "Welcome to phpMyAdmin" "target"
+inurl:sql.php "phpmyadmin" "target"
+inurl:sql "phpmyadmin" "target"
+
+AWS S3 BUCKET:
+site:*.s3.amazonaws.com "target"
+site:*.*.s3.amazonaws.com "target"
+site:*.*.*.s3.amazonaws.com "target"
+inurl:"s3.amazonaws.com" "target"
+site:*.s3.amazonaws.com intitle:Bucket loading "target"
+
+GEOSERVER
+inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
+
+SOURCE CODE FILES:
+site:target.com ext:py
+site:target.com ext:php | ext:jsp | ext:asp | ext:aspx | ext:js | ext:java | ext:py | ext:c | ext:cpp | ext:pl
+site:target.com filetype:java "password"
+
+Code Leaks:
+site:pastebin.com "target"
+site:jsfiddle.net "target"
+site:codebeautify.org "target"
+site:codepen.io "target"
+site:codepen.io "target" api
+
+SPRINGBOOT ACTUATOR ENDPOINTS:
+inurl:/actuator/prometheus "jvm_memory_max_bytes" "target"
+inurl:/actuator/prometheus "jvm_gc_pause_seconds" "target"
+/actuator/conditions "target"
+/actuator/configprops "target"
+/actuator/loggers "target"
+/actuator/threaddump "target"
+/actuator/scheduledtasks "target"
+/actuator/mappings "target"
+inurl:/actuator/env "target"
+inurl:/actuator/heapdump "target"
+
+APPLICATION IN DEVELOPMENT PHASE:
+site:app-dev.*.* "target"
+site:app-dev.*.io "target"
+site:app-dev.*.com "target"
+site:app-dev.*.org "target"
+site:app-dev.*.net "target"
+site:app-dev.*.ai "target"
+
+DEMO API & API:
+site:demo-api.*.* "target"
+site:demo-api.*.io "target"
+site:demo-api.*.com "target"
+site:demo-api.*.org "target"
+site:demo-api.*.net "target"
+site:demo-api.*.ai "target"
+inurl:api | inurl:rest | inurl:graphql "target"
+inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3 "target"
+
+
+UNAUTH:
+"Docker App Running" "Click on any card to access its webUI" "target"
+"Master" "Slave" "Charging station interface" "target"
+"Server" "Size" "Send logon information for this connection" "target"
+intitle:"Dashboard [Jenkins]" Credentials "target"
+site:groups.google.com "target"
+intitle:"Grafana" inurl:"/dashboard/db" "target"
+site:target.com inurl:swagger "target"
+"Powered by ZFile" "target"
+"PHP Fatal" "target"
+inurl:8080/dashboard "target"
+inurl:8081/dashboard "target"
+"iTop Installation Wizard" "Prerequisites validation" "target"
+inurl:/sidekiq intext:"memory usage" intext:"polling interval" "target"
+intitle:"Roxy file manager" "target"
+site:.r2.dev "companyname" "target"
+"Back" "Hidden" "Archive Zip" "gohttpserver" "written by" "target"
+"Welcome to Your" "We are committed to bringing you the best service and finest Internet hosting solutions available." "target"
+
+OTHER SUBDOMAINS
+domain:target.com AND page.url:pre
+domain:target.com AND page.url:prod
+domain:target.com AND page.url:test
+domain:target.com AND page.url:stg
+domain:target.com AND page.url:stage
+domain:target.com AND page.url:staging
+domain:target.com AND page.url:live
+domain:target.com AND page.url:dev
+
+DATABASE:
+filetype:xls "private" "target"
+filetype:xls inurl:"contact" "target"
+filetype:xls inurl:"email.xls" "target"
+allinurl:"admin" mdb "target"
+inurl:"email" filetype:mdb "target"
+inurl:"backup" filetype:mdb "target"
+inurl:"*db" filetype:mdb "target"
+ext:sql | ext:db | ext:dbf | ext:mdb "target"
+"Uncaught Error: Call to undefined function" "target"
+"error in your SQL" "target"
+inurl:search.php inurl:sqlQuery inurl:& "target"
+"Manage databases" inurl:/database/selector "target"
+"Unclosed quotation mark" "target"
+"Error Executing Database Query" "target"
+"mysql_num_rows()" "error" "target"
+"mysql_fetch_array()" "error" "target"
+"mysql_query()" "error" "target"
+inurl:db.sql "target"
+inurl:db.sqlite "target"
+inurl:setup.sql "target"
+inurl:mysql.sql "target"
+inurl:users.sql "target"
+inurl:backup.sql "target"
+inurl:db filetype:sql "target"
+inurl:backup filetype:sql "target"
+create table  filetype:sql "target"
+"-- MySQL dump" "Server version" "Table structure for table" "target"
+inurl:/db/websql/ "target"
+filetype:sql "target"
+inurl:backup filetype:sql "target"
+mysql history files "target"
+mysql intext:passwords filetype:txt "target"
+mysql history files filetype:txt "target"
+mysql root filetype:txt "target"
+mysql filetype:xml "target"
+mysql settings filetype:xml "target"
+mysql secrect password "target"
+"POSTGRES_PASSWORD=" ext:txt | ext:cfg | ext:env | ext:ini | ext:yml | ext:sql -git -gitlab "target"
+jdbc:postgresql://localhost: + username + password ext:yml | ext:java -git -gitlab "target"
+"PostgreSQL query failed: ERROR: parser: parse error" "target"
+"Warning: pg_connect(): Unable to connect to PostgreSQL server: FATAL" "target"
+Supplied argument is not a valid PostgreSQL result "target"
+"WordPress database error:" "target"
+
+FILE UPLOAD:
+"Submit a ticket" "Attach a file" site:*.gov -ext:pdf "target"
+”choose file” "target"
+intitle:”upload file” OR intitle:”file upload” OR intitle:”choose file” "target"
+
+HIDDEN CLOUDFARE PAGES:
+site:*.pages.dev "target"
+site:*-*.pages.dev "target"
+site:*-*-*.pages.dev "target"
+site:*.*.pages.dev "target"
+
+EMAIL INFO DIS:
+"@gmail.com" "target"
+"@target.com" "target"
+intext:@"yahoo|gmail|hotmail".com filetype:txt site:.us "target"
+intitle:"index of /" "aadhaar" intext:.jpg "target"
+intitle:"index of /" "aadhaar" intext:.png "target"
+intitle:"index of /" "pan_card" intext:.jpg "target"
+intitle:"index of /" "pan_card" intext:.png "target"
+site:*.gov ext:xlsx "Date of birth" "@gmail.com" "target"
+site:*.gov ext:xlsx "Date of birth" "@hotmail.com" "target"
+site:*.gov ext:xlsx "Date of birth" "@proton.me" "target"
+site:*.gov ext:xls "Date of birth" "@gmail.com" "target"
+site:*.gov ext:xls "Date of birth" "@hotmail.com" "target"
+site:*.gov ext:xls "Date of birth" "@proton.me" "target"
+site:*.gov ext:pdf "Date of birth" "@gmail.com" "target"
+site:*.gov ext:pdf "Date of birth" "@hotmail.com" "target"
+site:*.gov ext:pdf "Date of birth" "@proton.me" "target"
+site:*.gov ext:doc "Date of birth" "@gmail.com" "target"
+site:*.gov ext:doc "Date of birth" "@hotmail.com" "target"
+site:*.gov ext:doc "Date of birth" "@proton.me" "target"
+site:*.gov ext:docx "Date of birth" "@gmail.com" "target"
+site:*.gov ext:docx "Date of birth" "@hotmail.com" "target"
+site:*.gov ext:docx "Date of birth" "@proton.me" "target"
+site:*.gov ext:csv "Date of birth" "@gmail.com" "target"
+site:*.gov ext:csv "Date of birth" "@hotmail.com" "target"
+site:*.gov ext:csv "Date of birth" "@proton.me" "target"
+
+CA ADVIOR:
+"Allowed Cores" "Shares" "Reservation" "Limit" -site:docker.com -site:github.com "target"
+
+SPLASHMODAL API ENDPOINT
+inurl:/api/v1/splashmodal "target"
+
+
+GOOGLE DORKS TO FIND INFRASTRUCTURE AND NETWORK-RELATED DETAILS:
+"IP address" "subnet" "target"
+"network diagram" filetype:vsd "target"
+filetype:cfg "router" "target"
+filetype:txt intext:"IPSec" "target"
+"firewall rules" filetype:doc "target"
+filetype:conf iptables site:*.target.com
+"internal network topology" "target"
+filetype:xls "switch port mapping" "target"
+filetype:csv "server inventory" "target"
+filetype:xlsx "hostname" "IP Address" "target"
+
+
