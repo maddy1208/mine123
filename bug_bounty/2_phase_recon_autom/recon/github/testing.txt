@@ -1,0 +1,292 @@
+# GitHub Recon for Bug Bounty
+
+## **Objectives**
+
+1. **Organization Recon** – Finding sensitive data related to an organization.
+2. **Employee Profiles** – Identifying developer accounts, leaks, and insider information.
+
+## **What You Can Find During Recon**
+
+* Source Code Leakage
+* Passwords
+* Tokens
+* API Keys
+* Usernames
+* Sensitive Files
+* Internal IPs
+* AWS Secrets
+* SSH, FTP Passwords
+
+---
+
+\##------------------------------------------------------------------------------ **Automation**-------------------------------------------------------------------------------
+
+### **Using GitHub Dork Helper**
+
+* Visit: [https://vsec7.github.io](https://vsec7.github.io)
+
+### **GitDorker**
+
+python3 GitDorker.py -tf TOKENSFILE -q tesla.com -d Dorks/DORKFILE -o output.txt
+
+### **GitGraber**
+
+python3 gitGraber.py -k keywordsfile.txt -q "yahoo.com" -s
+python3 gitGraber.py -k keywordsfile.txt -q yahoo -s
+
+### gitleaks
+
+gitleaks detect --source=<cloned-repo>
+
+### git clone [https://target.com/org/repo.git](https://target.com/org/repo.git)
+
+```
+grep -r "AWS_SECRET_ACCESS" .
+grep -r "API_TOKEN" .
+grep -r "PASSWORD" .  
+ETC.....(TRY WITH API,TOKEN,ADMIN ETC...)
+```
+
+---
+
+---
+
+## **Manual Dorking**------------------------------------
+
+NOTE: Combine with target,target name,repo
+eg: apitoken org:"target.com"
+apitoken "target"
+apitoken repo:"target-org/repository-name"
+
+### **1. Multi-File Dorking (Sensitive Keys in Multiple File Types)**
+
+(path:.xml OR path:.json OR path:.properties OR path:.sql OR path:.txt OR path:.log OR path:.tmp OR path:.backup OR path:.bak OR path:.enc OR path:.yml OR path:.yaml OR path:.toml OR path:.ini OR path:.config OR path:.conf OR path:.cfg OR path:.env OR path:.envrc OR path:.prod OR path:.secret OR path:.private OR path:\*.key)
+AND (access\_key OR secret\_key OR access\_token OR api\_key OR apikey OR api\_secret OR apiSecret OR app\_secret OR application\_key OR app\_key OR appkey OR auth\_token OR authsecret)
+AND (Facebook OR meta)
+
+### **2. Focused Password Searches (Hardcoded Credentials in Code/URLs)**
+
+/\:password=\[A-Za-z0–9-\_]+/
+NOT example NOT guest NOT localhost NOT fake NOT 1234 NOT xxx NOT 127.0.0.1 NOT test
+"redacted.com"
+
+### **3. Effective .env File Scanning (Excluding Common False Positives)**
+
+path:\*.env
+(NOT homestead NOT root NOT example NOT gmail NOT sample NOT localhost NOT marutise)
+password "redacted.com"
+
+---
+
+## **GitHub Dorks**
+
+### **1. Basic API Key & Credential Dorks**
+
+api\_key
+"api keys"
+authorization\_bearer:
+oauth
+auth
+authentication
+client\_secret
+api\_token:
+"api token"
+client\_id
+password
+user\_password
+user\_pass
+passcode
+secret
+password hash
+OTP
+user auth
+remove password
+root
+admin
+log
+trash
+token
+FTP\_PORT
+FTP\_PASSWORD
+DB\_DATABASE=
+DB\_HOST=
+DB\_PORT=
+DB\_PASSWORD=
+DB\_PW=
+DB\_USER=
+"target.com" ftp
+"target.com" SMTP
+"target.com" LDAP
+"target.com" SSH
+
+### **2. Language-Specific Dorks**
+
+"language\:Python"
+language\:shell username
+language\:sql username
+language\:python ftp
+language\:bash ftp
+"target.com" language\:python password
+
+### **3. Wildcard Usage for Variations**
+
+\*.target.com
+
+### **4. File Extensions Containing Sensitive Data**
+
+extension\:SQL MYSQL dump
+filename\:vim\_settings.xml
+site\:target.com ext\:doc | ext\:docx | ext\:odt | ext\:pdf | ext\:rtf | ext\:sxw | ext\:psw | ext\:ppt | ext\:pptx | ext\:pps | ext\:csv | ext\:txt | ext\:html | ext\:php | ext\:xls
+
+### **5. Using NOT for Filtering Noise**
+
+xyz.com filename\:prod.exs NOT prod.secret.exs
+
+### **6. Social Media Recon on Developers & Employees**
+
+* Look for leaked **Teams links, feature releases, acquisitions, etc.**
+
+### **7. High-Value GitHub Dorks**
+
+dotfiles
+filename\:sftp-config.json password
+filename:.s3cfg
+filename\:config.php dbpasswd
+filename:.bashrc password
+filename:.esmtprc password
+filename:.netrc password
+filename:\_netrc password
+filename:.env MAIL\_HOST=smtp.gmail.com
+filename\:prod.exs NOT prod.secret.exs
+filename:.npmrc \_auth
+filename\:WebServers.xml
+filename\:sftp-config.json
+filename:.esmtprc password
+filename\:passwd path\:etc
+filename\:prod.secret.exs
+filename\:sftp-config.json
+filename\:proftpdpasswd
+filename\:travis.yml
+filename\:vim\_settings.xml
+filename\:sftp.json path:.vscode
+filename\:secrets.yml password
+filename: manifest.xml
+filename: travis.yml
+filename: vim\_settings.xml
+filename: database
+filename: prod.secret.exs
+filename: npmrc\_auth
+filename: dockercfg auth
+filename: web server.xml
+filename: .bashrc password
+
+### **8. Common Credential,PASSWORD & API Key Leaks**
+
+api\_key
+authorization\_bearer:
+authentication
+auth
+token
+client\_secret
+secret
+private\_key
+username
+api\_token
+client\_id
+password
+user\_pass
+user\_password
+OTP
+DB\_DATABASE=
+DB\_PASSWORD=
+DB\_PW=
+DB\_USER=
+dotfiles
+filename\:sftp-config.json password
+filename:.s3cfg
+filename\:config.php dbpasswd
+filename:.bashrc password
+filename:.esmtprc password
+filename:.netrc password
+filename:\_netrc password
+filename:.npmrc \_auth
+filename\:WebServers.xml
+filename\:sftp-config.json
+filename:.esmtprc password
+filename\:passwd path\:etc
+filename\:prod.secret.exs
+filename\:sftp-config.json
+filename\:proftpdpasswd
+filename\:travis.yml
+filename\:vim\_settings.xml
+filename\:sftp.json path:.vscode
+filename\:secrets.yml password
+"example.com" pwd
+"example.com" password
+"example.com" passwd
+"example.com" dbpassword
+"example.com" access\_key
+"example.com" secret\_access\_key
+"example.com" bucket\_password
+"example.com" redis\_password
+"example.com" root\_password
+org: example "bucket\_name"
+
+\###AWS CREDS:
+org: example "aws\_access\_key"
+org: example "s3\_Bucket"
+org: example "s3\_ACCESS\_KEY\_ID"
+org: example "s3\_SECRET\_ACCESS\_KEY"
+org: example "s3\_ENDPOINT"
+org: example "AWS\_ACCESS\_KEY\_ID"
+org: example "list\_aws\_account"
+
+### **9. Server-Specific Dorks**
+
+"target.com" FTP
+"target.com" SMTP
+"target.com" LDAP
+"target.com" SSH
+
+### **10. Additional Sensitive Files & Endpoints**
+
+filename\:manifest.xml
+filename\:travis.yml
+filename\:vim\_settings.xml
+filename\:database
+filename\:prod.secret.exs
+filename:.npmrc\_auth
+filename:.dockercfg auth
+filename\:Web Server.xml
+filename:.bashrc password
+filename:.git-credentials
+filename\:config.php dbpasswd
+filename\:dhcpd.conf
+filename:.htpasswd
+filename\:wp-config.php
+filename:.ssh/id\_rsa
+filename\:sftp.json
+
+### 11.SENS INFO'S:
+
+"company" passwords
+"company" secrets
+"company" credentials
+"company" token
+"company" config
+"company" key
+"company" pass
+"company" login
+"company" ftp
+"company" pwd
+-------------
+
+## **Final Steps**
+
+1. **Combine automation & manual dorking** to maximize findings.
+2. **Use social engineering techniques** to extract further information.
+3. **Filter out noise** using NOT statements & wildcard searches.
+4. **Regularly update dork lists** for evolving security patterns.
+
+### 🔥 **Happy Hacking! Stay Ethical!** 🔥
+
