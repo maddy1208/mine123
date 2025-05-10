@@ -1,5 +1,4 @@
 JUICY ENDPOINTS & SENSITIVE FILES:
-site:tesla.com -www -shop -share -ir -mfa
 site:blob.core.windows.net "target.com"
 site:googleapis.com "target.com"
 site:drive.google.com "target.com"

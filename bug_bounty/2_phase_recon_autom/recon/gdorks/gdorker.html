@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>G-Dorker</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f0f4f8;
+      padding: 20px;
+      color: #222;
+    }
+    h1 {
+      color: #0f172a;
+    }
+    .controls {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #2563eb;
+      color: white;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #1e293b;
+    }
+    #dorkList {
+      height: 300px;
+      overflow-y: auto;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 15px;
+    }
+    #dorkList li {
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    .active {
+      background-color: #d1fae5 !important;
+      font-weight: bold;
+    }
+    .quote {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 14px;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🕵️‍♂️ G-Dorker - Automated Google Dork Launcher</h1>
+
+<div class="controls">
+  <input type="file" id="fileInput">
+  <button onclick="startQuery()">Start Querying</button>
+  <button onclick="pauseScript()">⏸️ Pause (Ctrl+C)</button>
+  <button onclick="continueScript()">▶️ Continue</button>
+</div>
+
+<div id="status">Waiting for file...</div>
+
+<ul id="dorkList"></ul>
+
+<div class="quote">"Hack the planet, but ethically." 🌍</div>
+<div class="quote">"Slow is smooth, smooth is fast." 🧘‍♂️</div>
+
+<script>
+  let dorks = [], index = 0, paused = false, running = false;
+
+  document.addEventListener("keydown", e => {
+    if (e.ctrlKey && e.key === "c") {
+      pauseScript();
+    }
+  });
+
+  function setStatus(text) {
+    document.getElementById("status").innerText = text;
+  }
+
+  function pauseScript() {
+    paused = true;
+    setStatus("⏸️ Script paused. Press Continue to resume.");
+    alert("⏸️ Script paused. Press Continue to resume.");
+  }
+
+  function continueScript() {
+    if (!running) return;
+    paused = false;
+    setStatus("▶️ Resuming...");
+    queryLoop();
+  }
+
+  function getRandomDelay() {
+  return 2000;
+    //return 1500 + Math.floor(Math.random() * 1300); // 1.5s to 2.5s
+  }
+
+  function getCooldownDelay() {
+    return 15000 + Math.floor(Math.random() * 5000); // 15–20s
+  }
+
+  function updateMonitor(i) {
+    const list = document.getElementById("dorkList");
+    list.innerHTML = "";
+
+    dorks.forEach((d, idx) => {
+      const li = document.createElement("li");
+      li.textContent = d;
+      if (idx === i) {
+        li.classList.add("active");
+      }
+      list.appendChild(li);
+    });
+
+    const activeEl = document.querySelector(".active");
+    if (activeEl) {
+      activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+
+  function startQuery() {
+    const fileInput = document.getElementById("fileInput");
+    if (!fileInput.files.length) {
+      alert("Please select a file with dorks first.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      dorks = e.target.result
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line && !line.startsWith("#"));
+
+      if (dorks.length === 0) {
+        alert("No valid dorks found.");
+        return;
+      }
+
+      index = 0;
+      paused = false;
+      running = true;
+      setStatus(`🚀 Starting... Total dorks: ${dorks.length}`);
+      queryLoop();
+    };
+    reader.readAsText(fileInput.files[0]);
+  }
+
+  function queryLoop() {
+    if (index >= dorks.length || paused) return;
+
+    const query = dorks[index];
+    updateMonitor(index);
+
+    const url = "https://www.google.com/search?q=" + encodeURIComponent(query);
+    setStatus(`🔍 Dork ${index + 1}/${dorks.length} → ${query}`);
+
+    // ✅ Open in new tab
+    window.open(url, "_blank");
+
+    index++;
+
+    const delay = (index % 25 === 0) ? getCooldownDelay() : getRandomDelay();
+
+    if (index % 25 === 0) {
+      setStatus(`⏳ Cooling down for 15–20s... Dork ${index}/${dorks.length}`);
+    }
+
+    setTimeout(() => {
+      if (!paused) queryLoop();
+    }, delay);
+  }
+</script>
+
+</body>
+</html>
+
