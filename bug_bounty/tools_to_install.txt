@@ -29,3 +29,6 @@ dirb
 ffuf
 seclists
 dirserach (from github )
+shodan
+mantra
+subjs

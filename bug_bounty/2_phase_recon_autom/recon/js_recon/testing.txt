@@ -1,0 +1,165 @@
+# 🔍 FINDING JS FILES------------------------------------------------------
+
+## ✅ Using Crawled URLs + `grep`
+
+```bash
+cat allurls.txt | grep -Eo 'https?://[^"]+\.js([?#][^"]*)?' | sort -u | anew jsfiles.txt
+```
+
+## ✅ Using Katana
+
+```bash
+katana -u https://example.com -jc -d 5 -o js_files.txt
+```
+
+## ✅ Using `subjs`
+
+```bash
+cat live_subdomains.txt | subjs | sort -u >>jsfiles.txt
+cat allurls.txt | subjs | sort -u >> jsfiles.txt
+```
+
+## ✅ Using Burp Suite
+
+* Use HTTP history and sitemap to filter JS.
+* Use **JSFinder** & **jsluice++** Burp extensions.
+
+
+```bash
+cat alljs.txt | httpx -mc 200 -o livejs.txt
+```
+
+------------------------------------------------------------------------------
+
+
+
+# 📅 DOWNLOADING JS FILES
+
+```bash
+cat livejs.txt | xargs -I {} wget --content-disposition -q -P js_downloads {}
+```
+
+------------------------------------------------------------------------------
+
+# 🕵️‍♂️ MANUAL REVIEW & STATIC ANALYSIS
+
+
+
+## 📚 Tools:
+
+* Use **[de4js](https://lelinhtinh.github.io/de4js/)** to beautify/obfuscate JS.
+* Ask ChatGPT for interpreting suspicious code blocks or endpoints.
+
+---
+
+using linkfinder:
+
+python linkfinder.py -i https://example.com -d -o cli
+or
+python linkfinder.py -i https://example.com/1.js -o cli
+or
+python linkfinder.py -i 'Desktop/*.js'  -o results.html
+
+Look for:
+
+    Endpoints (/api/user/update, /admin/config)
+    API Keys, secrets, tokens
+    JWT endpoints, S3 buckets
+
+    ✅ Secret Trick: Run regex searches on downloaded JS files to find auth headers, tokens, and debug endpoints.
+
+
+# 🤖 AUTOMATED ANALYSIS & EXPLOITATION
+
+## 1️⃣ Token/Key Extraction (Manual grep)
+
+
+cat all_js_files.txt | xargs -I {} curl -s {} | grep -Eo "/api/[a-zA-Z0-9_/-]+" | sort -u > api_endpoints.txt
+```
+long alphanumeric dtrings:
+find js_downloads -type f -name "*.js" | xargs grep -EHo '([A-Za-z0-9_]{15,})' --color
+
+basic auth tokens:
+find js_downloads -type f -name "*.js" | xargs grep -Ei 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' --color
+
+sens keyword:
+grep -Eni "api_key|token|secret|client_id|authorization|pass|admin|jwt|api[^/]|cred" js_downloads/* | tee sens_keys.txt
+
+
+api endpoint :
+cat all_js_files.txt | xargs -I {} curl -s {} | grep -Eo "/api/[a-zA-Z0-9_/-]+" | sort -u > api_endpoints.txt
+
+
+
+
+## 3️⃣ `SecretFinder`
+
+```bash
+# CLI output (fast)
+python3 SecretFinder.py -i https://target.com/1.js -o cli
+
+# Full HTML output
+python3 SecretFinder.py -i https://target.com/1.js -o results.html
+
+# Crawl and analyze all JS on domain
+python3 SecretFinder.py -i https://target.com/ -e
+
+# Ignore specific libraries
+python3 SecretFinder.py -i https://target.com/ -e -g 'jquery;bootstrap;googleapis'
+
+# Only specific JS files
+python3 SecretFinder.py -i https://target.com/ -e -n 'cdn.site.com;assets.site.com'
+```
+
+## 4️⃣ `mantra`
+
+```bash
+cat js.txt | mantra -d | tee mantra_results.txt
+```
+
+## 5️⃣ `lazyegg`
+
+```bash
+python lazyegg.py http://target.com || output
+cat jsurls.txt | xargs -I{} bash -c 'echo -e "\ntarget : {}\n" && python lazyegg.py "{}" --js_urls --domains --ips --leaked_creds'
+
+## 6️⃣ `nuclei` JS Exposure Detection
+
+```bash
+nuclei -l js.txt -t ~/nuclei-templates/exposures/ -o js_exposures_results.txt
+nuclei -l js.txt -o js_outputs
+
+# Custom templates
+cat samsung.txt | nuclei -t prsnl/credentials-disclosure-all.yaml -c 30
+```
+
+## 7️⃣ S3 Bucket Takeover
+
+```bash
+# Find S3 bucket URLs
+cat vul3.txt | xargs -I% curl -sk "%" | grep -Eo '([a-z0-9\.-]+)\.s3.*\.amazonaws\.com' >> s3_bucket.txt
+
+# Extract bucket names
+cat s3_bucket.txt | sed 's/.*s3.*\.amazonaws\.com\///' | sort -u > bucket_name.txt
+
+# Test write/delete with AWS CLI
+cat bucket_name.txt | xargs -I% sh -c 'aws s3 cp test.txt s3://% 2>&1 | grep "upload" && echo "[+] Writable: %"'
+cat bucket_name.txt | xargs -I% sh -c 'aws s3 rm s3://%/test.txt 2>&1 | grep "delete" && echo "[+] Deletable: %"'
+```
+
+## 8️⃣ JSFScan 
+
+```bash
+bash JSFScan.sh -l domains.txt -all -r -o result.ru
+```
+
+
+
+---
+
+# 💻 Burp for Deep Analysis
+
+* Use JSFinder + JSLuice++ extensions.
+* Analyze request/response structure.
+* Discover endpoints, tokens, and cookie manipulation.
+
