@@ -1,64 +1,59 @@
-# 🔍 FINDING JS FILES------------------------------------------------------
+1. FINDING JS FILES------------------------------------------------------
 
 ## ✅ Using Crawled URLs + `grep`
 
-```bash
-cat allurls.txt | grep -Eo 'https?://[^"]+\.js([?#][^"]*)?' | sort -u | anew jsfiles.txt
-```
+cat all_urls.txt | grep -Eo 'https?://[^ ]+\.js([?#][^ ]*)?' | sort -u | anew crawled_jsfiles.txt
+
 
 ## ✅ Using Katana
 
-```bash
-katana -u https://example.com -jc -d 5 -o js_files.txt
-```
+katana -list live_subdomains.txt -jc -d 5 -o katana_all.txt
+ grep -Eo 'https?://[^ ]+\.js([?#][^ ]*)?' katana_all.txt| sort -u > katana_jsfiles.txt
+
+
 
 ## ✅ Using `subjs`
 
-```bash
-cat live_subdomains.txt | subjs | sort -u >>jsfiles.txt
-cat allurls.txt | subjs | sort -u >> jsfiles.txt
-```
-
-## ✅ Using Burp Suite
-
-* Use HTTP history and sitemap to filter JS.
-* Use **JSFinder** & **jsluice++** Burp extensions.
+cat live_subdomains.txt | subjs >>subjs_jsfiles.txt
+cat allurls.txt | subjs | sort -u >> subjs_jsfiles.txt
 
 
-```bash
-cat alljs.txt | httpx -mc 200 -o livejs.txt
-```
+##COMBINING ALL FILES:
+cat crawled_jsfiles.txt katana_jsfiles.txt subjs_jsfiles.txt | sort -u >>alljs.txt
+
+##FILTERING:
+httpx -mc 200 -silent -o livejs.txt < alljs.txt
+
+
 
 ------------------------------------------------------------------------------
 
 
 
-# 📅 DOWNLOADING JS FILES
+2. DOWNLOADING JS FILES
 
-```bash
 cat livejs.txt | xargs -I {} wget --content-disposition -q -P js_downloads {}
-```
+
 
 ------------------------------------------------------------------------------
 
 # 🕵️‍♂️ MANUAL REVIEW & STATIC ANALYSIS
 
-
-
 ## 📚 Tools:
-
-* Use **[de4js](https://lelinhtinh.github.io/de4js/)** to beautify/obfuscate JS.
-* Ask ChatGPT for interpreting suspicious code blocks or endpoints.
 
 ---
 
-using linkfinder:
+Using linkfinder:
 
-python linkfinder.py -i https://example.com -d -o cli
-or
-python linkfinder.py -i https://example.com/1.js -o cli
-or
-python linkfinder.py -i 'Desktop/*.js'  -o results.html
+mkdir linkfinder_results
+
+while read domain; do   echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o cli | tee "linkfinder_results/$(echo $domain | sed 's|https\?://||;s|/|_|g')_results.txt"; done < oi 
+
+while read domain; do   echo "[+] Scanning $domain";   output_file="linkfinder_results/$(echo $domain | sed 's|https\?://||;s|/|_|g').html";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o "$output_file"; done < domains.txt
+
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i '/home/maddy/sam/js_downloads/*' -o cli | tee linkfinder_results/linkfinder_cli_results_jscontents
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i '/home/maddy/sam/js_downloads/*' -o linkfinder_results/linkfinder_html_results_jscontents
+
 
 Look for:
 
@@ -69,65 +64,57 @@ Look for:
     ✅ Secret Trick: Run regex searches on downloaded JS files to find auth headers, tokens, and debug endpoints.
 
 
-# 🤖 AUTOMATED ANALYSIS & EXPLOITATION
-
 ## 1️⃣ Token/Key Extraction (Manual grep)
 
 
-cat all_js_files.txt | xargs -I {} curl -s {} | grep -Eo "/api/[a-zA-Z0-9_/-]+" | sort -u > api_endpoints.txt
+cat js_downloads/* | grep -Eo "/api/[a-zA-Z0-9_/-]+" | sort -u >>api_endpoints
 ```
 long alphanumeric dtrings:
-find js_downloads -type f -name "*.js" | xargs grep -EHo '([A-Za-z0-9_]{15,})' --color
+cat js_downloads/* | grep -EHo '([A-Za-z0-9_]{15,})' | tee strings.txt
 
 basic auth tokens:
-find js_downloads -type f -name "*.js" | xargs grep -Ei 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' --color
+cat js_downloads/* | grep -Ei 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' | tee auth_tokens.txt
 
 sens keyword:
-grep -Eni "api_key|token|secret|client_id|authorization|pass|admin|jwt|api[^/]|cred" js_downloads/* | tee sens_keys.txt
-
-
-api endpoint :
-cat all_js_files.txt | xargs -I {} curl -s {} | grep -Eo "/api/[a-zA-Z0-9_/-]+" | sort -u > api_endpoints.txt
+grep -Poir --exclude='*.min.js' --binary-files=without-match   -e '.{0,15}(api[_-]?key|secret|token|authorization|bearer|client[_-]?id|client[_-]?secret|jwt|admin|pass(word)?|cred(entials)?).{0,15}'   js_downloads/ | sed -E 's/(api[_-]?key|secret|token|authorization|bearer|client[_-]?id|client[_-]?secret|jwt|admin|pass(word)?|cred(entials)?)/\x1b[31m\1\x1b[0m/Ig' > sens_keys_short.txt
 
 
 
 
 ## 3️⃣ `SecretFinder`
 
-```bash
-# CLI output (fast)
-python3 SecretFinder.py -i https://target.com/1.js -o cli
 
-# Full HTML output
-python3 SecretFinder.py -i https://target.com/1.js -o results.html
+mkdir secretfinder_results
+
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i 'js_downloads/*' -o cli | tee secretfinder_results/results.txt
+
+
 
 # Crawl and analyze all JS on domain
-python3 SecretFinder.py -i https://target.com/ -e
+python3 SecretFinder.py -i https://empireflippers.com/ -e -o output
 
-# Ignore specific libraries
-python3 SecretFinder.py -i https://target.com/ -e -g 'jquery;bootstrap;googleapis'
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i https://empireflippers.com/ -e -o output_html_automated
 
-# Only specific JS files
-python3 SecretFinder.py -i https://target.com/ -e -n 'cdn.site.com;assets.site.com'
-```
+`python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i https://empireflippers.com/ -e -o cli | tee output.txt_automated
 
 ## 4️⃣ `mantra`
 
-```bash
-cat js.txt | mantra -d | tee mantra_results.txt
+mkdir /mantra
+cat livejs.txt | mantra | tee mantra/mantra_results.txt
 ```
 
 ## 5️⃣ `lazyegg`
 
 ```bash
 python lazyegg.py http://target.com || output
-cat jsurls.txt | xargs -I{} bash -c 'echo -e "\ntarget : {}\n" && python lazyegg.py "{}" --js_urls --domains --ips --leaked_creds'
+ cat livejs.txt | xargs -I{} bash -c 'echo -e "\ntarget : {}\n" && python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/lazyegg.py "{}" --js_urls --domains --ips --leaked_creds'
+
 
 ## 6️⃣ `nuclei` JS Exposure Detection
 
-```bash
-nuclei -l js.txt -t ~/nuclei-templates/exposures/ -o js_exposures_results.txt
-nuclei -l js.txt -o js_outputs
+mkdir nuclei-res/
+nuclei -l js.txt -t ~/nuclei-templates/exposures/ -o  nuclei-res/js_exposures_results.txt
+nuclei -l js.txt -o  nuclei-res/js_outputs
 
 # Custom templates
 cat samsung.txt | nuclei -t prsnl/credentials-disclosure-all.yaml -c 30
@@ -150,7 +137,7 @@ cat bucket_name.txt | xargs -I% sh -c 'aws s3 rm s3://%/test.txt 2>&1 | grep "de
 ## 8️⃣ JSFScan 
 
 ```bash
-bash JSFScan.sh -l domains.txt -all -r -o result.ru
+bash JSFScan.sh -l domains.txt -all -r -o results
 ```
 
 
@@ -162,4 +149,12 @@ bash JSFScan.sh -l domains.txt -all -r -o result.ru
 * Use JSFinder + JSLuice++ extensions.
 * Analyze request/response structure.
 * Discover endpoints, tokens, and cookie manipulation.
+## ✅ Using Burp Suite
+
+* Use HTTP history and sitemap to filter JS.
+* Use **JSFinder** & **jsluice++** Burp extensions.
+
+
+* Use **[de4js](https://lelinhtinh.github.io/de4js/)** to beautify/obfuscate JS.
+* Ask ChatGPT for interpreting suspicious code blocks or endpoints.
 
