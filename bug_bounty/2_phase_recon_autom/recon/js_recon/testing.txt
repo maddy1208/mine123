@@ -43,16 +43,16 @@ cat livejs.txt | xargs -I {} wget --content-disposition -q -P js_downloads {}
 
 ---
 
-Using linkfinder:
+1.Using linkfinder:
 
 mkdir linkfinder_results
 
 while read domain; do   echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o cli | tee "linkfinder_results/$(echo $domain | sed 's|https\?://||;s|/|_|g')_results.txt"; done < oi 
 
-while read domain; do   echo "[+] Scanning $domain";   output_file="linkfinder_results/$(echo $domain | sed 's|https\?://||;s|/|_|g').html";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o "$output_file"; done < domains.txt
+while read domain; do   echo "[+] Scan2ing $domain";   output_file="linkfinder_results/$(echo $domain | sed 's|https\?://||;s|/|_|g').html";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o "$output_file"; done < domains.txt
 
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i '/home/maddy/sam/js_downloads/*' -o cli | tee linkfinder_results/linkfinder_cli_results_jscontents
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i '/home/maddy/sam/js_downloads/*' -o linkfinder_results/linkfinder_html_results_jscontents
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i './js_downloads/*' -o cli | tee linkfinder_results/linkfinder_cli_results_jscontents
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i './js_downloads/*' -o linkfinder_results/linkfinder_html_results_jscontents
 
 
 Look for:
@@ -64,7 +64,7 @@ Look for:
     ✅ Secret Trick: Run regex searches on downloaded JS files to find auth headers, tokens, and debug endpoints.
 
 
-## 1️⃣ Token/Key Extraction (Manual grep)
+## 2. Token/Key Extraction (Manual grep)
 
 
 cat js_downloads/* | grep -Eo "/api/[a-zA-Z0-9_/-]+" | sort -u >>api_endpoints
@@ -76,7 +76,7 @@ basic auth tokens:
 cat js_downloads/* | grep -Ei 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' | tee auth_tokens.txt
 
 sens keyword:
-grep -Poir --exclude='*.min.js' --binary-files=without-match   -e '.{0,15}(api[_-]?key|secret|token|authorization|bearer|client[_-]?id|client[_-]?secret|jwt|admin|pass(word)?|cred(entials)?).{0,15}'   js_downloads/ | sed -E 's/(api[_-]?key|secret|token|authorization|bearer|client[_-]?id|client[_-]?secret|jwt|admin|pass(word)?|cred(entials)?)/\x1b[31m\1\x1b[0m/Ig' > sens_keys_short.txt
+grep -Poir --exclude='*.min.js' --binary-files=without-match   -e '.{0,15}(api[_-]?key|aws_access_key|innertext|inner|internal|localhost|aws_secret_key|api key|passwd|pwd|heroku|slack|firebase|swagger|aws_secret_key|aws key|password|ftp password|jdbc|db|sql|secret jet|config|admin|pwd|json|gcp|htaccess|.env|ssh key|.git|access key|secret token|oauth_token|oauth_token_secret|secret|token|fetch|axios|debug|eval|internal|authorization|env|config|bearer|client[_-]?id|client[_-]?secret|jwt|admin|pass(word)?|cred(entials)?).{0,15}'   js_downloads/ | sed -E 's/(api[_-]?key|secret|token|authorization|bearer|client[_-]?id|client[_-]?secret|jwt|admin|pass(word)?|cred(entials)?)/\x1b[31m\1\x1b[0m/Ig' > sens_keys_short.txt
 
 
 
@@ -89,56 +89,58 @@ mkdir secretfinder_results
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i 'js_downloads/*' -o cli | tee secretfinder_results/results.txt
 
 
+#html output:
+while read -r url; do
+  python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i "$url" -e -o "output_$(echo $url | sed 's~https\?://~~; s~/~-~g').html"
+done < urls.txt
 
-# Crawl and analyze all JS on domain
-python3 SecretFinder.py -i https://empireflippers.com/ -e -o output
+#cli,text output
+while read -r url; do
+  outname="output_$(echo $url | sed 's~https\?://~~; s~/~-~g').txt"
+  python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i "$url" -e -o cli | tee "$outname"
+done < urls.txt
 
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i https://empireflippers.com/ -e -o output_html_automated
-
-`python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i https://empireflippers.com/ -e -o cli | tee output.txt_automated
 
 ## 4️⃣ `mantra`
 
 mkdir /mantra
 cat livejs.txt | mantra | tee mantra/mantra_results.txt
-```
+
 
 ## 5️⃣ `lazyegg`
+mkdir lazyegg
 
-```bash
-python lazyegg.py http://target.com || output
- cat livejs.txt | xargs -I{} bash -c 'echo -e "\ntarget : {}\n" && python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/lazyegg.py "{}" --js_urls --domains --ips --leaked_creds'
+while read -r url; do   domain=$(echo "$url" | sed -E 's~https?://([^/]+).*~\1~');   echo -e "\n========== Target: $domain ==========\n" | tee -a output.txt;   python3 lazyegg.py "$url" | tee -a output.txt_domains.txt; done < live
+
+
+
+scanning multiple js:
+cat livejs.txt | xargs -I{} bash -c 'echo -e "\n[+] Target: {}\n" | tee -a js_results.txtt && python3 lazyegg.py "{}" --js_urls --domains --ips --leaked_creds | tee -a output.txt_jsfiles'
 
 
 ## 6️⃣ `nuclei` JS Exposure Detection
 
 mkdir nuclei-res/
-nuclei -l js.txt -t ~/nuclei-templates/exposures/ -o  nuclei-res/js_exposures_results.txt
-nuclei -l js.txt -o  nuclei-res/js_outputs
 
-# Custom templates
-cat samsung.txt | nuclei -t prsnl/credentials-disclosure-all.yaml -c 30
-```
+nuclei -l livejs.txt -t ~/nuclei-templates/http/exposures -o  nuclei-res/js_quick_exposures_results.txt
+nuclei -l livejs.txt   -t ~/nuclei-templates/   -severity low,medium,high,critical -o nuclei-res   -rate-limit 150   -stats
+
+
 
 ## 7️⃣ S3 Bucket Takeover
 
-```bash
+mkdir s3/
 # Find S3 bucket URLs
-cat vul3.txt | xargs -I% curl -sk "%" | grep -Eo '([a-z0-9\.-]+)\.s3.*\.amazonaws\.com' >> s3_bucket.txt
+cat livejs.txt | xargs -I% curl -sk "%" | grep -Eo '([a-z0-9\.-]+)\.s3.*\.amazonaws\.com' >> s3_bucket.txt
 
 # Extract bucket names
 cat s3_bucket.txt | sed 's/.*s3.*\.amazonaws\.com\///' | sort -u > bucket_name.txt
 
-# Test write/delete with AWS CLI
-cat bucket_name.txt | xargs -I% sh -c 'aws s3 cp test.txt s3://% 2>&1 | grep "upload" && echo "[+] Writable: %"'
-cat bucket_name.txt | xargs -I% sh -c 'aws s3 rm s3://%/test.txt 2>&1 | grep "delete" && echo "[+] Deletable: %"'
-```
 
 ## 8️⃣ JSFScan 
 
-```bash
-bash JSFScan.sh -l domains.txt -all -r -o results
-```
+bash JSFScan.sh -l live_subdomains.txt --all -r -o jsfscan_results
+
 
 
 
