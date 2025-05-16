@@ -1,0 +1,5 @@
+* **For Exploitation:**
+
+  ```bash
+  ghauri -m sqli_urls.txt --batch --dbs --level=3 --threads=10
+  ```

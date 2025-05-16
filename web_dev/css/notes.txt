@@ -1,8 +1,64 @@
 -------------------------------CSS NOTES-------------------------------------
 CSS FUNDAMENTALS:
 
+
+Link rules:
+inline,internal,external
+
+Font Properties:
+    font-family:Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-variant: small-caps;
+    font-weight: bolder;
+    font-size: 100px;
+    color: blue;
+    one liner => font: bold 12px Arial;
+    note:
+    using import vs link to import font;  link is better as it gives performance and faster reder but import loads after css parsing
+
+Background properties:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 CSS GRID,FLEX,ADVANCED CONCEPTS:
 
 CSS TRANSITION:
 
 MORE ABOUT SELECTORS,COMBINATORS,PSEUDOO CLASSES,PSEUDO ELEMENTS:
+

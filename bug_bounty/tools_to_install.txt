@@ -32,3 +32,6 @@ dirserach (from github )
 shodan
 mantra
 subjs
+paramspider
+gauplus
+nuclei fuzzer

@@ -65,14 +65,23 @@ function active_crawling() {
     cat live-domains.txt | xargs -I {} katana -u https://{} -d 5 -o "$OUTPUT_DIR/urls/katana1_urls.txt"
     cat live-domains.txt | xargs -I {} katana -u https://{} -jc -d 5 -o "$OUTPUT_DIR/urls/katana2_urls.txt"
     print_msg "green" "Katana finished. URLs saved to katana1_urls.txt and katana2_urls.txt."
+      # hakrawler
+    print_msg "yellow" "Running hakrawler..."
+    cat live-domains.txt | hakrawler >>"$OUTPUT_DIR/urls/hakrawler_urls.txt"
+    print_msg "green" "hakrawler finished. URLs saved to hakrawler_urls.txt"
+    
+      # gauplus
+    print_msg "yellow" "Running gauplus..."
+    cat live-domains.txt | gauplus >>"$OUTPUT_DIR/urls/gauplus_urls.txt"
+    print_msg "green" "gauplus finished. URLs saved to gauplus_urls.txt"
 }
 
 # Combine all URLs
 function combine_urls() {
     print_msg "blue" "📌 Combining all found URLs..."
 
-    cat "$OUTPUT_DIR/urls/waymore_output.txt" "$OUTPUT_DIR/urls/gau_urls.txt" "$OUTPUT_DIR/urls/wayback_urls.txt" \
-        "$OUTPUT_DIR/urls/gospider_output" "$OUTPUT_DIR/urls/katana1_urls.txt" "$OUTPUT_DIR/urls/katana2_urls.txt" \
+    cat "$OUTPUT_DIR/urls/waymore_output.txt" "$OUTPUT_DIR/urls/gau_urls.txt" "$OUTPUT_DIR/urls/wayback_urls.txt" "$OUTPUT_DIR/urls/gauplus_urls.txt"\
+        "$OUTPUT_DIR/urls/gospider_output" "$OUTPUT_DIR/urls/katana1_urls.txt" "$OUTPUT_DIR/urls/katana2_urls.txt" "$OUTPUT_DIR/urls/hakrawler_urls.txt"\
         | sort -u | anew "$URLS_FILE"
 
     print_msg "green" "Combining finished. All URLs saved to all_urls.txt."
