@@ -17,6 +17,33 @@ Font Properties:
     using import vs link to import font;  link is better as it gives performance and faster reder but import loads after css parsing
 
 Background properties:
+    background-color: antiquewhite;
+    background-image: url("https://t4.ftcdn.net/jpg/06/29/35/69/360_F_629356922_KB0F6hwZpSItiNyolBXflK2rb46iaeBx.jpg");
+    background-image:url(oi.png)
+    background-image:url("./oi.png")
+    bg-size: 3000px 300px
+    background-repeat: no-repeat,repeat,repeat-x,repeat-y
+    background-position: top,center,bottom,right,left center, //positiona control panlam
+    background-size: 400px 400px,contain,cover // siza contrl pana
+    background-attachment: scroll,fixed //
+    background-origin:content-box,padding-box,border-box //image set aagum
+    background-clip: text //image text kooda merge aidu
+
+    background =>oneliner
+
+
+GRADIENT:
+//color use pnadra place la use panlaam
+
+background: linear-gradient(to right, red ,blue);
+bg: linear-gradient(red,blue,green)
+bg: linear-gradient(to botom red,blue)
+bg: linear-gradient(to top  red,blue)
+bg: linear-gradient(to right  red,blue)
+bg: linear-gradient(to  left red,blue)
+bg: linear-gradient(to bootom right red,blue)
+bg: linear-gradient(to bootom right red,blue)
+
 
 
 

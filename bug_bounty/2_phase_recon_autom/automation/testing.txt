@@ -1,22 +1,39 @@
 
 
 
-1.burp =>do research
+1.burp 
+extensions to install: 
+Extender>BApp store>Reflected Parameters>Install
+Extender>BApp store>Param Miner>Install
+Extender>BApp store>Param authorize>Install
+Extender>BApp store>Param autorepeater>Install
+	ssrf reg: https?:\/\/(www\.)?[-a-zA-Z0–9@:%._\+~#=]{1,256}\.[a-zA-Z0–9()]{1,6}\b([-a-zA-Z0–9()@:%_\+.~#?&//=]*)
+https://github.com/CoreyD97/BurpCustomizer/releases?source=post_page-----9cb181443464---------------------------------------
+ Extender>BApp store>Burp Suite Scanner
+ spider
+ logger++
+
 2.k_automation
 ./testing.sh (ensure we have live.txt)
 
-3.nuclei => do research
+3.nuclei 
+1.normal templates
+2.lost-templates
+3.downloaded-templates
+
+
 4.cves =>do research 
 5.individual testing =>see below
 
-
+https://github.com/0ang3el/aem-hacker
 about jaeles
 
 nucleifuzzer =
 nf -d example.com
 nf -f file.txt
 
-
+lazyhunter
+https://github.com/GhostTroops/scan4all
 
 -------------------------------------------------------------------1.AUTOMATION RUN BASED ON DOMAIN,SUBDOMAIN--------------------------------------------------------------------
 1.run on domain name and subdomains names:

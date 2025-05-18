@@ -10,3 +10,22 @@ p
 
 
 }
+
+*{
+/* 
+    background-color: antiquewhite;
+    background-image: url("https://t4.ftcdn.net/jpg/06/29/35/69/360_F_629356922_KB0F6hwZpSItiNyolBXflK2rb46iaeBx.jpg");
+background-repeat: no-repeat;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+color: transparent;
+ */
+
+} 
+
+/* div{
+
+    height: 300px;
+    width: 300px;
+    background-color: aqua;
+    background: linear-gradient(to right, red ,blue);
+} */

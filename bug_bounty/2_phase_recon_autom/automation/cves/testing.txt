@@ -1,6 +1,21 @@
+1. identify the technology and google it eg: jiraa exolit ,jira cve..etc...
+
+
+
+1.oneforall:
+python3 oneforall.py  --target selzy.com  run
+
+
+
+
+
 see infodisclosure/cves
 
 inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
 nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
 
 intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
+
+cve-2024-34102:
+python3 cve-2024-34102-adobe.py  -u https://api-mp.us.lg.com/
+
