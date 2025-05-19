@@ -28,21 +28,35 @@ Background properties:
     background-attachment: scroll,fixed //
     background-origin:content-box,padding-box,border-box //image set aagum
     background-clip: text //image text kooda merge aidu
-
+    background-blend: normal,blend,overlay,darken,hardlight,softlifht,multiply,difference,... //image kooda color merge aidum
     background =>oneliner
 
 
 GRADIENT:
-//color use pnadra place la use panlaam
+    //only for background,bg-image,border-images aapr konjam 
 
-background: linear-gradient(to right, red ,blue);
-bg: linear-gradient(red,blue,green)
-bg: linear-gradient(to botom red,blue)
-bg: linear-gradient(to top  red,blue)
-bg: linear-gradient(to right  red,blue)
-bg: linear-gradient(to  left red,blue)
-bg: linear-gradient(to bootom right red,blue)
-bg: linear-gradient(to bootom right red,blue)
+    background: linear-gradient(to right, red ,blue);
+    bg: linear-gradient(red,blue,green)
+    bg: linear-gradient(to botom red,blue)
+    bg: linear-gradient(to top  red,blue)
+    bg: linear-gradient(to right  red,blue)
+    bg: linear-gradient(to  left red,blue)
+    bg: linear-gradient(to bootom right red,blue)
+    bg: linear-gradient(to bootom right red,blue)
+
+OPACITY:
+    opacity:0.9 //transparencyaa control panlaam
+
+TEXT-PROPERTIES:
+    letter-spacing: //
+    text-decoration: underline,overline,linethrough // decoration
+    vertical-align: sub,super //power la varu
+    text-transform: upper,lower
+    text-align: center,jusitify
+    text-indent: 10px //starting la space varu
+    line-height //gap between lines
+
+
 
 
 

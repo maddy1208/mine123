@@ -22,18 +22,8 @@ https://github.com/CoreyD97/BurpCustomizer/releases?source=post_page-----9cb1814
 3.downloaded-templates
 
 
-4.cves =>do research 
+4.cves 
 5.individual testing =>see below
-
-https://github.com/0ang3el/aem-hacker
-about jaeles
-
-nucleifuzzer =
-nf -d example.com
-nf -f file.txt
-
-lazyhunter
-https://github.com/GhostTroops/scan4all
 
 -------------------------------------------------------------------1.AUTOMATION RUN BASED ON DOMAIN,SUBDOMAIN--------------------------------------------------------------------
 1.run on domain name and subdomains names:

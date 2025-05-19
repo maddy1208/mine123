@@ -1,26 +1,6 @@
 
-p
 
 
-
-{color: red; text-align: center; font-weight: bold;
-
-
-
-
-
-}
-
-*{
-/* 
-    background-color: antiquewhite;
-    background-image: url("https://t4.ftcdn.net/jpg/06/29/35/69/360_F_629356922_KB0F6hwZpSItiNyolBXflK2rb46iaeBx.jpg");
-background-repeat: no-repeat;
-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-color: transparent;
- */
-
-} 
 
 /* div{
 
@@ -29,3 +9,33 @@ color: transparent;
     background-color: aqua;
     background: linear-gradient(to right, red ,blue);
 } */
+
+div{
+
+    height: 500px;
+    width: 500px;
+    background-image: linear-gradient(red,blue),url(https://m.media-amazon.com/images/I/61qbMx4oXJL._AC_UF1000,1000_QL80_.jpg);
+ background-blend-mode: screen;
+ background-repeat: no-repeat;
+ background-size: cover;
+
+}
+
+h1{
+    letter-spacing: 3px;
+    text-align: justify;
+}
+
+span{
+    vertical-align: super;
+}
+
+#price{
+    text-decoration: line-through;
+}
+
+p{
+    text-align: justify;
+    line-height: 30px;
+    text-indent: 5px;
+}

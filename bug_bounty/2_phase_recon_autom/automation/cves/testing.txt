@@ -1,21 +1,83 @@
-1. identify the technology and google it eg: jiraa exolit ,jira cve..etc...
 
+✅ 1. Identify the Technology Stack
+
+Use tech fingerprinting tools to determine what the site is running:
+
+# Best tool for fingerprinting
+whatweb https://target.com
+wappalyzer https://target.com
+nmap -sV -Pn target.com
+
+This gives you:
+    Web servers: Apache, Nginx, IIS, etc.
+    Frameworks: Laravel, Struts, Express, etc.
+    CMS: WordPress, Joomla
+    JS Libraries: jQuery, React versions
+    Backend stack: PHP, ASP.NET, Java, etc.
+
+also analyze httpx results from recon
+
+
+🧠 2. Use CVE Search Engines
+      
+Once you know the stack:
+1.google it eg: jiraa exolit ,jira cve..etc...
+
+2, Search CVEs by software/version:
+
+    https://www.cvedetails.com
+
+    https://vulmon.com
+
+    https://nvd.nist.gov
+
+    https://exploit-db.com
+
+	Use keywords like:
+		apache 2.4.52
+		wordpress 6.0
+		php 8.1.1
+
+
+🛠️ 3. Automated Tools to Fetch CVEs
+
+You can automate this using:
+
+python3 vulmap.py -u https://target.com --check
+
+✅ nuclei
+
+Run tech-detection and CVE templates:
+
+nuclei -u https://target.com -t cves/ -severity critical,high
+nuclei -u https://target.com -t technologies/ cves/ exposed-panels/ misconfiguration/
+
+
+jaelea:
+jaeles -u https://selzy.com scan
 
 
 1.oneforall:
 python3 oneforall.py  --target selzy.com  run
+
+2.scanforall:
+./scan4all -l domains.txt -o output
+
+3.cve-2024-34102:
+python3 cve-2024-34102-adobe.py  -u https://api-mp.us.lg.com/
+
+lazyhunter: input:ip
+python3 lazyhunter.py -f oi
+
+4.inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
+nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
+
+5.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
+
 
 
 
 
 
 see infodisclosure/cves
-
-inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
-nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
-
-intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
-
-cve-2024-34102:
-python3 cve-2024-34102-adobe.py  -u https://api-mp.us.lg.com/
 

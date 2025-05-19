@@ -17,3 +17,36 @@ exporting:
 
 module.exports={add,sub} or module.export=add{}
 require vachi import pani use panlam
+
+also .mjs extension use pani es module syntaxa use panlaam
+
+FS module basics:
+
+readFile('./sam.txt','utf-8',call);
+function call(err,data){
+if (err) throw err;
+else console.log(data.toSTring())
+}
+
+process.on('uncaughtException',(err)=>{
+    console.log("errorru",err);process.exit(1);
+}) //globalaa elo errorsaum handle paniklaam
+
+if (err)  console.log("errorru",err);process.exit(1); //simplaa eroorsa handle paniklaam
+
+writeFile('./sam1.txt','sample content123s',call1);
+function call1(err){
+    if (err) console.log("erroruuu",err) //throw pani process vazhiya kooda hadle panlaam
+    else { console.log("write complete")}
+}
+
+ appendFile(filename,' \nappend=>sample content123s',(err)=>{
+        if (err) console.log("append failed")
+            else console.log("append success")
+    }) //append pana 
+
+
+    rename(filename,'renamed123.txt',(err=>{
+        if (err) console.log("rename failed")
+            else console.log("rename success")
+    })) //rename pana
