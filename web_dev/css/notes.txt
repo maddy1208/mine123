@@ -56,6 +56,35 @@ TEXT-PROPERTIES:
     text-indent: 10px //starting la space varu
     line-height //gap between lines
 
+LIST PROPERTIES:
+    list-style-type: square,circle,disc,decimal,lower-roman,upper-roman,,none,et..
+    list-style-image: url('./oi.png)
+list-style-position: outside,inside //positionaa control panlaam
+
+MARGIN:
+=>outer space
+margin:top right bottom left
+margin: vertical horizontal
+margin all
+
+MARGIN:
+=>inner space
+margin:top right bottom left
+margin: vertical horizontal
+margin all
+
+BORDER PROPS:
+border-width:thin,medium,thick,length
+border-color:
+border style:none,solid,double,groove,ridge,inset,outset
+
+
+
+
+
+
+ 9
+
 
 
 

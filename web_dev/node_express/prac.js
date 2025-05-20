@@ -1,50 +1,90 @@
-// const path = require('path')
+// // // const path = require('path')
 
-const { readFile, writeFile, appendFile, rename } = require('fs')
-const path = require('path')
+const { createReadStream } = require('fs')
 
-// //k
-// console.log("ois")
-// // console.log(global)
-// os=require('os')
-// pat=require('path')
-// console.log(os.type(),os.version(),os.homedir())
-// console.log(__dirname)
-// console.log(__filename)
+// // const { readFile, writeFile, appendFile, rename } = require('fs')
+// // const path = require('path')
 
-// console.log(pat.dirname(__filename),pat.basename(__filename),"\n",pat.extname(__filename))
-// console.log(path.parse(__filename))
+// // // //k
+// // // console.log("ois")
+// // // // console.log(global)
+// // // os=require('os')
+// // // pat=require('path')
+// // // console.log(os.type(),os.version(),os.homedir())
+// // // console.log(__dirname)
+// // // console.log(__filename)
 
-// math=require('./mod')
-// console.log(math.add(6,2))
+// // // console.log(pat.dirname(__filename),pat.basename(__filename),"\n",pat.extname(__filename))
+// // // console.log(path.parse(__filename))
 
-file=require('fs')
+// // // math=require('./mod')
+// // // console.log(math.add(6,2))
 
-// readFile('./sam.txyyt','utf-8',call);
+// // file=require('fs')
 
-// function call(err,data){
-// if (err) throw err;
-// else console.log(data)
+// // // readFile('./sam.txyyt','utf-8',call);
+
+// // // function call(err,data){
+// // // if (err) throw err;
+// // // else console.log(data)
+// // // }
+
+// // // process.on('uncaughtException',(err)=>{
+// // //     console.log("errorru",err);process.exit(1);
+// // // })
+// // filename=path.join(__dirname,'renamed.txt')
+
+// // call1=(err)=>{
+// //     if (err) console.log("erroruuu",err)
+// //     else { console.log("write complete")}
+// //     appendFile(filename,' \nappend=>sample content123s',(err)=>{
+// //         if (err) console.log("append failed")
+// //             else console.log("append success")
+// //     })
+// //     rename(filename,'renamed123.txt',(err=>{
+// //         if (err) console.log("rename failed")
+// //             else console.log("rename success")
+// //     }))
+// // }
+// // writeFile(filename,'sample content123s',call1);
+
+
+
+// fs=require('fs').promises
+
+
+// func= async ()=>{
+//  try {
+//     data=await fs.readFile('./sam.txt',{encoding:'utf-8'})
+//     console.log(data)
+//     await fs.writeFile('./sam.txt','sample file')
+//     console.log("write complete")
+//   await fs.appendFile('./sam.txt','\nappended text')
+//   console.log("append complete")
+//   await fs.rename('./sam.txt','./renamed.txt')
+//   console.log("rename complete")
+
+//     }
+//     catch (err){
+// console.log("error occured", err)
+//     }
 // }
 
-// process.on('uncaughtException',(err)=>{
-//     console.log("errorru",err);process.exit(1);
-// })
-filename=path.join(__dirname,'renamed.txt')
+// fs=require('fs').promises
 
-call1=(err)=>{
-    if (err) console.log("erroruuu",err)
-    else { console.log("write complete")}
-    appendFile(filename,' \nappend=>sample content123s',(err)=>{
-        if (err) console.log("append failed")
-            else console.log("append success")
-    })
-    rename(filename,'renamed123.txt',(err=>{
-        if (err) console.log("rename failed")
-            else console.log("rename success")
-    }))
-}
-writeFile(filename,'sample content123s',call1);
+// //readfile
 
 
+// //wrirefile
 
+
+// //appednfile
+
+// //renamefile
+
+// func()s
+
+fs=require('fs')
+
+fs.createWriteStream('./renamed.txt')
+.write("jhhgg")

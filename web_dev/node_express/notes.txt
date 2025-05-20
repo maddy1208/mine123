@@ -31,6 +31,7 @@ else console.log(data.toSTring())
 process.on('uncaughtException',(err)=>{
     console.log("errorru",err);process.exit(1);
 }) //globalaa elo errorsaum handle paniklaam
+//.on triggers if any throw occurs
 
 if (err)  console.log("errorru",err);process.exit(1); //simplaa eroorsa handle paniklaam
 
@@ -50,3 +51,66 @@ function call1(err){
         if (err) console.log("rename failed")
             else console.log("rename success")
     })) //rename pana
+
+
+FS PROMISES:
+async and await use pani effectivaa work panlamm
+note: promises ku callback ila normal fs maari
+
+//readfile
+data=await fs.readFile('./sam.txt',{encoding:'utf-8'}).then((data)=> console.log(data)).catch((err)=>console.log(err))
+ so, then, catch use pani data aprm errorsaa vangiklaam
+
+ also to simplaa generalaa elo errors handle pana instead of nerya catch for promises (like above) oru "try" block potu nerya operations vachiklaam
+
+ eg:
+ func= async ()=>{
+ try {
+    data=await fs.readFile('./sam.txt',{encoding:'utf-8'})
+    console.log(data)
+    await fs.writeFile('./sam.txt','sample file')
+    console.log("write complete")
+  await fs.appendFile('./sam.txt','\nappended text')
+  console.log("append complete")
+  await fs.rename('./sam.txt','./renamed.txt')
+  console.log("rename complete")
+
+    }
+    catch (err){
+console.log("error occured", err)
+    }
+}
+ /// here elo errorsum simplaa catch la handle paniklaam
+
+
+ STREAM FOR LARGE FILE OPERATIONS:
+chunk chunkaa data process agum
+
+fs.createReadStream('./renamed.txt','utf-8')
+.on('data',(data)=>console.log(data))
+
+fs.createWriteStream('./renamed.txt')
+.write("jhhgg")
+
+
+PIPE:
+
+const rs = fs.createReadStream('./sam.txt');
+const ws = fs.createWriteStream('./copy.txt');
+
+rs.pipe(ws);
+
+rs.on('end', () => {
+  console.log('📥 Read stream ended');
+});
+
+ws.on('finish', () => {
+  console.log('📤 Write stream finished');
+});
+
+
+DIRS:
+fs,mkdir('./name,callback)
+fs.rmdir('./name',callback)
+
+fs.existsSync() //to check existence of file

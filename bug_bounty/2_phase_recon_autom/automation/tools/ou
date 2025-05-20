@@ -1,0 +1,8 @@
+ [1;31m==================================================[0m
+[1;31m[3m CVE-2024-24919[0m [Checkpoint Security Gateway LFI]
+ [1;31m==================================================[0m
+[1;31m				         @starlox[0m
+File provided: oi
+
+[1;31mProcessing Domain:[0m https://selzy.com
+[1;32m[-] Target is Not Vulnerable[0m

