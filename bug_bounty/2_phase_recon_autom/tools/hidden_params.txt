@@ -1,0 +1,174 @@
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-producthunt/js/selzy-producthunt.min.js?v=d87f6ba874a70470ecdae94790553605
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;93m[!][0m Processing chunks: 1/2     [1;93m[!][0m Processing chunks: 2/2     [1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-common/js/intercom-loader.min.js?v=00eaecc0dc5b1bf328fcff6003c9ec22
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center/js/help-center.min.js?v=1f1b9be59794e467e3770cc90c85e92f
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-legal-pages/js/selzy-legal-pages.min.js?v=d6d47221b1f625c501d1ac6d11b8dc8d
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center-article/js/help-center-article.min.js?v=c7de8d24b4d46eacc9657b0ce9ebfa60
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-producthunt/js/selzy-producthunt.min.js?v=d87f6ba874a70470ecdae94790553605
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;91m[-][0m Encountered an error: Connection aborted.
+[1;91m[-][0m Skipped https://selzy.com/wp-content/themes/Selzy/templates/selzy-producthunt/js/selzy-producthunt.min.js due to errors
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-common/js/intercom-loader.min.js?v=00eaecc0dc5b1bf328fcff6003c9ec22
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center/js/help-center.min.js?v=1f1b9be59794e467e3770cc90c85e92f
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-legal-pages/js/selzy-legal-pages.min.js?v=d6d47221b1f625c501d1ac6d11b8dc8d
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center-article/js/help-center-article.min.js?v=c7de8d24b4d46eacc9657b0ce9ebfa60
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-producthunt/js/selzy-producthunt.min.js?v=d87f6ba874a70470ecdae94790553605
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;91m[-][0m Encountered an error: Connection aborted.
+[1;91m[-][0m Skipped https://selzy.com/wp-content/themes/Selzy/templates/selzy-producthunt/js/selzy-producthunt.min.js due to errors
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-common/js/intercom-loader.min.js?v=00eaecc0dc5b1bf328fcff6003c9ec22
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center/js/help-center.min.js?v=1f1b9be59794e467e3770cc90c85e92f
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-legal-pages/js/selzy-legal-pages.min.js?v=d6d47221b1f625c501d1ac6d11b8dc8d
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center-article/js/help-center-article.min.js?v=c7de8d24b4d46eacc9657b0ce9ebfa60
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/feature/js/feature.min.js?v=bada6741cf34f9fad10bbbac341b2f53
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/common/js/lazysizes.min.js?v=45bacd312d5098b4b59f563d8756c15d
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-producthunt/js/selzy-producthunt.min.js?v=d87f6ba874a70470ecdae94790553605
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;93m[!][0m Processing chunks: 1/2     [1;93m[!][0m Processing chunks: 2/2     [1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-common/js/intercom-loader.min.js?v=00eaecc0dc5b1bf328fcff6003c9ec22
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;93m[!][0m Processing chunks: 1/2     [1;93m[!][0m Processing chunks: 2/2     [1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center/js/help-center.min.js?v=1f1b9be59794e467e3770cc90c85e92f
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;91m[-][0m Target is misbehaving. Try the --stable swtich.
+[1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-legal-pages/js/selzy-legal-pages.min.js?v=d6d47221b1f625c501d1ac6d11b8dc8d
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;93m[!][0m Processing chunks: 1/8     [1;93m[!][0m Processing chunks: 2/8     [1;93m[!][0m Processing chunks: 3/8     [1;93m[!][0m Processing chunks: 4/8     [1;93m[!][0m Processing chunks: 5/8     [1;93m[!][0m Processing chunks: 6/8     [1;93m[!][0m Processing chunks: 7/8     [1;93m[!][0m Processing chunks: 8/8     [1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/help-center-article/js/help-center-article.min.js?v=c7de8d24b4d46eacc9657b0ce9ebfa60
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;91m[-][0m Target is misbehaving. Try the --stable swtich.
+[1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/feature/js/feature.min.js?v=bada6741cf34f9fad10bbbac341b2f53
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;93m[!][0m Processing chunks: 1/8     [1;93m[!][0m Processing chunks: 2/8     [1;93m[!][0m Processing chunks: 3/8     [1;93m[!][0m Processing chunks: 4/8     [1;93m[!][0m Processing chunks: 5/8     [1;93m[!][0m Processing chunks: 6/8     [1;93m[!][0m Processing chunks: 7/8     [1;93m[!][0m Processing chunks: 8/8     [1;93m[!][0m Processing chunks: 1/2     [1;93m[!][0m Processing chunks: 2/2     [1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/common/js/lazysizes.min.js?v=45bacd312d5098b4b59f563d8756c15d
+[92m    _
+   /_| _ '
+  (  |/ /(//) v2.2.1
+      _/      [0m
+
+[1;97m[*][0m Probing the target for stability
+[1;97m[*][0m Analysing HTTP response for anomalies
+[1;97m[*][0m Analysing HTTP response for potential parameter names
+[1;97m[*][0m Logicforcing the URL endpoint
+[1;93m[!][0m Processing chunks: 1/51    [1;93m[!][0m Processing chunks: 2/51    [1;93m[!][0m Processing chunks: 3/51    [1;93m[!][0m Processing chunks: 4/51    [1;93m[!][0m Processing chunks: 5/51    [1;93m[!][0m Processing chunks: 6/51    [1;93m[!][0m Processing chunks: 7/51    [1;93m[!][0m Processing chunks: 8/51    [1;93m[!][0m Processing chunks: 9/51    [1;93m[!][0m Processing chunks: 10/51    [1;93m[!][0m Processing chunks: 11/51    [1;93m[!][0m Processing chunks: 12/51    [1;93m[!][0m Processing chunks: 13/51    [1;93m[!][0m Processing chunks: 14/51    [1;93m[!][0m Processing chunks: 15/51    [1;93m[!][0m Processing chunks: 16/51    [1;93m[!][0m Processing chunks: 17/51    [1;93m[!][0m Processing chunks: 18/51    [1;93m[!][0m Processing chunks: 19/51    [1;93m[!][0m Processing chunks: 20/51    [1;93m[!][0m Processing chunks: 21/51    [1;93m[!][0m Processing chunks: 22/51    [1;93m[!][0m Processing chunks: 23/51    [1;93m[!][0m Processing chunks: 24/51    [1;93m[!][0m Processing chunks: 25/51    [1;93m[!][0m Processing chunks: 26/51    [1;93m[!][0m Processing chunks: 27/51    [1;93m[!][0m Processing chunks: 28/51    [1;93m[!][0m Processing chunks: 29/51    [1;93m[!][0m Processing chunks: 30/51    [1;93m[!][0m Processing chunks: 31/51    [1;93m[!][0m Processing chunks: 32/51    [1;93m[!][0m Processing chunks: 33/51    [1;93m[!][0m Processing chunks: 34/51    [1;93m[!][0m Processing chunks: 35/51    [1;93m[!][0m Processing chunks: 36/51    [1;93m[!][0m Processing chunks: 37/51    [1;93m[!][0m Processing chunks: 38/51    [1;93m[!][0m Processing chunks: 39/51    [1;93m[!][0m Processing chunks: 40/51    [1;93m[!][0m Processing chunks: 41/51    [1;93m[!][0m Processing chunks: 42/51    [1;93m[!][0m Processing chunks: 43/51    [1;93m[!][0m Processing chunks: 44/51    [1;93m[!][0m Processing chunks: 45/51    [1;93m[!][0m Processing chunks: 46/51    [1;93m[!][0m Processing chunks: 47/51    [1;93m[!][0m Processing chunks: 48/51    [1;93m[!][0m Processing chunks: 49/51    [1;93m[!][0m Processing chunks: 50/51    [1;93m[!][0m Processing chunks: 51/51    [1;93m[!][0m Processing chunks: 1/6     [1;93m[!][0m Processing chunks: 2/6     [1;93m[!][0m Processing chunks: 3/6     [1;93m[!][0m Processing chunks: 4/6     [1;93m[!][0m Processing chunks: 5/6     [1;93m[!][0m Processing chunks: 6/6     [1;93m[!][0m No parameters were discovered.
+
+
+[*] Scanning https://selzy.com/wp-content/themes/Selzy/templates/selzy-common/js/header-demo-ab.min.js?v=5d7e274bc3b4dfd959170fe0d9128ca9
+
+
+[*] Scanning http://www.selzy.com/feeds/posts/default?alt=rss

@@ -16,29 +16,43 @@ https://github.com/CoreyD97/BurpCustomizer/releases?source=post_page-----9cb1814
 2.k_automation
 ./testing.sh (ensure we have live.txt)
 
-3.nuclei 
+
+
+4.cves 
+refer cves/testing.txt
+
+
+3.nuclei  and jaeles
 1.normal templates
 2.lost-templates
 3.downloaded-templates
 
 
-4.cves 
+
+
 5.individual testing =>see below
 
--------------------------------------------------------------------1.AUTOMATION RUN BASED ON DOMAIN,SUBDOMAIN--------------------------------------------------------------------
+-------------------------------------------------------------------1.AUTOMATION RUN BASED ON DOMAIN,SUBDOMAIN-------------------------------------------------------------------
+
 1.run on domain name and subdomains names:
 
-scan specific target:
-nuclei -target "https://target.com" -t cves   (or) nuclei -target "https://target.com" -t /nuclei-templates/cves -o out.txt
-nuclei -u <subdomain or url> -tags aem (FOR AEM)
-nuclei -l live_subs_domain.com.txt -rl 10 -bs 2 -c 2 -as -silent -s critical,high,medium
+//nuclei
+nuclei -l livedomains.txt  -s critical,high,medium,low -o nuclei_domain_out
+nuclei -l livedomains.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_domain1_out
+nuclei -l livedomains.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_domain1_out
 
-scan all templates on single target:
-nuclei -target "https://target.com" -t /nuclei-templates/ -o out.txt
+//jaeles
+jaeles scan -c 50  -U livedomains.txt
+//output:out
 
-mass hunting:
-cat alldomains.txt | nuclei -t /nuclei-templates/  -o out.txt
+2.run on js files:
+//nuclei
+nuclei -l jsurls.txt -s critical,high,medium,low -o nuclei_js_out
+nuclei -l jsurls.txt -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_domain1_out
+nuclei -l jsurls.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_domain1_out
 
+//jaeles
+jaeles scan   -U jsurls.txt
 
 ----------------------------------2.AUTOMATION RUN ON SPECIFIC URLS ACC TO VULNERABILITY : (RUN SPCIFIC TEMPLATES ALSO RUN ALL TEMPLATES...)----------------------------------------
 
@@ -46,37 +60,33 @@ cat alldomains.txt | nuclei -t /nuclei-templates/  -o out.txt
 2..GETTING PARAMETERIZED URLS:
 
 	1.ParamSpider (Spidering + Regex):
-	getting urls: paramspider -l subdomains.txt --exclude=php,jpg | tee -a all_params.txt
-	       Regex: cat all_urls.txt | grep -E '\?[^=]+=.+$' >all.txt (will identify all parametrized outputs)
+	getting urls: paramspider -l livedomains.txt 
+	       
+	 2.Regex: 
+	 cat all_urls.txt | grep -E '\?[^=]+=.+$' >>regex.txt (will identify all parametrized outputs)
 
-	2.use lostfuzzer.sh:
-	use ./lostfuzzer.sh to collect parameterized urls and save into loxs_param.txt
+	3.use lostfuzzer.sh:
+	/home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lostfuzzer.sh
+        mv filtered_urls.txt loxs_param.txt
 
-combining all prams_urls:
-cat all_params.txt loxs_param >> all_params.txt and use this in sql,xss,openredirection testing
-
-
-# Categorizing parameters into separate files for further manual testing:
-
-grep -Ei 'xss|callback|token' all_params.txt all_urls.txt > xss.txt  
-grep -Ei 'id=|select=|union=|query=|search=' all_params.txt all_urls.txt > sqli.txt  
-grep -Ei 'redirect=|url=|next=|return=' all_params.txt all_urls.txt > openredir.txt 
+	combining all prams_urls:
+	cat  out/* regex.txt loxs_param.txt | sort -u >> all_params.txt and use this in sql,xss,openredirection testing
 
 
-GENERAL BUGS AUTOMATION: (input: filtered_params_urls)
+# running nuclei,jaeles in parametrized urls...
 
-	=>for crlf:            cat crlf.txt | nuclei -t /prsnl/crlf.yaml
-	=>for iis:             cat iis.txt | nuclei -t /prsnl/iis.yaml,    for exploitation use #shortscan 
-	=>for git:             cat git.txt | nuclei -t prsnl/gitExposed.yaml
-	=>for cors:            cat cors.txt | nuclei -t /prsnl/cors.yaml
+//nuclei
+nuclei -l all_params.txt  -s critical,high,medium,low -o nuclei_domain_out
+nuclei -l all_params.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_domain1_out
+nuclei -l all_params.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_domain1_out
+
+//jaeles
+jaeles scan  -U all_params.txt
+//output:out
 
 
+-------------------------------------------------------------------GENERAL BUGS AUTOMATION: (input: filtered_params_urls)
 SQLI,XSS AND OD AUTOMATION:
-
-use paramspider to find parametrs based requests
-use grep to filter urls containng ?,= etc...
-cat all_urls.txt | grep '?' | tee params.txt
-cat all_urls.txt | grep = | tee params.txt
 
 
 #FINDING HIDDEN PARAMS
@@ -84,21 +94,16 @@ cat all_urls.txt | grep = | tee params.txt
 
 ### **SQL Injection (SQLi) Automation**
 
-
-
         1.using sqlmap:
-	sqlmap -m params.txt --batch --random-agent --level=5 --risk=3 --dbs
-	sqlmap -m urls.sqli --level 5 --risk 3 --batch --dbs --tamper=between
+	sqlmap -m all_params.txt --level 5 --risk 3 --batch --dbs --tamper=between --random-agent
 		
-	2.nuclei dast scanner:
-	=>collect all urls using gdork eg:.phpid= or using wayback..
-	=>use grep to filter params and run nuclei , cat test.txt | grep -E '\?[^=]+=.+$' | nuclei -t /errsqli.yam -dast
-	=>to exploit use ,ghauri -m sqli_urls.txt --batch --dbs --level=3 --threads=10
 	
 	3.nuclei: (input: filtered_params_urls)
 	=>for sql:  cat sql.txt | nuclei -t /prsnl/errsqli.yaml
 	=>for sql:  cat sql.txt | nuclei -t /prsnl/timesqli.yaml -dast
 	
+	nuclei -l filtered_urls.txt -t  "cves/202*/**" "vulnerabilities/sql/" -o sqli_results.txt -silent -rate-limit 200 -retries 2
+
 
 ### **Cross-Site Scripting (XSS) Automation**
 
