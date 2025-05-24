@@ -39,3 +39,6 @@ burpflow
 github-subdomains 
 joomscan
 arjun
+sqlmap from gtihub
+dalfox
+qsreplace

