@@ -63,6 +63,7 @@
 <target> filename:.netrc password
 <target> filename:\_netrc password
 <target> filename:.env MAIL\_HOST=smtp.gmail.com
+<target> filename:.env "password" OR "token"
 <target> filename\:prod.exs NOT prod.secret.exs
 <target> filename:.npmrc \_auth
 <target> filename\:WebServers.xml
@@ -381,6 +382,8 @@
 <target> filename:.bash_profile+aws
 <target> filename:.bashrc+mailchimp
 <target> filename:.bashrc+password
+<target> filename:.config "token"
+<target> extension:json "secret"ff
 <target> filename:.cshrc
 <target> filename:.dockercfg+auth
 <target> filename:.env+DB_USERNAME+NOT+homestead
@@ -476,6 +479,11 @@
 <target> github_key
 <target> github_password
 <target> github_token
+<target> path:.github/workflows "github_token" extension:yml
+<target> language:javascript "access_token"
+<target> language:shell "export TOKEN="
+<target> github_access_token
+<target> filename:.env "ghp_"
 <target> gitlab
 <target> gmail_password
 <target> gmail_username
@@ -758,6 +766,8 @@
 <target> msg nickserv identify filename:config
 <target> filename:master.key path:config
 <target> filename:jupyter_notebook_config.json
+<target> filename:.properties "AUTH_TOKEN"
+<target> filename:.properties "auth.token"
 <target> "api_hash" "api_id"
 <target> "https://hooks.slack.com/services/"
 <target> filename:github-recovery-codes.txt
@@ -765,6 +775,7 @@
 <target> filename:discord_backup_codes.txt
 <target> extension:yaml cloud.redislabs.com
 <target> extension:json cloud.redislabs.com
+<target> extension:json "API_KEY"
 <target> DATADOG_API_KEY language:shell
 <target> "api_hash" "api_id" "user_phone"
 <target> "https://api.telegram.org/bot"

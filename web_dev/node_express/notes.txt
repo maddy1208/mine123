@@ -120,3 +120,23 @@ TYPES OF ERR HANDLING:
 2.using promiss (try,catch)
 3.use explicit try,catch
 4.uses throw,process.on('uncaughtexception)
+
+
+EEVENT EMITTER:
+ With EventEmitter, you can:
+✅ Trigger (emit) events
+✅ Listen for events (and react to them)
+//namale events create pani trigger panlaam
+
+note:on() = like someone listening for that specific word and reacting
+also on() event trigger agumpoadhelam execute aagum, so onetime execute aganum naa 
+once () use panlam;
+eg:
+myEmitter.once('start', () => {
+  console.log('Starting up...');
+});
+
+myEmitter.emit('start'); // Runs ✅
+myEmitter.emit('start'); // Does nothing ❌
+
+

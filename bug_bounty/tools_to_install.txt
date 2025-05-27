@@ -42,3 +42,4 @@ arjun
 sqlmap from gtihub
 dalfox
 qsreplace
+calc

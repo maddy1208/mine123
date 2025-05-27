@@ -84,7 +84,19 @@ const { createReadStream } = require('fs')
 
 // func()s
 
-fs=require('fs')
+// fs=require('fs')
 
-fs.createWriteStream('./renamed.txt')
-.write("jhhgg")
+// fs.createWriteStream('./renamed.txt')
+// .write("jhhgg")
+
+// const event=require('events').EventEmitter
+
+// event1=new event()
+
+// event1.on('greet',()=>{
+//     console.log("greet")
+// })
+
+// event1.emit('greet')
+date=require('date-fns')
+console.log(date.format(new Date(),"y,M,d,h,m,s"))

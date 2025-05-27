@@ -66,7 +66,10 @@ while read -r url; do
 
     # Run Dirsearch
     echo -e "${yellow}[-] Starting Dirsearch on $url${reset}"
-    dirsearch -u "$url" -t 150 --random-agent -x 404 -o "$dirpath/dirsearch.txt"
+    dirsearch -u "$url" -t 50 --random-agent -x 404 --delay 0.5\
+   -e php,html,txt,bak,zip,old,inc,json,env,log,sql \
+    -f -o "$dirpath/dirsearch.txt"
+
     echo -e "${green}[✔] Dirsearch done → dirsearch.txt${reset}"
 
     echo -e "${blue}[i] Completed all scans for $url${reset}"

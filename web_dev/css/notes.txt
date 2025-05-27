@@ -79,7 +79,7 @@ BORDER PROPS:
     border style:none,solid,double,groove,ridge,inset,outset
 
 COMMENT:
- /*.....*/
+    /*.....*/
 
  CLASS,ID'S:
 
@@ -101,25 +101,40 @@ DISPLAY PROPS:
 
 TABLE STYLING PROPS:
 
-<TABLE BORDER=9PX WIDTH=100% CELLPADDING=7PX CELLSPACING=7PX>
+    <TABLE BORDER=9PX WIDTH=100% CELLPADDING=7PX CELLSPACING=7PX>
 
-table{
+    table{
 
-    border:collapse //border single linele varum
-}
+        border:collapse //border single linele varum
+    }
 
-<caption> => like tabeloda label maranchidum
-rowpan,colspan =>td la use pnalm for row,colum merging
+    <caption> => like tabeloda label maranchidum
+    rowpan,colspan =>td la use pnalm for row,colum merging
 
-<tfoot> =>like tableoda footer maari
+    <tfoot> =>like tableoda footer maari
 
-<table>
-<colgroup> 
-col width =50px //colum oda width,bg a customize paniklaam with hlp of colgroup
-col
-<colgroup>
-</table>
+    <table>
+    <colgroup> 
+    col width =50px //colum oda width,bg a customize paniklaam with hlp of colgroup
+    col
+    <colgroup>
+    </table>
 
+STYLE PREFERENCE:
+    #id => ist prefeence 
+    .class => 2nd preference 
+    p =>direct elements ku 3rd prefernce 
+
+    also elom default pref override pan !important use panlam
+    eg:
+
+    p{ color: green !important} //ipo indha style elothiyum override panidum bcz we used important 
+
+
+CSS SELECTORS:
+    h1,p, .class1,#oi {} //ipdi multile elemts ku style pnlaam
+   div[class]
+   div[class="oi"],etc...
 
 
 
