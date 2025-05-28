@@ -140,3 +140,25 @@ myEmitter.emit('start'); // Runs ✅
 myEmitter.emit('start'); // Does nothing ❌
 
 
+SIMPLE LOGGER USING EMITTER:
+
+//prac.js
+logfun=async (msg)=>{
+if(!fs.existsSync(path.join(__dirname,'files','con.txt')))
+{  fs.mkdirSync(path.join(__dirname,'files'))}
+ await fs.promises.appendFile(path.join(__dirname,'files','con.txt'),`${date.format(new Date(),"y,M,d,h,m,s")}\t${msg}    
+ `) 
+console.log("success")
+
+}
+
+//app.js
+module.exports=logfun
+
+lf=require('./prac')
+eventemitter=require('events').EventEmitter
+emitob=new eventemitter()
+
+emitob.on('onlog',(msg)=>{ lf(msg)})
+emitob.emit('onlog',"my message")
+

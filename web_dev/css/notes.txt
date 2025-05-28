@@ -136,6 +136,17 @@ CSS SELECTORS:
    div[class]
    div[class="oi"],etc...
 
+PSEUDO CLASS:
+    a:hover{}
+    a:active{}
+    a:visited{}
+
+BORDER RADIUS:
+    border radius :5px// aplly to all sides
+    border radius : 1 2 3 4 //specific side
+
+BOX-SHADOW: //LIKE ORU SHADOW maari
+    box-shadow: 5 5 5 5 rgba();
 
 
 

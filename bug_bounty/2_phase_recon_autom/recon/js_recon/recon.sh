@@ -93,6 +93,16 @@ echo "[+] Running Grep.."
 echo "[*] Extracting probable API endpoints from JS..."
 grep -EHo "/api/[a-zA-Z0-9_/-]+" "$SCRIPT_DIR"/jsrecon/js_downloads/*  | sort -u | tee "$grep_out/api_endpoints.txt"
 
+grep -EHo 'AIza[0-9A-Za-z_-]{35}' "$SCRIPT_DIR"/jsrecon/js_downloads/* \
+  | tee -a "$grep_out/secrets123.txt"
+
+# Stripe Live Secret Key
+grep -EHo 'sk_live_[0-9a-zA-Z]{24}' "$SCRIPT_DIR"/jsrecon/js_downloads/* \
+  | tee -a "$grep_out/secrets123.txt"
+
+# JWT Tokens
+grep -EHo 'eyJ[a-zA-Z0-9-_]+=*\.[a-zA-Z0-9-_]+=*\.?[a-zA-Z0-9-_.+/=]*' "$SCRIPT_DIR"/jsrecon/js_downloads/* \
+  | tee -a "$grep_out/secrets123.txt"
 
 echo "[*] Searching for long alphanumeric strings (possible secrets)..."
 grep -EHo '([A-Za-z0-9_]{15,})' "$SCRIPT_DIR"/jsrecon/js_downloads/* | tee "$grep_out/long_strings.txt"
@@ -106,7 +116,7 @@ grep -EHi 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' "$SCRIPT_DIR"/jsreco
 
 
 echo "[*] Grepping sensitive keywords (tokens, keys, creds)..."
-KEYWORDS='api[_-]?key|aws_access_key|innertext|inner|internal|localhost|aws_secret_key|api key|passwd|pwd|heroku|slack|firebase|swagger|aws key|password|ftp password|jdbc|db|sql|secret jet|config|admin|json|gcp|htaccess|.env|ssh key|.git|access key|secret token|oauth_token|oauth_token_secret|secret|token|fetch|axios|debug|eval|authorization|env|bearer|client[_-]?id|client[_-]?secret|jwt|pass(word)?|cred(entials)?'
+KEYWORDS='api[_-]?key|aws_access_key|innertext|inner|internal|todo|fixme|bug|localhost|aws_secret_key|api key|passwd|pwd|heroku|slack|firebase|swagger|aws key|password|ftp password|jdbc|db|sql|secret jet|config|admin|json|gcp|htaccess|.env|ssh key|devnote|.git|access key|secret|token|oauth_token|oauth_token_secret|secret|token|fetch|axios|debug|eval|authorization|env|bearer|client[_-]?id|client[_-]?secret|jwt|pass(word)?|cred(entials)?'
 
 # Save raw output
 grep -Poir --exclude='*.min.js' --binary-files=without-match \

@@ -63,6 +63,13 @@ else
     echo -e "${blue}[i] No 301/302 redirects found for backup scanning${reset}"
 fi
 
+#------------------general analysis using screenshot---------------------
+
+echo " capturing screenshots........"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/EyeWitness/Python/EyeWitness.py  -f "$input_file" -d "$outdir/screenshot_eyewitness"
+cat "$input_file"  | aquatone -out "$outdir/screenshot_aquatone"
+
+
 # ----------------- CATEGORIZATION ---------------------
 # Important subdomains
 grep -E "admin|panel|portal|secure|dashboard|internal|api|stag|dev|priv|test|sam|dash" "$outdir/httpx_results.txt" \

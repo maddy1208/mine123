@@ -6,8 +6,8 @@ https://target.com%2523.example.com/
 https://target?c=.example.com
 https://target.com?#=.example.com
 https://target.com@example.com
-aHR0cHM6Ly9nb29nbGUuY29t (base64 encode)
-https%3A%2F%2Fevil.com (url encode)
+aHR0cHM6Ly9nb29nbGUuY29t(base64encode)
+https%3A%2F%2Fevil.com(urlencode)
 @example.com
 https:example.com
 https://example.com\.target.com/dashboard
@@ -17,3 +17,21 @@ https://example.com\.target.com/dashboard
 https://example-target.com
 /%0d/evil.com
 https://exampetarget.com
+\/example.com
+\/\/example.com
+\\example.com
+//example.com
+//target@example.com
+/\/example.com
+https://example.com%3F.target.com/
+https://example.com%2523.target.com/
+https://example?c=.target.com/
+https://example#c=.target.com/
+//%2F/example.com
+////example.com
+https://target.computer/
+https://target.com.example.com
+/%0D/example.com(Alsotry%09,%00,%0a,%07)
+/%2F/example.com
+/%5Cexample.com
+//google%E3%80%82com

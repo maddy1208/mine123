@@ -1,0 +1,8 @@
+1.look for admin pages and try default passwords
+
+2.curl -X GET https://www.target.com | grep -i -E 'pass|pwd|passphrase|cred|encrypt|appkey|token|secret|auth|authorization|key|private'
+
+3.take a look at archieved urls, 
+
+eg: if https://target.com/getusers.php
+    try  https://target.com/getadmin.php =>ipdi try panlaam

@@ -43,3 +43,4 @@ sqlmap from gtihub
 dalfox
 qsreplace
 calc
+aquatone
