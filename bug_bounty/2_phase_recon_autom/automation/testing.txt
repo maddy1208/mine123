@@ -177,7 +177,7 @@ about ax framework,ax tool for automation
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-1.burp 
+2.burp 
 extensions to install: 
 Extender>BApp store>Reflected Parameters>Install
 Extender>BApp store>Param Miner>Install
@@ -188,11 +188,12 @@ https://github.com/CoreyD97/BurpCustomizer/releases?source=post_page-----9cb1814
  Extender>BApp store>Burp Suite Scanner
  spider
  logger++
+ burp cors
+aws extender (burp)
 
-2.k_automation
+3.k_automation
 ./testing.sh (ensure we have live.txt)
 
-3.loxs tool
+4.loxs tool
 
-4.cves 
-refer cves/testing.txt
+

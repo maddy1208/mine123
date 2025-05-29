@@ -1,3 +1,11 @@
+1.-------------------------------------CVE'S------------------------------------
+
+refer cves/testing.txt
+
+
+
+2.------------------------------------GENERAL--------------------------------------
+
 1.look for admin pages and try default passwords
 
 2.curl -X GET https://www.target.com | grep -i -E 'pass|pwd|passphrase|cred|encrypt|appkey|token|secret|auth|authorization|key|private'

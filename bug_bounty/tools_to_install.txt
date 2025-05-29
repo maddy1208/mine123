@@ -7,12 +7,10 @@ coffinxp loxs
 coffinxp gf pattern
 crlfsuite
 crlfuzz
-burp cors
 subzy
 subjack
 wpscan
 s3enum
-aws extender (burp)
 Web-Cache-Vulnerability-Scanner 
  jwt-cracker
  amass
@@ -44,3 +42,8 @@ dalfox
 qsreplace
 calc
 aquatone
+
+
+burp:
+cors
+awsextender

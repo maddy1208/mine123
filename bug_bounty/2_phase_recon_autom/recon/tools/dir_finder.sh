@@ -66,7 +66,7 @@ while read -r url; do
 
     # Run Dirsearch
     echo -e "${yellow}[-] Starting Dirsearch on $url${reset}"
-    dirsearch -u "$url" -t 50 --random-agent -x 404 --delay 0.5\
+    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirsearch.py -u "$url" -t 50 --random-agent -x 404 --delay 0.5\
    -e php,html,txt,bak,zip,old,inc,json,env,log,sql \
     -f -o "$dirpath/dirsearch.txt"
 
