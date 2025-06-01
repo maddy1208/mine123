@@ -1,4 +1,0 @@
-[wordpress-directory-listing-01][Tentative-Medium] - https://licet.ac.in/wp-includes/images/ - out/licet.ac.in/wordpress-directory-listing-01-c9cc6e757c333131b6d80c33c9326a738e0405a8
-[wordpress-directory-listing-01][Tentative-Medium] - https://licet.ac.in/wp-includes/ - out/licet.ac.in/wordpress-directory-listing-01-678ecce61bd3981a364d986c5e4be21d18437657
-[wordpress-rest-api-01][Tentative-Medium] - https://licet.ac.in/wp-json/ - out/licet.ac.in/wordpress-rest-api-01-eeaf60b6bda4b3e16b487df2736ebeb46d16a4db
-[CVE-2020-25213][Tentative-Critical] - https://selzy.com/wp-content/plugins/wp-file-manager/readme.txt - out/selzy.com/CVE-2020-25213-93f043dad3d6a14a39e12aac512028e8f402724c

@@ -117,3 +117,13 @@
 
 // module.exports=logfun
 
+
+http=require('http')
+url=require('url')
+
+http.createServer((req,res)=>{
+
+console.log(url.parse(req.url))
+res.end()
+
+}).listen('9000')

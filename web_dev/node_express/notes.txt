@@ -162,3 +162,4 @@ emitob=new eventemitter()
 emitob.on('onlog',(msg)=>{ lf(msg)})
 emitob.emit('onlog',"my message")
 
+

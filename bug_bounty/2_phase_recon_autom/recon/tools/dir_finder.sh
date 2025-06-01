@@ -15,7 +15,7 @@ if [[ ! -f "$input_file" ]]; then
 fi
 
 # -------------------- OUTPUT SETUP --------------------
-outdir="dirs"
+outdir="dirs_out"
 mkdir -p "$outdir"
 
 # ------------------- WORDLISTS SETUP ------------------
@@ -23,9 +23,9 @@ wordlists=(
     "/usr/share/dirb/wordlists/common.txt"
     "/home/maddy/techiee/bug_bounty/bin_deps/fuzz_onelistforallshort"
     "/home/maddy/techiee/bug_bounty/bin_deps/db.txt"
-    "/home/maddy/techiee/bug_bounty/bin_deps/dirs.txt"
-    "/home/lolita/hacking/bug_bounty/tools_dep/SecLists/Discovery/Web-Content/quickhits.txt"
-    "/home/lolita/hacking/bug_bounty/tools_dep/SecLists/Discovery/Web-Content/common.txt"
+    "/home/maddy/techiee/bug_bounty/bin_deps/my_research_dirs.txt"
+    "/home/maddy/techiee/bug_bounty/bin_deps/SecLists/Discovery/Web-Content/quickhits.txt"
+    "/home/maddy/techiee/bug_bounty/bin_deps/SecLists/Discovery/Web-Content/common.txt"
     "/home/maddy/techiee/bug_bounty/bin_deps/common.txt"
 )
 

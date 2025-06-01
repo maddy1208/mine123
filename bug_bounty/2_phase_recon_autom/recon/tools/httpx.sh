@@ -17,7 +17,7 @@ fi
 # ------------------- OUTPUT SETUP ---------------------
 base_name=$(basename "$input_file")
 domain=$(echo "$base_name" | cut -d'.' -f1)
-outdir="httpx/${domain}"
+outdir="httpx_out/${domain}"
 mkdir -p "$outdir"
 
 # ------------------- WAF DETECTION --------------------

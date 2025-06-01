@@ -1,4 +1,4 @@
-JUICY ENDPOINTS & SENSITIVE FILES:
+#JUICY ENDPOINTS & SENSITIVE FILES:
 site:blob.core.windows.net "target.com"
 site:googleapis.com "target.com"
 site:drive.google.com "target.com"
@@ -26,39 +26,39 @@ inurl:Makefile.toml "target"
 hostname user password filetype:xml "target"
 secret inurl:js filetype:txt "target"
 
-GDOCS:
+#GDOCS:
 site\:docs.google.com inurl:"/d/" "target"
 
-ONEDRIVE:
+#ONEDRIVE:
 site:onedrive.live.com "target"
 
-DROPBOX:
+#DROPBOX:
 site\:dropbox.com/s "target"
 
-BOX:
+#BOX:
 site\:box.com/s "target"
 
-AZURE DEVOPS:
+#AZURE DEVOPS:
 site:dev.azure.com "target"
 
-SHAREPOINT:
+#SHAREPOINT:
 site:http://sharepoint.com "target"
 
-DIGITALOCEAN SPACES:
+#DIGITALOCEAN SPACES:
 
 site:digitaloceanspaces.com "target"
 
-JFROG:
+#JFROG:
 site\:jfrog.io "target"
 
-RABBITMQ:
+#RABBITMQ:
 
 site:rabbitmq.*.*.com "target"
 site:rabbitmq.*.gov.* "target"
 site:rabbitmq.*.edu.* "target"
 site:rabbitmq.*.*.ccTLD "target"
 
-PORTAINER: (GUI to interact with Docker and Kubernetes Environment )
+#PORTAINER: (GUI to interact with Docker and Kubernetes Environment )
 site\:portainer.*.*.uk "target"
 site\:portainer.*.uk "target"
 site\:portainer.*.au "target"
@@ -66,17 +66,17 @@ site\:portainer.*.*.au "target"
 site\:portainer.*.*.gov.\* "target"
 site\:portainer.\*.edu "target"
 
-GRAFANA DASHBOARD (ALERTING):
+#GRAFANA DASHBOARD (ALERTING):
 inurl:dashboards inurl:alerting -site:gitub.com "Manage folder dashboards and permissions" "target"
 
-STORYBOOK:
+#STORYBOOK:
 site:storybook.*.*.uk "target"
 site:storybook.*.nl "target"
 site:storybook.*.* site:org -site:storybook.js.org "target"
 	
 
 
-REPORT VIEWER:
+#REPORT VIEWER:
 inurl:ReportViewer.aspx -site:github.com "target"
 inurl:ReportViewer.aspx inurl:& -site:github.com "target"
 inurl:ReportViewer.aspx inurl:? -site:github.com "target"
@@ -84,10 +84,10 @@ inurl:ReportViewer.aspx inurl:& inurl:& -site:github.com "target"
 inurl:ReportViewer.aspx -site:github.com site:ccTLD "target"
 
 
-SUBDOMAIN:
+#SUBDOMAIN:
 site:*.*.\*.redacted.com
 
-ADMIN PAGES:
+#ADMIN PAGES:
 inurl:& intext:admin intext:login "target"
 site:target.com inurl:admin "target"
 intitle:login site:website.com "target"
@@ -98,7 +98,7 @@ intext:admin "target"
 site:target.com inurl:admin | inurl:login | inurl:dashboard
 "set up the administrator user" inurl:pivot  (We can enter any username and password, create the admin account and then manage the site :)
 
-MONITORING:
+#MONITORING:
 inurl:awstats "target"
 inurl:monitoring "target"
 inurl:monitoring1 "target"
@@ -134,7 +134,7 @@ inurl:kibana inurl:app "target"
 inurl:kibana inurl:app inurl:5601 "target"
 intitle:dashboard-confluence "target"
 
-FOR WEB SERVER:
+#FOR WEB SERVER:
 "About Mac OS Personal Web Sharing" "target"
 "AnWeb/1.42h" intitle:index.of "target"
 "Application Blocked!" "Google bot" "target"
@@ -331,7 +331,7 @@ inurl:wl.exe inurl:?SS1= intext:"Operating system:" -edu -gov -mil "target"
 intext:"Apache server status for" "target"
 site:ftp.*.com "Web File Manager" "target"
 
-GIT:
+#GIT:
 inurl:.git-credentials "target"
 inurl:.gitconfig "target"
 intext:"index of /.git" "parent directory" "target"
@@ -345,21 +345,21 @@ intitle:"index of" ".gitignore" "target"
 inurl\:git "target"
 site\:target.com ext\:git "target"
 
-Errors:
+#Errors:
 inurl:"error" | intitle:"exception" | intitle:"failure" | intitle:"server at" | inurl:exception | "database error" | "SQL syntax" | "undefined index" | "unhandled exception" | "stack trace" "target"
 
-API Docs:
+#API Docs:
 inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer "target"
 
-Test Environments:
+#Test Environments:
 inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo "target"
 
-Adobe Experience Manager (AEM):
+#Adobe Experience Manager (AEM):
 inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de "target"
 intitle:xprober intext:CPU "target"
 inurl:/xprober ext:php "target"
 
-Cloud Storage:
+#Cloud Storage:
 site:target.com ("s3 bucket" OR "bucket-name" OR "s3.amazonaws.com" OR "s3-us-west-2.amazonaws.com" OR "s3.amazonaws.com/bucket-name" OR "s3.amazonaws.com/bucket/" OR "s3.amazonaws.com/bucket?prefix=" OR "s3.amazonaws.com/bucket-name/")
 site:s3.amazonaws.com "target"
 site:blob.core.windows.net "target"
@@ -375,27 +375,27 @@ site:dropbox.com/s "target"
 site:box.com/s "target"
 site:docs.google.com inurl:"/d/" "target"
 
-JFrog Artifactory:
+#JFrog Artifactory:
 site:jfrog.io "target"
 
-Firebase:
+#Firebase:
 site:firebaseio.com "target"
 
-JAVA:
+#JAVA:
 intitle:Error-javax.el.ELException+error+xhtml "target"
 intitle:"Java Applet Page" inurl:ml "target"
 
-CONF FILES:
+#CONF FILES:
 site:target.com ext:conf | ext:cnf | ext:config | ext:ini
 
-ERROR:
+#ERROR:
 site:target.com intext:"error" | intext:"warning" | intext:"not found" | intext:"exception"
 "not found in C:\" "target"
 "not found in D:\" "target"
 "not found in E:\" "target"
 "not found in F:\" "target"
 
-DIRECTORY LISTING:
+#DIRECTORY LISTING:
 intitle:"Index of / backup" "target"
 intitle:"Index of / database" "target"
 intitle:index.of "target"
@@ -421,7 +421,7 @@ inurl:/wp-content/ inurl:private "target"
 inurl:/wp-content/ inurl:internal "target"
 
 
-SESN FILES:
+#SESN FILES:
 filetype:sh "target"
 site:target.com ext:php intext:"phpinfo()" | intext:"PHP Version"
 site:target.com inurl:sessionid | inurl:JSESSIONID | inurl:PHPSESSID
@@ -509,7 +509,7 @@ filetype:csv "contact list" "target"
 filetype:xlsx "phone number" "target"
 intext:"SSN" filetype:xls "target"
 
-PROMETHEUS SENS FILES:
+#PROMETHEUS SENS FILES:
 "Prometheus Time Series Collection and Processing Server" -site:prometheus.io "target"
 site:prometheus.*.*.gov "target"
 site:prometheus.*.gov "target"
@@ -523,7 +523,7 @@ allinurl: /confluence/login.action? "target"
 "/pages/releaseview.action?" "target"
 "aboutconfluencepage.action" "target"
 
-PHPMYADMIN:
+#PHPMYADMIN:
 inurl:main ext:php "Welcome to phpMyAdmin" "running on" "target"
 "Welcome to phpMyAdmin" "running on" inurl:main.php "target"
 inurl:main.php phpMyAdmin "target"
@@ -531,29 +531,29 @@ inurl:main.php "Welcome to phpMyAdmin" "target"
 inurl:sql.php "phpmyadmin" "target"
 inurl:sql "phpmyadmin" "target"
 
-AWS S3 BUCKET:
+#AWS S3 BUCKET:
 site:*.s3.amazonaws.com "target"
 site:*.*.s3.amazonaws.com "target"
 site:*.*.*.s3.amazonaws.com "target"
 inurl:"s3.amazonaws.com" "target"
 site:*.s3.amazonaws.com intitle:Bucket loading "target"
 
-GEOSERVER
+#GEOSERVER
 inurl:"/geoserver/ows?service=wfs" site:*.gov "target"
 
-SOURCE CODE FILES:
+#SOURCE CODE FILES:
 site:target.com ext:py
 site:target.com ext:php | ext:jsp | ext:asp | ext:aspx | ext:js | ext:java | ext:py | ext:c | ext:cpp | ext:pl
 site:target.com filetype:java "password"
 
-Code Leaks:
+#Code Leaks:
 site:pastebin.com "target"
 site:jsfiddle.net "target"
 site:codebeautify.org "target"
 site:codepen.io "target"
 site:codepen.io "target" api
 
-SPRINGBOOT ACTUATOR ENDPOINTS:
+#SPRINGBOOT ACTUATOR ENDPOINTS:
 inurl:/actuator/prometheus "jvm_memory_max_bytes" "target"
 inurl:/actuator/prometheus "jvm_gc_pause_seconds" "target"
 /actuator/conditions "target"
@@ -565,7 +565,7 @@ inurl:/actuator/prometheus "jvm_gc_pause_seconds" "target"
 inurl:/actuator/env "target"
 inurl:/actuator/heapdump "target"
 
-APPLICATION IN DEVELOPMENT PHASE:
+#APPLICATION IN DEVELOPMENT PHASE:
 site:app-dev.*.* "target"
 site:app-dev.*.io "target"
 site:app-dev.*.com "target"
@@ -573,7 +573,7 @@ site:app-dev.*.org "target"
 site:app-dev.*.net "target"
 site:app-dev.*.ai "target"
 
-DEMO API & API:
+#DEMO API & API:
 site:demo-api.*.* "target"
 site:demo-api.*.io "target"
 site:demo-api.*.com "target"
@@ -584,7 +584,7 @@ inurl:api | inurl:rest | inurl:graphql "target"
 inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3 "target"
 
 
-UNAUTH:
+#UNAUTH:
 "Docker App Running" "Click on any card to access its webUI" "target"
 "Master" "Slave" "Charging station interface" "target"
 "Server" "Size" "Send logon information for this connection" "target"
@@ -603,7 +603,7 @@ site:.r2.dev "companyname" "target"
 "Back" "Hidden" "Archive Zip" "gohttpserver" "written by" "target"
 "Welcome to Your" "We are committed to bringing you the best service and finest Internet hosting solutions available." "target"
 
-OTHER SUBDOMAINS
+#OTHER SUBDOMAINS
 domain:target.com AND page.url:pre
 domain:target.com AND page.url:prod
 domain:target.com AND page.url:test
@@ -613,7 +613,7 @@ domain:target.com AND page.url:staging
 domain:target.com AND page.url:live
 domain:target.com AND page.url:dev
 
-DATABASE:
+#DATABASE:
 filetype:xls "private" "target"
 filetype:xls inurl:"contact" "target"
 filetype:xls inurl:"email.xls" "target"
@@ -658,18 +658,18 @@ jdbc:postgresql://localhost: + username + password ext:yml | ext:java -git -gitl
 Supplied argument is not a valid PostgreSQL result "target"
 "WordPress database error:" "target"
 
-FILE UPLOAD:
+#FILE UPLOAD:
 "Submit a ticket" "Attach a file" site:*.gov -ext:pdf "target"
 ”choose file” "target"
 intitle:”upload file” OR intitle:”file upload” OR intitle:”choose file” "target"
 
-HIDDEN CLOUDFARE PAGES:
+#HIDDEN CLOUDFARE PAGES:
 site:*.pages.dev "target"
 site:*-*.pages.dev "target"
 site:*-*-*.pages.dev "target"
 site:*.*.pages.dev "target"
 
-EMAIL INFO DIS:
+#EMAIL INFO DIS:
 "@gmail.com" "target"
 "@target.com" "target"
 intext:@"yahoo|gmail|hotmail".com filetype:txt site:.us "target"
@@ -696,14 +696,14 @@ site:*.gov ext:csv "Date of birth" "@gmail.com" "target"
 site:*.gov ext:csv "Date of birth" "@hotmail.com" "target"
 site:*.gov ext:csv "Date of birth" "@proton.me" "target"
 
-CA ADVIOR:
+#CA ADVIOR:
 "Allowed Cores" "Shares" "Reservation" "Limit" -site:docker.com -site:github.com "target"
 
-SPLASHMODAL API ENDPOINT
+#SPLASHMODAL API ENDPOINT
 inurl:/api/v1/splashmodal "target"
 
 
-GOOGLE DORKS TO FIND INFRASTRUCTURE AND NETWORK-RELATED DETAILS:
+#GOOGLE DORKS TO FIND INFRASTRUCTURE AND NETWORK-RELATED DETAILS:
 "IP address" "subnet" "target"
 "network diagram" filetype:vsd "target"
 filetype:cfg "router" "target"

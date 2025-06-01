@@ -1,0 +1,718 @@
+JUICY ENDPOINTS & SENSITIVE FILES:
+site:blob.core.windows.net "selzy.com"
+site:googleapis.com "selzy.com"
+site:drive.google.com "selzy.com"
+site:selzy.com filetype:pem "PRIVATE KEY"
+site:selzy.com filetype:ppk intext:"PuTTY"
+site:selzy.com inurl:"id_rsa" filetye:key
+inurl:config pass "selzy"
+inurl:config secret "selzy"
+inurl:config.php dbpasswd "selzy"
+inurl:config.php pass "selzy"
+inurl:config.php password "selzy"
+inurl:configuration "selzy"
+inurl:env "selzy"
+inurl:setting "selzy"
+filetype:log "selzy"
+intext:"Index of /" +.htaccess "selzy"
+intitle:"index of" "selzy"
+
+inurl:& intext:search "selzy"
+inurl:config secret "selzy"
+inurl:backup "selzy"
+inurl:backup.zip "selzy"
+inurl:quiz inurl:& "selzy"
+inurl:Makefile.toml "selzy"
+hostname user password filetype:xml "selzy"
+secret inurl:js filetype:txt "selzy"
+
+GDOCS:
+site\:docs.google.com inurl:"/d/" "selzy"
+
+ONEDRIVE:
+site:onedrive.live.com "selzy"
+
+DROPBOX:
+site\:dropbox.com/s "selzy"
+
+BOX:
+site\:box.com/s "selzy"
+
+AZURE DEVOPS:
+site:dev.azure.com "selzy"
+
+SHAREPOINT:
+site:http://sharepoint.com "selzy"
+
+DIGITALOCEAN SPACES:
+
+site:digitaloceanspaces.com "selzy"
+
+JFROG:
+site\:jfrog.io "selzy"
+
+RABBITMQ:
+
+site:rabbitmq.*.*.com "selzy"
+site:rabbitmq.*.gov.* "selzy"
+site:rabbitmq.*.edu.* "selzy"
+site:rabbitmq.*.*.ccTLD "selzy"
+
+PORTAINER: (GUI to interact with Docker and Kubernetes Environment )
+site\:portainer.*.*.uk "selzy"
+site\:portainer.*.uk "selzy"
+site\:portainer.*.au "selzy"
+site\:portainer.*.*.au "selzy"
+site\:portainer.*.*.gov.\* "selzy"
+site\:portainer.\*.edu "selzy"
+
+GRAFANA DASHBOARD (ALERTING):
+inurl:dashboards inurl:alerting -site:gitub.com "Manage folder dashboards and permissions" "selzy"
+
+STORYBOOK:
+site:storybook.*.*.uk "selzy"
+site:storybook.*.nl "selzy"
+site:storybook.*.* site:org -site:storybook.js.org "selzy"
+	
+
+
+REPORT VIEWER:
+inurl:ReportViewer.aspx -site:github.com "selzy"
+inurl:ReportViewer.aspx inurl:& -site:github.com "selzy"
+inurl:ReportViewer.aspx inurl:? -site:github.com "selzy"
+inurl:ReportViewer.aspx inurl:& inurl:& -site:github.com "selzy"
+inurl:ReportViewer.aspx -site:github.com site:ccTLD "selzy"
+
+
+SUBDOMAIN:
+site:*.*.\*.redacted.com
+
+ADMIN PAGES:
+inurl:& intext:admin intext:login "selzy"
+site:selzy.com inurl:admin "selzy"
+intitle:login site:website.com "selzy"
+intitle:/admin site:website.com "selzy"
+inurl:admin "selzy"
+intitle:admin "selzy"
+intext:admin "selzy"
+site:selzy.com inurl:admin | inurl:login | inurl:dashboard
+"set up the administrator user" inurl:pivot  (We can enter any username and password, create the admin account and then manage the site :)
+
+MONITORING:
+inurl:awstats "selzy"
+inurl:monitoring "selzy"
+inurl:monitoring1 "selzy"
+inurl:monitoring2 "selzy"
+inurl:stats "selzy"
+inurl:monitor "selzy"
+inurl:monitor2 "selzy"
+inurl:monitor1 "selzy"
+inurl:monitor01 "selzy"
+inurl:monitor02 "selzy"
+inurl:monitoramento "selzy"
+inurl:ipmonitor "selzy"
+inurl:webstats "selzy"
+inurl:netstats "selzy"
+inurl:labstats "selzy"
+inurl:logtstats "selzy"
+inurl:log "selzy"
+inurl:livestats "selzy"
+inurl:livemonitoring  "selzy"
+"Parent Directory" "Last modified" monitoring "selzy"
+inurl:nagios/side.php  "selzy"
+inurl:kibana "selzy"
+intitle:"Apollo Server" "query this graph" "selzy"
+inurl:grafana "selzy"
+inurl:cacti "selzy"
+inurl:munin "selzy"
+inurl:/plesk-stat/webstat "2024" "selzy"
+inurl:/plesk-stat/webstat "2023" "selzy"
+ntopng Traffic Dashboard  "selzy"
+intitle:"ntopng - Traffic Dashboard" "ntopng Community" "selzy"
+intitle:"7D2D dashboard" "selzy"
+inurl:kibana inurl:app "selzy"
+inurl:kibana inurl:app inurl:5601 "selzy"
+intitle:dashboard-confluence "selzy"
+
+FOR WEB SERVER:
+"About Mac OS Personal Web Sharing" "selzy"
+"AnWeb/1.42h" intitle:index.of "selzy"
+"Application Blocked!" "Google bot" "selzy"
+"CERN httpd 3.0B (VAX VMS)" "selzy"
+"Cisco Systems, Inc. All Rights Reserved." -cisco.com filetype:jsp "selzy"
+"I have been invoked by servletToJSP" "selzy"
+"JRun Web Server" intitle:index.of "selzy"
+"MaXX/3.1" intitle:index.of "selzy"
+"Microsoft-IIS/* server at" intitle:index.of "selzy"
+"Microsoft-IIS/4.0" intitle:index.of "selzy"
+"Microsoft-IIS/5.0 server at" "selzy"
+"Microsoft-IIS/6.0" intitle:index.of "selzy"
+"NTRIP Caster Table Contents" "This is a SNIP NTRIP Caster" "selzy"
+"Netware * Home" inurl:nav.html "selzy"
+"Novell, Inc" WEBACCESS Username Password "Version *.*" Copyright -inurl:help -guides|guide "selzy"
+"OmniHTTPd/2.10" intitle:index.of "selzy"
+"OpenSA/1.0.4" intitle:index.of "selzy"
+"PHP Credits" "Configuration" "PHP Core" ext:php inurl:info "selzy"
+"Powered by 123LogAnalyzer" "selzy"
+"Powered by BOINC" "selzy"
+"Powered by phpBB" inurl:"index.php?s" OR inurl:"index.php?style" "selzy"
+"Powered by vShare" "selzy"
+"Powered by" "selzy"
+"Proudly created with Wix.com" "selzy"
+"RDServer Product information" | inurl:"/rdagent.jsp" "selzy"
+"Red Hat Secure/2.0" "selzy"
+"Red Hat Secure/3.0 server at" "selzy"
+"Switch to table format" inurl:table|plain "selzy"
+"This server is operated by OpenX." "selzy"
+"Wowza Streaming Engine 4 Developer Edition" "selzy"
+"httpd+ssl/kttd" * server at intitle:index.of "selzy"
+"index of /private" -site:net -site:com -site:org "selzy"
+"powered by openbsd" +"powered by apache" "selzy"
+"powered by" "shoutstats" hourly daily "selzy"
+"seeing this instead" intitle:"test page for apache" "selzy"
+"var miner = new CoinHive" intext:document.domain "selzy"
+(intitle:"502 Proxy Error")|(intitle:"503 Proxy Error") "The proxy server could not handle the request" -topic -mail -4suite -list -site:geocrawler.co  "selzy"
+(inurl:81-cobalt | inurl:cgi-bin/.cobalt) "selzy"
+-pub -pool intitle:"index of" "Served by" "Web Server" "selzy"
+Coldbox | contentbox | commandbox "Powered by ContentBox" "selzy"
+Fwd: intitle:"STEP by STIBO Systems" "Launch STEPworkbench" "Web UI Component Report" "selzy"
+HTTP_USER_AGENT=Googlebot "selzy"
+Powered.by.RaidenHTTPD intitle:index.of "selzy"
+XAMPP "inurl:xampp/index" "selzy"
+aboutprinter.shtml "selzy"
+allintext:"Index Of" "sftp-config.json" "selzy"
+allintext:"Powered by LionMax Software" "WWW File Share" "selzy"
+allintitle:"Pi-hole Admin Console" "selzy"
+allintitle:Netscape FastTrack Server Home Page "selzy"
+allinurl:".nsconfig" -sample -howto -tutorial "selzy"
+ext:php | intitle:phpinfo "published by the PHP Group" "selzy"
+ext:svc inurl:wsdl "selzy"
+filetype:asmx inurl:(_vti_bin|api|webservice) "selzy"
+filetype:axd inurl:/elmah.axd "selzy"
+fitweb-wwws * server at intitle:index.of "selzy"
+i_index.shtml Ready "selzy"
+intext:" - 2019 Cott Systems, Inc." "selzy"
+intext:"404 Object Not Found" Microsoft-IIS/5.0 "selzy"
+intext:"Brought to you by eVetSites" "selzy"
+intext:"Healthy" + "Product model" + " Client IP" + "Ethernet" "selzy"
+intext:"Powered by (Quantum | Quantum CMS | CMS) "selzy"
+intext:"Powered by Abyss Web Server" "selzy"
+intext:"Powered by GetSimple" -site:get-simple.info "selzy"
+intext:"Powered by Nesta" "selzy"
+intext:"Powered by Sentora" -github.com "selzy"
+intext:"Powered by Typesetter" "selzy"
+intext:"Powered by phpSQLiteCMS" | intitle:"phpSQLiteCMS - A simple & lightweight CMS" "selzy"
+intext:"SonarQube" + "by SonarSource SA." + "LGPL v3" "selzy"
+intext:"selzy Multicast Group" "beacon" "selzy"
+intext:"This is the default welcome page used to test the correct operation of the Apache2 server" "selzy"
+intext:"Welcome to CodeIgniter!" "selzy"
+intext:"index of /" "Index of" access_log "selzy"
+intext:Apache/2.2.29 (Unix) mod_ssl/2.2.29 | intitle:"Index of /" "selzy"
+intitle: "Welcome to nginx!" + "Thank you for using nginx." "selzy"
+intitle:"300 multiple choices" "selzy"
+intitle:"Accueil WAMPSERVER" intext:"Configuration Serveur" "selzy"
+intitle:"Apache HTTP Server" intitle:"documentation" "selzy"
+intitle:"Apache Status" "Apache Server Status for" "selzy"
+intitle:"Apache Status" | intext:"Apache Server Status" "selzy"
+intitle:"Apache2 Debian Default Page: It works" "selzy"
+intitle:"Apache2 Ubuntu Default Page: It works" "selzy"
+intitle:"Axis Happiness Page" "Examining webapp configuration" "selzy"
+intitle:"BadBlue: the file-sharing web server anyone can use" "selzy"
+intitle:"Current Network Status" "Nagios" "selzy"
+intitle:"Directory Listing, Index of /*/" "selzy"
+intitle:"Document title goes here" intitle:"used by web search tools" " example of a simple Home Page" "selzy"
+intitle:"Domain Default page" "Parallels IP Holdings GmbH" "selzy"
+intitle:"GlassFish Server - Server Running" "selzy"
+intitle:"HFS" "Server Uptime" "Server time" "selzy"
+intitle:"IIS Windows Server" -inurl:"IIS Windows Server" "selzy"
+intitle:"IPC@CHIP Infopage" "selzy"
+intitle:"Icecast Streaming Media Server" "selzy"
+intitle:"Index of *" mode links bytes last-changed name "selzy"
+intitle:"Index of /" "Proudly Served by Surftown at" "selzy"
+intitle:"Index of" "Apache/2.4.7 (Ubuntu) Server" "selzy"
+intitle:"Index of" site:.gov intext:"Server at" "selzy"
+intitle:"Lists Web Service" "selzy"
+intitle:"Lotus Domino Go Webserver:" "Tuning your webserver" -site:ibm.com "selzy"
+intitle:"Microsoft Internet Information Services 8" -IIS "selzy"
+intitle:"Miniweb Start Page" | "/CSS/Miniweb.css" "selzy"
+intitle:"Monsta ftp" intext:"Lock session to IP" "selzy"
+intitle:"Object not found!" intext:"Apache/2.0.* (Linux/SuSE)" "selzy"
+intitle:"Object not found" netware "apache 1.." "selzy"
+intitle:"Open WebMail" "Open WebMail version (2.20|2.21|2.30) " "selzy"
+intitle:"Page rev */*/*" inurl:"admin "selzy"
+intitle:"Resin Default Home Page" "selzy"
+intitle:"SOGo" site:webmail.* "selzy"
+intitle:"STEP by STIBO Systems" "Launch STEPworkbench" "Web UI Component Report" "selzy"
+intitle:"Server Backup Manager SE" "selzy"
+intitle:"Shoutcast Administrator" "selzy"
+intitle:"Shoutcast server" inurl:"/index.html" "SHOUTcast Server" "selzy"
+intitle:"Success!" intext:"Your new web server is ready to use." "selzy"
+intitle:"Sucuri WebSite Firewall - Access Denied" "selzy"
+intitle:"Test Page for Apache" "selzy"
+intitle:"Test Page for Apache" "It Worked!" "selzy"
+intitle:"Test Page for Apache" "It Worked!" "on this web" "selzy"
+intitle:"Test Page for the Apache HTTP Server on Fedora Core" intext:"Fedora Core Test Page" "selzy"
+intitle:"Test Page for the HTTP Server on Fedora" "selzy"
+intitle:"WAMPSERVER homepage" "Server Configuration" "Apache Version" "selzy"
+intitle:"WATASHI SERVICE" "selzy"
+intitle:"Web Server's Default Page" intext:"hosting using Plesk" -www "selzy"
+intitle:"Welcome To Xitami" -site:xitami.com "selzy"
+intitle:"Welcome To Your WebSTAR Home Page" "selzy"
+intitle:"Welcome to 602LAN SUITE *" "selzy"
+intitle:"Welcome to IIS 4.0" "selzy"
+intitle:"Welcome to JBoss" "selzy"
+intitle:"Welcome to OpenResty!" "selzy"
+intitle:"Welcome to WildFly" intext:"Administration Console" "selzy"
+intitle:"Welcome to Windows 2000 Internet Services" "selzy"
+intitle:"Welcome to Windows Small Business Server 2003" "selzy"
+intitle:"Welcome to Your New Home Page!" "by the Debian release" "selzy"
+intitle:"Welcome to nginx!" intext:"Welcome to nginx on Debian!" intext:"Thank you for" "selzy"
+intitle:"Welcome to the Advanced Extranet Server, ADVX!" "selzy"
+intitle:"Welcome" intext:"LiteSpeed Technologies, Inc. All Rights Reserved." "selzy"
+intitle:"apache tomcat/" "Apache Tomcat examples" "selzy"
+intitle:"apache tomcat/" + "Find additional important configuration information in:" "selzy"
+intitle:"error 404" "From RFC 2068 " "selzy"
+intitle:"miniProxy" "selzy"
+intitle:"nPerfServer" "selzy"
+intitle:”PHP Version” intext:”PHP Version” "selzy"
+intitle:"web server login" intext:"site ip" "selzy"
+intitle:"welcome to mono xsp" "selzy"
+intitle:AnswerBook2 inurl:ab2/ (inurl:8888 | inurl:8889) "selzy"
+intitle:HTTP Server Test Page powered by CentOS "selzy"
+intitle:Snap.Server inurl:Func= "selzy"
+intitle:Snoop Servlet "selzy"
+intitle:Test Page for the Nginx HTTP Server on Fedora "selzy"
+intitle:livezilla "Server Time" "selzy"
+inurl *:8080/login.php "selzy"
+inurl: /ftp intitle:"office" "selzy"
+inurl:"/app/kibana#" "selzy"
+inurl:"/domcfg.nsf" " Web Server Configuration" "selzy"
+inurl:"/phpmyadmin/user_password.php "selzy"
+inurl:"/web-console/" intitle:"Administration Console" "selzy"
+inurl:":8088/cluster/apps" "selzy"
+inurl:"WebPortal?bankid" "selzy"
+inurl:"id=*" & intext:"warning mysql_fetch_array()" "selzy"
+inurl:"server-status" "Server Version: Apache/" "Server Built: " "Server uptime:" "Total accesses" "CPU Usage:" "selzy"
+inurl:"web/database/selector" "selzy"
+inurl:/Portal0000.htm "selzy"
+inurl:/_catalogs "selzy"
+inurl:/_hcms/ "selzy"
+inurl:/config/device/wcd "selzy"
+inurl:/iisstart.htm intitle:"IIS7" "selzy"
+inurl:/javax.faces.resource/ "selzy"
+inurl:/php/info.php "selzy"
+inurl:/phpPgAdmin/browser.php "selzy"
+inurl:/phpmyadmin/changelog.php -github -gitlab "selzy"
+inurl:/pub/ inurl:_ri_ "selzy"
+inurl:/server-status + "Server MPM:" "selzy"
+inurl:/uploads/affwp-debug.log "selzy"
+inurl:/xprober ext:php "selzy"
+inurl:2506/jana-admin "selzy"
+inurl:?XDEBUG_SESSION_START=phpstorm "selzy"
+inurl:CFIDE/adminapi "selzy"
+inurl:OrganizationChart.cc "selzy"
+inurl:_vti_bin/Authentication.asmx "selzy"
+inurl:composer.json codeigniter -site:github.com "selzy"
+inurl:domcfg.nsf "selzy"
+inurl:jsmol.php "selzy"
+inurl:nnls_brand.html OR inurl:nnls_nav.html "selzy"
+inurl:oraweb -site:oraweb.org "selzy"
+inurl:phpinfo.php intext:build 2600 "selzy"
+inurl:phpmyadmin/themes intext:"pmahomme" "selzy"
+inurl:phpsysinfo/index.php?disp=dynamic "selzy"
+inurl:readme.md intext:"Laravel" "selzy"
+inurl:readme.md intext:"typo3" "selzy"
+inurl:readme.rst intext:"CodeIgniter" "selzy"
+inurl:rvsindex.php & /rvsindex.php?/user/login "selzy"
+inurl:tech-support inurl:show Cisco "selzy"
+inurl:tests/mocks intext:autoloader "selzy"
+inurl:user_guide intext:"CodeIgniter User Guide" "selzy"
+inurl:wl.exe inurl:?SS1= intext:"Operating system:" -edu -gov -mil "selzy"
+intext:"Apache server status for" "selzy"
+site:ftp.*.com "Web File Manager" "selzy"
+
+GIT:
+inurl:.git-credentials "selzy"
+inurl:.gitconfig "selzy"
+intext:"index of /.git" "parent directory" "selzy"
+filetype\:git -github.com inurl:"/.git" "selzy"
+(intext:"index of /.git") ("parent directory") "selzy"
+inurl\:ORIG\_HEAD "selzy"
+intitle:"index of" ".gitignore" "selzy"
+".git" intitle:"Index of" "selzy"
+(intext:"index of /.git") ("parent directory") "selzy"
+"Parent Directory" "Last modified" git "selzy"
+inurl\:git "selzy"
+site\:selzy.com ext\:git "selzy"
+
+Errors:
+inurl:"error" | intitle:"exception" | intitle:"failure" | intitle:"server at" | inurl:exception | "database error" | "SQL syntax" | "undefined index" | "unhandled exception" | "stack trace" "selzy"
+
+API Docs:
+inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer "selzy"
+
+Test Environments:
+inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo "selzy"
+
+Adobe Experience Manager (AEM):
+inurl:/content/usergenerated | inurl:/content/dam | inurl:/jcr:content | inurl:/libs/granite | inurl:/etc/clientlibs | inurl:/content/geometrixx | inurl:/bin/wcm | inurl:/crx/de "selzy"
+intitle:xprober intext:CPU "selzy"
+inurl:/xprober ext:php "selzy"
+
+Cloud Storage:
+site:selzy.com ("s3 bucket" OR "bucket-name" OR "s3.amazonaws.com" OR "s3-us-west-2.amazonaws.com" OR "s3.amazonaws.com/bucket-name" OR "s3.amazonaws.com/bucket/" OR "s3.amazonaws.com/bucket?prefix=" OR "s3.amazonaws.com/bucket-name/")
+site:s3.amazonaws.com "selzy"
+site:blob.core.windows.net "selzy"
+site:googleapis.com "selzy"
+site:drive.google.com "selzy"
+site:dev.azure.com "selzy"
+site:onedrive.live.com "selzy"
+site:digitaloceanspaces.com "selzy"
+site:sharepoint.com "selzy"
+site:s3-external-1.amazonaws.com "selzy"
+site:s3.dualstack.us-east-1.amazonaws.com "selzy"
+site:dropbox.com/s "selzy"
+site:box.com/s "selzy"
+site:docs.google.com inurl:"/d/" "selzy"
+
+JFrog Artifactory:
+site:jfrog.io "selzy"
+
+Firebase:
+site:firebaseio.com "selzy"
+
+JAVA:
+intitle:Error-javax.el.ELException+error+xhtml "selzy"
+intitle:"Java Applet Page" inurl:ml "selzy"
+
+CONF FILES:
+site:selzy.com ext:conf | ext:cnf | ext:config | ext:ini
+
+ERROR:
+site:selzy.com intext:"error" | intext:"warning" | intext:"not found" | intext:"exception"
+"not found in C:\" "selzy"
+"not found in D:\" "selzy"
+"not found in E:\" "selzy"
+"not found in F:\" "selzy"
+
+DIRECTORY LISTING:
+intitle:"Index of / backup" "selzy"
+intitle:"Index of / database" "selzy"
+intitle:index.of "selzy"
+"parent directory" "selzy"
+inurl:wp- | inurl:joomla | inurl:drupal | inurl:magento "selzy"
+intitle:"index of" "/homedir/etc/" "selzy"
+intitle:"index of" "Served by Sun-ONE" "selzy"
+intitle:"index of" "debug.log" OR "debug-log" "selzy"
+intitle:"index of" "docker.yml" "selzy"
+intitle:"index of" "powered by apache " "port 80" "selzy"
+intitle:"index of" "server at" "selzy"
+intitle:"index of" AND inurl:magento AND inurl:/dev "selzy"
+intitle:"index of" site:.gov.in "selzy"
+intitle:"index of" "debian.cnf" "selzy"
+intitle:"index of" "debian.conf" "selzy"
+intitle:\"Welcome to nginx!\" intext:\"Welcome to nginx on Debian!\" intext:\"Thank you for\" "selzy"
+intitle:index of /wp-content "selzy"
+intitle:index of /wp-content/uploads "selzy"
+intitle:index of /wp-content/bak "selzy"
+intitle:index of /wp-content/backup "selzy"
+intitle:index of /wp-content/2024 "selzy"
+inurl:/wp-content/ inurl:private "selzy"
+inurl:/wp-content/ inurl:internal "selzy"
+
+
+SESN FILES:
+filetype:sh "selzy"
+site:selzy.com ext:php intext:"phpinfo()" | intext:"PHP Version"
+site:selzy.com inurl:sessionid | inurl:JSESSIONID | inurl:PHPSESSID
+inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:& site:selzy.com
+site:selzy.com intext:"PHPSESSID="
+site:selzy.com intext:"session_token="
+site:selzy.com inurl:".env"
+site:github.com "selzy.com" AND ("password" OR "API_KEY")
+site:docs.google.com "selzy.com confidential"
+page.url:config.zip "selzy"
+page.url:config AND page.url:zip "selzy"
+site:selzy.com ext:log
+site:selzy.com  ext:doc | ext:docx | ext:pdf | ext:xls | ext:xlsx | ext:ppt | ext:pptx
+site:selzy.com inurl:.git
+intitle:"index of" "access.log" or "error.log"
+ext:env | ext:yaml | ext:json "selzy"
+ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup  "selzy"
+site:*.gov ext:old  "selzy"
+site:selzy.com ext:pdf
+site:selzy.com ext:pdf "CONFIDENTIAL"
+site:selzy.com ext:pdf "STRICTLY CONFIDENTIAL"
+site:selzy.com ext:pdf "HIGHLY CONFIDENTIAL"
+site:selzy.com ext:pdf "PRIVATE"
+site:selzy.com ext:pdf "PRIVATE AND CONFIDENTIAL"
+site:selzy.com ext:pdf "PRIVATE AND SENSITIVE"
+site:selzy.com ext:pdf "TRADE SECRET"
+site:selzy.com ext:pdf "NOT FOR DISTRIBUTION"
+site:selzy.com ext:pdf "NOT FOR PUBLIC RELEASE"
+site:selzy.com ext:pdf "EMPLOYEE ONLY"
+site:selzy.com ext:pdf "INTERNAL USE ONLY"
+site:selzy.com ext:pdf "INTERNAL ONLY"
+site:selzy.com ext:pdf "COMPANY SENSITIVE"
+site:selzy.com (ext:pdf OR ext:doc OR ext:docx OR ext:zip OR ext:bak OR ext:txt OR ext:ppt OR ext:pptx OR ext:xls OR ext:xlsx)
+site:selzy.com ext:xls
+site:selzy.com ext:xlsx
+inurl:wp-content/uploads/ ext:xlsx site:selzy.com
+inurl:wp-content/uploads/ ext:xls site:selzy.com
+inurl:wp-content/uploads/ ext:xls "@gmail.com" site:selzy.com
+inurl:wp-content/uploads/ ext:xlsx "@gmail.com" site:selzy.com
+inurl:wp-content/uploads/ ext:xls "date of birth" site:selzy.com
+inurl:wp-content/uploads/ ext:xlsx "date of birth" site:selzy.com
+inurl:wp-content/uploads/ ext:xls "INTERNAL USE ONLY" site:selzy.com
+inurl:wp-content/uploads/ ext:xlsx "INTERNAL USE ONLY" site:selzy.com
+inurl:wp-content/uploads/ ext:pdf site:selzy.com
+inurl:wp-content/uploads/ ext:pdf "@gmail.com" site:selzy.com
+inurl:wp-content/uploads/ ext:pdf "date of birth" site:selzy.com
+inurl:wp-content/uploads/ ext:pdf "INTERNAL USE ONLY" site:selzy.com
+site:selzy.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx
+intext:“confidential” | intext:“Not for Public Release” | intext:”internal use only” | intext:“do not distribute” "selzy"
+site:selzy.com inurl:/content/dam ext:xls
+site:selzy.com inurl:/content/dam ext:xlsx
+site:selzy.com inurl:/content/dam ext:csv
+site:selzy.com "join.slack"
+site:selzy.com "join.slack" ext:pdf
+site:selzy.com "join.slack" ext:doc
+site:selzy.com "join.slack" ext:docx
+site:selzy.com "join.slack" ext:odt
+site:selzy.com "join.slack" ext:odf
+site:selzy.com "join.slack" ext:csv
+site:selzy.com "join.slack" ext:xls
+site:selzy.com "join.slack" ext:xlsx
+site:selzy.com "join.slack" ext:txt
+site:"selzy.com" (ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json)  
+OR  
+site:"selzy.com" (inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php)
+site:selzy.com ext:env OR ext:yaml OR ext:yml OR ext:json OR ext:xml OR ext:zip OR  ext:log OR ext:sql OR ext:ini OR ext:bak OR ext:conf OR ext:config OR ext:db OR ext:dbf OR ext:tar OR ext:gz OR ext:backup OR ext:swp OR ext:old OR ext:key OR ext:pem OR ext:crt OR ext:pfx OR ext:pdf OR ext:xlsx OR ext:xls OR ext:ppt OR ext:pptx "selzy"
+"Confidential" filetype:pdf site:*.gov.in "selzy"
+filetype:docx "Standard Operating Procedure" site:*.selzy.com
+intext:"internal use only" filetype:xls site:*.selzy.com
+site:*.selzy.com"restricted access" filetype:pdf
+"not for public release" site:*.edu "selzy"
+filetype:pdf "policy document" site:*.gov.in "selzy"
+filetype:doc "for internal use" site:*.org "selzy"
+site:*.mil.in "mission report" "selzy"
+filetype:xlsx "incident response" site:*.selzy.com
+filetype:pdf "incident log" site:*.selzy.com
+filetype:xlsx "student data" "selzy"
+filetype:pdf "resume" "confidential" site:*.gov.in "selzy"
+"CV" "private" filetype:doc "selzy"
+"Aadhar" filetype:xls "selzy"
+"PAN number" filetype:pdf site:*.gov.in "selzy"
+inurl:cv_uploads filetype:docx site:*.selzy.com
+"employee information" filetype:xlsx "selzy"
+filetype:csv "contact list" "selzy"
+filetype:xlsx "phone number" "selzy"
+intext:"SSN" filetype:xls "selzy"
+
+PROMETHEUS SENS FILES:
+"Prometheus Time Series Collection and Processing Server" -site:prometheus.io "selzy"
+site:prometheus.*.*.gov "selzy"
+site:prometheus.*.gov "selzy"
+site:prometheus.*.*.gov.* "selzy"
+site:prometheus.*.gov.* "selzy"
+inurl:http://confluence. login.action "selzy"
+inurl:https://wiki. .com/confluence/ "selzy"
+allinurl: /confluence/login.action? "selzy"
+"/spacedirectory/view.action" "selzy"
+"/pages/viewpage.action?" "selzy"
+"/pages/releaseview.action?" "selzy"
+"aboutconfluencepage.action" "selzy"
+
+PHPMYADMIN:
+inurl:main ext:php "Welcome to phpMyAdmin" "running on" "selzy"
+"Welcome to phpMyAdmin" "running on" inurl:main.php "selzy"
+inurl:main.php phpMyAdmin "selzy"
+inurl:main.php "Welcome to phpMyAdmin" "selzy"
+inurl:sql.php "phpmyadmin" "selzy"
+inurl:sql "phpmyadmin" "selzy"
+
+AWS S3 BUCKET:
+site:*.s3.amazonaws.com "selzy"
+site:*.*.s3.amazonaws.com "selzy"
+site:*.*.*.s3.amazonaws.com "selzy"
+inurl:"s3.amazonaws.com" "selzy"
+site:*.s3.amazonaws.com intitle:Bucket loading "selzy"
+
+GEOSERVER
+inurl:"/geoserver/ows?service=wfs" site:*.gov "selzy"
+
+SOURCE CODE FILES:
+site:selzy.com ext:py
+site:selzy.com ext:php | ext:jsp | ext:asp | ext:aspx | ext:js | ext:java | ext:py | ext:c | ext:cpp | ext:pl
+site:selzy.com filetype:java "password"
+
+Code Leaks:
+site:pastebin.com "selzy"
+site:jsfiddle.net "selzy"
+site:codebeautify.org "selzy"
+site:codepen.io "selzy"
+site:codepen.io "selzy" api
+
+SPRINGBOOT ACTUATOR ENDPOINTS:
+inurl:/actuator/prometheus "jvm_memory_max_bytes" "selzy"
+inurl:/actuator/prometheus "jvm_gc_pause_seconds" "selzy"
+/actuator/conditions "selzy"
+/actuator/configprops "selzy"
+/actuator/loggers "selzy"
+/actuator/threaddump "selzy"
+/actuator/scheduledtasks "selzy"
+/actuator/mappings "selzy"
+inurl:/actuator/env "selzy"
+inurl:/actuator/heapdump "selzy"
+
+APPLICATION IN DEVELOPMENT PHASE:
+site:app-dev.*.* "selzy"
+site:app-dev.*.io "selzy"
+site:app-dev.*.com "selzy"
+site:app-dev.*.org "selzy"
+site:app-dev.*.net "selzy"
+site:app-dev.*.ai "selzy"
+
+DEMO API & API:
+site:demo-api.*.* "selzy"
+site:demo-api.*.io "selzy"
+site:demo-api.*.com "selzy"
+site:demo-api.*.org "selzy"
+site:demo-api.*.net "selzy"
+site:demo-api.*.ai "selzy"
+inurl:api | inurl:rest | inurl:graphql "selzy"
+inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3 "selzy"
+
+
+UNAUTH:
+"Docker App Running" "Click on any card to access its webUI" "selzy"
+"Master" "Slave" "Charging station interface" "selzy"
+"Server" "Size" "Send logon information for this connection" "selzy"
+intitle:"Dashboard [Jenkins]" Credentials "selzy"
+site:groups.google.com "selzy"
+intitle:"Grafana" inurl:"/dashboard/db" "selzy"
+site:selzy.com inurl:swagger "selzy"
+"Powered by ZFile" "selzy"
+"PHP Fatal" "selzy"
+inurl:8080/dashboard "selzy"
+inurl:8081/dashboard "selzy"
+"iTop Installation Wizard" "Prerequisites validation" "selzy"
+inurl:/sidekiq intext:"memory usage" intext:"polling interval" "selzy"
+intitle:"Roxy file manager" "selzy"
+site:.r2.dev "companyname" "selzy"
+"Back" "Hidden" "Archive Zip" "gohttpserver" "written by" "selzy"
+"Welcome to Your" "We are committed to bringing you the best service and finest Internet hosting solutions available." "selzy"
+
+OTHER SUBDOMAINS
+domain:selzy.com AND page.url:pre
+domain:selzy.com AND page.url:prod
+domain:selzy.com AND page.url:test
+domain:selzy.com AND page.url:stg
+domain:selzy.com AND page.url:stage
+domain:selzy.com AND page.url:staging
+domain:selzy.com AND page.url:live
+domain:selzy.com AND page.url:dev
+
+DATABASE:
+filetype:xls "private" "selzy"
+filetype:xls inurl:"contact" "selzy"
+filetype:xls inurl:"email.xls" "selzy"
+allinurl:"admin" mdb "selzy"
+inurl:"email" filetype:mdb "selzy"
+inurl:"backup" filetype:mdb "selzy"
+inurl:"*db" filetype:mdb "selzy"
+ext:sql | ext:db | ext:dbf | ext:mdb "selzy"
+"Uncaught Error: Call to undefined function" "selzy"
+"error in your SQL" "selzy"
+inurl:search.php inurl:sqlQuery inurl:& "selzy"
+"Manage databases" inurl:/database/selector "selzy"
+"Unclosed quotation mark" "selzy"
+"Error Executing Database Query" "selzy"
+"mysql_num_rows()" "error" "selzy"
+"mysql_fetch_array()" "error" "selzy"
+"mysql_query()" "error" "selzy"
+inurl:db.sql "selzy"
+inurl:db.sqlite "selzy"
+inurl:setup.sql "selzy"
+inurl:mysql.sql "selzy"
+inurl:users.sql "selzy"
+inurl:backup.sql "selzy"
+inurl:db filetype:sql "selzy"
+inurl:backup filetype:sql "selzy"
+create table  filetype:sql "selzy"
+"-- MySQL dump" "Server version" "Table structure for table" "selzy"
+inurl:/db/websql/ "selzy"
+filetype:sql "selzy"
+inurl:backup filetype:sql "selzy"
+mysql history files "selzy"
+mysql intext:passwords filetype:txt "selzy"
+mysql history files filetype:txt "selzy"
+mysql root filetype:txt "selzy"
+mysql filetype:xml "selzy"
+mysql settings filetype:xml "selzy"
+mysql secrect password "selzy"
+"POSTGRES_PASSWORD=" ext:txt | ext:cfg | ext:env | ext:ini | ext:yml | ext:sql -git -gitlab "selzy"
+jdbc:postgresql://localhost: + username + password ext:yml | ext:java -git -gitlab "selzy"
+"PostgreSQL query failed: ERROR: parser: parse error" "selzy"
+"Warning: pg_connect(): Unable to connect to PostgreSQL server: FATAL" "selzy"
+Supplied argument is not a valid PostgreSQL result "selzy"
+"WordPress database error:" "selzy"
+
+FILE UPLOAD:
+"Submit a ticket" "Attach a file" site:*.gov -ext:pdf "selzy"
+”choose file” "selzy"
+intitle:”upload file” OR intitle:”file upload” OR intitle:”choose file” "selzy"
+
+HIDDEN CLOUDFARE PAGES:
+site:*.pages.dev "selzy"
+site:*-*.pages.dev "selzy"
+site:*-*-*.pages.dev "selzy"
+site:*.*.pages.dev "selzy"
+
+EMAIL INFO DIS:
+"@gmail.com" "selzy"
+"@selzy.com" "selzy"
+intext:@"yahoo|gmail|hotmail".com filetype:txt site:.us "selzy"
+intitle:"index of /" "aadhaar" intext:.jpg "selzy"
+intitle:"index of /" "aadhaar" intext:.png "selzy"
+intitle:"index of /" "pan_card" intext:.jpg "selzy"
+intitle:"index of /" "pan_card" intext:.png "selzy"
+site:*.gov ext:xlsx "Date of birth" "@gmail.com" "selzy"
+site:*.gov ext:xlsx "Date of birth" "@hotmail.com" "selzy"
+site:*.gov ext:xlsx "Date of birth" "@proton.me" "selzy"
+site:*.gov ext:xls "Date of birth" "@gmail.com" "selzy"
+site:*.gov ext:xls "Date of birth" "@hotmail.com" "selzy"
+site:*.gov ext:xls "Date of birth" "@proton.me" "selzy"
+site:*.gov ext:pdf "Date of birth" "@gmail.com" "selzy"
+site:*.gov ext:pdf "Date of birth" "@hotmail.com" "selzy"
+site:*.gov ext:pdf "Date of birth" "@proton.me" "selzy"
+site:*.gov ext:doc "Date of birth" "@gmail.com" "selzy"
+site:*.gov ext:doc "Date of birth" "@hotmail.com" "selzy"
+site:*.gov ext:doc "Date of birth" "@proton.me" "selzy"
+site:*.gov ext:docx "Date of birth" "@gmail.com" "selzy"
+site:*.gov ext:docx "Date of birth" "@hotmail.com" "selzy"
+site:*.gov ext:docx "Date of birth" "@proton.me" "selzy"
+site:*.gov ext:csv "Date of birth" "@gmail.com" "selzy"
+site:*.gov ext:csv "Date of birth" "@hotmail.com" "selzy"
+site:*.gov ext:csv "Date of birth" "@proton.me" "selzy"
+
+CA ADVIOR:
+"Allowed Cores" "Shares" "Reservation" "Limit" -site:docker.com -site:github.com "selzy"
+
+SPLASHMODAL API ENDPOINT
+inurl:/api/v1/splashmodal "selzy"
+
+
+GOOGLE DORKS TO FIND INFRASTRUCTURE AND NETWORK-RELATED DETAILS:
+"IP address" "subnet" "selzy"
+"network diagram" filetype:vsd "selzy"
+filetype:cfg "router" "selzy"
+filetype:txt intext:"IPSec" "selzy"
+"firewall rules" filetype:doc "selzy"
+filetype:conf iptables site:*.selzy.com
+"internal network topology" "selzy"
+filetype:xls "switch port mapping" "selzy"
+filetype:csv "server inventory" "selzy"
+filetype:xlsx "hostname" "IP Address" "selzy"
+
+

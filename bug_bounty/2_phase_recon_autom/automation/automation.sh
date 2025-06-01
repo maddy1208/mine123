@@ -213,11 +213,66 @@ nuclei -t ~/nuclei-templates/http/vulnerabilities/other/viewlinc-crlf-injection.
 
 
 #-------------------------------------PORT SCANNING---------------------------------
-echo "Starting portscanning....."
+#!/bin/bash
 
-while read domain; do dig +short "$domain"; done < livedomains.txt | sort -u > ips_domain.txt
-nmap -p- --open -sV -sV -T4 -oN nmap_results.txt -iL livedomains.txt
-masscan -iL ips_domain.txt -p1-65535 --rate 1000 -oG masscan_results.txt
+echo "Starting port scanning..."
+
+# Create main results folder
+mkdir -p portscan
+
+# Clean domain list (remove http(s):// and trailing slashes)
+sed -E 's|https?://||; s|/$||' livedomains.txt > portscan/cleaned_domains.txt
+
+# Build domain to IP mapping file (one line per domain-ip)
+echo "[*] Building domain-ip map..."
+rm -f portscan/domain_ip_map.txt
+while read -r domain; do
+    ips=$(dig +short "$domain")
+    for ip in $ips; do
+        echo "$domain $ip" >> portscan/domain_ip_map.txt
+    done
+done < portscan/cleaned_domains.txt
+
+# Extract unique IPs for scanning
+cut -d' ' -f2 portscan/domain_ip_map.txt | sort -u > portscan/ips_domain.txt
+
+# Run masscan on all IPs
+echo "[*] Running masscan..."
+masscan -iL portscan/ips_domain.txt -p1-65535 --rate 1000 -oG portscan/masscan_results.txt
+
+# Parse masscan results to get ip-port list
+awk '/Ports:/ {
+  for (i = 1; i <= NF; i++) {
+    if ($i == "Host:") ip = $(i+1);
+    if ($i == "Ports:") {
+      split($(i+1), port, "/");
+      print ip, port[1];
+    }
+  }
+}' portscan/masscan_results.txt > portscan/ip_port_list.txt
+
+# Create output directory for Nmap results inside portscan
+mkdir -p portscan/nmap
+
+echo "[*] Starting detailed Nmap scans..."
+
+while read -r ip port; do
+    # Get all domains that map to this IP, join by underscore
+    domains=$(grep " $ip$" portscan/domain_ip_map.txt | awk '{print $1}' | tr '\n' '_' | sed 's/_$//')
+    if [ -z "$domains" ]; then
+        domains="unknown_domain"
+    fi
+
+    echo "[*] Scanning $ip:$port (domains: $domains)..."
+    nmap -p "$port" -sV -T4 -oN "portscan/nmap/nmap_detailed_${domains}_${ip}.txt" "$ip"
+done < portscan/ip_port_list.txt
+
+echo "[*] Starting Nmap port scans this might take long time......"
+nmap -p- --open -sV -T4 -oN portscan/nmap_results.txt -iL portscan/cleaned_domains.txt
+
+
+
+echo "All scans completed."
 
 echo "Finished portscanning....."
 

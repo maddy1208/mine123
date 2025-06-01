@@ -1,101 +1,147 @@
 #!/bin/bash
 
-# ------------------- COLORS -------------------
+# Colors
 blue='\033[1;34m'
 green='\033[1;32m'
 yellow='\033[1;33m'
 red='\033[1;31m'
 reset='\033[0m'
 
-# ------------------ CHECK ARGS ----------------
+# Enable nullglob to avoid glob expansion issues
+shopt -s nullglob
+
 if [[ $# -ne 1 || ! -f $1 ]]; then
-    echo -e "${red}[✘] Usage: $0 domains.txt${reset}"
+    echo -e "${red}[✘] Usage: $0 domains_file${reset}"
     exit 1
 fi
 
-domain_file=$1
-summary_file="subdomains/summary_report.txt"
-mkdir -p subdomains
-echo -e "Recon Summary Report - $(date)\n" > "$summary_file"
+gtoken="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"
+crtoken="RyTprtzMEf7bkA5Lv2pswtUgk3er0tHa"
+input_file=$1
+cleaned_file="cleaned_domains.txt"
+summary_file="output/summary_report.txt"
+mkdir -p output
+# Clean URLs: remove protocol, paths, empty lines, duplicates
+echo -e "${yellow}[*] Cleaning input domains...${reset}"
+sed -E 's#https?://##' "$input_file" | cut -d '/' -f1 | awk NF | sort -u > "$cleaned_file"
+echo -e "${green}[✔] Cleaned domains saved to $cleaned_file${reset}"
 
-# ------------------ MAIN LOOP ------------------
+mkdir -p output
+
 while IFS= read -r domain || [[ -n "$domain" ]]; do
-    [[ -z "$domain" || "$domain" == \#* ]] && continue
+    [[ -z "$domain" || "$domain" =~ ^# ]] && continue 
 
-    echo -e "${blue}========== Recon for $domain ==========${reset}"
+    echo -e "${blue}========== Starting recon for $domain ==========${reset}"
+    echo -e "Recon Summary Report - $(date)\n" >> "$summary_file"
     echo -e "\n=== $domain ===" >> "$summary_file"
+    domain_dir="output/$domain"
+    mkdir -p "$domain_dir"
 
-    timestamp=$(date +%Y-%m-%d_%H-%M-%S)
-    outdir="subdomains/$domain/$timestamp"
-    mkdir -p "$outdir"
-    cd "$outdir" || exit
+    ####################### FAVICON + HASH #######################
+    echo -e "${yellow}[*] Extracting favicon hash from https://$domain ...${reset}"
+    full_url="https://$domain"
+    favicon_output="$domain_dir/favicon_output"
 
-    # -------- Subdomain Enumeration --------
-    echo -e "${yellow}[*] Running Amass (active)...${reset}"
-    amass enum -active -d "$domain" -nocolor -o amass_active.txt
+    hash=$(python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/favienum.py "$full_url" | tee "$favicon_output" | grep -oP 'Hash: \K\S+')
 
-    echo -e "${yellow}[*] Running Subfinder...${reset}"
-    subfinder -d "$domain" -all -recursive -o subfinder.txt
+    if [[ -n "$hash" ]]; then
+        echo "$hash" > "$domain_dir/favicon_hash"
+        echo -e "${green}[✔] Favicon hash: $hash${reset}"
+        echo "Favicon hash: $hash" >> "$summary_file"
+    else
+        echo -e "${red}[✘] Favicon hash not found.${reset}"
+        echo "Favicon hash: not found" >> "$summary_file"
+    fi
 
-    echo -e "${yellow}[*] Running Assetfinder...${reset}"
-    assetfinder --subs-only "$domain" | tee assetfinder.txt
+    if [[ -f favicon.ico ]]; then
+        mv favicon.ico "$domain_dir/"
+        echo -e "${green}[✔] Saved favicon.ico${reset}"
+    else
+        echo -e "${yellow}[!] favicon.ico not downloaded.${reset}"
+    fi
 
-    echo -e "${yellow}[*] Running Amass (passive)...${reset}"
-    amass enum -passive -d "$domain" -o amass_passive.txt
+    ####################### SUBDOMAIN ENUM #######################
+    echo -e "${yellow}[*] Running subdomain enumeration tools for $domain...${reset}"
+  #  Uncomment if needed
+    echo -e "${yellow}[*] Running amass active tools for $domain...${reset}"
+    amass enum -active -d "$domain" -o "$domain_dir/amass_active.txt"
+    echo -e "${yellow}[*] Running  amass passive for $domain...${reset}"
+    amass enum -passive -d "$domain" -o "$domain_dir/amass_passive.txt"
+    echo -e "${yellow}[*] Running subfinder for $domain...${reset}"
+    subfinder -d "$domain" -all -recursive -o "$domain_dir/subfinder.txt"
+    echo -e "${yellow}[*] Running assetfinder for $domain...${reset}"
+    assetfinder --subs-only "$domain" > "$domain_dir/assetfinder.txt"
+    echo -e "${yellow}[*] Running sublist3r for $domain...${reset}"
+    sublist3r -d "$domain" -o "$domain_dir/sublist3r.txt"
+    echo -e "${yellow}[*] Running findomain for $domain...${reset}"
+    findomain -t "$domain" -u "$domain_dir/findomain.txt" &
+    echo -e "${yellow}[*] Running github for $domain...${reset}"
+    github-subdomains -d "$domain" -t $gtoken -o "$domain_dir/github.txt" &
+    echo -e "${yellow}[*] Running crt.sh for $domain...${reset}"
+    curl -s "https://crt.sh/?q=%25.${domain}&output=json" |  jq -r '.[].name_value' |  sed 's/\*\.//g' |  sort -u |  sed 's/^/https:\/\//' > "$domain_dir/crtsh.txt"
+    echo -e "${yellow}[*] Running st for $domain...${reset}"
+    curl -s -H "APIKEY: $crtoken" "https://api.securitytrails.com/v1/domain/$domain/subdomains" | jq -r '.subdomains[]' > "$domain_dir/securitytrails_output"
+    cat "$domain_dir/securitytrails_output" | sed  -e "s/^/https:\/\//" -e "s/\$/.${domain}/" > "$domain_dir/security_trials_domains.txt"
 
-    echo -e "${yellow}[*] Running favienum (--run-amass)...${reset}"
-    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/favienum.py "https://$domain" --run-amass
+    ####################### COMBINE SUBDOMAINS #######################
+    echo -e "${yellow}[*] Combining subdomain results for $domain...${reset}"
+    sub_files=("$domain_dir"/*.txt)
 
-# Move results to proper location
-if [[ -f amass_results.txt ]]; then
-    mv amass_results.txt favienum_amass_subs.txt
-    echo -e "${green}[✔] Extra subdomains saved to favienum_amass_subs.txt${reset}"
-else
-    echo -e "${red}[✘] amass_results.txt not found. Something went wrong with favienum.${reset}"
-fi
+    if [[ ${#sub_files[@]} -gt 0 ]]; then
+        cat "${sub_files[@]}" | sort -u > "$domain_dir/all_subdomains.txt"
+        total_subs=$(wc -l < "$domain_dir/all_subdomains.txt")
+        echo -e "${green}[✔] Total unique subdomains found: $total_subs${reset}"
+        total_subs=$(wc -l < "$domain_dir/all_subdomains.txt")
+        echo "Total subdomains: $total_subs" >> "$summary_file"
+
+    else
+        echo "Total subdomains: 0" >> "$summary_file"
+        echo -e "${yellow}[!] No subdomain files found for $domain.${reset}"
+        # Do NOT continue here — let it continue to probe if you manually give domains
+        touch "$domain_dir/all_subdomains.txt"
+    fi
 
 
-    # -------- Combine All Subdomains --------
-    cat *.txt | sort -u > all_subdomains.txt
-    total_subs=$(wc -l < all_subdomains.txt)
-    echo -e "${green}[✔] Total unique subdomains: $total_subs${reset}"
-    echo "Total subdomains: $total_subs" >> "$summary_file"
+    ####################### LIVE SUBDOMAINS #######################
+    echo -e "${yellow}[*] Probing live subdomains with httpx for $domain...${reset}"
+    if [[ -s "$domain_dir/all_subdomains.txt" ]]; then
+        time /usr/local/bin/httpx -l "$domain_dir/all_subdomains.txt" --timeout 2 -threads 200 -silent -o "$domain_dir/live_subdomains.txt" < /dev/null
+         live_count=$(wc -l < "$domain_dir/live_subdomains.txt")
+         echo -e "${green}[✔] Live subdomains: $live_count${reset}"
+         echo "Live subdomains: $live_count" >> "$summary_file"
+    else
+        echo "Live subdomains: 0" >> "$summary_file"
+        echo -e "${red}[✘] No subdomains to probe. Skipping httpx.${reset}"
+        fi
+    echo "[+] combining to all subdomians..."
+    touch output/all_live_subdomains.txt
+    if [[ -s "$domain_dir/live_subdomains.txt" ]]; then
+    cat "$domain_dir/live_subdomains.txt" >> output/all_live_subdomains.txt
+        fi
 
-# -------- Favicon Hash --------
-echo -e "${yellow}[*] Extracting favicon hash...${reset}"
-full_url="https://$domain"
-hash=$(python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/favienum.py "$full_url" | tee favicon_output.txt | grep -oP 'Hash: \K\S+')
-if [[ -n "$hash" ]]; then
-    echo "$hash" > favicon_hash.txt
-    echo -e "${green}[✔] Favicon hash: $hash${reset}"
-    echo "Favicon hash: $hash" >> "$summary_file"
-else
-    echo -e "${red}[✘] Hash not found.${reset}"
-    echo "Favicon hash: Not found" >> "$summary_file"
-fi
+    ####################### IP EXTRACTION #######################
+    echo "[+] ip address extraction..."
+     if [[ -s "$domain_dir/live_subdomains.txt" ]]; then
+         echo -e "${yellow}[*] Extracting IPs using dnsx for $domain...${reset}"
+         dnsx -l "$domain_dir/live_subdomains.txt" -resp-only < /dev/null| tee "$domain_dir/ip.txt" 
+         ip_count=$(wc -l < "$domain_dir/ip.txt")
+         echo -e "${green}[✔] IPs extracted: $ip_count${reset}"
+         echo "Extracted IPs: $ip_count" >> "$summary_file"
+     else
+         echo "Extracted IPs: No live subdomains found, skipping IP extraction." >> "$summary_file"
+         echo -e "${yellow}[!] No live subdomains found, skipping IP extraction.${reset}"
+         echo -e "${red}[x] IPs not extracted.."
 
-    # -------- Live Subdomains --------
-    echo -e "${yellow}[*] Probing live subdomains with httpx...${reset}"
-    /usr/local/bin/httpx -l all_subdomains.txt -threads 200 --timeout 3 -silent -o live_subdomains.txt
-    live_count=$(wc -l < live_subdomains.txt)
-    echo -e "${green}[✔] Live subdomains: $live_count${reset}"
-    echo "Live subdomains: $live_count" >> "$summary_file"
+     fi
 
-    # -------- IP Extraction --------
-    echo -e "${yellow}[*] Extracting IPs using dnsx...${reset}"
-    dnsx -l live_subdomains.txt -resp-only | tee ip.txt
-    ip_count=$(wc -l < ip.txt)
-    echo -e "${green}[✔] IPs extracted: $ip_count${reset}"
-    echo "Extracted IPs: $ip_count" >> "$summary_file"
 
-    echo -e "${blue}========== Done with $domain ==========\n${reset}"
-    echo "Output: $outdir" >> "$summary_file"
+
+    echo -e "${blue}========== Finished recon for $domain ==========\n${reset}"
     echo "--------------------------------------" >> "$summary_file"
+    echo -e "${green}[✔] Summary saved to ${summary_file}${reset}"
 
-    cd - >/dev/null || exit
+done < "$cleaned_file"
 
-done < "$domain_file"
+echo -e "${green}[✔] Recon finished for all domains. Check the output/ folder.${reset}"
 
-# ---------------- Final Note ----------------
-echo -e "${green}[✔] Summary saved to ${summary_file}${reset}"
 
