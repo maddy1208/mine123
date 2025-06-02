@@ -14,65 +14,75 @@ print_msg() {
     esac
 }
 
+
+# ------------------- INPUT CHECK ----------------------
+live_domains="$1"
+if [[ ! -f "$live_domains" ]]; then
+    echo -e "${red}[✘] Usage: $0 <"live_domains.txt">${reset}"
+    exit 1
+fi
+
+
 # Create output directories
-OUTPUT_DIR="output"
+OUTPUT_DIR="urls_out"
 URLS_FILE="$OUTPUT_DIR/urls/all_urls.txt"
 FILTERED_DIR="$OUTPUT_DIR/filtered"
 mkdir -p "$OUTPUT_DIR/urls"
 mkdir -p "$FILTERED_DIR"
+cat $(find "$OUTPUT_DIR/urls/gospider_output" -type f)
 
 # Passive URL Enumeration
 function passive_enumeration() {
     print_msg "blue" "🔍 Starting Passive URL Enumeration..."
 
-    # Waymore
-    print_msg "yellow" "Running waymore..."
-    waymore -i live-domains.txt -mode U -oU "$OUTPUT_DIR/urls/waymore_output.txt"
+    Waymore
+   print_msg "yellow" "Running waymore..."
+    waymore -i "$live_domains" -mode U -oU "$OUTPUT_DIR/urls/waymore_urls.txt"
     print_msg "green" "Waymore finished. URLs saved to waymore_output.txt."
 
     # GAU
     print_msg "yellow" "Running GAU..."
-    cat live-domains.txt | gau | anew "$OUTPUT_DIR/urls/gau_urls.txt"
+    cat "$live_domains" | gau | anew "$OUTPUT_DIR/urls/gau_urls.txt"
     print_msg "green" "GAU finished. URLs saved to gau_urls.txt."
 
     # Waybackurls
     print_msg "yellow" "Running Waybackurls..."
-    cat live-domains.txt | waybackurls | anew "$OUTPUT_DIR/urls/wayback_urls.txt"
+    cat "$live_domains" | waybackurls | anew "$OUTPUT_DIR/urls/wayback_urls.txt"
     print_msg "green" "Waybackurls finished. URLs saved to wayback_urls.txt."
 
-    # URLFinder
+    URLFinder
     print_msg "yellow" "Running URLFinder..."
-    cat live-domains.txt | xargs -I {} urlfinder -d {} -o "$OUTPUT_DIR/urls/urlfinder.txt"
+    cat "$live_domains" |sed 's~https\?://~~' | xargs -I {} urlfinder -d {} -o "$OUTPUT_DIR/urls/urlfinder_urls.txt"
     print_msg "green" "URLFinder finished. URLs saved to urlfinder.txt."
-}
+ }
 
 # Active URL Crawling
 function active_crawling() {
     print_msg "blue" "🛠 Starting Active Crawling..."
 
     # Gospider
-  print_msg "yellow" "Running Gospider..."
-  while read -r domain; do
-      safe_name=$(echo "$domain" | sed 's|https\?://||;s|/|_|g')
-      out_dir="$OUTPUT_DIR/urls/gospider_output/$safe_name"
-      mkdir -p "$out_dir"
-      gospider -s "$domain" -o "$out_dir" -d 3 -c 10 --js
-  done < live-domains.txt
-  print_msg "green" "Gospider finished. URLs saved to gospider_output/ per domain."
+    print_msg "yellow" "Running Gospider..."
+    while read -r domain; do
+        out_dir="$OUTPUT_DIR/urls/gospider_output"
+        mkdir -p "$out_dir"
+        gospider -s "$domain" -o "$out_dir" -d 3 -c 10 --js < /dev/null
+    done < "$live_domains"
+    print_msg "green" "Gospider finished. URLs saved to gospider_output/ per domain."
 
     # Katana
     print_msg "yellow" "Running Katana..."
-    cat live-domains.txt | xargs -I {} katana -u https://{} -d 5 -o "$OUTPUT_DIR/urls/katana1_urls.txt"
-    cat live-domains.txt | xargs -I {} katana -u https://{} -jc -d 5 -o "$OUTPUT_DIR/urls/katana2_urls.txt"
+    cat "$live_domains" | sed 's~https\?://~~' | xargs -I {} katana -u https://{} -d 5 -o "$OUTPUT_DIR/urls/katana1_urls.txt"
+    cat "$live_domains" | sed 's~https\?://~~' | xargs -I {} katana -u https://{} -jc -d 5 -o "$OUTPUT_DIR/urls/katana2_urls.txt"
     print_msg "green" "Katana finished. URLs saved to katana1_urls.txt and katana2_urls.txt."
-      # hakrawler
+    
+    # hakrawler
     print_msg "yellow" "Running hakrawler..."
-    cat live-domains.txt | hakrawler >>"$OUTPUT_DIR/urls/hakrawler_urls.txt"
+    cat "$live_domains" | hakrawler -subs >>"$OUTPUT_DIR/urls/hakrawler_urls.txt"
     print_msg "green" "hakrawler finished. URLs saved to hakrawler_urls.txt"
     
       # gauplus
     print_msg "yellow" "Running gauplus..."
-    cat live-domains.txt | gauplus >>"$OUTPUT_DIR/urls/gauplus_urls.txt"
+    cat "$live_domains" | gauplus >>"$OUTPUT_DIR/urls/gauplus_urls.txt"
     print_msg "green" "gauplus finished. URLs saved to gauplus_urls.txt"
 }
 
@@ -80,8 +90,9 @@ function active_crawling() {
 function combine_urls() {
     print_msg "blue" "📌 Combining all found URLs..."
 
-    cat "$OUTPUT_DIR/urls/waymore_output.txt" "$OUTPUT_DIR/urls/gau_urls.txt" "$OUTPUT_DIR/urls/wayback_urls.txt" "$OUTPUT_DIR/urls/gauplus_urls.txt"\
-        "$OUTPUT_DIR/urls/gospider_output" "$OUTPUT_DIR/urls/katana1_urls.txt" "$OUTPUT_DIR/urls/katana2_urls.txt" "$OUTPUT_DIR/urls/hakrawler_urls.txt"\
+    cat "$OUTPUT_DIR/urls/waymore_output.txt" "$OUTPUT_DIR/urls/gau_urls.txt" "$OUTPUT_DIR/urls/wayback_urls.txt" "$OUTPUT_DIR/urls/urlfinder_urls.txt" \
+    "$OUTPUT_DIR/urls/gauplus_urls.txt" \
+       $(find "$OUTPUT_DIR/urls/gospider_output" -type f) "$OUTPUT_DIR/urls/katana1_urls.txt" "$OUTPUT_DIR/urls/katana2_urls.txt" "$OUTPUT_DIR/urls/hakrawler_urls.txt"  \
         | sort -u | anew "$URLS_FILE"
 
     print_msg "green" "Combining finished. All URLs saved to all_urls.txt."
@@ -145,10 +156,9 @@ function categorize_sensitive_info() {
 
 # Execute all functions
 print_msg "bold" "Starting URL Enumeration and Categorization..."
-#passive_enumeration
+passive_enumeration
 active_crawling
-#combine_urls
-#categorize_sensitive_info
+combine_urls
+categorize_sensitive_info
 
 print_msg "bold" "✅ Automation Complete! Check the output directories for results."
-

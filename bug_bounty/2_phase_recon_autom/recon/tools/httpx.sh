@@ -16,8 +16,7 @@ fi
 
 # ------------------- OUTPUT SETUP ---------------------
 base_name=$(basename "$input_file")
-domain=$(echo "$base_name" | cut -d'.' -f1)
-outdir="httpx_out/${domain}"
+outdir="httpx_out"
 mkdir -p "$outdir"
 
 # ------------------- WAF DETECTION --------------------
@@ -66,7 +65,7 @@ fi
 #------------------general analysis using screenshot---------------------
 
 echo " capturing screenshots........"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/EyeWitness/Python/EyeWitness.py  -f "$input_file" -d "$outdir/screenshot_eyewitness"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/EyeWitness/Python/EyeWitness.py  -f "$input_file" -d "$outdir/screenshot_eyewitness" --no-prompt
 cat "$input_file"  | aquatone -out "$outdir/screenshot_aquatone"
 
 

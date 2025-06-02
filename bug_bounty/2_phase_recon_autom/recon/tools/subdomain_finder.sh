@@ -19,14 +19,14 @@ gtoken="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"
 crtoken="RyTprtzMEf7bkA5Lv2pswtUgk3er0tHa"
 input_file=$1
 cleaned_file="cleaned_domains.txt"
-summary_file="output/summary_report.txt"
-mkdir -p output
+summary_file="sub_output/summary_report.txt"
+mkdir -p sub_output
 # Clean URLs: remove protocol, paths, empty lines, duplicates
 echo -e "${yellow}[*] Cleaning input domains...${reset}"
 sed -E 's#https?://##' "$input_file" | cut -d '/' -f1 | awk NF | sort -u > "$cleaned_file"
 echo -e "${green}[✔] Cleaned domains saved to $cleaned_file${reset}"
 
-mkdir -p output
+mkdir -p sub_output
 
 while IFS= read -r domain || [[ -n "$domain" ]]; do
     [[ -z "$domain" || "$domain" =~ ^# ]] && continue 
@@ -34,7 +34,7 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
     echo -e "${blue}========== Starting recon for $domain ==========${reset}"
     echo -e "Recon Summary Report - $(date)\n" >> "$summary_file"
     echo -e "\n=== $domain ===" >> "$summary_file"
-    domain_dir="output/$domain"
+    domain_dir="sub_output/$domain"
     mkdir -p "$domain_dir"
 
     ####################### FAVICON + HASH #######################
@@ -114,9 +114,9 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
         echo -e "${red}[✘] No subdomains to probe. Skipping httpx.${reset}"
         fi
     echo "[+] combining to all subdomians..."
-    touch output/all_live_subdomains.txt
+    touch sub_output/all_live_subdomains.txt
     if [[ -s "$domain_dir/live_subdomains.txt" ]]; then
-    cat "$domain_dir/live_subdomains.txt" >> output/all_live_subdomains.txt
+    cat "$domain_dir/live_subdomains.txt" >> sub_output/all_live_subdomains.txt
         fi
 
     ####################### IP EXTRACTION #######################
@@ -142,6 +142,4 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
 
 done < "$cleaned_file"
 
-echo -e "${green}[✔] Recon finished for all domains. Check the output/ folder.${reset}"
-
-
+echo -e "${green}[✔] Recon finished for all domains. Check the sub_output/ folder.${reset}"

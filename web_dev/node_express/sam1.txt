@@ -1,2 +1,6 @@
  
 append=>sample content123s
+
+        time /usr/local/bin/httpx -l "$domain_dir/all_subdomains.txt" --timeout 2 -silent -o "$domain_dir/live_subdomains.txt" < /dev/null
+
+
