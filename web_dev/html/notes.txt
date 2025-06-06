@@ -1,0 +1,62 @@
+The <!DOCTYPE html> declaration defines that this document is an HTML5 document
+The <html> element is the root element of an HTML page
+The <head> element contains meta information about the HTML page
+The <title> element specifies a title for the HTML page (which is shown in the browser's title bar or in the page's tab)
+
+favicon:   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+<br> => gap varu
+<hr> => line varu
+
+<s> => strike
+<strong> => similar to bold
+<small> => kutty
+<sub> => base la varu
+<sup> => power la varu
+<pre> => specific format la htmla varu
+<marquee bgcolor="orange" width="800px"> => odum
+    direction => to specify flow
+    behaviour => slide,alter,scroll 
+    scrollamount=> odra speeda control pnu
+    scrolldelay => slowa pogu
+    loop =>totala ethana times pogumnu specify
+
+multiple =>select,image tags la atributa use panlaam multiple filrs select pana
+<fieldset><legend>oi => oru box maari varu
+
+title => mouse hover pna display agu
+
+
+ a tag for navigation:
+
+    <h2 id="C4">Chapter 4</h2>
+    <a href="#C4">Jump to Chapter 4</a> 
+
+    <h2 name="oi">Chapter 4</h2>
+    <a target="oi">Jump to Chapter 4</a> 
+
+base tag:
+    href in <base> sets the starting point for all relative URLs.
+    target in <base> sets the default target for all <a> and <form> elements.
+    The <base> tag is placed once in the <head>, not inside any <a> tags.
+    ❌ You cannot use multiple <base> tags.
+    so,Only the first <base> element in the document is used. Any others are ignored.
+
+target tag:
+    blank => completea vera tab la open panum
+    self =>  current contenta replace panum
+    parent => parent la repalce panum
+    top => complete paga replace panum 
+    eg: nama iframes embedd pani,links la vachirundha navigations a control pnlaam
+
+    The target attribute is only valid on certain HTML elements, primarily:
+        <a> (links)
+        <form>
+        <base>
+        <area>
+        <iframe>
+
+
+<a href="iframe.html" target="oi">clickhere</a>
+<iframe src="" name="oi" frameborder="0" height="400px" width="400px"></iframe>
+=>ipdi targeta iframe la open panikalmm just with name value vachi

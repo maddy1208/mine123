@@ -55,7 +55,7 @@ while read -r url; do
         name=$(basename "$wordlist")
         echo -e "${yellow}[-] FFUF: Loading wordlist → $name${reset}"
 
-        ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 -of html -o "$dirpath/ffuf_${name}.html" -v
+        ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 -of html -o "$dirpath/ffuf_${name}.html" -v < /dev/null
 
         if [[ $? -eq 0 ]]; then
             echo -e "${green}[✔] FFUF done with $name → ffuf_${name}.txt${reset}"
@@ -68,7 +68,7 @@ while read -r url; do
     echo -e "${yellow}[-] Starting Dirsearch on $url${reset}"
     python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirsearch.py -u "$url" -t 50 --random-agent -x 404 --delay 0.5\
    -e php,html,txt,bak,zip,old,inc,json,env,log,sql \
-    -f -o "$dirpath/dirsearch.txt"
+    -f -o "$dirpath/dirsearch.txt" < /dev/null
 
     echo -e "${green}[✔] Dirsearch done → dirsearch.txt${reset}"
 

@@ -65,6 +65,7 @@ nuclei -l livedomains.txt -t technologies/,cves/,exposed-panels/,misconfiguratio
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/CVE-2024-24919.sh -w livedomains.txt | tee output_2024-24919
 //output:output_2024-24919
 
+
 7.cve-2024-4358
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2024-4358.py -l livedomains.txt -c "id" | tee output_2024-4358
 //output:output_2024-4358

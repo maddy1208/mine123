@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import requests
 import time
 import urllib.parse
@@ -72,7 +74,7 @@ def main():
                 token_index += 1
                 if token_index >= len(tokens):
                     print("[!] All tokens exhausted. Sleeping for 10 seconds...")
-                    time.sleep(10)
+                    time.sleep(15)
                     token_index = 0
                 current_token = tokens[token_index]
                 time.sleep(0.8)

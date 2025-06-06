@@ -2,8 +2,8 @@
 
 ## **Objectives**
 
-1. **Organization Recon** – Finding sensitive data related to an organization.
-2. **Employee Profiles** – Identifying developer accounts, leaks, and insider information.
+1. Organization Recon – Finding sensitive data related to an organization.
+2. Employee Profiles – Identifying developer accounts, leaks, and insider information.
 
 ## **What You Can Find During Recon**
 
@@ -21,43 +21,44 @@
 
 \##------------------------------------------------------------------------------ **Automation**-------------------------------------------------------------------------------
 
-### **Using GitHub Dork Helper**
+1.Using GitHub Dork Helper
 
-* Visit: [https://vsec7.github.io](https://vsec7.github.io)
+	* Visit: [https://vsec7.github.io](https://vsec7.github.io)
 
-### gitleaks
+2.Gitleaks
 
-gitleaks detect --source=<cloned-repo>
+	# Git commits + branches
+	gitleaks detect --source=<cloned-repo> --log-opts="--all"  --report-path history.json
 
-##trufflehog:
-docker run --rm -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --repo https://github.com/trufflesecurity/test_keys
 
-combine with repo:
-trufflehog git https://github.com/trufflesecurity/test_keys --results=verified,unknown
+	# Untracked + staged files
+	gitleaks detect --source=<cloned-repo> --no-git --redact --report-path working.json
 
-combine with org:
-trufflehog github --org=trufflesecurity --results=verified,unknown
+3.Trufflehog:
+sudo docker run --rm -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --repo https://github.com/trufflesecurity/test_keys --issue-comments --pr-comments --results=verified,unknown >>truffle_repo.txt
+sudo docker run --rm -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --org=trufflesecurity --issue-comments --pr-comments --results=verified,unknown >>truffle_org.txt
 
-###  cloning
+
+4.Cloning
 [https://target.com/org/repo.git](https://target.com/org/repo.git)
 
-```
-grep -r "AWS_SECRET_ACCESS" .
-grep -r "API_TOKEN" .
-grep -r "PASSWORD" .  
+
+grep -r -i  "AWS_SECRET_ACCESS" .
+grep -r -i "API_TOKEN" .
+grep -r -i "PASSWORD" .  
 ETC.....(TRY WITH API,TOKEN,ADMIN ETC...)
 ```
 
----
 
----
+## Manual Dorking------------------------------------
 
-## **Manual Dorking**------------------------------------
-
-NOTE: Combine with target,target name,repo
+NOTE: Combine with target,target name,repo [ try to search in github u ll get some ideas ]
 eg: apitoken org:"target.com"
 apitoken "target"
 apitoken repo:"target-org/repository-name"
 
 4.more dorking
 refer:dorks
+modified dork: dork
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/github/dorkerr.py  dork  /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/github/tokens.txt
+

@@ -29,14 +29,14 @@ URLS_FILE="$OUTPUT_DIR/urls/all_urls.txt"
 FILTERED_DIR="$OUTPUT_DIR/filtered"
 mkdir -p "$OUTPUT_DIR/urls"
 mkdir -p "$FILTERED_DIR"
-cat $(find "$OUTPUT_DIR/urls/gospider_output" -type f)
+
 
 # Passive URL Enumeration
 function passive_enumeration() {
     print_msg "blue" "🔍 Starting Passive URL Enumeration..."
 
     Waymore
-   print_msg "yellow" "Running waymore..."
+    print_msg "yellow" "Running waymore..."
     waymore -i "$live_domains" -mode U -oU "$OUTPUT_DIR/urls/waymore_urls.txt"
     print_msg "green" "Waymore finished. URLs saved to waymore_output.txt."
 
@@ -156,7 +156,7 @@ function categorize_sensitive_info() {
 
 # Execute all functions
 print_msg "bold" "Starting URL Enumeration and Categorization..."
-passive_enumeration
+#passive_enumeration
 active_crawling
 combine_urls
 categorize_sensitive_info
