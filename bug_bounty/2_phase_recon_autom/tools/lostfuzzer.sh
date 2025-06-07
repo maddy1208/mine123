@@ -28,7 +28,7 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
 done
 
 # Input file with domains or subdomains
-INPUT_FILE="livedomains.txt"
+INPUT_FILE="live_subdomains.txt"
 if [ ! -f "$INPUT_FILE" ]; then
     echo -e "${RED}[ERROR] Input file '$INPUT_FILE' not found.${RESET}"
     exit 1

@@ -52,7 +52,7 @@ tools=(
 )
 
 for tool in "${tools[@]}"; do
-  echo "[*] Running $tool on live.txt"
-  "$tool" -i live.txt -o "$tool.txt"
+  echo "[*] Running $tool on live_subdomains.txt"
+  "$tool" -i live_subdomains.txt -o "$tool.txt"
 done
 

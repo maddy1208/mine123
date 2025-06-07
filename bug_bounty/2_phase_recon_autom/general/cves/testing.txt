@@ -8,7 +8,7 @@ whatweb https://target.com
 wappalyzer https://target.com
 nmap -sV -Pn target.com
 nmap -sV -T4 licet.ac.in
-nuclei -l livedomains.txt -t technologies/
+nuclei -l live_subdomains.txt -t technologies/
 
 
 	This gives you:
@@ -48,51 +48,46 @@ Once you know the stack:
 
 ---------------------------------------------------------------🛠️ 3. Automated Tools----------------------------------------------------------------
 
-You can automate this using:
+You can automate this using: ./cve.sh livedomains.txt
 
 1.nuclei
-nuclei -l livedomains.txt -t cves/ -severity critical,high -o nuclei_output
-nuclei -l livedomains.txt -t technologies/,cves/,exposed-panels/,misconfiguration/ -o nuclei_output1
+nuclei -l live_subdomains.txt -t cves/ -severity critical,high -o nuclei_output
+nuclei -l live_subdomains.txt -t technologies/,cves/,exposed-panels/,misconfiguration/ -o nuclei_output1
 //output : nuclei_outpu, nuclei_output1
 
 
 2.scanforall: => analyzing
-./scan4all -l livedomains.txt | tee -a scan4all_output
+scan4all -l live_subdomains.txt | tee -a scan4all_output
 //output: scan4all_output
 
 
 6.CVE-2024-24919
-/home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/CVE-2024-24919.sh -w livedomains.txt | tee output_2024-24919
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/CVE-2024-24919.sh -w live_subdomains.txt | tee output_2024-24919
 //output:output_2024-24919
 
 
 7.cve-2024-4358
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2024-4358.py -l livedomains.txt -c "id" | tee output_2024-4358
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/cve-2024-4358.py -l live_subdomains.txt -c "id" | tee output_2024-4358
 //output:output_2024-4358
-
-
 
 man:
 
 1.jaeles
-cat livedomains.txt | jaeles scan -c 100 
-jaeles scan -u https://target.com
+cat live_subdomains.txt | jaeles scan -c 100
 
 1.oneforall: =>analyzing
- python3 oneforall.py --targets ./domains.txt run
-
-
-4.inurl:"/geoserver/ows?service=wfs" "target"
-nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
-
-5.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
-ruby /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2019-3396.rb -t  https://licet.ac.in  --scan
+ python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/OneForAll/oneforall.py --targets ./live_subdomains.txt run 2>&1 | tee -a oneforall.txt
 
 
 8. cve-2024-9047
-./cve-2024-9047.sh https://licet.ac.in /etc/passwd
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/cve-2024-9047.sh live_subdomains.txt  /etc/passwd | tee out_cve-2024-9047
 
 lazyhunter: input:ip's
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/lazyhunter.py -f livedomains.txt | tee lazy_output
+while IFS= read -r url; do
+  domain=$(echo "$url" | sed -E 's|https?://||')
+  dig +short "$domain"
+done < live_subdomains.txt > ips_for_lazy.txt
+
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lazyhunter.py -f ips_for_lazy.txt | tee lazy_output
 //output: lazy_output
 

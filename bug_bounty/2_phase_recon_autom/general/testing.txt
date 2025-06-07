@@ -14,3 +14,11 @@ refer cves/testing.txt
 
 eg: if https://target.com/getusers.php
     try  https://target.com/getadmin.php =>ipdi try panlaam
+    
+4.inurl:"/geoserver/ows?service=wfs" "target"
+nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
+
+5.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
+ruby /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2019-3396.rb -t  https://licet.ac.in  --scan
+
+

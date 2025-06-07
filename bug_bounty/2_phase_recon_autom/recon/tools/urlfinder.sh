@@ -156,7 +156,7 @@ function categorize_sensitive_info() {
 
 # Execute all functions
 print_msg "bold" "Starting URL Enumeration and Categorization..."
-#passive_enumeration
+passive_enumeration
 active_crawling
 combine_urls
 categorize_sensitive_info

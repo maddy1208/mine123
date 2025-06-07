@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Get absolute path of the directory containing this script
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(pwd)"
+
 
 # Input files
 all_urls="$SCRIPT_DIR/all_urls.txt"
@@ -32,13 +33,13 @@ cat "$output_dir/crawled_jsfiles.txt" "$output_dir/katana_jsfiles.txt" "$output_
 
 
 echo "[+] Probing for live JS URLs using httpx"
-cat "$output_dir/alljs.txt" | httpx -silent -mc 200 -t 60 >> "$output_dir/livejs.txt"
+cat "$output_dir/alljs.txt" | /usr/local/bin/httpx -silent -mc 200 -t 60 >> "$output_dir/livejs.txt"
 echo "[+] Finished Probing  using httpx"
 
 output_dir1="$SCRIPT_DIR/jsrecon/js_downloads"
 mkdir -p "$output_dir1"
 echo "[+] Downloading JS ..."
-cat livejs.txt | xargs -I {} wget --content-disposition -q -P "$output_dir1" {}
+cat "$output_dir/livejs.txt" | xargs -I {} wget --content-disposition -q -P "$output_dir1" {}
 echo "[+] Finished Downloading JS ..."
 
 # JS analysis
@@ -202,7 +203,7 @@ mkdir -p "$jsfscan_out"
 echo "[+] Running JSFScan...oi"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh
 (
-  cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh &&
+  cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon &&
   ./JSFScan.sh -l "$live_subdomains" --all -r -o report
 )
 mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh/report "$jsfscan_out/report"
