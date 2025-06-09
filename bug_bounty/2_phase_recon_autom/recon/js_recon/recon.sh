@@ -218,3 +218,4 @@ sudo mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFSca
 echo "[+] Finished JSFScan"
 
 echo "[+] JS Recon Completed. Results saved in $output_dir"
+
