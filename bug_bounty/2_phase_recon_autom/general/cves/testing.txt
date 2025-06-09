@@ -48,7 +48,7 @@ Once you know the stack:
 
 ---------------------------------------------------------------🛠️ 3. Automated Tools----------------------------------------------------------------
 
-You can automate this using: ./cve.sh livedomains.txt
+You can automate this using: ./cve.sh <livedomains.txt>
 
 1.nuclei
 nuclei -l live_subdomains.txt -t cves/ -severity critical,high -o nuclei_output

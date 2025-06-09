@@ -24,16 +24,17 @@ echo "[+] Finished JS URLs from live_subdomains.txt using katana"
 echo "[+] Extracting JS links with subjs"
 cat "$live_subdomains" | subjs >>"$output_dir/subjs_jsfiles.txt"
 echo "[+] subjs finished for domains..."
-echo "[+] subjs started for all urls..."
-cat "$all_urls" | subjs  >>"$output_dir/subjs_jsfiles.txt"
-echo "[+] Finished JS links with subjs"
+# echo "[+] subjs started for all urls..."
+# #cat "$all_urls" |  grep -Ev '\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|ttf|eot|pdf|zip|mp4|mp3)$' | sort -u  | subjs  >>"$output_dir/subjs_jsfiles.txt"
+# echo "[+] Finished JS links with subjs"
 
 echo "[+] Combining and sorting JS URLs"
 cat "$output_dir/crawled_jsfiles.txt" "$output_dir/katana_jsfiles.txt" "$output_dir/subjs_jsfiles.txt" | sort -u > "$output_dir/alljs.txt"
 
 
 echo "[+] Probing for live JS URLs using httpx"
-cat "$output_dir/alljs.txt" | /usr/local/bin/httpx -silent -mc 200 -t 60 >> "$output_dir/livejs.txt"
+cat "$output_dir/alljs.txt" | /usr/local/bin/httpx -silent -mc 200 -t 60 >> "$output_dir/livejs_all.txt"
+cat "$output_dir/livejs_all.txt" |  grep -viE 'https://[^ ]*(cdn|firebase|cloudflare|readme\.io|sentry|google|doubleclick|segment|analytics)' >> "$output_dir/livejs.txt"
 echo "[+] Finished Probing  using httpx"
 
 output_dir1="$SCRIPT_DIR/jsrecon/js_downloads"
@@ -53,15 +54,15 @@ echo "[+] Scanning downloaded files with LinkFinder "
 echo "[+] Scanning alldomains with LinkFinder "
 while read domain; do
    echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o cli >> "$linkfinder_out/cli_result_domains.txt";
-   done <  "$live_subdomains"
+done <  "$live_subdomains"
    
 while read domain; do
-   echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o "$linkfinder_out/html_result_domains";
-   done <  "$live_subdomains"
+    echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o "$linkfinder_out/html_result_domains";
+    done <  "$live_subdomains"
 echo "[+] Finished alldomains with LinkFinder "
 echo "[+] Scanning downloaded js with LinkFinder "
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i '/home/maddy/sam/sam/jsrecon/js_downloads/*' -o cli | tee "$linkfinder_out/cli_result_alljs.txt"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i '/home/maddy/sam/sam/jsrecon/js_downloads/*' -o "$linkfinder_out/html_result_alljs.txt"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i './jsrecon/js_downloads/*' -o cli | tee "$linkfinder_out/cli_result_alljs.txt"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i'./jsrecon/js_downloads/*' -o "$linkfinder_out/html_result_alljs.txt"
 echo "[+] Finished alldomains with LinkFinder "
 echo "[+] Finished Linkfinder successfully.... "
 
@@ -72,17 +73,17 @@ mkdir -p "$secretfinder_out"
 
 # 1. SecretFinder on raw URLs
 echo "[+] Running SecretFinder on downloaded js"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i '/home/maddy/sam/sam/jsrecon/js_downloads/*' -o cli | tee "$secretfinder_out/cli_output_alljs.txt"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i '/home/maddy/sam/sam/jsrecon/js_downloads/*' -o "$secretfinder_out/html_output_alljs.html"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i './jsrecon/js_downloads/*' -o cli | tee "$secretfinder_out/cli_output_alljs.txt"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i './jsrecon/js_downloads/*' -o "$secretfinder_out/html_output_alljs.html"
 echo "[+] Finished SecretFinder on downloaded js"
 
 echo "[+] Running SecretFinder on alldomains"
 while read -r url; do
-    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i "$url" -o cli >> "$secretfinder_out/cli_output_domains.txt"
+    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -e -i "$url" -o cli >> "$secretfinder_out/cli_output_domains.txt"
     done < "$live_subdomains"
 
 while read -r url; do
-    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i "$url" -o  "$secretfinder_out/html_output_domains.txt"
+    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -e -i "$url" -o  "$secretfinder_out/html_output_domains.html"
     done < "$live_subdomains"
 echo "[+] Finished SecretFinder on alldomains"
 #------------------------------------------------------GREP ----------------------------------------------------
@@ -117,7 +118,7 @@ grep -EHi 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' "$SCRIPT_DIR"/jsreco
 
 
 echo "[*] Grepping sensitive keywords (tokens, keys, creds)..."
-KEYWORDS='api[_-]?key|aws_access_key|innertext|inner|internal|todo|fixme|bug|localhost|aws_secret_key|api key|passwd|pwd|heroku|slack|firebase|swagger|aws key|password|ftp password|jdbc|db|sql|secret jet|config|admin|json|gcp|htaccess|.env|ssh key|devnote|.git|access key|secret|token|oauth_token|oauth_token_secret|secret|token|fetch|axios|debug|eval|authorization|env|bearer|client[_-]?id|client[_-]?secret|jwt|pass(word)?|cred(entials)?'
+KEYWORDS='api[_-]?key|aws_access_key|innertext|innerHtml|internal|todo|fixme|bug|localhost|aws_secret_key|api key|passwd|heroku|slack|firebase|swagger|aws_key|password|ftp password|jdbc|sql|secret_jet|config|admin|json|gcp|htaccess|.env|ssh|devnote|.git|access_key|secret|token=|oauth_token|oauth_token_secret|secret|fetch|axios|debug|eval|authorization|env|bearer|client[_-]?id|client[_-]?secret|jwt|pass(word)?|cred(entials)?'
 
 # Save raw output
 grep -Poir --exclude='*.min.js' --binary-files=without-match \
@@ -145,25 +146,25 @@ nuclei -l "$live_subdomains"  -t ~/nuclei-templates/   -severity low,medium,high
 echo "[+] Finished nuclei..."
 
 
-# #------------------------------------------------------S3----------------------------------------------------
-echo "[*] Starting S3 Bucket Enumeration..."
+#------------------------------------------------------S3----------------------------------------------------
+# echo "[*] Starting S3 Bucket Enumeration..."
 
-s3_out="$output_dir/s3"
-mkdir -p "$s3_out"
+# s3_out="$output_dir/s3"
+# mkdir -p "$s3_out"
 
 # Step 1: Extract potential S3 bucket URLs from JavaScript files
-cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I% curl -sk "%" |
-  grep -Eo '([a-z0-9.-]+)\.s3.*\.amazonaws\.com' |
-  sort -u > "$s3_out/s3_buckets_raw.txt"
+# cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I% curl -sk "%" |
+#   grep -Eo '([a-z0-9.-]+)\.s3.*\.amazonaws\.com' |
+#   sort -u > "$s3_out/s3_buckets_raw.txt"
 
-echo "[*] Found $(wc -l < "$s3_out/s3_buckets_raw.txt") raw S3 bucket URLs."
+# echo "[*] Found $(wc -l < "$s3_out/s3_buckets_raw.txt") raw S3 bucket URLs."
 
 # Step 2: Extract bucket names from URLs
-cat "$s3_out/s3_buckets_raw.txt" |
-  sed -E 's~.*://~~; s~\.s3.*\.amazonaws\.com.*~~' |
-  sort -u > "$s3_out/s3_bc_names.txt"
+# cat "$s3_out/s3_buckets_raw.txt" |
+#   sed -E 's~.*://~~; s~\.s3.*\.amazonaws\.com.*~~' |
+#   sort -u > "$s3_out/s3_bc_names.txt"
 
-echo "[*] Extracted $(wc -l < "$s3_out/s3_bc_names.txt") unique bucket names."
+# echo "[*] Extracted $(wc -l < "$s3_out/s3_bc_names.txt") unique bucket names."
 
 #---------------------------------------------------LAZYEGG---------------------------------------------------------
 lazyegg_out="$output_dir/lazyegg"
@@ -181,32 +182,39 @@ while read -r url; do
   )
 done < "$live_subdomains"
 
-cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I{} bash -c '
-  echo -e "\n[+] Target: {}\n" | tee -a "'"$lazyegg_out"'/output_alljs.txt"
+
+# cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I{} bash -c '
+#   echo -e "\n[+] Target: {}\n" | tee -a "'"$lazyegg_out"'/output_alljs.txt"
+#   (
+#     cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg || exit 1
+#     python3 lazyegg.py "{}" --js_urls --domains --ips --leaked_creds | tee -a output_alljs.txt
+#   )'
+
+cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I{} bash -c "
+  echo -e '\n[+] Target: {}' | tee -a '$lazyegg_out/output_alljs.txt'
   (
     cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg || exit 1
-    python3 lazyegg.py "{}" --js_urls --domains --ips --leaked_creds | tee -a output_alljs.txt
+    python3 lazyegg.py '{}' --js_urls --domains --ips --leaked_creds | tee -a '$lazyegg_out/output_alljs.txt'
   )
-'
+"
 
-# Move generated outputs to your output directory (if they exist)
+#Move generated outputs to your output directory (if they exist)
 mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/output_domains.txt "$lazyegg_out/output_domains.txt" 2>/dev/null || true
 mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/output_alljs.txt "$lazyegg_out/output_alljs.txt" 2>/dev/null || true
 
 echo "[+] Finished Lazyegg"
 
-
 #---------------------------------------------------JSFSCAN---------------------------------------------------------
 jsfscan_out="$output_dir/jsfscan"
 mkdir -p "$jsfscan_out"
+sudo cp ./live_subdomains.txt /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh/
 
-echo "[+] Running JSFScan...oi"
-/home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh
+echo "[+] Running JSFScan..."
 (
-  cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon &&
-  ./JSFScan.sh -l "$live_subdomains" --all -r -o report
+  cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh &&
+  sudo ./JSFScan.sh -l live_subdomains.txt --all -r -o report
 )
-mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh/report "$jsfscan_out/report"
+sudo mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/JSFScan.sh/report "$jsfscan_out/report"
 echo "[+] Finished JSFScan"
 
 echo "[+] JS Recon Completed. Results saved in $output_dir"

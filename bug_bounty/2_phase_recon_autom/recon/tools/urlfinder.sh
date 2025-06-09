@@ -35,7 +35,7 @@ mkdir -p "$FILTERED_DIR"
 function passive_enumeration() {
     print_msg "blue" "🔍 Starting Passive URL Enumeration..."
 
-    Waymore
+    #Waymore
     print_msg "yellow" "Running waymore..."
     waymore -i "$live_domains" -mode U -oU "$OUTPUT_DIR/urls/waymore_urls.txt"
     print_msg "green" "Waymore finished. URLs saved to waymore_output.txt."
@@ -50,7 +50,7 @@ function passive_enumeration() {
     cat "$live_domains" | waybackurls | anew "$OUTPUT_DIR/urls/wayback_urls.txt"
     print_msg "green" "Waybackurls finished. URLs saved to wayback_urls.txt."
 
-    URLFinder
+    #URLFinder
     print_msg "yellow" "Running URLFinder..."
     cat "$live_domains" |sed 's~https\?://~~' | xargs -I {} urlfinder -d {} -o "$OUTPUT_DIR/urls/urlfinder_urls.txt"
     print_msg "green" "URLFinder finished. URLs saved to urlfinder.txt."
@@ -125,7 +125,7 @@ function categorize_sensitive_info() {
     grep "eyJ" "$URLS_FILE" >> "$FILTERED_DIR/jwt_testing.txt"
 
     print_msg "yellow" "Finding suspicious keys..."
-    grep -Ei '([a-zA-Z0-9_-]{20,})' "$URLS_FILE" >> "$FILTERED_DIR/sus_key.txt"
+    grep -Ei '([a-zA-Z0-9_\-]{8,})=([a-zA-Z0-9_\-]{20,})' "$URLS_FILE" >> "$FILTERED_DIR/sus_key.txt"
 
     print_msg "yellow" "Finding SSNs..."
     grep -Ei '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' "$URLS_FILE" >> "$FILTERED_DIR/ssn.txt"
@@ -134,13 +134,13 @@ function categorize_sensitive_info() {
     grep -Ei '\b[0-9]{13,16}\b' "$URLS_FILE" >> "$FILTERED_DIR/credit.txt"
 
     print_msg "yellow" "Finding SessionIDs and Cookies..."
-    grep -Ei '[a-zA-Z0-9]{32,}' "$URLS_FILE" >> "$FILTERED_DIR/sess_cook.txt"
+    grep -Ei '[a-zA-Z0-9]{32,}' "$URLS_FILE" >> "$FILTERED_DIR/possible_sess_cook.txt"
 
     print_msg "yellow" "Finding common tokens/secrets..."
-    grep -iE 'token|code|role|privilege|priv|secret|auth|id|admin|pass|pwd|passwd|password|phone|mobile|number|mail' "$URLS_FILE" >> "$FILTERED_DIR/possible_sensitive_urls.txt"
+    grep -iE 'token|role|privilege|priv|secret|auth|id=|admin|pass|pwd|passwd|password|phone|mobile|number|mail' "$URLS_FILE" >> "$FILTERED_DIR/possible_sensitive_urls.txt"
 
     print_msg "yellow" "Finding Private IPs..."
-    grep -Ei '((10|172\.(1[6-9]|2[0-9]|3[0-1])|192\.168)\.[0-9]{1,3}\.[0-9]{1,3})' "$URLS_FILE" >> "$FILTERED_DIR/ip_priv.txt"
+    grep -Ei '\b(10(\.[0-9]{1,3}){3}|172\.(1[6-9]|2[0-9]|3[0-1])(\.[0-9]{1,3}){2}|192\.168(\.[0-9]{1,3}){2})\b' "$URLS_FILE" >> "$FILTERED_DIR/ip_priv.txt"
 
     print_msg "yellow" "Finding IPv4 addresses..."
     grep -Ei '([0-9]{1,3}\.){3}[0-9]{1,3}' "$URLS_FILE" >> "$FILTERED_DIR/ipv4.txt"
@@ -149,7 +149,7 @@ function categorize_sensitive_info() {
     grep -Ei '([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}' "$URLS_FILE" >> "$FILTERED_DIR/ipv6.txt"
 
     print_msg "yellow" "Finding payment-related keywords..."
-    grep -iE 'payment|orderid|order|payid|invoice|pay|receipt|rupee|rs|dollar|amount' "$URLS_FILE" >> "$FILTERED_DIR/payment_keywords.txt"
+    grep -iE '(\b(payment|orderid|order_id|payid|invoice|receipt|amount|price|total|cost|paid|rupee|rs|dollar)[=:\/]{1}[ ]?[a-zA-Z0-9._%-]{3,}\b)'  "$URLS_FILE" >> "$FILTERED_DIR/payment_keywords.txt"
 
     print_msg "green" "Sensitive information categorization finished."
 }

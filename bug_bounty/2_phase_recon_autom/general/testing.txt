@@ -3,7 +3,6 @@
 refer cves/testing.txt
 
 
-
 2.------------------------------------GENERAL--------------------------------------
 
 1.look for admin pages and try default passwords
@@ -21,4 +20,8 @@ nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
 5.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
 ruby /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2019-3396.rb -t  https://licet.ac.in  --scan
 
+6.=>using rust scanner: (inp:redirect_params.txt)
+cargo build
+cargo run
+refer: automation/tools/open
 

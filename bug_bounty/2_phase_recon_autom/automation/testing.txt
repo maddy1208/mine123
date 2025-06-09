@@ -161,13 +161,6 @@ cat redirect_params.txt | qsreplace "https://evil.com"| nuclei -tags redirect -c
 	nuclei -t /home/maddy/nuclei-templates/http/vulnerabilities/generic/crlf-injection-generic.yaml -l livedomains.txt -o crlf_nuclei_out2
 	nuclei -t /home/maddy/nuclei-templates/http/vulnerabilities/other/viewlinc-crlf-injection.yaml -l livedomains.txt -o crlf_nuclei_out3
 	
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANUAL:
-
-=>using rust scanner: (inp:redirect_params.txt)
-cargo build
-cargo run
-refer: automation/tools/open
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -179,7 +172,6 @@ Extender>BApp store>Param authorize>Install
 Extender>BApp store>Param autorepeater>Install
 	ssrf reg: https?:\/\/(www\.)?[-a-zA-Z0–9@:%._\+~#=]{1,256}\.[a-zA-Z0–9()]{1,6}\b([-a-zA-Z0–9()@:%_\+.~#?&//=]*)
 https://github.com/CoreyD97/BurpCustomizer/releases?source=post_page-----9cb181443464---------------------------------------
- Extender>BApp store>Burp Suite Scanner
  spider
  logger++
  burp cors
@@ -191,6 +183,6 @@ aws extender (burp)
 4.Loxs tool
 
 =>using loxs tool: (inp:redirect_params.txt)
-cat redirect_params.txt | sed 's/=.*/=/' | uro >loxs.txt =>idha ipo loxs toola use pnlaa
+cat auto_out/redirect_params.txt  all_urls.txt| sed 's/=.*/=/' | uro >loxs.txt =>idha ipo loxs toola use pnlaa
 
 
