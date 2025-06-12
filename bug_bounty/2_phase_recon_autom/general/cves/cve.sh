@@ -37,7 +37,7 @@ echo -e "${BLUE}[+] Running CVE-2024-9047...${NC}"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/cve-2024-9047.sh "$LIVE_SUBDOMAINS" /etc/passwd | tee "$OUTPUT/out_cve-2024-9047.txt"
 
 echo -e "${BLUE}[+] Running Jaeles scan...${NC}"
-cat "$LIVE_SUBDOMAINS" | jaeles scan -c 100 | tee "$OUTPUT/jaeles_output.txt"
+cat "$LIVE_SUBDOMAINS" | jaeles scan -c 50 | tee "$OUTPUT/jaeles_output.txt"
 
 echo -e "${BLUE}[+] Running OneForAll...${NC}"
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/OneForAll/oneforall.py --targets "$LIVE_SUBDOMAINS" run 2>&1 | tee "$OUTPUT/oneforall.txt"

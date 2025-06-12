@@ -6,6 +6,13 @@ red='\033[1;31m'
 blue='\033[1;34m'
 reset='\033[0m'
 
+# Check if the script is being run as root
+if [ "$EUID" -ne 0 ]; then
+  echo "[!] Please run this script using sudo: sudo ./recon.sh"
+  exit 1
+fi
+
+echo "[*] Running with root privileges..."
 # -------------- Input Check --------------
 if [[ $# -ne 1 || ! -f $1 ]]; then
     echo -e "${red}[✘] Usage: $0 domains.txt${reset}"

@@ -64,9 +64,9 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
     echo -e "${yellow}[*] Running subdomain enumeration tools for $domain...${reset}"
   #  Uncomment if needed
     echo -e "${yellow}[*] Running amass active tools for $domain...${reset}"
-    amass enum -active -d "$domain" -o "$domain_dir/amass_active.txt"
+    amass enum -active -d "$domain" | awk '{print $1}' >> "$domain_dir/amass_active.txt"
     echo -e "${yellow}[*] Running  amass passive for $domain...${reset}"
-    amass enum -passive -d "$domain" -o "$domain_dir/amass_passive.txt"
+    amass enum -passive -d "$domain" | awk '{print $1}' >>  "$domain_dir/amass_passive.txt"
     echo -e "${yellow}[*] Running subfinder for $domain...${reset}"
     subfinder -d "$domain" -all -recursive -o "$domain_dir/subfinder.txt"
     echo -e "${yellow}[*] Running assetfinder for $domain...${reset}"

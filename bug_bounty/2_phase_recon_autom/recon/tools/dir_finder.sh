@@ -20,7 +20,6 @@ mkdir -p "$outdir"
 
 # ------------------- WORDLISTS SETUP ------------------
 wordlists=(
-    "/usr/share/dirb/wordlists/common.txt"
     "/home/maddy/techiee/bug_bounty/bin_deps/fuzz_onelistforallshort"
     "/home/maddy/techiee/bug_bounty/bin_deps/db.txt"
     "/home/maddy/techiee/bug_bounty/bin_deps/my_research_dirs.txt"

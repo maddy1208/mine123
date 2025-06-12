@@ -34,7 +34,7 @@ if [[ -s "$LIVEDOMAINS" ]]; then
     nuclei -l "$LIVEDOMAINS" -t /home/maddy/nuclei-templates/http/misconfiguration -o "$NUCLEI_OUT/nuclei_domain4_out" -stats
 
     echo "[+] Running Jaeles on $LIVEDOMAINS ..."
-    cat "$LIVEDOMAINS" | jaeles scan -o "$JAELES_OUT/jaeles_domain_out"
+    cat "$LIVEDOMAINS" | jaeles scan  -c 50  -o "$JAELES_OUT/jaeles_domain_out"
 else
     echo "[!] $LIVEDOMAINS not found or empty. Skipping domain scans."
 fi
@@ -49,7 +49,7 @@ if [[ -s "$JSURLS" ]]; then
     nuclei -l "$JSURLS" -t /home/maddy/nuclei-templates/http/exposures -o "$NUCLEI_OUT/nuclei_js5_out" -stats
 
     echo "[+] Running Jaeles on JS URLs ..."
-    cat "$JSURLS" | jaeles scan -o "$JAELES_OUT/jaeles_js_out"
+    cat "$JSURLS" | jaeles scan  -c 50 -o "$JAELES_OUT/jaeles_js_out"
 else
     echo "[!] $JSURLS not found or empty. Skipping JS URL scans."
 fi
@@ -62,7 +62,7 @@ echo "[+] Extracting parameterized URLs from all_urls.txt ..."
 cat all_urls.txt | grep -E '\?[^=]+=.+$' > regex.txt
 
 echo "[+] Running LostFuzzer..."
-/home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lostfuzzer.sh
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lostfuzzer.sh | tee -a "$NUCLEI_OUT/nuclei_lostfuzzer_out"
 mv filtered_urls.txt loxs_param.txt
 
 echo "[+] Combining all parameterized URLs..."
@@ -77,7 +77,7 @@ cat results/* regex.txt loxs_param.txt | sort -u > "$ALLPARAMS"
     nuclei -l "$ALLPARAMS" -t /home/maddy/nuclei-templates/dast -s critical,high,medium,low -dast -o "$NUCLEI_OUT/nuclei_param4_out" -stats
 
     echo "[+] Running Jaeles on Parameterized URLs ..."
-    cat "$ALLPARAMS" | jaeles scan -o "$JAELES_OUT/jaeles_params_out"
+    cat "$ALLPARAMS" | jaeles scan -c 50  -o "$JAELES_OUT/jaeles_params_out"
 else
     echo "[!] No parameterized URLs found. Skipping parameter scans."
 fi
