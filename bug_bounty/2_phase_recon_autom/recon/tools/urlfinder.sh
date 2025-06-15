@@ -100,6 +100,11 @@ function combine_urls() {
 
 # Categorizing Sensitive Info
 function categorize_sensitive_info() {
+    cp /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/WayBackupFinder/extensions.txt ./extensions.txt
+    cat "$live_domains" | sed 's~https\?://~~' > "oi"
+    script -q -c "echo -e '2\noi\ncustom\n' | python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/WayBackupFinder/wayBackupFinder.py"  "$FILTERED_DIR/wayback_finder"
+    rm -rf content/ oi extensions.txt
+
     print_msg "blue" "🔒 Categorizing sensitive information..."
 
     print_msg "yellow" "Finding sensitive files..."
@@ -160,5 +165,6 @@ passive_enumeration
 active_crawling
 combine_urls
 categorize_sensitive_info
+
 
 print_msg "bold" "✅ Automation Complete! Check the output directories for results."

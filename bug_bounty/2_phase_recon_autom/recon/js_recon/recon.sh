@@ -29,7 +29,8 @@ echo "[+] subjs finished for domains..."
 # echo "[+] Finished JS links with subjs"
 
 echo "[+] Combining and sorting JS URLs"
-cat "$output_dir/crawled_jsfiles.txt" "$output_dir/katana_jsfiles.txt" "$output_dir/subjs_jsfiles.txt" | sort -u > "$output_dir/alljs.txt"
+cat "$output_dir/crawled_jsfiles.txt" "$output_dir/katana_jsfiles.txt" "$output_dir/subjs_jsfiles.txt" | grep -Ev '\.(woff2?|ttf|svg|eot|css|png|jpe?g|gif|ico|mp4|webp|bmp|json|xml)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg' |sort -u > "$output_dir/alljs.txt"
+
 
 
 echo "[+] Probing for live JS URLs using httpx"
