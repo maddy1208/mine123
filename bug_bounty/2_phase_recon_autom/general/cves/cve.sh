@@ -22,10 +22,10 @@ echo "Started at: $START"
 
 echo -e "${BLUE}[+] Running nuclei...${NC}"
 nuclei -l "$LIVE_SUBDOMAINS" -t cves/ -severity critical,high -o "$OUTPUT/nuclei_output.txt"
-nuclei -l "$LIVE_SUBDOMAINS" -t technologies/,cves/,exposed-panels/,misconfiguration/ -o "$OUTPUT/nuclei_output_all.txt"
+nuclei -l "$LIVE_SUBDOMAINS" -t technologies/,exposed-panels/,misconfiguration/ -o "$OUTPUT/nuclei_output_all.txt"
 
 echo -e "${BLUE}[+] Running scan4all...${NC}"
-scan4all -l "$LIVE_SUBDOMAINS" | tee "$OUTPUT/scan4all_output.txt"
+scan4all -v -l  "$LIVE_SUBDOMAINS" -o "$OUTPUT/scan4all_output.txt"
 
 echo -e "${BLUE}[+] Running CVE-2024-24919...${NC}"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/CVE-2024-24919.sh -w "$LIVE_SUBDOMAINS" | tee "$OUTPUT/output_2024-24919.txt"
@@ -35,9 +35,6 @@ python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/cve-2024-4358.p
 
 echo -e "${BLUE}[+] Running CVE-2024-9047...${NC}"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/cve-2024-9047.sh "$LIVE_SUBDOMAINS" /etc/passwd | tee "$OUTPUT/out_cve-2024-9047.txt"
-
-echo -e "${BLUE}[+] Running Jaeles scan...${NC}"
-cat "$LIVE_SUBDOMAINS" | jaeles scan -c 50 | tee "$OUTPUT/jaeles_output.txt"
 
 echo -e "${BLUE}[+] Running OneForAll...${NC}"
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/OneForAll/oneforall.py --targets "$LIVE_SUBDOMAINS" run 2>&1 | tee "$OUTPUT/oneforall.txt"

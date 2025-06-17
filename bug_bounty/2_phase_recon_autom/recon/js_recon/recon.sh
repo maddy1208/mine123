@@ -24,12 +24,10 @@ echo "[+] Finished JS URLs from live_subdomains.txt using katana"
 echo "[+] Extracting JS links with subjs"
 cat "$live_subdomains" | subjs >>"$output_dir/subjs_jsfiles.txt"
 echo "[+] subjs finished for domains..."
-# echo "[+] subjs started for all urls..."
-# #cat "$all_urls" |  grep -Ev '\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|ttf|eot|pdf|zip|mp4|mp3)$' | sort -u  | subjs  >>"$output_dir/subjs_jsfiles.txt"
 # echo "[+] Finished JS links with subjs"
 
 echo "[+] Combining and sorting JS URLs"
-cat "$output_dir/crawled_jsfiles.txt" "$output_dir/katana_jsfiles.txt" "$output_dir/subjs_jsfiles.txt" | grep -Ev '\.(woff2?|ttf|svg|eot|css|png|jpe?g|gif|ico|mp4|webp|bmp|json|xml)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg' |sort -u > "$output_dir/alljs.txt"
+cat "$output_dir/crawled_jsfiles.txt" "$output_dir/katana_jsfiles.txt" "$output_dir/subjs_jsfiles.txt" | grep -Ev '\.(woff2?|ttf|svg|eot|css|png|jpe?g|gif|ico|mp4|webp|bmp|json|xml)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|linkedin|jquery|fonts|addthis|facebook|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg' |sort -u > "$output_dir/alljs.txt"
 
 
 
@@ -147,26 +145,6 @@ nuclei -l "$live_subdomains"  -t ~/nuclei-templates/   -severity low,medium,high
 echo "[+] Finished nuclei..."
 
 
-#------------------------------------------------------S3----------------------------------------------------
-# echo "[*] Starting S3 Bucket Enumeration..."
-
-# s3_out="$output_dir/s3"
-# mkdir -p "$s3_out"
-
-# Step 1: Extract potential S3 bucket URLs from JavaScript files
-# cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I% curl -sk "%" |
-#   grep -Eo '([a-z0-9.-]+)\.s3.*\.amazonaws\.com' |
-#   sort -u > "$s3_out/s3_buckets_raw.txt"
-
-# echo "[*] Found $(wc -l < "$s3_out/s3_buckets_raw.txt") raw S3 bucket URLs."
-
-# Step 2: Extract bucket names from URLs
-# cat "$s3_out/s3_buckets_raw.txt" |
-#   sed -E 's~.*://~~; s~\.s3.*\.amazonaws\.com.*~~' |
-#   sort -u > "$s3_out/s3_bc_names.txt"
-
-# echo "[*] Extracted $(wc -l < "$s3_out/s3_bc_names.txt") unique bucket names."
-
 #---------------------------------------------------LAZYEGG---------------------------------------------------------
 lazyegg_out="$output_dir/lazyegg"
 mkdir -p "$lazyegg_out"
@@ -182,14 +160,6 @@ while read -r url; do
     python3 lazyegg.py "$url" | tee -a output_domains.txt
   )
 done < "$live_subdomains"
-
-
-# cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I{} bash -c '
-#   echo -e "\n[+] Target: {}\n" | tee -a "'"$lazyegg_out"'/output_alljs.txt"
-#   (
-#     cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg || exit 1
-#     python3 lazyegg.py "{}" --js_urls --domains --ips --leaked_creds | tee -a output_alljs.txt
-#   )'
 
 cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I{} bash -c "
   echo -e '\n[+] Target: {}' | tee -a '$lazyegg_out/output_alljs.txt'

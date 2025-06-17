@@ -56,19 +56,8 @@ grep -E '\?[^=]+=.+$' "$GAU_FILE" | uro | sort -u > "$FILTERED_URLS_FILE"
 echo -e "${GREEN}[INFO] Checking for live URLs using httpx...${RESET}"
 httpx -silent -t 300 -rl 200 < "$FILTERED_URLS_FILE" > "$FILTERED_URLS_FILE.tmp" && mv "$FILTERED_URLS_FILE.tmp" "$FILTERED_URLS_FILE"
 
-# Step 4: Run nuclei for DAST scanning
-echo -e "${GREEN}[INFO] Running nuclei for DAST scanning...${RESET}"
-nuclei -dast -retries 2 -silent -o "$NUCLEI_RESULTS" -l "$FILTERED_URLS_FILE"
 
-# Step 5: Show saved results
-echo -e "${GREEN}[INFO] Nuclei results saved to $NUCLEI_RESULTS${RESET}"
 echo -e "${GREEN}[INFO] Filtered URLs saved to $FILTERED_URLS_FILE for manual testing.${RESET}"
-echo -e "${GREEN}[INFO] Automation completed successfully!${RESET}"
 
-# Check if Nuclei found any vulnerabilities
-if [ ! -s "$NUCLEI_RESULTS" ]; then
-    echo -e "${GREEN}[INFO] No vulnerable URLs found.${RESET}"
-else
-    echo -e "${GREEN}[INFO] Vulnerabilities were detected. Check $NUCLEI_RESULTS for details.${RESET}"
-fi
+
 

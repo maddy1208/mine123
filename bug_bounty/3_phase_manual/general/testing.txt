@@ -1,75 +1,66 @@
                                      ------------------------------------GENERAL--------------------------------------
 
---------------------------------------------------------------✅ 1. Identify the Technology Stack---------------------------------------------------------------
 
-Use tech fingerprinting tools to determine what the site is running:
+1.Identify cves and exploit
+            
+   => understand the tech stack and versions
+		whatweb https://target.com
+		wappalyzer https://target.com
+		nmap -sV -Pn target.com
+		nmap -sV -T4 licet.ac.in
+		nuclei -l live_subdomains.txt -t technologies/
 
-# use tools
-whatweb https://target.com
-wappalyzer https://target.com
-nmap -sV -Pn target.com
-nmap -sV -T4 licet.ac.in
-nuclei -l live_subdomains.txt -t technologies/
+                This gives you:
+		   Web servers: Apache, Nginx, IIS, etc.
+		   Frameworks: Laravel, Struts, Express, etc.
+		   CMS: WordPress, Joomla
+		   JS Libraries: jQuery, React versions
+		   Backend stack: PHP, ASP.NET, Java, etc.
 
+		1. analyze httpx results from recon
+		2. analyze res headers
+		3. use wappalyzer
 
-	This gives you:
-	    Web servers: Apache, Nginx, IIS, etc.
-	    Frameworks: Laravel, Struts, Express, etc.
-	    CMS: WordPress, Joomla
-	    JS Libraries: jQuery, React versions
-	    Backend stack: PHP, ASP.NET, Java, etc.
+		=>note down the technoogies and version...
+   
+      =>search cves for identified tech stack
 
-#also analyze httpx results from recon
-#analyze res headers
-#use wappalyzer
+		Once you know the stack:
+		1.google it eg: jiraa exolit ,jira cve..etc...
 
-=>note down the technoogies and version...
+		2.Search CVEs by software/version:
+                    https://www.cvedetails.com
+                    https://vulmon.com
+		    https://nvd.nist.gov
+		    https://exploit-db.com
 
-
------------------------------------------------------------------🧠 2. Use CVE Search Engines----------------------------------------------------------------------
-      
-Once you know the stack:
-1.google it eg: jiraa exolit ,jira cve..etc...
-
-2, Search CVEs by software/version:
-
-    https://www.cvedetails.com
-
-    https://vulmon.com
-
-    https://nvd.nist.gov
-
-    https://exploit-db.com
-
-	Use keywords like:
-		apache 2.4.52
-		wordpress 6.0
-		php 8.1.1
+		    Use keywords like:
+				apache 2.4.52
+				wordpress 6.0
+				php 8.1.1
 
 
----------------------------------------------------------------------GENERAL THNGS TO TEST ---------------------------------------------------------------------
+2.look for admin pages and try default passwords
 
-1.look for admin pages and try default passwords
+3.curl -X GET https://www.target.com | grep -i -E 'pass|pwd|passphrase|cred|encrypt|appkey|token|secret|auth|authorization|key|private'
 
-2.curl -X GET https://www.target.com | grep -i -E 'pass|pwd|passphrase|cred|encrypt|appkey|token|secret|auth|authorization|key|private'
-
-3.take a look at archieved urls, 
+4.take a look at archieved urls, 
 
 eg: if https://target.com/getusers.php
        try  https://target.com/getadmin.php =>ipdi try panlaam
     
-4.inurl:"/geoserver/ows?service=wfs" "target"
+5.inurl:"/geoserver/ows?service=wfs" "target"
 	nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
 
-5.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
+6.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
 	ruby /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2019-3396.rb -t  https://licet.ac.in  --scan
 
-6.=>using rust scanner: (inp:redirect_params.txt)
+7.using rust scanner: (inp:redirect_params.txt)
 	cargo build
 	cargo run
 	refer: automation/tools/open
 
-7.Sites:
+8.Sites:
 	visit: https://cyscan.io
 	 => can find other info,vul,s,deepscan,fuzzing,etc...
 	 => copy subdomains,jsfiles,urls for furter recon
@@ -79,6 +70,29 @@ eg: if https://target.com/getusers.php
 	 visit: virustotal
 	 =>collect urls and sens info
 	 
- 8.check sens endpoints by robots.txt,sitemap.xml
+9.check sens endpoints by robots.txt,sitemap.xml
 	 =>check normal url
 	 =>likewise check webarchieve,it may contain sens endpoints
+	 
+10.xss testing,sql testing, hidden params on param urls
+
+# echo "[*] Testing for SQLi using  sqlmap..."
+# script -q -c " python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap/sqlmap.py -m "$ALLPARAMS" --level 5 --risk 3 --batch --dbs --tamper=between --random-agent" "$OUTDIR/sqlmap_output.txt"
+
+
+# echo "[*] Testing for XSS using dalfox..."
+# dalfox file "$ALLPARAMS" --skip-bav --silence -o "$OUTDIR/dalfox_xss.txt"
+
+
+echo "[*] Finding Hidden Parameters using Arjun..."
+# while read url; do
+#   echo "[$(date '+%T')] Scanning: $url" | tee -a "$OUTDIR/hidden_params.txt"
+#   echo "==== URL: $url ====" >> "$OUTDIR/hidden_params.txt"
+#   arjun -u "$url" -oT - >> "$OUTDIR/hidden_params.txt"
+#   echo -e "\n" >>"$OUTDIR/hidden_params.txt"
+#   sleep 2
+# done < "$ALLPARAMS" 
+
+
+11.sql ttest on login,other endpoints:
+eg: sqlmap -r request --dump --batch --dbs [ here, request=>raw http request burp la irudhu copy pnadhu ]

@@ -80,20 +80,26 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
     echo -e "${yellow}[*] Running crt.sh for $domain...${reset}"
     curl -s "https://crt.sh/?q=%25.${domain}&output=json" |  jq -r '.[].name_value' |  sed 's/\*\.//g' |  sort -u |  sed 's/^/https:\/\//' > "$domain_dir/crtsh.txt"
     echo -e "${yellow}[*] Running st for $domain...${reset}"
-    curl -s -H "APIKEY: $crtoken" "https://api.securitytrails.com/v1/domain/$domain/subdomains" | jq -r '.subdomains[]' > "$domain_dir/securitytrails_output.txt"
-    cat "$domain_dir/securitytrails_output" | sed  -e "s/^/https:\/\//" -e "s/\$/.${domain}/" > "$domain_dir/security_trials_domains.txt"
+    curl -s -H "APIKEY: $crtoken" "https://api.securitytrails.com/v1/domain/$domain/subdomains" | jq -r '.subdomains[]' > "$domain_dir/securitytrails_output1"
+    cat "$domain_dir/securitytrails_output1" | sed  -e "s/^/https:\/\//" -e "s/\$/.${domain}/" > "$domain_dir/security_trials_domains.txt"
 
     ####################### COMBINE SUBDOMAINS #######################
     echo -e "${yellow}[*] Combining subdomain results for $domain...${reset}"
     sub_files=("$domain_dir"/*.txt)
 
     if [[ ${#sub_files[@]} -gt 0 ]]; then
-        cat "${sub_files[@]}" | sort -u > "$domain_dir/all_subdomains.txt"
-        cat "$domain_dir/all_subdomains.txt" | sort -u -o "$domain_dir/all_subdomains.txt"
-        total_subs=$(wc -l < "$domain_dir/all_subdomains.txt")
-        echo -e "${green}[✔] Total unique subdomains found: $total_subs${reset}"
-        total_subs=$(wc -l < "$domain_dir/all_subdomains.txt")
-        echo "Total subdomains: $total_subs" >> "$summary_file"
+    awk '
+    {
+        orig = $0
+        gsub(/^https?:\/\//, "", $0)
+        gsub(/^www\./, "", $0)
+        gsub(/\/.*/, "", $0)
+        if (!seen[$0]++) print orig
+    }' "${sub_files[@]}" | sort -u > "$domain_dir/all_subdomains.txt"
+
+    total_subs=$(wc -l < "$domain_dir/all_subdomains.txt")
+    echo -e "${green}[✔] Total unique subdomains found: $total_subs${reset}"
+    echo "Total subdomains: $total_subs" >> "$summary_file"
 
     else
         echo "Total subdomains: 0" >> "$summary_file"
@@ -132,7 +138,6 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
          echo "Extracted IPs: No live subdomains found, skipping IP extraction." >> "$summary_file"
          echo -e "${yellow}[!] No live subdomains found, skipping IP extraction.${reset}"
          echo -e "${red}[x] IPs not extracted.."
-
      fi
 
 

@@ -49,7 +49,7 @@ if [[ -s "$outdir/index_pages.txt" ]]; then
 fi
 
 # ------------- BACKUP SCAN ON REDIRECTS ---------------
-cat "$outdir/httpx_results.txt" | grep -E "301|302" | awk '{print $1}' | anew "$outdir/redirects.txt" >/dev/null
+cat "$outdir/httpx_results.txt" | grep -E "\[30[12]\]" | awk '{print $1}' | anew "$outdir/redirects.txt" >/dev/null
 if [[ -s "$outdir/redirects.txt" ]]; then
     echo -e "${yellow}[*] Running Nuclei for backups on redirects...${reset}"
     nuclei -l "$outdir/redirects.txt" \

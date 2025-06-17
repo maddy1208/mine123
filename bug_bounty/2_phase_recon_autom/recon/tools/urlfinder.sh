@@ -37,7 +37,7 @@ function passive_enumeration() {
 
     #Waymore
     print_msg "yellow" "Running waymore..."
-    waymore -i "$live_domains" -mode U -oU "$OUTPUT_DIR/urls/waymore_urls.txt"
+    waymore -i "$live_domains" -mode U -oU "$OUTPUT_DIR/urls/waymore_output.txt"
     print_msg "green" "Waymore finished. URLs saved to waymore_output.txt."
 
     # GAU
@@ -62,17 +62,14 @@ function active_crawling() {
 
     # Gospider
     print_msg "yellow" "Running Gospider..."
-    while read -r domain; do
-        out_dir="$OUTPUT_DIR/urls/gospider_output"
-        mkdir -p "$out_dir"
-        gospider -s "$domain" -o "$out_dir" -d 3 -c 10 --js < /dev/null
-    done < "$live_domains"
+    gospider -S "$live_domains" -o "$OUTPUT_DIR/urls/gospider_output" -d 3 -c 10 --js < /dev/null
     print_msg "green" "Gospider finished. URLs saved to gospider_output/ per domain."
 
     # Katana
     print_msg "yellow" "Running Katana..."
-    cat "$live_domains" | sed 's~https\?://~~' | xargs -I {} katana -u https://{} -d 5 -o "$OUTPUT_DIR/urls/katana1_urls.txt"
-    cat "$live_domains" | sed 's~https\?://~~' | xargs -I {} katana -u https://{} -jc -d 5 -o "$OUTPUT_DIR/urls/katana2_urls.txt"
+    cat "$live_domains" | katana -list -d 5 -o "$OUTPUT_DIR/urls/katana1_urls.txt"
+    cat "$live_domains" | katana -list -jc -d 5 -o "$OUTPUT_DIR/urls/katana2_urls.txt"
+
     print_msg "green" "Katana finished. URLs saved to katana1_urls.txt and katana2_urls.txt."
     
     # hakrawler
@@ -108,53 +105,53 @@ function categorize_sensitive_info() {
     print_msg "blue" "🔒 Categorizing sensitive information..."
 
     print_msg "yellow" "Finding sensitive files..."
-    cat "$URLS_FILE" | uro | grep -E '\.xls|\.xml|\.xlsx|\.json|\.pdf|\.sql|\.doc|\.docx|\.pptx|\.txt|\.zip|\.tar\.gz|\.tgz|\.bak|\.7z|\.rar|\.log|\.cache|\.secret|\.db|\.backup|\.yml|\.gz|\.config|\.csv|\.yaml|\.md|\.md5|\.exe|\.dll|\.bin|\.ini|\.bat|\.sh|\.tar|\.deb|\.git|\.env|\.rpm|\.iso|\.img|\.apk|\.msi|\.dmg|\.tmp|\.crt|\.pem|\.key|\.pub|\.asc' >> "$FILTERED_DIR/sens_files.txt"
+    cat "$URLS_FILE" | uro | grep -iE '\.(xls|xml|xlsx|json|pdf|sql|doc|docx|pptx|txt|zip|tar\.gz|tgz|bak|7z|rar|log|cache|secret|db|backup|yml|gz|config|csv|yaml|md|md5|exe|dll|bin|ini|bat|sh|tar|deb|git|env|rpm|iso|img|apk|msi|dmg|tmp|crt|pem|key|pub|asc|p12|pfx|bak1|sql\.gz)' | anew "$FILTERED_DIR/sens_files.txt"
 
     print_msg "yellow" "Finding LFI patterns..."
-    grep -iE '=[^&]+/' "$URLS_FILE" >> "$FILTERED_DIR/lfi_testing.txt"
-    grep -E "file=|path=|doc=|include=" "$URLS_FILE" >> "$FILTERED_DIR/lfi_testing.txt"
+    grep -iE '=[^&]+/' "$URLS_FILE"  | anew "$FILTERED_DIR/lfi_testing.txt"
+    grep -E "file=|path=|doc=|include=" "$URLS_FILE"  | anew "$FILTERED_DIR/lfi_testing.txt"
 
     print_msg "yellow" "Finding Open Redirect patterns..."
-    grep -aiE '\|https?://[a-z0-9\.-]+\.mil/' "$URLS_FILE" | grep -i =http >> "$FILTERED_DIR/open_redir_testing.txt"
+    grep -aiE '\|https?://[a-z0-9\.-]+\.mil/' "$URLS_FILE" | grep -i =http  | anew  "$FILTERED_DIR/open_redir_testing.txt"
 
     print_msg "yellow" "Finding overall juicy/sensitive matches..."
-    grep -aiE 'pass(d|ord)=[^&]+' "$URLS_FILE" >> "$FILTERED_DIR/juicy.txt"
+    grep -aiE 'pass(d|ord)=[^&]+' "$URLS_FILE" | anew  "$FILTERED_DIR/juicy.txt"
 
     print_msg "yellow" "Finding IDOR patterns..."
-    grep -Ei '([a-zA-Z0-9._-]+/(user|account|profile|id|order|invoice|admin|report|dashboard)/[0-9]+|[?&](id|user|account|order|invoice|admin|profile|report)=[0-9]+)' "$URLS_FILE" >> "$FILTERED_DIR/idor_testing.txt"
+    grep -Ei '([a-zA-Z0-9._-]+/(user|account|profile|id|order|invoice|admin|report|dashboard)/[0-9]+|[?&](id|user|account|order|invoice|admin|profile|report)=[0-9]+)' "$URLS_FILE"  | anew  "$FILTERED_DIR/idor_testing.txt"
 
     print_msg "yellow" "Finding UUIDs..."
-    grep -Ei '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}' "$URLS_FILE" | sort -u >> "$FILTERED_DIR/uuids_testing.txt"
+    grep -Ei '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}' "$URLS_FILE"  | anew "$FILTERED_DIR/uuids_testing.txt"
 
     print_msg "yellow" "Finding JWT tokens..."
-    grep "eyJ" "$URLS_FILE" >> "$FILTERED_DIR/jwt_testing.txt"
+    grep "eyJ" "$URLS_FILE" | anew "$FILTERED_DIR/jwt_testing.txt"
 
     print_msg "yellow" "Finding suspicious keys..."
-    grep -Ei '([a-zA-Z0-9_\-]{8,})=([a-zA-Z0-9_\-]{20,})' "$URLS_FILE" >> "$FILTERED_DIR/sus_key.txt"
+    grep -Ei '([a-zA-Z0-9_\-]{8,})=([a-zA-Z0-9_\-]{20,})' "$URLS_FILE"  | anew  "$FILTERED_DIR/sus_key.txt"
 
     print_msg "yellow" "Finding SSNs..."
-    grep -Ei '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' "$URLS_FILE" >> "$FILTERED_DIR/ssn.txt"
+    grep -Ei '\b[0-9]{3}-[0-9]{2}-[0-9]{4}\b' "$URLS_FILE" | anew "$FILTERED_DIR/ssn.txt"
 
     print_msg "yellow" "Finding Credit Card Numbers..."
-    grep -Ei '\b[0-9]{13,16}\b' "$URLS_FILE" >> "$FILTERED_DIR/credit.txt"
+    grep -Ei '\b[0-9]{13,16}\b' "$URLS_FILE"  | anew  "$FILTERED_DIR/credit.txt"
 
     print_msg "yellow" "Finding SessionIDs and Cookies..."
-    grep -Ei '[a-zA-Z0-9]{32,}' "$URLS_FILE" >> "$FILTERED_DIR/possible_sess_cook.txt"
+    grep -Ei '[a-zA-Z0-9]{32,}' "$URLS_FILE" | anew  "$FILTERED_DIR/possible_sess_cook.txt"
 
     print_msg "yellow" "Finding common tokens/secrets..."
-    grep -iE 'token|role|privilege|priv|secret|auth|id=|admin|pass|pwd|passwd|password|phone|mobile|number|mail' "$URLS_FILE" >> "$FILTERED_DIR/possible_sensitive_urls.txt"
+    grep -iE 'token|role|privilege|priv|secret|auth|id=|admin|pass|pwd|passwd|password|phone|mobile|number|mail' "$URLS_FILE"  | anew  "$FILTERED_DIR/possible_sensitive_urls.txt"
 
     print_msg "yellow" "Finding Private IPs..."
-    grep -Ei '\b(10(\.[0-9]{1,3}){3}|172\.(1[6-9]|2[0-9]|3[0-1])(\.[0-9]{1,3}){2}|192\.168(\.[0-9]{1,3}){2})\b' "$URLS_FILE" >> "$FILTERED_DIR/ip_priv.txt"
+    grep -Ei '\b(10(\.[0-9]{1,3}){3}|172\.(1[6-9]|2[0-9]|3[0-1])(\.[0-9]{1,3}){2}|192\.168(\.[0-9]{1,3}){2})\b' "$URLS_FILE"  | anew  "$FILTERED_DIR/ip_priv.txt"
 
     print_msg "yellow" "Finding IPv4 addresses..."
-    grep -Ei '([0-9]{1,3}\.){3}[0-9]{1,3}' "$URLS_FILE" >> "$FILTERED_DIR/ipv4.txt"
+    grep -Ei '([0-9]{1,3}\.){3}[0-9]{1,3}' "$URLS_FILE" | anew  "$FILTERED_DIR/ipv4.txt"
 
     print_msg "yellow" "Finding IPv6 addresses..."
-    grep -Ei '([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}' "$URLS_FILE" >> "$FILTERED_DIR/ipv6.txt"
+    grep -Ei '([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}' "$URLS_FILE"  | anew "$FILTERED_DIR/ipv6.txt"
 
     print_msg "yellow" "Finding payment-related keywords..."
-    grep -iE '(\b(payment|orderid|order_id|payid|invoice|receipt|amount|price|total|cost|paid|rupee|rs|dollar)[=:\/]{1}[ ]?[a-zA-Z0-9._%-]{3,}\b)'  "$URLS_FILE" >> "$FILTERED_DIR/payment_keywords.txt"
+    grep -iE '(\b(payment|orderid|order_id|payid|invoice|receipt|amount|price|total|cost|paid|rupee|rs|dollar)[=:\/]{1}[ ]?[a-zA-Z0-9._%-]{3,}\b)'  "$URLS_FILE"  | anew  "$FILTERED_DIR/payment_keywords.txt"
 
     print_msg "green" "Sensitive information categorization finished."
 }
