@@ -24,9 +24,6 @@ echo -e "${BLUE}[+] Running nuclei...${NC}"
 nuclei -l "$LIVE_SUBDOMAINS" -t cves/ -severity critical,high -o "$OUTPUT/nuclei_output.txt"
 nuclei -l "$LIVE_SUBDOMAINS" -t technologies/,exposed-panels/,misconfiguration/ -o "$OUTPUT/nuclei_output_all.txt"
 
-echo -e "${BLUE}[+] Running scan4all...${NC}"
-scan4all -v -l  "$LIVE_SUBDOMAINS" -o "$OUTPUT/scan4all_output.txt"
-
 echo -e "${BLUE}[+] Running CVE-2024-24919...${NC}"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/CVE-2024-24919.sh -w "$LIVE_SUBDOMAINS" | tee "$OUTPUT/output_2024-24919.txt"
 

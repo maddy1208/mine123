@@ -87,13 +87,42 @@ function active_crawling() {
 function combine_urls() {
     print_msg "blue" "📌 Combining all found URLs..."
 
-    cat "$OUTPUT_DIR/urls/waymore_output.txt" "$OUTPUT_DIR/urls/gau_urls.txt" "$OUTPUT_DIR/urls/wayback_urls.txt" "$OUTPUT_DIR/urls/urlfinder_urls.txt" \
-    "$OUTPUT_DIR/urls/gauplus_urls.txt" \
-       $(find "$OUTPUT_DIR/urls/gospider_output" -type f) "$OUTPUT_DIR/urls/katana1_urls.txt" "$OUTPUT_DIR/urls/katana2_urls.txt" "$OUTPUT_DIR/urls/hakrawler_urls.txt"  \
-        | sort -u | anew "$URLS_FILE"
+    # Combine all tools' output
+    cat "$OUTPUT_DIR/urls/waymore_output.txt" \
+        "$OUTPUT_DIR/urls/gau_urls.txt" \
+        "$OUTPUT_DIR/urls/wayback_urls.txt" \
+        "$OUTPUT_DIR/urls/urlfinder_urls.txt" \
+        "$OUTPUT_DIR/urls/gauplus_urls.txt" \
+        $(find "$OUTPUT_DIR/urls/gospider_output" -type f) \
+        "$OUTPUT_DIR/urls/katana1_urls.txt" \
+        "$OUTPUT_DIR/urls/katana2_urls.txt" \
+        "$OUTPUT_DIR/urls/hakrawler_urls.txt" \
+        | sort -u | anew allurls
 
-    print_msg "green" "Combining finished. All URLs saved to all_urls.txt."
+    # Run httpx only once and save full results
+    httpx -silent -status-code -no-color -threads 200 < allurls | tee "$OUTPUT_DIR/urls/full_httpx_output.txt"
+
+    # Filter valid (non-404/500/501)
+    grep -Ev "\[(404|500|501)\]" "$OUTPUT_DIR/urls/full_httpx_output.txt" \
+        | cut -d " " -f1 \
+        | sort -u | tee "$URLS_FILE"
+
+    # Filter auth-protected (401/403)
+    grep -E "\[(401|403)\]" "$OUTPUT_DIR/urls/full_httpx_output.txt" \
+        | cut -d " " -f1 \
+        | sort -u | tee "$FILTERED_DIR/auth_protected.txt"
+        
+    auth_count=$(wc -l < "$FILTERED_DIR/auth_protected.txt" 2>/dev/null)
+    print_msg "yellow" "🔐 Auth-Protected URLs (401/403): $auth_count"
+
+    print_msg "green" "✅ Combining finished. All URLs saved to all_urls.txt."
+    total=$(wc -l < allurls 2>/dev/null)
+    valid=$(wc -l < "$URLS_FILE" 2>/dev/null)
+    print_msg "green" "🎯 Total URLs: $total | Valid (non-404/500/501): $valid"
+
+    rm -f allurls 
 }
+
 
 # Categorizing Sensitive Info
 function categorize_sensitive_info() {

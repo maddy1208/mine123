@@ -71,7 +71,7 @@ eg: if https://target.com/getusers.php
 	 =>collect urls and sens info
 	 
 9.check sens endpoints by robots.txt,sitemap.xml
-	 =>check normal url
+	 =>check normal url in web
 	 =>likewise check webarchieve,it may contain sens endpoints
 	 
 10.xss testing,sql testing, hidden params on param urls
@@ -95,4 +95,4 @@ echo "[*] Finding Hidden Parameters using Arjun..."
 
 
 11.sql ttest on login,other endpoints:
-eg: sqlmap -r request --dump --batch --dbs [ here, request=>raw http request burp la irudhu copy pnadhu ]
+eg: python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap/sqlmap.py -r request --dump --batch --dbs [ here, request=>raw http request burp la irudhu copy pnadhu ]

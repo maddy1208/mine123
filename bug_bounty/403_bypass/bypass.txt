@@ -225,8 +225,8 @@ Denied command: curl -X GET https://www.███████.mil/████�
 2.burp 403 bypasser
 
 3.nuclei:
-cat paths.txt | nuclei -t /prsnl/403-bypass.yaml -rl 10 -c 3 -silent -o 403-bypass-results.txt
+cat domains | nuclei -t /home/maddy/nuclei-templates/http/fuzzing/xff-403-bypass.yaml  -rl 10 -c 3 -silent -o 403-bypass-results.txt
 
 4.403-bypass2.sh
-root@me_dheeraj:$ bash 403-bypass2.sh -u https://target.com/secret --exploit
+# bash 403-bypass2.sh -u https://target.com/secret --exploit
 

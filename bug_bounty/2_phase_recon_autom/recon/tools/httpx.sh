@@ -48,8 +48,47 @@ if [[ -s "$outdir/index_pages.txt" ]]; then
     echo -e "${red}[!] Possible Directory Listing Found! → index_pages.txt${reset}"
 fi
 
+#------------------general analysis using screenshot---------------------
+
+echo " capturing screenshots........"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/EyeWitness/Python/EyeWitness.py  -f "$input_file" -d "$outdir/screenshot_eyewitness" --no-prompt
+cat "$input_file"  | aquatone -out "$outdir/screenshot_aquatone"
+
+# ----------------- CATEGORIZATION ---------------------
+echo "[+] filtering $input_file..."
+httpx -silent -status-code -no-color -threads 200 < "$input_file" | tee "$outdir/raw_httpx.txt"
+
+# Auth-protected (401/403)
+grep -E "\[(401|403)\]" "$outdir/raw_httpx.txt" \
+    | cut -d " " -f1 \
+    | sort -u | tee "$outdir/auth_protected.txt"
+
+# 4xx / 5xx status
+grep -E "\[(400|401|403|500|501|502)\]" "$outdir/raw_httpx.txt" \
+    | cut -d " " -f1 \
+    | sort -u | anew "$outdir/4xx_5xx_status.txt"
+
+# 404s
+grep "\[404\]" "$outdir/raw_httpx.txt" \
+    | cut -d " " -f1 \
+    | sort -u | anew "$outdir/404_status.txt" 
+
+# 2xx / 3xx status
+grep -E "\[(200|201|202|203|204|205|206|207|208|301|302|307|308)\]" "$outdir/raw_httpx.txt" \
+    | cut -d " " -f1 \
+    | sort -u | anew "$outdir/2xx_3xx_status.txt"
+
+# 301/302 redirects only
+grep -E "\[(301|302)\]" "$outdir/raw_httpx.txt" \
+    | cut -d " " -f1 \
+    | sort -u | anew "$outdir/redirects.txt"
+
+# Important subdomains
+grep -E "admin|panel|portal|secure|dashboard|internal|api|stag|dev|priv|test|sam|dash" "$outdir/raw_httpx.txt" \
+    | cut -d " " -f1 \
+    | sort -u | anew "$outdir/important_subdomains.txt" 
+    
 # ------------- BACKUP SCAN ON REDIRECTS ---------------
-cat "$outdir/httpx_results.txt" | grep -E "\[30[12]\]" | awk '{print $1}' | anew "$outdir/redirects.txt" >/dev/null
 if [[ -s "$outdir/redirects.txt" ]]; then
     echo -e "${yellow}[*] Running Nuclei for backups on redirects...${reset}"
     nuclei -l "$outdir/redirects.txt" \
@@ -59,33 +98,44 @@ if [[ -s "$outdir/redirects.txt" ]]; then
        -o "$outdir/nuclei_results_backup.txt"
     echo -e "${green}[✔] Nuclei backup scan done → nuclei_results_backup.txt${reset}"
 else
-    echo -e "${blue}[i] No 301/302 redirects found for backup scanning${reset}"
+    echo -e "${blue}[i] No 301/302 domains found for backup scanning${reset}"
 fi
 
-#------------------general analysis using screenshot---------------------
+#-----------------------------------SOURCE CODE ANALYSIS------------------------------
+#!/bin/bash
 
-echo " capturing screenshots........"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/EyeWitness/Python/EyeWitness.py  -f "$input_file" -d "$outdir/screenshot_eyewitness" --no-prompt
-cat "$input_file"  | aquatone -out "$outdir/screenshot_aquatone"
+INPUT="live_subdomains.txt"
+OUTPUT="$outdir/sources-for-401-403-500.txt"
+
+while read -r domain; do
+    echo "[*] Checking $domain..."
+
+    # Save raw HTML and status code
+    response=$(curl -skL -A "Mozilla/5.0" -H "Accept: text/html" "$domain" -o temp_raw.html -w "%{http_code}")
+
+    if [[ "$response" =~ ^(401|402|403|404|500|501|502)$ ]]; then
+        echo "🔍 $domain responded with $response — saving formatted source"
+
+        # Format using xmllint
+        formatted=$(xmllint --html --format temp_raw.html 2>/dev/null)
+
+        # If xmllint failed or gave empty output, try tidy
+        if [[ -z "$formatted" && -x "$(command -v tidy)" ]]; then
+            formatted=$(tidy -indent -quiet yes -wrap 0 temp_raw.html 2>/dev/null)
+        fi
+
+        # Save output
+        echo -e "\n\n$domain ($response):\n$formatted" >> "$OUTPUT"
+    fi
+done < "$INPUT"
+
+rm -f temp_raw.html
+echo "[+] Done. Saved prettified HTML to $OUTPUT"
+
+echo "[+] Done. Formatted sources saved to $OUTPUT"
 
 
-# ----------------- CATEGORIZATION ---------------------
-# Important subdomains
-grep -E "admin|panel|portal|secure|dashboard|internal|api|stag|dev|priv|test|sam|dash" "$outdir/httpx_results.txt" \
-    | anew "$outdir/important_subdomains.txt" >/dev/null
-echo -e "${green}[*] Saved potentially important subdomains to important_subdomains.txt${reset}"
 
-# 4xx / 5xx status
-grep -E "4[0-9]{2}|5[0-9]{2}" "$outdir/httpx_results.txt" | awk '{print $1}' \
-    | anew "$outdir/4xx_5xx_status.txt" >/dev/null
-
-# 404s
-grep -E "404" "$outdir/httpx_results.txt" | awk '{print $1}' \
-    | anew "$outdir/404_status.txt" >/dev/null
-
-# 2xx / 3xx for good responses
-grep -E "2[0-9]{2}|3[0-9]{2}" "$outdir/httpx_results.txt" | awk '{print $1}' \
-    | anew "$outdir/2xx_3xx_status.txt" >/dev/null
 
 echo -e "${green}[✔] All categorized results saved in ${outdir}${reset}"
 

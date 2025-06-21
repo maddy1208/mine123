@@ -89,12 +89,11 @@ mv filtered_urls.txt loxs_param.txt
 
 
 echo "[+] Combining all parameterized URLs..."
-cat results/* regex.txt loxs_param.txt | grep -E '\?.+=.+' | grep -Ev '^https?://[^?]+\.(woff2|ttf|svg|eot|css|js|png|jpeg|gif|ico|mp4|webp|bmp|json|xml)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  > "$ALLPARAMS"
+cat results/* regex.txt loxs_param.txt | grep -E '\?.+=.+' | grep -Ev '^https?://[^?]+\.(woff2|ttf|svg|eot|css|js|png|jpeg|gif|ico|mp4|webp|bmp|json|xml)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  > sam.txt
 
-cat results/* regex.txt loxs_param.txt | \
-grep -E '([?&](image|file|url)=)' \
->> "$ALLPARAMS"
-cat "$ALLPARAMS" | sort -u -o   "$ALLPARAMS"
+cat results/* regex.txt loxs_param.txt | grep -E '([?&](image|file|url)=)' >> sam.txt || true
+cat sam.txt | sort -u -o   "$ALLPARAMS"
+rm sam.txt
 
 # === 4. SCAN PARAMETERIZED URLS ===
 if [[ -s "$ALLPARAMS" ]]; then
@@ -212,7 +211,7 @@ nuclei -t ~/nuclei-templates/http/vulnerabilities/generic/crlf-injection-generic
 nuclei -t ~/nuclei-templates/http/vulnerabilities/other/viewlinc-crlf-injection.yaml -l "$LIVEDOMAINS"  -o  "$OUTDIR/crlf_nuclei_out3.txt" -stats  -retries 2 
 
 
--------------------------------------PORT SCANNING---------------------------------
+#-------------------------------------PORT SCANNING---------------------------------
 
 echo "Starting port scanning..."
 
@@ -264,6 +263,9 @@ cat portscan/ip_port_list.txt | parallel -j 10 '
   [[ -z "$domains" ]] && domains="unknown_domain"
   nmap -p "$port" -sV -T4 -oN "portscan/nmap/nmap_detailed_${domains}_${ip}.txt" "$ip"
 '
+
+echo -e "${BLUE}[+] Running scan4all...${NC}"
+scan4all -v -l  "$LIVEDOMAINS" -o "$OUTDIR/scan4all_output.txt"
 
 #9. Hidden Parameters Discovery using Arjun
 #echo "[*] Finding Hidden Parameters using Arjun..."

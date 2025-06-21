@@ -98,11 +98,12 @@ for domain_folder in "$TOOL1_OUTPUT"/*; do
     /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/automation.sh
     echo -e "${blue} [+] original automation completed....${reset}"
     
-    
-    sudo rm -rf config geckodriver.log
+    #remove files 
+    echo "[+] removing unwanted files"
+    sudo rm -rf ../config ../cleaned_domains.txt geckodriver.log
 
     
-    
+   
 done
 
 echo -e "${green}[✓] Recon Complete for all domains.${reset}"

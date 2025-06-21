@@ -1,2 +1,12 @@
-
+1.https://www.kodenpay.com
+	https://axp.kodenpay.com
+	https://axp-api.kodenpay.com
+	
+2.www.selzy.com	
+	collect.selzy.com
+	connect.selzy.com
+	formdesigner.selzy.com
+	fwd.selzy.com
+	go.selzy.com
+	teststand.selzy.com
 

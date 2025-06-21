@@ -61,7 +61,7 @@ while read domain; do
 echo "[+] Finished alldomains with LinkFinder "
 echo "[+] Scanning downloaded js with LinkFinder "
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i './jsrecon/js_downloads/*' -o cli | tee "$linkfinder_out/cli_result_alljs.txt"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i'./jsrecon/js_downloads/*' -o "$linkfinder_out/html_result_alljs.txt"
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i'./jsrecon/js_downloads/*' -o "$linkfinder_out/html_result_alljs.html"
 echo "[+] Finished alldomains with LinkFinder "
 echo "[+] Finished Linkfinder successfully.... "
 

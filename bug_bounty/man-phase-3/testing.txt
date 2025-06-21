@@ -1,0 +1,15 @@
+after [recon,automation & analysis]
+
+1. Loxs tool (use inputs from recon)
+
+2. Burpsuite + burp extensions ready
+
+3. Gdork scan 
+
+4. Github recon 
+
+5. Shodan dork recon & scan4all [ scan4all -v -l  "$LIVE_SUBDOMAINS"  ] 
+
+6. general.txt 
+
+7.vuln hunting (3rd phase_anual)
