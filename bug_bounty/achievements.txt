@@ -1,6 +1,6 @@
-totol bugs found: 4
+totol bugs found: 6
 
-LOW      : 2
+LOW      : 4
 MEDIUM   : 2
 HIGH     : 0
 CRITICAL : 0
@@ -12,3 +12,5 @@ DES:
 2.sens info disclosure on flow.com
 3.email spoofing on flow.com
 4.broken link hijacking on flow.com
+5.EXposed phpmyadmin+info disclosure
+6.Host header injection to cookie injection

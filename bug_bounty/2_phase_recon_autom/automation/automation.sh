@@ -21,7 +21,7 @@ ALLPARAMS="$PARAM_OUT/all_params.txt"
 
 echo "[+] filtering 400's domains to livedomains.txt..."
 httpx -l "$LIVE_INPUT" -silent -no-color -status-code -fr \
-  | grep -Ev "\[(4|5|000)" \
+  | grep -Ev "\[(401|404|501|502)\]" \
   | cut -d " " -f1 > "$OUTDIR/usable_targets.txt"
 
 
@@ -36,7 +36,7 @@ echo "========================="
 
 ## === 1. SCAN LIVEDOMAINS ===
 if [[ -s "$LIVEDOMAINS" ]]; then
-
+      
     echo "[+] Running Jaeles on $LIVEDOMAINS ..."
     cat "$LIVEDOMAINS" | jaeles scan  -v -c 50  -o "$JAELES_OUT/jaeles_domain_out"
     
@@ -73,7 +73,7 @@ else
     echo "[!] $JSURLS not found or empty. Skipping JS URL scans."
 fi
 
-# === 3. PARAMETERIZED URLS ENUM ===
+=== 3. PARAMETERIZED URLS ENUM ===
 echo "[+] Running ParamSpider..."
 paramspider -l "$LIVEDOMAINS" 
 
@@ -101,7 +101,17 @@ if [[ -s "$ALLPARAMS" ]]; then
     nuclei -l "$ALLPARAMS" -dast -c 1000  -retries 2 -o "$NUCLEI_OUT/dast_out.txt" -stats
 
 echo "[+] Running Jaeles on Parameterized URLs ..."
-cat "$ALLPARAMS" | jaeles scan -c 50 -v -o "$JAELES_OUT/jaeles_params_out"
+
+##making temp directory for param templates
+mkdir -p ~/jaeles-templates/param-only
+
+grep -rilE 'xss|sqli|ssrf|ssti|rce' /home/maddy/.jaeles/base-signatures/ --include="*.yaml" \
+| xargs -I{} cp {} ~/jaeles-templates/param-only/
+
+cat "$ALLPARAMS" | jaeles scan -c 50 -s ~/jaeles-templates/param-only/ -v -o "$JAELES_OUT/jaeles_params_out"
+
+echo "[+] removing temp directory..."
+rm -rf  ~/jaeles-templates/param-only
 
 else
     echo "[!] No parameterized URLs found. Skipping parameter scans."

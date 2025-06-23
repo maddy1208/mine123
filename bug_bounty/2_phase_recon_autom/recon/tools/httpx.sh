@@ -51,7 +51,7 @@ fi
 #------------------general analysis using screenshot---------------------
 
 echo " capturing screenshots........"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/EyeWitness/Python/EyeWitness.py  -f "$input_file" -d "$outdir/screenshot_eyewitness" --no-prompt
+###python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/EyeWitness/Python/EyeWitness.py  -f "$input_file" -d "$outdir/screenshot_eyewitness" --no-prompt
 cat "$input_file"  | aquatone -out "$outdir/screenshot_aquatone"
 
 # ----------------- CATEGORIZATION ---------------------

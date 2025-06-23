@@ -117,7 +117,7 @@ grep -EHi 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' "$SCRIPT_DIR"/jsreco
 
 
 echo "[*] Grepping sensitive keywords (tokens, keys, creds)..."
-KEYWORDS='api[_-]?key|aws_access_key|innertext|innerHtml|internal|todo|fixme|bug|localhost|aws_secret_key|api key|passwd|heroku|slack|firebase|swagger|aws_key|password|ftp password|jdbc|sql|secret_jet|config|admin|json|gcp|htaccess|.env|ssh|devnote|.git|access_key|secret|token=|oauth_token|oauth_token_secret|secret|fetch|axios|debug|eval|authorization|env|bearer|client[_-]?id|client[_-]?secret|jwt|pass(word)?|cred(entials)?'
+KEYWORDS='api[_-]?key|aws_access_key|innertext|innerHtml|internal|todo|fixme|bug|localhost|aws_secret_key|api_key|passwd=|heroku|slack|firebase|swagger|aws_key|password|ftp_password|ftp_password|jdbc|sql|secret_jet|config|admin|json|gcp|htaccess|.env|ssh|devnote|.git|access_key|secret|token=|oauth_token|oauth_token_secret|secret|fetch|axios|debug|eval|authorization|env|bearer|client[_-]?id|client[_-]?secret|jwt|pass(word)?|cred(entials)?'
 
 # Save raw output
 grep -Poir --exclude='*.min.js' --binary-files=without-match \
@@ -135,45 +135,45 @@ echo "[+] Running Mantra"
 cat "$SCRIPT_DIR/jsrecon/livejs.txt" | mantra | tee "$mantra_out/mantra_results.txt"
 
 # #------------------------------------------------------NUCLEI----------------------------------------------------
-nuclei_out="$output_dir/nuclei"
-mkdir -p  "$nuclei_out"
+# nuclei_out="$output_dir/nuclei"
+# mkdir -p  "$nuclei_out"
 
-echo "[+] Running nuclei for JavaScript specific templates"
-nuclei -list "$live_subdomains" -t ~/nuclei-templates/javascript/ -o "$nuclei_out/nuclei1_javascript.txt" -stats
-nuclei -list "$live_subdomains" -t ~/nuclei-templates/exposures -o "$nuclei_out/nuclei2_exposures.txt" -stats
-nuclei -l "$live_subdomains"  -t ~/nuclei-templates/   -severity low,medium,high,critical -o "$nuclei_out/nuclei3_general.txt" -rate-limit 150   -stats
-echo "[+] Finished nuclei..."
+# echo "[+] Running nuclei for JavaScript specific templates"
+# nuclei -list "$live_subdomains" -t ~/nuclei-templates/javascript/ -o "$nuclei_out/nuclei1_javascript.txt" -stats
+# nuclei -list "$live_subdomains" -t ~/nuclei-templates/exposures -o "$nuclei_out/nuclei2_exposures.txt" -stats
+# nuclei -l "$live_subdomains"  -t ~/nuclei-templates/   -severity low,medium,high,critical -o "$nuclei_out/nuclei3_general.txt" -rate-limit 150   -stats
+# echo "[+] Finished nuclei..."
 
 
 #---------------------------------------------------LAZYEGG---------------------------------------------------------
-lazyegg_out="$output_dir/lazyegg"
-mkdir -p "$lazyegg_out"
+# lazyegg_out="$output_dir/lazyegg"
+# mkdir -p "$lazyegg_out"
 
-echo "[+] Running Lazyegg"
+# echo "[+] Running Lazyegg"
 
-while read -r url; do
-  domain=$(echo "$url" | sed -E 's~https?://([^/]+).*~\1~')
+# while read -r url; do
+#   domain=$(echo "$url" | sed -E 's~https?://([^/]+).*~\1~')
 
-  (
-    cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg || exit 1
-    echo -e "\n========== Target: $domain ==========\n" | tee -a output_domains.txt
-    python3 lazyegg.py "$url" | tee -a output_domains.txt
-  )
-done < "$live_subdomains"
+#   (
+#     cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg || exit 1
+#     echo -e "\n========== Target: $domain ==========\n" | tee -a output_domains.txt
+#     python3 lazyegg.py "$url" | tee -a output_domains.txt
+#   )
+# done < "$live_subdomains"
 
-cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I{} bash -c "
-  echo -e '\n[+] Target: {}' | tee -a '$lazyegg_out/output_alljs.txt'
-  (
-    cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg || exit 1
-    python3 lazyegg.py '{}' --js_urls --domains --ips --leaked_creds | tee -a '$lazyegg_out/output_alljs.txt'
-  )
-"
+# cat "$SCRIPT_DIR/jsrecon/livejs.txt" | xargs -I{} bash -c "
+#   echo -e '\n[+] Target: {}' | tee -a '$lazyegg_out/output_alljs.txt'
+#   (
+#     cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg || exit 1
+#     python3 lazyegg.py '{}' --js_urls --domains --ips --leaked_creds | tee -a '$lazyegg_out/output_alljs.txt'
+#   )
+# "
 
-#Move generated outputs to your output directory (if they exist)
-mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/output_domains.txt "$lazyegg_out/output_domains.txt" 2>/dev/null || true
-mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/output_alljs.txt "$lazyegg_out/output_alljs.txt" 2>/dev/null || true
+# #Move generated outputs to your output directory (if they exist)
+# mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/output_domains.txt "$lazyegg_out/output_domains.txt" 2>/dev/null || true
+# mv /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg/output_alljs.txt "$lazyegg_out/output_alljs.txt" 2>/dev/null || true
 
-echo "[+] Finished Lazyegg"
+# echo "[+] Finished Lazyegg"
 
 #---------------------------------------------------JSFSCAN---------------------------------------------------------
 jsfscan_out="$output_dir/jsfscan"

@@ -54,8 +54,10 @@ while read -r url; do
         name=$(basename "$wordlist")
         echo -e "${yellow}[-] FFUF: Loading wordlist → $name${reset}"
 
-        ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 -of html -o "$dirpath/ffuf_${name}.html" -v  -e .php,.html,.txt,.bak,.zip,.old,.inc,.json,.env,.log,.sql \
-           -H "User-Agent: Mozilla/5.0"  < /dev/null
+        ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 \
+        -of html -o "$dirpath/ffuf_${name}.html"  -of csv -o "$outdir/ffuf_${domain}_${name}.csv" -v -e .php,.html,.txt,.bak,.zip,.old,.inc,.json,.env,.log,.sql \
+           -H "User-Agent: Mozilla/5.0" \
+            -H "X-Forwarded-For: 127.0.0.1" \ < /dev/null
 
         if [[ $? -eq 0 ]]; then
             echo -e "${green}[✔] FFUF done with $name → ffuf_${name}.txt${reset}"
@@ -63,17 +65,27 @@ while read -r url; do
             echo -e "${red}[✘] FFUF failed with $name${reset}"
         fi
     done
-
-    # Run Dirsearch
-    echo -e "${yellow}[-] Starting Dirsearch on $url${reset}"
-    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirsearch.py -u "$url" -t 50 --random-agent -x 404 --delay 0.5\
-   -e php,html,txt,bak,zip,old,inc,json,env,log,sql \
-    -f -o "$dirpath/dirsearch.txt" < /dev/null
-
-    echo -e "${green}[✔] Dirsearch done → dirsearch.txt${reset}"
-
-    echo -e "${blue}[i] Completed all scans for $url${reset}"
 done < "$input_file"
+#combining all files 
+echo -e "${yellow}[-] Combining all csv files..."
+cat "$outdir"/*.csv >> "$outdir/all_csv_out"
+rm -rf "$outdir"/*.csv
 
+awk -F',' '
+BEGIN {
+    printf "%-30s %-80s %-10s\n", "Payload", "URL", "Status"
+    print "---------------------------------------------------------------------------------------------------------------"
+}
+{
+    printf "%-30s %-80s %-10s\n", $1, $2, $5
+}' "$outdir/all_csv_out" > "$outdir/ffuf_all_report.txt"
+
+#--------------------------------------------------------------dirsearch---------------------------------------------------
+echo -e "${yellow}[-] Starting Dirsearch on $url${reset}"
+
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirsearch.py -l "$input_file" -t 50 --random-agent -x 404 --delay 0.5 \
+   -e php,html,txt,bak,zip,old,inc,json,env,log,sql \
+    -f -o "$outdir/dirsearch.txt" < /dev/null
+
+echo -e "${green}[✔] Dirsearch done → dirsearch.txt${reset}"
 echo -e "\n${green}[✔] All directory brute-force results saved in '${outdir}' folder.${reset}"
-

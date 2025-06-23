@@ -46,9 +46,6 @@ wpscan --url www.example.com --wordlist wordlist.txt --username admin
 * Selection of the password using the username/password with 50 threads:
 wpscan --url www.example.com --wordlist wordlist.txt --threads 50
 
-* 🌀 Using random User-Agent to evade detection:
-wpscan --url www.example.com --random-user-agent
-
 * Combine random User-Agent with enumeration:
-wpscan --url www.example.com --enumerate u --random-user-agent
+wpscan --url https://selzy.com --enumerate vp --random-user-agent --force --api-token gZ1Cetfna5Xthlw9FWXYdQCDKgGf5ObWKyHykVxYb98
 
