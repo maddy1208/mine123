@@ -28,24 +28,21 @@ wordlists=(
     "/home/maddy/techiee/bug_bounty/bin_deps/common.txt"
 )
 
-# -------------------- START LOOP ----------------------
+# -------------------- FFUF Loop ----------------------
 while read -r url; do
     domain=$(echo "$url" | awk -F/ '{print $3}')
     dirpath="$outdir/$domain"
     mkdir -p "$dirpath"
 
-    echo -e "\n${yellow}[*] Starting directory scan on $url${reset}"
+    echo -e "\n${yellow}[*] Starting FFUF directory scan on $url${reset}"
     echo -e "${blue}[i] Output folder: $dirpath${reset}"
 
-    # Ensure the URL is valid
     if [[ ! "$url" =~ ^https?:// ]]; then
         echo -e "${red}[✘] Invalid URL format: $url${reset}"
         continue
     fi
 
-    # Run FFUF for each wordlist
     for wordlist in "${wordlists[@]}"; do
-        # Ensure the wordlist exists
         if [[ ! -f "$wordlist" ]]; then
             echo -e "${red}[✘] Wordlist not found: $wordlist${reset}"
             continue
@@ -55,21 +52,20 @@ while read -r url; do
         echo -e "${yellow}[-] FFUF: Loading wordlist → $name${reset}"
 
         ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 \
-        -of html -o "$dirpath/ffuf_${name}.html"  -of csv -o "$outdir/ffuf_${domain}_${name}.csv" -v -e .php,.html,.txt,.bak,.zip,.old,.inc,.json,.env,.log,.sql \
-           -H "User-Agent: Mozilla/5.0" \
-            -H "X-Forwarded-For: 127.0.0.1" \ < /dev/null
+        -of html -o "$dirpath/ffuf_${name}.html" \
+        -of csv -o "$outdir/ffuf_${domain}_${name}.csv" \
+        -e .php,.html,.txt,.bak,.zip,.old,.inc,.json,.env,.log,.sql \
+        -H "User-Agent: Mozilla/5.0" -H "X-Forwarded-For: 127.0.0.1" < /dev/null
 
-        if [[ $? -eq 0 ]]; then
-            echo -e "${green}[✔] FFUF done with $name → ffuf_${name}.txt${reset}"
-        else
+        [[ $? -eq 0 ]] && \
+            echo -e "${green}[✔] FFUF done with $name → ffuf_${name}.csv${reset}" || \
             echo -e "${red}[✘] FFUF failed with $name${reset}"
-        fi
     done
 done < "$input_file"
-#combining all files 
-echo -e "${yellow}[-] Combining all csv files..."
-cat "$outdir"/*.csv >> "$outdir/all_csv_out"
-rm -rf "$outdir"/*.csv
+
+echo -e "${yellow}[-] Combining all FFUF csv files...${reset}"
+cat "$outdir"/*.csv > "$outdir/all_csv_out"
+rm -f "$outdir"/*.csv
 
 awk -F',' '
 BEGIN {
@@ -80,12 +76,55 @@ BEGIN {
     printf "%-30s %-80s %-10s\n", $1, $2, $5
 }' "$outdir/all_csv_out" > "$outdir/ffuf_all_report.txt"
 
-#--------------------------------------------------------------dirsearch---------------------------------------------------
-echo -e "${yellow}[-] Starting Dirsearch on $url${reset}"
+echo -e "${green}[✔] FFUF output saved to $outdir/ffuf_all_report.txt${reset}"
 
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirsearch.py -l "$input_file" -t 50 --random-agent -x 404 --delay 0.5 \
-   -e php,html,txt,bak,zip,old,inc,json,env,log,sql \
+# ------------------------ Dirsearch ------------------------
+echo -e "${yellow}[-] Starting Dirsearch...${reset}"
+
+python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirsearch.py \
+    -l "$input_file" -t 50 --random-agent -x 404 --delay 0.5 \
+    -e php,html,txt,bak,zip,old,inc,json,env,log,sql --follow-redirects \
     -f -o "$outdir/dirsearch.txt" < /dev/null
 
-echo -e "${green}[✔] Dirsearch done → dirsearch.txt${reset}"
-echo -e "\n${green}[✔] All directory brute-force results saved in '${outdir}' folder.${reset}"
+echo -e "${green}[✔] Dirsearch output → $outdir/dirsearch.txt${reset}"
+
+# ------------------------ Redirects ------------------------
+input_ffuf_file="$outdir/ffuf_all_report.txt"
+input_dir_file="$outdir/dirsearch.txt"
+
+echo "[+] Extracting redirected URLs..."
+
+awk '$NF ~ /^30[1278]$/ {print $(NF-1)}' "$input_ffuf_file" > "$outdir/redirected_urls_ffuf.txt"
+awk '$1 ~ /^30[1278]$/ {print $3}' "$input_dir_file" > "$outdir/redirected_urls_dirsearch.txt"
+cat "$outdir"/redirected_urls_*.txt | sort -u > "$outdir/all_redirected_urls"
+
+echo "[+] Resolving redirects with httpx..."
+httpx -l "$outdir/all_redirected_urls" -follow-redirects \
+  -mc 200,202,203,204,205,206,207,208 -o "$outdir/redirect_results"
+
+# ------------------------ Collect All 2xx URLs ------------------------
+echo "[+] Collecting all 2XX response URLs for Arjun..."
+
+awk '$NF ~ /^20[0-8]$/ {print $(NF-1)}' "$input_ffuf_file" > "$outdir/ffuf_2xx_urls.txt"
+awk '$1 ~ /^20[0-8]$/ {print $3}' "$input_dir_file" > "$outdir/dirsearch_2xx_urls.txt"
+grep -oP '\[\K[^\]]+' "$outdir/redirect_results" > "$outdir/redirect_2xx_urls.txt"
+
+cat "$outdir"/ffuf_2xx_urls.txt "$outdir"/dirsearch_2xx_urls.txt "$outdir"/redirect_2xx_urls.txt \
+    | grep -E '^https?://' \
+    | grep -Ev '\.(js|css|ico|png|jpg|svg|woff|ttf|eot|gif|mp4|zip|tar|gz|pdf|exe|json)$' \
+    | sort -u > "$outdir/all_2xx_clean.txt"
+
+rm -f "$outdir"/dirsearch_2xx_urls.txt "$outdir"/ffuf_2xx_urls.txt "$outdir"/redirect_2xx_urls.txt \
+       "$outdir"/redirected_urls_ffuf.txt "$outdir"/redirected_urls_dirsearch.txt
+
+# # ------------------------ Arjun Scan ------------------------
+# echo "[*] Running Arjun to find hidden parameters..."
+# while read -r url; do
+#   echo "[$(date '+%T')] Scanning: $url" | tee -a "$outdir/hidden_params.txt"
+#   echo "==== URL: $url ====" >> "$outdir/hidden_params.txt"
+#   arjun -u "$url" -oT - >> "$outdir/hidden_params.txt"
+#   echo -e "\n" >> "$outdir/hidden_params.txt"
+#   sleep 2
+# done < "$outdir/all_2xx_clean.txt"
+
+# echo -e "${green}[✔] Arjun scan complete. Results in $outdir/hidden_params.txt${reset}"
