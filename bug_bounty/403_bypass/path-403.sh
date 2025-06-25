@@ -3,6 +3,7 @@
 INPUT="$1"
 OUTPUT="path-bypass-out"
 > "$OUTPUT"
+#./path-403.sh input [ domain      path ]
 
 # Check if file was provided and exists
 if [[ -z "$INPUT" || ! -f "$INPUT" ]]; then

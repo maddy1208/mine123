@@ -1,24 +1,24 @@
-#!/bin/bash
+##!/bin/bash
 
-# ----------------------- COLORS -----------------------
+## ----------------------- COLORS -----------------------
 blue='\033[1;34m'
 green='\033[1;32m'
 yellow='\033[1;33m'
 red='\033[1;31m'
 reset='\033[0m'
 
-# -------------------- INPUT CHECK ---------------------
+## -------------------- INPUT CHECK ---------------------
 input_file="$1"
 if [[ ! -f "$input_file" ]]; then
     echo -e "${red}[✘] Usage: $0 <live_domains.txt>${reset}"
     exit 1
 fi
 
-# -------------------- OUTPUT SETUP --------------------
+## -------------------- OUTPUT SETUP --------------------
 outdir="dirs_out"
 mkdir -p "$outdir"
 
-# ------------------- WORDLISTS SETUP ------------------
+## ------------------- WORDLISTS SETUP ------------------
 wordlists=(
     "/home/maddy/techiee/bug_bounty/bin_deps/fuzz_onelistforallshort"
     "/home/maddy/techiee/bug_bounty/bin_deps/db.txt"
@@ -28,7 +28,7 @@ wordlists=(
     "/home/maddy/techiee/bug_bounty/bin_deps/common.txt"
 )
 
-# -------------------- FFUF Loop ----------------------
+## -------------------- FFUF Loop ----------------------
 while read -r url; do
     domain=$(echo "$url" | awk -F/ '{print $3}')
     dirpath="$outdir/$domain"
@@ -78,7 +78,7 @@ BEGIN {
 
 echo -e "${green}[✔] FFUF output saved to $outdir/ffuf_all_report.txt${reset}"
 
-# ------------------------ Dirsearch ------------------------
+## ------------------------ Dirsearch ------------------------
 echo -e "${yellow}[-] Starting Dirsearch...${reset}"
 
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirsearch.py \
@@ -88,7 +88,7 @@ python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/dirsearch/dirse
 
 echo -e "${green}[✔] Dirsearch output → $outdir/dirsearch.txt${reset}"
 
-# ------------------------ Redirects ------------------------
+## ------------------------ Redirects ------------------------
 input_ffuf_file="$outdir/ffuf_all_report.txt"
 input_dir_file="$outdir/dirsearch.txt"
 
@@ -102,8 +102,8 @@ echo "[+] Resolving redirects with httpx..."
 httpx -l "$outdir/all_redirected_urls" -follow-redirects \
   -mc 200,202,203,204,205,206,207,208 -o "$outdir/redirect_results"
 
-# ------------------------ Collect All 2xx URLs ------------------------
-echo "[+] Collecting all 2XX response URLs for Arjun..."
+## ------------------------ Collect All 2xx URLs ------------------------
+echo "[+] Collecting all 2XX response URLs ..."
 
 awk '$NF ~ /^20[0-8]$/ {print $(NF-1)}' "$input_ffuf_file" > "$outdir/ffuf_2xx_urls.txt"
 awk '$1 ~ /^20[0-8]$/ {print $3}' "$input_dir_file" > "$outdir/dirsearch_2xx_urls.txt"
@@ -112,19 +112,36 @@ grep -oP '\[\K[^\]]+' "$outdir/redirect_results" > "$outdir/redirect_2xx_urls.tx
 cat "$outdir"/ffuf_2xx_urls.txt "$outdir"/dirsearch_2xx_urls.txt "$outdir"/redirect_2xx_urls.txt \
     | grep -E '^https?://' \
     | grep -Ev '\.(js|css|ico|png|jpg|svg|woff|ttf|eot|gif|mp4|zip|tar|gz|pdf|exe|json)$' \
-    | sort -u > "$outdir/all_2xx_clean.txt"
+    | awk '{gsub(/\/+$/, "", $0); print}' | sort -u > "$outdir/all_2xx_clean.txt"
 
 rm -f "$outdir"/dirsearch_2xx_urls.txt "$outdir"/ffuf_2xx_urls.txt "$outdir"/redirect_2xx_urls.txt \
        "$outdir"/redirected_urls_ffuf.txt "$outdir"/redirected_urls_dirsearch.txt
 
-# # ------------------------ Arjun Scan ------------------------
-# echo "[*] Running Arjun to find hidden parameters..."
-# while read -r url; do
-#   echo "[$(date '+%T')] Scanning: $url" | tee -a "$outdir/hidden_params.txt"
-#   echo "==== URL: $url ====" >> "$outdir/hidden_params.txt"
-#   arjun -u "$url" -oT - >> "$outdir/hidden_params.txt"
-#   echo -e "\n" >> "$outdir/hidden_params.txt"
-#   sleep 2
-# done < "$outdir/all_2xx_clean.txt"
 
-# echo -e "${green}[✔] Arjun scan complete. Results in $outdir/hidden_params.txt${reset}"
+## ## ------------------------ Arjun Scan ------------------------
+## echo "[*] Running Arjun in parallel to find hidden parameters..."
+## echo -e "${yellow}[*] Total URLs to scan with Arjun: $(wc -l < "$outdir/all_2xx_clean.txt")${reset}"
+## if [[ ! -s "$outdir/all_2xx_clean.txt" ]]; then
+##   echo -e "${red}[✘] No valid 2XX URLs found for Arjun scan.${reset}"
+##   exit 1
+## fi
+## ## Ensure a clean folder for individual outputs
+## mkdir -p "$outdir/arjun_tmp"
+
+## ## Export outdir so it's available in subshells
+## export outdir
+
+## ## Threaded Arjun execution (5 at a time)
+## cat "$outdir/all_2xx_clean.txt" | xargs -P 5 -I {} bash -c '
+##   url="{}"
+##   filename=$(echo "$url" | sed "s|https\?://||; s|[/:]|_|g")
+##   echo "[Arjun] Scanning: $url"
+##   echo "==== URL: $url ====" > "$outdir/arjun_tmp/$filename.txt"
+##   arjun -u "$url" -oT - >> "$outdir/arjun_tmp/$filename.txt"
+## '
+
+## ## Combine results
+## cat "$outdir/arjun_tmp/"*.txt > "$outdir/hidden_params.txt"
+## rm -rf "$outdir/arjun_tmp"
+
+## echo -e "${green}[✔] Arjun scan complete. Output saved to $outdir/hidden_params.txt${reset}"

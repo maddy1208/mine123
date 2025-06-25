@@ -1,8 +1,8 @@
-totol bugs found: 6
+totol bugs found: 7
 
 LOW      : 4
 MEDIUM   : 2
-HIGH     : 0
+HIGH     : 1
 CRITICAL : 0
 
 
@@ -12,5 +12,6 @@ DES:
 2.sens info disclosure on flow.com
 3.email spoofing on flow.com
 4.broken link hijacking on flow.com
-5.EXposed phpmyadmin+info disclosure
-6.Host header injection to cookie injection
+5.EXposed phpmyadmin+info disclosure in formdesigner.selzy.com
+6.Host header injection to cookie injection in formdesigner.selzy.com
+7.Dos(CVE-2023-44487) on formdesigner.selzy.com
