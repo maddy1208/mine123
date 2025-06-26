@@ -38,7 +38,7 @@ echo "========================="
 if [[ -s "$LIVEDOMAINS" ]]; then
       
     echo "[+] Running Jaeles on $LIVEDOMAINS ..."
-    cat "$LIVEDOMAINS" | jaeles scan  -v -c 50  -o "$JAELES_OUT/jaeles_domain_out"
+    cat "$LIVEDOMAINS" | jaeles scan  -c 50  -o "$JAELES_OUT/jaeles_domain_out"
     
     echo "[+] Running Nuclei on $LIVEDOMAINS ..."
     nuclei -l "$LIVEDOMAINS" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain1_out" -stats -retries 2 
@@ -108,7 +108,7 @@ mkdir -p ~/jaeles-templates/param-only
 grep -rilE 'xss|sqli|ssrf|ssti|rce' /home/maddy/.jaeles/base-signatures/ --include="*.yaml" \
 | xargs -I{} cp {} ~/jaeles-templates/param-only/
 
-cat "$ALLPARAMS" | jaeles scan -c 50 -s ~/jaeles-templates/param-only/ -v -o "$JAELES_OUT/jaeles_params_out"
+cat "$ALLPARAMS" | jaeles scan -c 50 -s ~/jaeles-templates/param-only/  -o "$JAELES_OUT/jaeles_params_out"
 
 echo "[+] removing temp directory..."
 rm -rf  ~/jaeles-templates/param-only
