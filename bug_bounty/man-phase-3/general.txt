@@ -70,9 +70,10 @@ eg: if https://target.com/getusers.php
 	 visit: virustotal
 	 =>collect urls and sens info
 	 
-9.check sens endpoints by robots.txt,sitemap.xml
+9.HUNTING  robots.txt,sitemap.xml
 	 =>check normal url in web
 	 =>likewise check webarchieve,it may contain sens endpoints
+	 =>if they put disalow, try all the endpoints and analyze sourcecode, try param finding on all endpoints (hepls to xss,OR)
 	 
 10.xss testing,sql testing, hidden params on param urls
 

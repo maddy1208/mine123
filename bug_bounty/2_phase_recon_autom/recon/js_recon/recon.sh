@@ -33,7 +33,7 @@ cat "$output_dir/crawled_jsfiles.txt" "$output_dir/katana_jsfiles.txt" "$output_
 
 echo "[+] Probing for live JS URLs using httpx"
 cat "$output_dir/alljs.txt" | /usr/local/bin/httpx -silent -mc 200 -t 60 >> "$output_dir/livejs_all.txt"
-cat "$output_dir/livejs_all.txt" |  grep -viE 'https://[^ ]*(cdn|firebase|cloudflare|readme\.io|sentry|google|doubleclick|segment|analytics)' >> "$output_dir/livejs.txt"
+cat "$output_dir/livejs_all.txt" |  grep -viE 'https://[^ ]*(cdn|static|firebase|cloudflare|readme\.io|sentry|google|doubleclick|segment|analytics)' >> "$output_dir/livejs.txt"
 echo "[+] Finished Probing  using httpx"
 
 output_dir1="$SCRIPT_DIR/jsrecon/js_downloads"
