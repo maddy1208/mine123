@@ -48,6 +48,8 @@
 
 eg: if https://target.com/getusers.php
        try  https://target.com/getadmin.php =>ipdi try panlaam
+
+eg: if any txt files,pdf's are there then check whether backup is found
     
 5.inurl:"/geoserver/ows?service=wfs" "target"
 	nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
@@ -97,3 +99,13 @@ echo "[*] Finding Hidden Parameters using Arjun..."
 
 11.sql ttest on login,other endpoints:
 eg: python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap/sqlmap.py -r request --dump --batch --dbs [ here, request=>raw http request burp la irudhu copy pnadhu ]
+
+
+12. recuesive bruteforce  on 200 endpoints..
+
+ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 \
+  -of csv -o "$outdir/ffuf_${domain}_${name}.csv" \
+  -e .php,.html,.txt,.bak,.zip,.old,.inc,.json,.env,.log,.sql,.conf,.config,.bkp,.backup,.db,.asp,.aspx,.cgi,.csv,.jar,.sql~,.tar,.tar.bz2,.tar.gz,.wadl,.xml \
+  -H "User-Agent: Mozilla/5.0" \
+  -H "X-Forwarded-For: 127.0.0.1" < /dev/null
+

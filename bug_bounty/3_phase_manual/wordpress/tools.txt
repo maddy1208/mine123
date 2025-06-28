@@ -48,5 +48,5 @@ wpscan --url www.example.com --wordlist wordlist.txt --threads 50
 
 * Combine random User-Agent with enumeration:
 wpscan --url https://selzy.com --enumerate vp --random-user-agent --force --api-token gZ1Cetfna5Xthlw9FWXYdQCDKgGf5ObWKyHykVxYb98
-wpscan --url https://selzy.com  --random-user-agent --force --api-token gZ1Cetfna5Xthlw9FWXYdQCDKgGf5ObWKyHykVxYb98 --enumerate vp,vt,cb,dbe,u,m --detection-mode aggressive 
+wpscan --url https://kodenpay.com  --random-user-agent --force --api-token gZ1Cetfna5Xthlw9FWXYdQCDKgGf5ObWKyHykVxYb98 --enumerate vp,vt,cb,dbe,u,m --detection-mode aggressive 
 

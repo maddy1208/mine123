@@ -19,7 +19,7 @@ mkdir -p "$NUCLEI_OUT" "$JAELES_OUT" "$PARAM_OUT"
 ALLPARAMS="$PARAM_OUT/all_params.txt"
 
 
-echo "[+] filtering 400's domains to livedomains.txt..."
+echo "[+] filtering 400's domains from livedomains.txt..."
 httpx -l "$LIVE_INPUT" -silent -no-color -status-code -fr \
   | grep -Ev "\[(401|404|501|502)\]" \
   | cut -d " " -f1 > "$OUTDIR/usable_targets.txt"
@@ -282,8 +282,6 @@ cat portscan/ip_port_list.txt | parallel -j 10 '
   nmap -p "$port" -sV -T4 -oN "portscan/nmap/nmap_detailed_${domains}_${ip}.txt" "$ip"
 '
 
-echo -e "${BLUE}[+] Running scan4all...${NC}"
-scan4all -v -l  "$LIVEDOMAINS" -o "$OUTDIR/scan4all_output.txt"
 
 #9. Hidden Parameters Discovery using Arjun
 #echo "[*] Finding Hidden Parameters using Arjun..."
