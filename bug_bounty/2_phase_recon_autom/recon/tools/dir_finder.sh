@@ -92,28 +92,21 @@ input_ffuf_file="$outdir/ffuf_all_report.txt"
 
 echo "[+] Extracting redirected URLs..."
 
-awk '$NF ~ /^30[1278]$/ {print $(NF-1)}' "$input_ffuf_file" > "$outdir/redirected_urls_ffuf.txt"
+awk '$NF ~ /^30[1278]$/ {print $(NF-1)}' "$input_ffuf_file" |  sort -u > "$outdir/redirected_urls_ffuf.txt"
 ###awk '$1 ~ /^30[1278]$/ {print $3}' "$input_dir_file" > "$outdir/redirected_urls_dirsearch.txt"
-cat "$outdir"/redirected_urls_*.txt | sort -u > "$outdir/all_redirected_urls"
+###cat "$outdir"/redirected_urls_*.txt | sort -u > "$outdir/all_redirected_urls"
 
 echo "[+] Resolving redirects with httpx..."
-httpx -l "$outdir/all_redirected_urls" -follow-redirects \
+httpx -l "$outdir/redirected_urls_ffuf.txt" -follow-redirects \
   -mc 200,202,203,204,205,206,207,208 -o "$outdir/redirect_results"
 
 ## ------------------------ Collect All 2xx URLs ------------------------
 echo "[+] Collecting all 2XX response URLs ..."
 
-awk '$NF ~ /^20[0-8]$/ {print $(NF-1)}' "$input_ffuf_file" > "$outdir/ffuf_2xx_urls.txt"
+awk '$NF ~ /^20[0-8]$/ {print $(NF-1)}' "$input_ffuf_file" | grep -Ev 'js|css|ico|png|jpg|svg|woff|ttf|eot|gif|mp4' > "$outdir/ffuf_2xx_urls.txt"
 ###awk '$1 ~ /^20[0-8]$/ {print $3}' "$input_dir_file" > "$outdir/dirsearch_2xx_urls.txt"
-cat "$outdir/redirect_results" > "$outdir/redirect_2xx_urls.txt"
-
-cat "$outdir"/ffuf_2xx_urls.txt  "$outdir"/redirect_2xx_urls.txt \
-    | grep -E '^https?://' \
-    | grep -Ev '\.(js|css|ico|png|jpg|svg|woff|ttf|eot|gif|mp4|zip|tar|gz|pdf|exe|json)$' \
-    | awk '{gsub(/\/+$/, "", $0); print}' | sort -u > "$outdir/all_2xx_clean.txt"
-
-rm -f  "$outdir"/ffuf_2xx_urls.txt "$outdir"/redirect_2xx_urls.txt \
-       "$outdir"/redirected_urls_ffuf.txt 
+grep -oP '\[\K[^\]]+'  "$outdir/redirect_results" | grep -Ev 'js|css|ico|png|jpg|svg|woff|ttf|eot|gif|mp4' > "$outdir/redirect_2xx_analyze.txt"
+###rm -f  "$outdir"/redirected_urls_ffuf.txt  
 
 
 ## ## ------------------------ Arjun Scan ------------------------

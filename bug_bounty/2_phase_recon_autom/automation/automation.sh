@@ -73,7 +73,7 @@ else
     echo "[!] $JSURLS not found or empty. Skipping JS URL scans."
 fi
 
-=== 3. PARAMETERIZED URLS ENUM ===
+#=== 3. PARAMETERIZED URLS ENUM ===
 echo "[+] Running ParamSpider..."
 paramspider -l "$LIVEDOMAINS" 
 
@@ -87,13 +87,17 @@ echo "[+] Running LostFuzzer..."
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lostfuzzer.sh | tee -a "$NUCLEI_OUT/nuclei_lostfuzzer_out"
 mv filtered_urls.txt loxs_param.txt
 
-
 echo "[+] Combining all parameterized URLs..."
-cat results/* regex.txt loxs_param.txt | grep -E '\?.+=.+' | grep -Ev '^https?://[^?]+\.(woff2|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp)(\?|$)'  | grep -Ev 'cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  > sam.txt
 
-cat results/* regex.txt loxs_param.txt | grep -E '([?&](image|file|url)=)' >> sam.txt || true
-cat sam.txt | sort -u -o   "$ALLPARAMS"
-rm sam.txt
+cat results/* regex.txt loxs_param.txt | sort -u > all_param_urls
+httpx -l all_param_urls -silent -mc 200,202,201,204,205,206,207,208,301,302,403,401 > live_urls.txt
+
+cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp|cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  >  filtered_urls.txt
+
+cat results/* regex.txt loxs_param.txt | grep -Ei '([?&](image|file|img|url|link)=)' |  sort -u >>  filtered_urls.txt || true
+cat  filtered_urls.txt | qsreplace FUZZ | sort -u >  "$ALLPARAMS"
+
+rm  filtered_urls.txt  live_urls.txt all_param_urls
 
 # === 4. SCAN PARAMETERIZED URLS ===
 if [[ -s "$ALLPARAMS" ]]; then

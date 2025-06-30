@@ -39,7 +39,7 @@ echo "[+] Finished Probing  using httpx"
 output_dir1="$SCRIPT_DIR/jsrecon/js_downloads"
 mkdir -p "$output_dir1"
 echo "[+] Downloading JS ..."
-cat "$output_dir/livejs.txt" | xargs -I {} wget --content-disposition -q -P "$output_dir1" {}
+cat "$output_dir/livejs.txt" | parallel -j 10 wget --content-disposition -q -P "$output_dir1" {}
 echo "[+] Finished Downloading JS ..."
 
 # JS analysis
@@ -113,7 +113,7 @@ grep -EHo '([a-z0-9.-]+)\.s3.*\.amazonaws\.com' jsrecon/js_downloads/* | tee "$g
 
 
 echo "[*] Finding potential Basic Auth tokens..."
-grep -EHi 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' "$SCRIPT_DIR"/jsrecon/js_downloads/*  | tee "$grep_out/auth_tokens.txt"
+grep -EHo 'Basic[\s\-_A-Za-z0-9]*[:=][\s\-_A-Za-z0-9]{10,}' "$SCRIPT_DIR"/jsrecon/js_downloads/*  | tee "$grep_out/auth_tokens.txt"
 
 
 echo "[*] Grepping sensitive keywords (tokens, keys, creds)..."
