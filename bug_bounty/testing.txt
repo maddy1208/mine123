@@ -1,0 +1,21 @@
+  PHASE 1 => SELECTING TARGET 
+  
+  PHASE 2 => RECON & ANALYSIS
+            [recon,automation & analysis]
+
+  PHASE 3 => PRE HUNT
+             loxs tool
+             gdork
+             github recon
+             shodan
+           
+  PHASE 4 => MANUAL HUNT ON ALL DOMAINS
+           1. general.txt 
+           2. vuln hunting + Burpsuite
+            + burp extensions ready
+            
+           Scan ssrf and lfi:
+	     use autorepeater and make reqiest param, with regex https?://(www.)?[-a-zA-Z0–9@:%.+~#=]{1,256}.[a-zA-Z0–9()]{1,6}\b([-a-zA-Z0–9()@:%+.~#?&//=]*)   and replace collb url
+	     and send request urls to burp using katan proxy,
+	     subfinder -d hackerone.com | httpx -timeout 10 | katana -proxy http://127.0.0.1:8080 -jc -aff 
+

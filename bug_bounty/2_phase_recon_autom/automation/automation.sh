@@ -92,12 +92,14 @@ echo "[+] Combining all parameterized URLs..."
 cat results/* regex.txt loxs_param.txt | sort -u > all_param_urls
 httpx -l all_param_urls -silent -mc 200,202,201,204,205,206,207,208,301,302,403,401 > live_urls.txt
 
-cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp|cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  >  filtered_urls.txt
+cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp|cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  >  "$PARAM_OUT/filtered_urls_to_analyze.txt"
 
-cat results/* regex.txt loxs_param.txt | grep -Ei '([?&](image|file|img|url|link)=)' |  sort -u >>  filtered_urls.txt || true
-cat  filtered_urls.txt | qsreplace FUZZ | sort -u >  "$ALLPARAMS"
+cat results/* regex.txt loxs_param.txt | grep -Ei '([?&](image|file|img|url|link)=)' |  sort -u >>  "$PARAM_OUT/filtered_urls_to_analyze.txt" || true
+cat  "$PARAM_OUT/filtered_urls_to_analyze.txt" | qsreplace FUZZ | sort -u >  urls.txt
+python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py 
+mv unique_urls.txt "$ALLPARAMS"
 
-rm  filtered_urls.txt  live_urls.txt all_param_urls
+rm  live_urls.txt all_param_urls urls.txt
 
 # === 4. SCAN PARAMETERIZED URLS ===
 if [[ -s "$ALLPARAMS" ]]; then
@@ -181,7 +183,10 @@ cat "$ALLPARAMS" \
 # ----------------------------------------------
 
 echo "[*] Filtering potential redirect parameters..."
-cat all_urls.txt "$ALLPARAMS" | grep -iE "=[^ ]*(http|https):\/\/|returnUrl=|redirect|continue=|next=|url=|uri=|dest=|target=|=http|returnUrl=|continue=|dest=|destination=|forward=|go=|goto=|login\?to=|login_url=|logout=|next=|next_page=|out=|g=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|return=|returnTo=|return_path=|return_to=|return_url=|rurl=|site=|target=|to=|uri=|url=|qurl=|rit_url=|jump=|jump_url=|originUrl=|origin=|Url=|desturl=|u=|Redirect=|location=|ReturnUrl=|redirect_url=|redirect_to=|forward_to=|forward_url=|destination_url=|jump_to=|go_to=|goto_url=|target_url=|redirect_link=" | tee -a  "$OUTDIR/redirect_params.txt"
+cat  all_urls.txt "$ALLPARAMS" | grep -iE "=[^ ]*(http|https):\/\/|returnUrl=|redirect|continue=|next=|url=|uri=|dest=|target=|=http|returnUrl=|continue=|dest=|destination=|forward=|go=|goto=|login\?to=|login_url=|logout=|next=|next_page=|out=|g=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|return=|returnTo=|return_path=|return_to=|return_url=|rurl=|site=|target=|to=|uri=|url=|qurl=|rit_url=|jump=|jump_url=|originUrl=|origin=|Url=|desturl=|u=|Redirect=|location=|ReturnUrl=|redirect_url=|redirect_to=|forward_to=|forward_url=|destination_url=|jump_to=|go_to=|goto_url=|target_url=|redirect_link=" | tee -a  urls.txt
+
+python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py
+mv unique_urls.txt "$OUTDIR/redirect_params.txt"
 
 echo "[*] Open Redirect using HTTPX..."
 cat "$OUTDIR/redirect_params.txt" | qsreplace "https://evil.com" | httpx -silent -fr -no-color -status-code | grep "\[3" >>  "$OUTDIR/open_httpx_out.txt"
@@ -220,9 +225,6 @@ nuclei -l live_subdomains.txt -tags cors -o  "$OUTDIR/nuclei_cors.txt" -stats
 # ----------------------------------------------
 # 8. CRLF Injection
 # ----------------------------------------------
-
-echo "[*] CRLF Injection with crlfi..."
-crlfi -i "$LIVEDOMAINS"  -o  "$OUTDIR/crlf_crlfi.txt"
 
 echo "[*] CRLF Injection with crlfuzz (domains)..."
 crlfuzz -l "$LIVEDOMAINS"  | tee -a  "$OUTDIR/crlf_crlfuzz.txt"

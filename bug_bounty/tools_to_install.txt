@@ -42,7 +42,7 @@ dalfox
 qsreplace
 calc
 aquatone
-
+proxychains
 
 burp:
 cors

@@ -1,8 +1,17 @@
-1.https://www.kodenpay.com
+1. https://www.kodenpay.com
+Phase 1
+Phase 2 
+Phase 3
+Phase 4
 	https://axp.kodenpay.com
     *	https://axp-api.kodenpay.com [404] [only lickjacking,node-express-dev-env but foubd nothing] 
-	
-2.www.selzy.com	
+		
+-------------------------------------------------------------------------------------------------------------------------	
+2. www.selzy.com	
+Phase 1
+Phase 2 
+Phase 3
+Phase 4
 	collect.selzy.com
 	connect.selzy.com
 	formdesigner.selzy.com
@@ -10,7 +19,12 @@
 	go.selzy.com
 	teststand.selzy.com
 	
-3.flow.com
+-------------------------------------------------------------------------------------------------------------------------		
+3. flow.com 
+Phase 1
+Phase 2 
+Phase 3
+Phase 4
 	https://flow.org
 	https://devs.flow.com
 	https://docs.flow.com
@@ -53,8 +67,13 @@
 	https://status.flow.com
 	https://store.flow.com
 	https://forum.flow.com
-
-4.railway.com
+	
+-------------------------------------------------------------------------------------------------------------------------	
+4. railway.com
+Phase 1
+Phase 2 
+Phase 3
+Phase 4
 	https://belt.railway.com
 	https://kuso.railway.com
 	https://swr.railway.com
@@ -99,3 +118,17 @@
 	https://startup.railway.com
 	https://geofeed.railway.com
 	https://shop.railway.com
+	
+-------------------------------------------------------------------------------------------------------------------------	
+5. rangde.in
+Phase 1
+Phase 2 
+Phase 3
+Phase 4
+	https://blog.rangde.in
+	https://mercury.rangde.in
+	https://referral.rangde.in
+	https://rangde.in
+	https://campaign.rangde.in
+	https://link.rangde.in
+--------------------------------------------------------------------------------------------------------------------------

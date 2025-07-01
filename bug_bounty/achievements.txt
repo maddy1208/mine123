@@ -1,17 +1,23 @@
-totol bugs found: 7
+Totol bugs found: 8
+
+DUPLICATES: 1
 
 LOW      : 4
-MEDIUM   : 2
+MEDIUM   : 3
 HIGH     : 1
 CRITICAL : 0
 
 
+BOUNTIES      : $0
+HALL OF FAMES : 0
+SWAGS         : 0
+APPRECIATION  : 2
 
 DES:
-1.csrf on bigbasket.com
-2.sens info disclosure on flow.com
-3.email spoofing on flow.com
-4.broken link hijacking on flow.com
+1.csrf on bigbasket.com  [APPRECIATION , DUPLICATE]
+2.sens info disclosure on flow.com [APPRECIATION]
+3.email spoofing on flow.com [NA]
+4.broken link hijacking on flow.com [OUT OF SCOPE]
 5.EXposed phpmyadmin+info disclosure in formdesigner.selzy.com
 6.Host header injection to cookie injection in formdesigner.selzy.com
 7.Dos(CVE-2023-44487) on formdesigner.selzy.com
