@@ -43,6 +43,7 @@ qsreplace
 calc
 aquatone
 proxychains
+tor
 
 burp:
 cors
