@@ -1,0 +1,10 @@
+wifi:
+2.4 ghz
+wide range
+less speed(<300 mbps)
+
+5ghz:
+short range 
+more speed (>300mbps)
+
+

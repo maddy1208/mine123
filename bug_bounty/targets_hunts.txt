@@ -8,8 +8,8 @@ Phase 4
 		
 -------------------------------------------------------------------------------------------------------------------------	
 2. www.selzy.com	
-Phase 1
-Phase 2 
+Phase 1 *
+Phase 2 *
 Phase 3
 Phase 4
 	collect.selzy.com
@@ -18,11 +18,12 @@ Phase 4
 	fwd.selzy.com
 	go.selzy.com
 	teststand.selzy.com
+	cp.selzy.com
 	
 -------------------------------------------------------------------------------------------------------------------------		
 3. flow.com 
-Phase 1
-Phase 2 
+Phase 1 *
+Phase 2 *
 Phase 3
 Phase 4
 	https://flow.org
@@ -70,8 +71,8 @@ Phase 4
 	
 -------------------------------------------------------------------------------------------------------------------------	
 4. railway.com
-Phase 1
-Phase 2 
+Phase 1 *
+Phase 2 *
 Phase 3
 Phase 4
 	https://belt.railway.com
@@ -121,14 +122,14 @@ Phase 4
 	
 -------------------------------------------------------------------------------------------------------------------------	
 5. rangde.in
-Phase 1
-Phase 2 
+Phase 1 *
+Phase 2 *
 Phase 3
 Phase 4
-	https://blog.rangde.in
-	https://mercury.rangde.in
-	https://referral.rangde.in
+	https://blog.rangde.in [* same to root]
+	https://mercury.rangde.in [* 401]
+	https://referral.rangde.in [* 404]
 	https://rangde.in
-	https://campaign.rangde.in
-	https://link.rangde.in
+	https://campaign.rangde.in [* 404]
+	https://link.rangde.in  [* 404]
 --------------------------------------------------------------------------------------------------------------------------

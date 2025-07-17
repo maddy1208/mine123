@@ -104,7 +104,7 @@ fi
 #-----------------------------------SOURCE CODE ANALYSIS------------------------------
 #!/bin/bash
 
-INPUT="live_subdomains.txt"
+INPUT="$input_file"
 OUTPUT="$outdir/sources-for-401-403-500.txt"
 
 while read -r domain; do
@@ -113,7 +113,7 @@ while read -r domain; do
     # Save raw HTML and status code
     response=$(curl -skL -A "Mozilla/5.0" -H "Accept: text/html" "$domain" -o temp_raw.html -w "%{http_code}")
 
-    if [[ "$response" =~ ^(401|402|403|404|500|501|502)$ ]]; then
+    if [[ "$response" =~ ^(400|401|402|403|404|500|501|502)$ ]]; then
         echo "🔍 $domain responded with $response — saving formatted source"
 
         # Format using xmllint
@@ -135,7 +135,4 @@ echo "[+] Done. Saved prettified HTML to $OUTPUT"
 echo "[+] Done. Formatted sources saved to $OUTPUT"
 
 
-
-
 echo -e "${green}[✔] All categorized results saved in ${outdir}${reset}"
-

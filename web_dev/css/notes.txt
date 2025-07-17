@@ -52,7 +52,7 @@ TEXT-PROPERTIES:
     text-decoration: underline,overline,linethrough // decoration
     vertical-align: sub,super //power la varu
     text-transform: upper,lower
-    text-align: center,jusitify
+    text-align: center,jusitify(jusitify=>adjust to full width)
     text-indent: 10px //starting la space varu
     line-height //gap between lines
 
@@ -148,33 +148,162 @@ BORDER RADIUS:
 BOX-SHADOW: //LIKE ORU SHADOW maari
     box-shadow: 5 5 5 5 rgba();
 
+BOX-MODEL:
+padding,margin,border idhelaam correcta manage pandradhu
+
+auto=> like browser defaultaaa decide panum..
 
 
+FLOW:
+flow:right
+=>idhu apde right la arrange aagum,the next content pakayhule varum
 
 
+POSITION PROPERTIES:
+1.STATIC
+default property, idhula peopretiesa move la pan amudyaadhyu
+this helps to have default flow from top to bottom...
+2.REALTIVE (LRTB)
+normal position la irundhu position maarum
+3.ABSOLUTE ((LRTB))
+absolute will postion acc to the parent which has relative property
+[Positioned relative to the nearest positioned ancestor (i.e., parent with position: relative, absolute, or fixed)
+
+If no such ancestor, then it uses the <html> (the page) as reference.]]
+4.FIXED
+ It never moves, even user scrolls 
+ also idhu html documnet ku base pani work aagum
+5.STICKY
+it moves and stick to particulay position,when scrolls
 
 
+🔹 justify-content
+
+Used in: Flexbox or Grid containers
+Purpose: Align children along the main axis
+(For flexbox: row → horizontal axis, column → vertical axis)
+
+🔹 align-items
+
+Used in: Flexbox or Grid containers
+Purpose: Align children along the cross axis
+(Main axis = row → cross axis = column)
+
+🔹 text-align
+
+Used in: Any element that contains text or inline content
+Purpose: Aligns text inside the element
+
+Z INDEX:
+like layer maari, endha layer first la varnumnu decide paniklaam
+also endha zindex oda value adhigama irukoo,adhu layerku first la varum
+
+OUTline LINE:
+border ku velila oru,outline varu
+outline-col: green
+outline-style:dotted (stylaa decide paniklam)
+outline-offset:2px (border la irundhu evlo gap varnumnu decide paniklaam)
 
 
+OVERFLOW:
+specified,height ila widtha vida content adhigamaa irundhaa overflow vachi conterol panlaam
+overflow: hidden (extra contents hide aidum)
+overflow: scroll (extra contents a scroll paniklaam)
+overflow-y:
+overflow-x : particular axis la control pniklaam
+
+MIN,MAX HEIGTH,WIDTH:
+heigt,widtha control paniklaaam
+
+BOX-SIZING:
+normala padding,margin increase panna, actual content kooda extra spaces add agum,
+so ,nerya width,height increase agum,so idhu actual sizaa affect panum .
+
+border-box=> idhu sizaa affect panaadhu
+content-box=> idhu sizaa affect pnum
 
 
+COLUMN:
+like newspaperla vara column maari neryaa column vachiklaam div kulle
+
+column-count: evlo columns venumo adhu
+column-width: width set paniklaam
+column-gap: gap between columns
+column-rule: 2px solid blue  (oru vertical line varum)
+
+column-span:all; (heading ku laa use panlammm.elo columkummm melaa full widtha eduthukum,
+instead of position at a particular column);
 
 
+CSS UNITS:
+ABsolute: (screen ku ethamaari set aagum)
+px :
+(size maarave maardhu)
 
 
+relative(acc to parent work aagum)
+
+%:
+ eg: width:50% ( parent oda 50% width eduthukum)
+em :
+1em=16px (browser default size,nama settings la kooda change paniklaam)
+so,browser ku ethamaari em work aagum eg:2em=36px
+incase parent itundchinaa parent oda default size eduthukum
+eg: .parent{font-size:5px} .child{fomtsize:2em} =>means child oda fontsize 2*5=10px
+
+So,parent ku font size property nam koduklana, browser oda sizaa eduthukum,
+incase nama specify panna, adhu parent siza eduthukum relativa..
+
+rem:(root em)
+idhu straightaaa html tag oda font sizaa defaulta edukukm,
+even nerya parent irundhaalum, root aana html oda sizaa idhu ema  eduthukum..
+
+viewport works acc to screen size not browser
+vh:(viewport height)
+vw:(viewport width)
+eg: height:20vw (means 20 percentage)
+
+vmax
+vmin (similar but min,max sizaa base pani work aagum)
+ eg: height: 20vmin
+     width: 30vmax
+
+PSEUDO CLASS:
+root=>like variable vachi use paniklaam,nama root kulle declare pandra elothiyum variabale maari use paniklaam with help of var(<name>)
+:root{
+    --bgcolor:blue;
+    --color:white;
+}
+h1{
+    color:var(--bgcolor)
+}
 
 
+TRANSITION:
+transition property:width,height (engee transition nadaknumo adhu)
+transition duration :9s
+transition delay
+transition timing function:linera,ease,ease-in,ease-out,etc..
+transition: all 0.5s ease-in 1s (short property)
 
+FLEX-BOX:
+display:flex (to make flex container)
+flex-direction: (decides the direction flow of flex elements)
+flex-wrap: elements container kulle epdi wrap aagnumnu 
+justify-content: flex-start,flex-end,space-between,center (elemts oda x axis positionaa control pnalam)
+align-items or align-content: y axis aacontrol panlaam
 
+One line of items (flex-wrap: nowrap)
+    ✅ Use align-items
+Multiple lines of items (flex-wrap: wrap)
+    ✅ Use align-content to align the rows as a block
+    ✅ Use align-items to align items within each row
+order (flex child kulle use panlamm eg: order ;4,3,1,2 ipdi kooda box position paniklaam)
+align-self: particular ement style kulla apply aagun,vertical positiona control paniklaam
+flex-grow (elementoda sizaa ratio control panlamm)
+eg: box1{flex-grow:1} box2{flex-grow:2}
 
-
-
-
-
-
-
-
-
+flex-shrink {opposite to grow}
 
 
 

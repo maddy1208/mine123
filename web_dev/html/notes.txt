@@ -21,7 +21,7 @@ favicon:   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     scrolldelay => slowa pogu
     loop =>totala ethana times pogumnu specify
 
-multiple =>select,image tags la atributa use panlaam multiple filrs select pana
+multiple =>select tagkum,image tagsku la atributa use panlaam multiple filrs select pana
 <fieldset><legend>oi => oru box maari varu
 
 title => mouse hover pna display agu
@@ -41,6 +41,18 @@ base tag:
     The <base> tag is placed once in the <head>, not inside any <a> tags.
     ❌ You cannot use multiple <base> tags.
     so,Only the first <base> element in the document is used. Any others are ignored.
+✅ <base> affects only:
+    img/oi.png
+    ./img/oi.png
+    oi.png
+    ../img/oi.png
+    These are relative URLs (they depend on the current path or base).
+
+❌ <base> does not affect:
+    /img/oi.png → root-relative (always starts from domain root)
+    https://example.com/img/oi.png → absolute URL
+
+
 
 target tag:
     blank => completea vera tab la open panum
@@ -60,3 +72,5 @@ target tag:
 <a href="iframe.html" target="oi">clickhere</a>
 <iframe src="" name="oi" frameborder="0" height="400px" width="400px"></iframe>
 =>ipdi targeta iframe la open panikalmm just with name value vachi
+
+

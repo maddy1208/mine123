@@ -20,7 +20,10 @@ require vachi import pani use panlam
 
 also .mjs extension use pani es module syntaxa use panlaam
 
+
 FS module basics:
+
+fs.stat('name',function(){}) =>file oda statusaa check paniklaam
 
 readFile('./sam.txt','utf-8',call);
 function call(err,data){
@@ -128,7 +131,8 @@ EEVENT EMITTER:
 ✅ Listen for events (and react to them)
 //namale events create pani trigger panlaam
 
-note:on() = like someone listening for that specific word and reacting
+note:
+on() = like someone listening for that specific word and reacting
 also on() event trigger agumpoadhelam execute aagum, so onetime execute aganum naa 
 once () use panlam;
 eg:

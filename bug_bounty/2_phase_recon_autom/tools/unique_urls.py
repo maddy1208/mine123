@@ -1,4 +1,5 @@
 import urllib.parse
+import sys
 
 def normalize_url(url):
     parsed = urllib.parse.urlparse(url)
@@ -18,9 +19,14 @@ def normalize_url(url):
     key = f"{parsed.netloc}{normalized_path}?{query_key}"
     return key
 
+if len(sys.argv) != 2:
+    print(f"Usage: python3 {sys.argv[0]} <input_file>")
+    sys.exit(1)
+
+input_file = sys.argv[1]
 unique_urls = {}
 
-with open("urls.txt", "r") as f:
+with open(input_file, "r") as f:
     for line in f:
         url = line.strip()
         if not url:
@@ -34,3 +40,4 @@ with open("unique_urls.txt", "w") as f:
         f.write(url + "\n")
 
 print("[+] Deduplication complete. Saved to 'unique_urls.txt'")
+

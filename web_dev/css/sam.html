@@ -6,161 +6,84 @@
 
 </head>
 
-
+<!-- 
 <body>
 
-<!-- <table cellpadding="20px" cellspacing="1px" >
+<h1>
+  Hello Guys!
+</h1>
+  
+<style>
+  h1{
+ 
+    width:50vmax;
+    height:50vmax;
+    color: orange;
+    background-color: green;
+    transition:all 0.5s ease;
+  }
+  h1:hover{
+    height:60px;
+    width:60px;
+    background-color: orangered;
+  }
+</style>
+</body> -->
 
+<body>
+  <h2>Flex box</h2>
+  <div class="container">
+    <div class="box1 box">1</div>
+    <div class="box2 box">2</div>
+    <div class="box3 box">3</div>
+    <div class="box4 box">4</div>
+    <div class="box5 box">5</div>
+  </div>
+   <style>
 
-    <colgroup>
-    <col>
-    <col width="300px" >
-    <col></colgroup>
-<thead>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Address</th>
+.container{
+ width: 300px;
+ height: 300px;
+  border: 5px solid black;
+  padding: 10px;
 
-    </tr>
-</thead>
-<tbody>
-<tr><td >Maddy</td><td>21</td><td>chennai</td></tr>
-<tr><td>Sam</td><td>21</td><td>madurai</td></tr>
-<tr><td>sekar</td><td>78</td><td>madurai</td></tr>
-<tr><td >Maddy</td><td>21</td><td>chennai</td></tr>
-<tr><td>Sam</td><td>21</td><td>madurai</td></tr>
-<tr><td>sekar</td><td>78</td><td>madurai</td></tr>
+}
 
-</tbody>
-</table>
+.box{
+  border:2px solid red;
+  margin: 10px auto;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: orangered;
+  color: white;
+  
+}
 
-<a href="sam1">poin</a><br>
-<a href="sam2">sam</a><br>
-<a href="sam3">maddy</a><br>
-<a href="sam4">liop</a><br>
+.container{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content:flex-start;
+}
 
+.box1{
+  order:3;
+  align-self:stretch;
+}
 
-<div>
-</div> -->
-
-
-<div class="chess">
-<div class="row">
-<div class="col black"></div>
-<div class="col"></div>
-<div class="col black"></div>
-<div class="col"></div>
-<div class="col black"></div>
-<div class="col"></div>
-<div class="col black"></div>
-<div class="col"></div>
-</div>
-<div class="row">
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-</div>
-<div class="row">
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-</div>
-<div class="row">
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-</div>
-<div class="row">
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-</div>
-<div class="row">
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-</div>
-<div class="row">
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-</div>
-<div class="row">
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-<div class="col"></div>
-</div>
-
-
-</div>
-
-
+.box2{
+  order:2;
+}
+.box3{
+  order:1;
+}
+ </style>
 </body>
 
-<!-- 
-<style>
-  table {
-   
-    border-collapse: collapse;
 
-    margin:100px;
-  }
 
-  table th{
-    background-color: orangered;
-    color: white;
 
-  }
-    
-  table td,th{
-    border: orangered 2px solid;
-  
-  }
-
-  table tr:nth-of-type(even){
-    background-color: rgba(255, 69, 0, 0.5)
-
-  }
-    </style> -->
-<style>
-
-  
-</style>
 
 </html>

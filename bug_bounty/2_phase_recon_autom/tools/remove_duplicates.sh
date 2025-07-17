@@ -3,7 +3,7 @@ set -e
 
 # === Configurable Inputs ===
 INPUT1="${1:-nuclei.txt}"                 # Default input: nuclei.txt
-OUTPUT="${2:-nuclei-output.txt}"          # Default output: nuclei-output.txt
+OUTPUT="${2:-nuclei-output-all.txt}"          # Default output: nuclei-output-all.txt
 TEMP_DIR=$(mktemp -d)
 
 # === Paths ===
@@ -28,6 +28,15 @@ CHECK_VULNS=(
     "[tongda_sqli2022"
     "[swagger-ui-config-url-injection-Extensive"
     "[jira-unauthenticated-user-picker"
+    "[custom-splunk-info-disclose-detect"
+    "[graphite-browser-default-credential"
+    "[LFI"
+    "[listserv-endpoint-detection"
+    "[seaCMS-sqli"
+    "[Shipped100-sqli"
+    "[tongda_sqli2022"
+    "[open-redirect-bypass"
+
 )
 
 # === Reset temp files ===

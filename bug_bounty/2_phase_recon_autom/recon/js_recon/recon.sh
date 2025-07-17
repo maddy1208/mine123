@@ -55,13 +55,14 @@ while read domain; do
    echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o cli >> "$linkfinder_out/cli_result_domains.txt";
 done <  "$live_subdomains"
    
-while read domain; do
-    echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o "$linkfinder_out/html_result_domains";
-    done <  "$live_subdomains"
+###while read domain; do
+###    echo "[+] Scanning $domain";   python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i "$domain" -d -o "$linkfinder_out/###html_result_domains";
+###    done <  "$live_subdomains"
+
 echo "[+] Finished alldomains with LinkFinder "
 echo "[+] Scanning downloaded js with LinkFinder "
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i './jsrecon/js_downloads/*' -o cli | tee "$linkfinder_out/cli_result_alljs.txt"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i'./jsrecon/js_downloads/*' -o "$linkfinder_out/html_result_alljs.html"
+###python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/LinkFinder/linkfinder.py -i './jsrecon/js_downloads/*' -o "$linkfinder_out/html_result_alljs.html"
 echo "[+] Finished alldomains with LinkFinder "
 echo "[+] Finished Linkfinder successfully.... "
 
@@ -73,7 +74,7 @@ mkdir -p "$secretfinder_out"
 # 1. SecretFinder on raw URLs
 echo "[+] Running SecretFinder on downloaded js"
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i './jsrecon/js_downloads/*' -o cli | tee "$secretfinder_out/cli_output_alljs.txt"
-python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i './jsrecon/js_downloads/*' -o "$secretfinder_out/html_output_alljs.html"
+###python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -i './jsrecon/js_downloads/*' -o "$secretfinder_out/html_output_alljs.html"
 echo "[+] Finished SecretFinder on downloaded js"
 
 echo "[+] Running SecretFinder on alldomains"
@@ -81,9 +82,9 @@ while read -r url; do
     python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -e -i "$url" -o cli >> "$secretfinder_out/cli_output_domains.txt"
     done < "$live_subdomains"
 
-while read -r url; do
-    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -e -i "$url" -o  "$secretfinder_out/html_output_domains.html"
-    done < "$live_subdomains"
+###while read -r url; do
+###    python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/recon/js_recon/SecretFinder/SecretFinder.py -e -i "$url" -o  "$secretfinder_out/html_output_domains.html"
+###    done < "$live_subdomains"
 echo "[+] Finished SecretFinder on alldomains"
 #------------------------------------------------------GREP ----------------------------------------------------
 grep_out="$output_dir/grep"

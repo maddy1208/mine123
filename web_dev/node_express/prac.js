@@ -118,12 +118,42 @@
 // module.exports=logfun
 
 
-http=require('http')
-url=require('url')
+// http=require('http')
+// url=require('url')
 
-http.createServer((req,res)=>{
+// http.createServer((req,res)=>{
 
-console.log(url.parse(req.url))
-res.end()
+// console.log(url.parse(req.url))
+// res.end()
 
-}).listen('9000')
+// }).listen('9000')
+
+// math=require('./mod')
+// console.log(math.mul(8,9))
+
+const http=require('http')
+const fs=require('fs')
+const url=require('url')
+
+http.createServer(function(req,res){
+ path1="."+url.parse(req.url,true).pathname;
+ console.log("path",path1)
+ 
+ fs.readFile("index.html",(err,data)=>{
+
+if(err){
+    res.writeHead(404,{'content-type':'text/html'});
+    res.write('./404.html')
+    res.end()
+
+}
+  res.writeHead(200,{'content-type':'text/html'});
+  console.log("data",path1)
+    res.write(data)
+    res.end()
+
+
+ })
+
+    
+}).listen(9000)
