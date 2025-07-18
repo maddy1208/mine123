@@ -92,7 +92,7 @@ echo "[+] Combining all parameterized URLs..."
 cat results/* regex.txt loxs_param.txt | sort -u > all_param_urls
 httpx -l all_param_urls -silent -mc 200,202,201,204,205,206,207,208,301,302,403,401 > live_urls.txt
 
-cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp|cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg|whatsapp'  | sort -u  >  "$PARAM_OUT/filtered_urls_to_analyze.txt"
+cat live_urls.txt | grep -E '\?.+=.+' | grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|bmp|cdn|cloudflare|googletag|googleapis|bootstrapcdn|jquery|fonts|addthis|facebook|linkedin|twitter|gstatic|optimizely|newrelic|akamai|doubleclick|bing|jsdelivr|youtube|ytimg|whatsapp'  | sort -u  >  "$PARAM_OUT/filtered_urls_to_analyze.txt" || true
 
 cat results/* regex.txt loxs_param.txt | grep -Ei '([?&](image|file|img|url|link)=)' |  sort -u >>  "$PARAM_OUT/filtered_urls_to_analyze.txt" || true
 cat  "$PARAM_OUT/filtered_urls_to_analyze.txt" | qsreplace FUZZ | sort -u >  urls.txt
@@ -159,13 +159,13 @@ python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/xss_vibes/main.
 # ----------------------------------------------
 
 echo "[*] Filtering potential redirect parameters..."
-cat  all_urls.txt "$ALLPARAMS" | grep -iE "=[^ ]*(http|https):\/\/|returnUrl=|redirect|continue=|next=|url=|uri=|dest=|target=|=http|returnUrl=|continue=|dest=|destination=|forward=|go=|goto=|login\?to=|login_url=|logout=|next=|next_page=|out=|g=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|return=|returnTo=|return_path=|return_to=|return_url=|rurl=|site=|target=|to=|uri=|url=|qurl=|rit_url=|jump=|jump_url=|originUrl=|origin=|Url=|desturl=|u=|Redirect=|location=|ReturnUrl=|redirect_url=|redirect_to=|forward_to=|forward_url=|destination_url=|jump_to=|go_to=|goto_url=|target_url=|redirect_link=" | tee -a  urls.txt
+cat  all_urls.txt "$ALLPARAMS" | grep -iE "returnUrl=|redirect|continue=|next=|url=|uri=|dest=|target=|=http|returnUrl=|continue=|dest=|destination=|forward=|go=|goto=|login\?to=|login_url=|logout=|next=|next_page=|out=|g=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|return=|returnTo=|return_path=|return_to=|return_url=|rurl=|site=|target=|to=|uri=|url=|qurl=|rit_url=|jump=|jump_url=|originUrl=|origin=|Url=|desturl=|u=|Redirect=|location=|ReturnUrl=|redirect_url=|redirect_to=|forward_to=|forward_url=|destination_url=|jump_to=|go_to=|goto_url=|target_url=|redirect_link=" | tee -a  urls.txt
 
-python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py
+python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py urls.txt
 mv unique_urls.txt "$OUTDIR/redirect_params.txt"
 
 echo "[*] Open Redirect using HTTPX..."
-cat "$OUTDIR/redirect_params.txt" | qsreplace "https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com" | httpx -silent -fr -no-color -status-code | grep "\[3" >>  "$OUTDIR/open_httpx_out.txt"
+cat "$OUTDIR/redirect_params.txt" | qsreplace "https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com" | httpx -silent -fr -no-color -status-code | grep "\[3" >>  "$OUTDIR/open_httpx_out.txt" || true
 
 
 echo "[*] Open Redirect using nuclei..."

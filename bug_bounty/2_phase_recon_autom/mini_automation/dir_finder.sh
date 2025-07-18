@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 ## ----------------------- COLORS -----------------------
 blue='\033[1;34m'
@@ -19,8 +19,7 @@ outdir="dirs_out"
 mkdir -p "$outdir"
 
 ## ------------------- WORDLISTS SETUP ------------------
-wordlists=(
-    "/home/maddy/techiee/bug_bounty/bin_deps/SecLists/Discovery/Web-Content/common.txt"
+wordlists=( "/home/maddy/techiee/bug_bounty/bin_deps/SecLists/Discovery/Web-Content/common.txt"
 )
 
 ## -------------------- FFUF Loop ----------------------

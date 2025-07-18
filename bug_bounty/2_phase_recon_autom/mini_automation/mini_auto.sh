@@ -6,14 +6,17 @@ set -o pipefail
 blue='\033[1;34m'
 reset='\033[0m'
 
-TS=$(date +"%Y-%m-%d_%H-%M")
-OUTDIR="mini_auto_out_$TS"
+OUTDIR="mini_auto_out@2.0"
 
 echo "==========================================="
 echo -e "${blue}🚀 Recon Automation Script by Maddy${reset}"
 echo "==========================================="
+if [[ $# -ne 1 || ! -f $1 ]]; then
+    echo -e "${red}[✘] Usage: $0 domains.txt${reset}"
+    exit 1
+fi
 
-read -rp "Enter path to domain list (one domain per line): " DOMAINS
+DOMAINS="$1"
 
 if [[ ! -f "$DOMAINS" ]]; then
     echo "[!] File not found: $DOMAINS"
@@ -22,7 +25,6 @@ fi
 
 LIVE_INPUT="live_subdomains.txt"
 LIVEDOMAINS="$OUTDIR/usable_targets.txt"
-JSURLS="livejs.txt"
 NUCLEI_OUT="$OUTDIR/nuclei"
 JAELES_OUT="$OUTDIR/jaeles"
 PARAM_OUT="$OUTDIR/params"
@@ -30,27 +32,79 @@ ALLPARAMS="$PARAM_OUT/all_params.txt"
 
 mkdir -p "$NUCLEI_OUT" "$JAELES_OUT" "$PARAM_OUT"
 
-# Subfinder + httpx
+# # Subfinder + httpx
 echo "[+] Running subfinder on domains..."
-#subfinder -dL "$DOMAINS" -silent -o temp_subs.txt
-#httpx -l temp_subs.txt -silent > "$LIVE_INPUT"
-#rm temp_subs.txt
+subfinder -dL "$DOMAINS" -silent -o temp_subs.txt
+httpx -l temp_subs.txt -silent > "$LIVE_INPUT"
+rm temp_subs.txt
+
+###------------------------------------------SUBDOMAIN TAKEOVER------------------------------------------------------
+
+# Colors for better readability
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo "==========================================="
+echo " 🔍 Domain Takeover Scanner"
+echo "==========================================="
+
+# Output files
+CNAME_OUT="cname_found.txt"
+POTENTIAL_TAKEOVER="potential_takeover.txt"
+HTTPX_404="httpx_404.txt"
+
+# Clean previous output
+> "$CNAME_OUT"
+> "$POTENTIAL_TAKEOVER"
+> "$HTTPX_404"
+
+# Step 1: Check for CNAME using dig
+echo "[*] Checking CNAME records..."
+while read -r sub; do
+    cname=$(dig +short CNAME "$sub" | tr -d '\r')
+    if [[ -n "$cname" ]]; then
+        echo "$sub -> $cname" | tee -a "$CNAME_OUT"
+    fi
+done < "$LIVE_INPUT"
+
+# Step 2: Check for 404 or unusual responses with httpx
+echo "[*] Probing HTTP responses using httpx..."
+httpx -silent -status-code -content-length -follow-redirects -no-color -mc 400,403,404,500,503 -l "$LIVE_INPUT" | tee "$HTTPX_404"
+
+# Step 3: Match subs with both CNAME + 404 (possible takeover)
+echo "[*] Filtering potential takeover candidates..."
+while read -r line; do
+    sub=$(echo "$line" | awk '{print $1}' | sed 's/https\?:\/\///')
+    if grep -q "$sub" "$CNAME_OUT"; then
+        echo -e "${RED}[!!] Possible Takeover: $sub${NC}" | tee -a "$POTENTIAL_TAKEOVER"
+    fi
+done < "$HTTPX_404"
+
+rm -f "$HTTPX_404" "$CNAME_OUT"
+echo "==========================================="
+echo -e "${GREEN}[✓] Scan Complete${NC}"
+echo "Saved:"
+echo "- Potential Takeovers: $POTENTIAL_TAKEOVER"
+###--------------------------------------------------------------------------------------
 
 mkdir -p "$OUTDIR"
 cp "$LIVE_INPUT" "$OUTDIR/"
 cd "$OUTDIR" || { echo "[!] Cannot enter $OUTDIR"; exit 1; }
 
-#/home/maddy/techiee/bug_bounty/2_phase_recon_autom/mini_automation/dir_finder.sh "$LIVE_INPUT"
+proxychains /home/maddy/techiee/bug_bounty/2_phase_recon_autom/mini_automation/dir_finder.sh "$LIVE_INPUT"
 echo -e "${blue}[*] Running CVEs testing...${reset}"
-#/home/maddy/techiee/bug_bounty/2_phase_recon_autom/general/cves/cve.sh "$LIVE_INPUT"
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/general/cves/cve.sh "$LIVE_INPUT"
 
-#mkdir aut1_res
-#cp "$LIVE_INPUT" aut1_res/
-#cd aut1_res || exit
-#/home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/k_automation/testing.sh "$LIVE_INPUT"
-#cd ..
+mkdir "$OUTDIR/aut1_res"
+cp "$LIVE_INPUT" "$OUTDIR/aut1_res"
+cd "$OUTDIR/aut1_res" || exit
+/home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/k_automation/testing.sh "$LIVE_INPUT"
+cd ../../
 
-# Filter live domains
+
+#-------------------------------------------------------------------NUCLEI AND AUTOMATION ----------------------------------------------------------------------
+#Filter live domains
 httpx -l "$LIVE_INPUT" -silent -no-color -status-code -fr |
   grep -Ev "\[(401|404|501|502)\]" |
   cut -d " " -f1 > "$LIVEDOMAINS"
@@ -67,7 +121,7 @@ else
     echo "[!] $LIVEDOMAINS not found or empty. Skipping domain scans."
 fi
 
-# ParamSpider and LostFuzzer
+ParamSpider and LostFuzzer
 paramspider -l "$LIVEDOMAINS" || echo "ParamSpider failed"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lostfuzzer.sh | tee -a "$NUCLEI_OUT/nuclei_lostfuzzer_out"
 mv filtered_urls.txt loxs_param.txt
@@ -78,9 +132,9 @@ httpx -l all_param_urls -silent -mc 200,202,201,204,205,206,207,208,301,302,403,
 cat live_urls.txt |
   grep -E '\?.+=.+' |
   grep -Ev 'woff2|woff|ttf|svg|eot|css|js|png|jpeg|gif|ico|cdn|cloudflare|googleapis|...' |
-  sort -u > "$PARAM_OUT/filtered_urls_to_analyze.txt"
+  sort -u > "$PARAM_OUT/filtered_urls_to_analyze.txt" || true
 
-cat results/* regex.txt loxs_param.txt |
+cat results/*  loxs_param.txt |
   grep -Ei '([?&](image|file|img|url|link)=)' |
   sort -u >> "$PARAM_OUT/filtered_urls_to_analyze.txt" || true
 
@@ -94,19 +148,20 @@ if [[ -s "$ALLPARAMS" ]]; then
     nuclei -l "$ALLPARAMS" -dast -retries 2 -o "$NUCLEI_OUT/dast_out.txt" -stats
 
     echo "[*] SQLi testing..."
-    nuclei -tags sqli,injection -l "$ALLPARAMS" --rate-limit 200 --retries 2 -o "$OUTDIR/sqli_results.txt" -stats
+    proxychains nuclei -tags sqli,injection -l "$ALLPARAMS" --rate-limit 200 --retries 2 -o "$OUTDIR/sqli_results.txt" -stats
 
     echo "[*] XSS testing..."
     python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/xss_vibes/main.py -f "$ALLPARAMS" -o "$OUTDIR/xss_vibes_out"
 
     echo "[*] Open Redirect..."
-    cat all_urls.txt "$ALLPARAMS" | grep -iE "=(http|https):\/\/|redirect|url=" | tee -a urls.txt
-    python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py
-    mv unique_urls.txt "$OUTDIR/redirect_params.txt"
 
-    cat "$OUTDIR/redirect_params.txt" | qsreplace "https://canarytokens.com/abc" | httpx -silent -fr -no-color -status-code | grep "\[3" >> "$OUTDIR/open_httpx_out.txt"
+    cat "$ALLPARAMS" | grep -iE "returnUrl=|redirect|continue=|next=|url=|uri=|dest=|target=|=http|returnUrl=|continue=|dest=|destination=|forward=|go=|goto=|login\?to=|login_url=|logout=|next=|next_page=|out=|g=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|return=|returnTo=|return_path=|return_to=|return_url=|rurl=|site=|target=|to=|uri=|url=|qurl=|rit_url=|jump=|jump_url=|originUrl=|origin=|Url=|desturl=|u=|Redirect=|location=|ReturnUrl=|redirect_url=|redirect_to=|forward_to=|forward_url=|destination_url=|jump_to=|go_to=|goto_url=|target_url=|redirect_link=" | tee -a  urls.txt
+
+    python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py urls.txt 
+    cp unique_urls.txt "$OUTDIR/redirect_params.txt" 
+    cat "$OUTDIR/redirect_params.txt" | qsreplace "https://canarytokens.com/abc" | httpx -silent -fr -no-color -status-code | grep "\[3" >> "$OUTDIR/open_httpx_out.txt" || true
     cat "$OUTDIR/redirect_params.txt" | qsreplace "https://canarytokens.com/abc" | nuclei -tags redirect -c 30 -o "$OUTDIR/open_nuclei_out.txt" -retries 2 -stats
-
+    echo "testing..."
     cat "$OUTDIR/redirect_params.txt" | qsreplace 'https://pipedream.net/ssrf-test' >> "$OUTDIR/ssrf_urls_ffuf"
     ffuf -c -w "$OUTDIR/ssrf_urls_ffuf" -u FUZZ | tee -a "$OUTDIR/ssrf_ffuf_output.txt"
 
@@ -130,12 +185,12 @@ if [[ -s "$ALLPARAMS" ]]; then
 fi
 
 # Final wrap-up
-cat "$NUCLEI_OUT"/*.txt | sort -u > "$NUCLEI_OUT/all.txt"
+cat "$NUCLEI_OUT"/* | sort -u > "$NUCLEI_OUT/all.txt"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/remove_duplicates.sh "$NUCLEI_OUT/all.txt"
 mv nuclei-output-all.txt "$NUCLEI_OUT/"
 
 find ./ -type f -empty -delete
-
+rm -rf loxs_param.txt  results/  unique_urls.txt  urls.txt 
 echo -e "${blue}All scans completed successfully.${reset}"
 echo "============================================"
 echo -e "[+] Automation Completed!.. keep pushing Maddyyy!"
