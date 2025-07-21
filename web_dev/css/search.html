@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inder&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+      font-family: "Inder", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 200px;
+}
+h1{
+    color: red;
+    text-transform: uppercase;
+    margin: 20px;
+    font-weight: 500;
+}
+
+
+.search input{
+    height: 40px;
+    width: 320px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid red ;
+
+}
+.search input::placeholder{
+    color: red;
+}
+.search button{
+position: absolute;
+        height: 40px;
+    width: 40px;
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+}
+
+</style>
+<body>
+    
+<h1>Search textbox in css</h1>
+<div class="search"><input type="text" placeholder="Search Text">
+<button><i class="fa fa-search"></i>
+</button></div>
+
+
+</body>
+</html>

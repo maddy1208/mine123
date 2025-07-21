@@ -1,0 +1,2 @@
+[console_scripts]
+phpinfo-file-leaks = phpinfofileleaks.main:main

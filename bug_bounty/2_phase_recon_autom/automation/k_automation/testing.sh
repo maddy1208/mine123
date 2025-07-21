@@ -49,6 +49,8 @@ tools=(
   "phpinfo-file-leaks"
   "shell-history-leaks"
   "sound4-directory-listing"
+  "CVE-2025-4388"
+  "CVE-2024-34470"
 )
 
 for tool in "${tools[@]}"; do

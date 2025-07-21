@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+*{margin:0;
+padding: 0;
+
+box-sizing: border-box;
+}
+
+
+.table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 200px;
+}
+
+h2{
+    color: red;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+table  {
+    margin: 25px;
+    padding: 20px 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select:none;
+}
+
+table thead tr{
+    background-color: #2f3640;
+    color: white;
+}
+table th {
+    padding: 12px 25px;
+    font-weight: 1000;
+    text-transform: uppercase;
+}
+.table td{
+    padding: 15px 30px;
+    color: rgb(0, 0, 0,0.7);
+
+}
+table tr:nth-of-type(even){
+    background-color: rgb(128, 128, 128,0.3);
+}
+
+tr{
+    border-bottom: 2px solid #ccc;
+}
+
+tbody tr:hover td{
+    transform: scale(1.01);
+    color: black ;
+    background-color: rgb(204, 204, 204,0.2);
+}
+tr:last-child{
+    border-bottom: 2px solid  #2f3640;
+}
+</style>
+<body>
+    <div class="table">
+        <h2>Table style in css</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>City</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ram</td>
+      <td>25</td>
+      <td>Salem</td>
+      <td>Active</td>
+    </tr>
+        <tr>
+      <td>Ram</td>
+      <td>25</td>
+      <td>Salem</td>
+      <td>Active</td>
+    </tr>
+        <tr>
+      <td>Ram</td>
+      <td>25</td>
+      <td>Salem</td>
+      <td>Active</td>
+    </tr>
+        <tr>
+      <td>Ram</td>
+      <td>25</td>
+      <td>Salem</td>
+      <td>Active</td>
+    </tr>
+    <!-- more rows -->
+  </tbody>
+</table>
+
+    </div>
+    
+</body>
+</html>

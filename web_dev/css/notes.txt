@@ -305,7 +305,9 @@ eg: box1{flex-grow:1} box2{flex-grow:2}
 
 flex-shrink {opposite to grow}
 
-
+Use text-align when:
+Aligning text inside a block (div, p, span, etc.)
+Centering inline/inline-block elements inside a block
 
 
 

@@ -44,6 +44,11 @@ calc
 aquatone
 proxychains
 tor
+CVE-2024-5947
+CVE-2025-4388
+CVE-2024-36991
+CVE-2024-34470
+
 
 burp:
 cors
