@@ -1,9 +1,9 @@
-Totol bugs found: 8
+Totol bugs found: 18
 
-DUPLICATES: 1
+DUPLICATES: 4
 
 LOW      : 4
-MEDIUM   : 3
+MEDIUM   : 15
 HIGH     : 1
 CRITICAL : 0
 
@@ -11,7 +11,7 @@ CRITICAL : 0
 BOUNTIES      : $0
 HALL OF FAMES : 0
 SWAGS         : 0
-APPRECIATION  : 2
+APPRECIATION  : 5
 
 DES:
 1.csrf on bigbasket.com  [APPRECIATION , DUPLICATE]
@@ -21,3 +21,19 @@ DES:
 5.EXposed phpmyadmin+info disclosure in formdesigner.selzy.com
 6.Host header injection to cookie injection in formdesigner.selzy.com
 7.Dos(CVE-2023-44487) on formdesigner.selzy.com
+8. XSS ON lenovo
+9. XSS on noaa.gov
+10-16:  XSS on broadcom
+10. XSS on noaa.gov
+11. XSS on noaa.gov
+12. XSS on vodafone
+13. XSS on vodafone
+14. XSS on vodafone
+15. XSS on vodafone
+16. XSS on koroneiki.liferay.com
+17. XSS on liferay.com
+18. XSS on elearning.png.keysight.com
+19. agmipimpactsexplorer.wenr.wur.nl
+20. XSS on liferay.com
+21.XSS on myvi
+22.XSS on jio

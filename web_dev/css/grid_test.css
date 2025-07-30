@@ -1,0 +1,43 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-areas: 
+    'header header header' 
+    'nav content sidebar' 
+    'footer footer footer';
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: 1fr 5fr  1fr;
+}
+
+header,aside,main,nav,footer{
+    color: #fff;
+    background-color: orangered;
+    padding: 20px;
+    margin: 5px;
+    border: 1px solid goldenrod;
+}
+
+header{
+    grid-area: header;
+ 
+}
+
+nav{
+    grid-area: nav;
+}
+aside{
+    grid-area: sidebar;
+}
+main{
+    grid-area: content;
+}
+
+footer{
+    grid-area: footer;
+}

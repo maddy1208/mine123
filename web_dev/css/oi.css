@@ -7,8 +7,8 @@
     padding: 5px;
     margin: 5px;
     flex-wrap: wrap;
+
     justify-content: center;
-    align-content: center;
 }
 
 img{

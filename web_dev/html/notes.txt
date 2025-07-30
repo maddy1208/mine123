@@ -61,6 +61,12 @@ target tag:
     top => complete paga replace panum 
     eg: nama iframes embedd pani,links la vachirundha navigations a control pnlaam
 
+    _self - Default. Opens the document in the same window/tab as it was clicked
+    _blank - Opens the document in a new window or tab
+    _parent - Opens the document in the parent frame
+    _top - Opens the document in the full body of the window
+
+
     The target attribute is only valid on certain HTML elements, primarily:
         <a> (links)
         <form>
@@ -74,3 +80,43 @@ target tag:
 =>ipdi targeta iframe la open panikalmm just with name value vachi
 
 
+Link to an Email Address
+
+Use mailto: inside the href attribute to create a link that opens the user's email program (to let them send a new email):
+Example
+<a href="mailto:someone@example.com">Send email</a> 
+
+The HTML <noscript> tag defines an alternate content to be displayed to users that have disabled scripts in their browser or have a browser that doesn't support scripts:
+eg: <noscript>Sorry, your browser does not support JavaScript!</noscript> 
+
+
+video:
+<video controls autoplay muted><source src="" type="video/mp4></video>
+
+
+-----------YouTube --------
+- Autoplay + Muted:
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1">
+</iframe> 
+
+-Loop:
+
+Add playlist=videoID and loop=1 to let your video loop forever.
+loop=0 (default) - The video will play only once.
+
+loop=1 - The video will loop (forever).
+YouTube - Loop forever
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1">
+</iframe> 
+
+Controls:
+Add controls=0 to NOT display controls in the video player.
+controls=0 - Player controls does not display.
+
+controls=1 (default) - Player controls is displayed.
+YouTube - Controls
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0">
+</iframe> 

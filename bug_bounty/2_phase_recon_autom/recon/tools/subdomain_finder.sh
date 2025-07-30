@@ -112,7 +112,7 @@ while IFS= read -r domain || [[ -n "$domain" ]]; do
     ####################### LIVE SUBDOMAINS #######################
     echo -e "${yellow}[*] Probing live subdomains with httpx for $domain...${reset}"
     if [[ -s "$domain_dir/all_subdomains.txt" ]]; then
-        time /usr/local/bin/httpx -l "$domain_dir/all_subdomains.txt" --timeout 2 -threads 200 -silent -o "$domain_dir/live_subdomains.txt" < /dev/null
+        time /usr/local/bin/httpx -l "$domain_dir/all_subdomains.txt" --timeout 2 -retries 1 -threads 200 -silent -o "$domain_dir/live_subdomains.txt" < /dev/null
          live_count=$(wc -l < "$domain_dir/live_subdomains.txt")
          echo -e "${green}[✔] Live subdomains: $live_count${reset}"
          echo "Live subdomains: $live_count" >> "$summary_file"

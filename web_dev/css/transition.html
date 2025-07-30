@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inder&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<style>
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+              font-family: "Inder", sans-serif;
+              font-weight: 500px;
+              font-size: 15px;
+
+}
+
+body{
+    background-color: rgb(192, 188, 188);
+
+    height: 100vh;
+    width: 100vw;
+        display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    max-width: 800px;
+    background-color: white;
+}
+
+.title{
+    background-color: rgb(47, 47, 60);
+    color: white;
+    padding: 13px;
+    user-select: none;
+    border: 1px solid white;
+    display: block;
+
+}
+
+.title:hover{
+    background-color:  rgb(101, 101, 106);
+    transition: all 0.3s ;
+}
+
+.container  a{
+    color: white;
+    text-decoration: none;
+}
+
+.container p{
+    padding: 10px;
+    line-height: 30px;
+    text-align: justify;
+}
+
+.content{
+        max-height: 0px;
+        overflow: hidden;
+
+
+}
+
+.content:target{
+    max-height: 200px;
+    transition: max-height 0.3s linear;
+
+
+}
+</style>
+<body>
+
+
+<div class="container">
+    <div class="title"><a href="#content1">Who needs This?</a></div>
+    <div id="content1" class="content"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat libero temporibus asperiores eius nam aliquam quis fugit, facilis cum cupiditate dolor dolores consequuntur! Reprehenderit atque quasi, omnis in recusandae veritatis ab! Non magnam dolorum nostrum asperiores nam suscipit necessitatibus quasi quae reiciendis quia laborum nihil aut quaerat dolore atque commodi corporis, sunt corrupti. Fuga totam placeat ipsam error temporibus deserunt?</p></div>
+
+
+<div class="title"><a href="#content2">Why you are here?</a></div>
+    <div id="content2" class="content"><p>Lorem loremipsum, dolor sit amet consectetur adipisicing elit. Quisquam eius voluptatem distinctio eos officiis, magnam nesciunt tempore voluptatibus officia corrupti reprehenderit harum quos. At accusantium quia corrupti voluptates culpa ipsum saepe eligendi, nihil fugiat neque provident vero ex eos et beatae illum est quos! Natus similique, totam vero voluptatem iure veniam expedita rem assumenda nemo error adipisci! Voluptatibus, maiores saepe.</p></div>
+
+ <div class="title"><a href="#content3">Are you here?</a></div>
+    <div id="content3" class="content"><p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque ullam totam libero ut perferendis earum a quia deleniti explicabo ratione natus magni, facere culpa porro aperiam dolorem incidunt cum! Suscipit inventore libero sunt veniam, blanditiis mollitia aliquam, excepturi obcaecati voluptatem officiis repudiandae! Sequi dolorum quam harum asperiores nobis magni ipsam, optio omnis tempore, vel ab maxime quo voluptatem animi nam.</p></div>
+
+</div>
+
+    
+</body>
+</html>

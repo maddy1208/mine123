@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    body{
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    body ul li{
+          cursor: pointer;
+        list-style-type: none;
+        display: inline-block;
+        padding: 10px;
+        margin: 15px;
+        text-transform: uppercase;
+    }
+li:after{
+    content: "";
+    margin: auto;
+margin-top: 5px;
+ width: 0px;
+    display: block;
+    height: 3px;
+    background-color: transparent;
+}
+
+    ul li:hover::after{
+
+           width: 100%;
+               background-color: red;
+               transition: all 0.4s ease;
+
+        
+    }
+  
+</style>
+<body>
+    
+    <ul><li>Home</li>
+    <li>About</li>
+    <li>Contact</li>
+    <li>Services</li></ul>
+</body>
+</html>

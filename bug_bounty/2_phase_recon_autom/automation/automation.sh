@@ -141,9 +141,9 @@ echo "============================================"
 # script -q -c " python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap/sqlmap.py -m "$ALLPARAMS" --level 5 --risk 3 --batch --dbs --tamper=between --random-agent" "$OUTDIR/sqlmap_output.txt"
 
 
-echo "[*] Testing for SQLi using nuclei..."
-nuclei -tags sqli,injection,error,blind,time,post,database,mysql,postgresql,mssql,azure-sql,google-cloud-sql,dast \
-   -l "$ALLPARAMS" --rate-limit 200 --retries 2 -o "$OUTDIR/sqli_results.txt" -stats  -retries 2 
+###echo "[*] Testing for SQLi using nuclei..."
+###nuclei -tags sqli,injection,error,blind,time,post,database,mysql,postgresql,mssql,azure-sql,google-cloud-sql,dast \
+ ###  -l "$ALLPARAMS" --rate-limit 200 --retries 2 -o "$OUTDIR/sqli_results.txt" -stats  -retries 2 
 
 # ----------------------------------------------
 # 2. Cross Site Scripting (XSS)
@@ -210,7 +210,7 @@ subzy run --targets live_subdomains.txt | tee -a "$OUTDIR/takeover_out3.txt"
 # ----------------------------------------------
 
 echo "[*] Detecting WordPress vulnerabilities with nuclei..."
-nuclei -l live_subdomains.txt -t ~/nuclei-templates/http/technologies/wordpress-detect.yaml -o  "$OUTDIR/wordpress_detect.txt" -stats -retries 2 
+###nuclei -l live_subdomains.txt -t ~/nuclei-templates/http/technologies/wordpress-detect.yaml -o  "$OUTDIR/wordpress_detect.txt" -stats -retries 2 
 
 # ----------------------------------------------
 # 7. CORS Misconfigurations
@@ -226,13 +226,8 @@ nuclei -l live_subdomains.txt -tags cors -o  "$OUTDIR/nuclei_cors.txt" -stats
 echo "[*] CRLF Injection with crlfuzz (domains)..."
 crlfuzz -l "$LIVEDOMAINS"  | tee -a  "$OUTDIR/crlf_crlfuzz.txt"
 
-echo "[*] CRLF Injection using nuclei templates..."
-nuclei -t ~/nuclei-templates/dast/vulnerabilities/crlf/ -l "$LIVEDOMAINS"  -dast -o  "$OUTDIR/crlf_nuclei_out1.txt" -stats  -retries 2 
-nuclei -t ~/nuclei-templates/http/vulnerabilities/generic/crlf-injection-generic.yaml -l "$LIVEDOMAINS"  -o  "$OUTDIR/crlf_nuclei_out2.txt" -stats  -retries 2 
-nuclei -t ~/nuclei-templates/http/vulnerabilities/other/viewlinc-crlf-injection.yaml -l "$LIVEDOMAINS"  -o  "$OUTDIR/crlf_nuclei_out3.txt" -stats  -retries 2 
 
-
-cat "$OUTDIR/nuclei/* | sort -u > "$OUTDIR/nuclei/all.txt"
+cat "$OUTDIR"/nuclei/* | sort -u > "$OUTDIR/nuclei/all.txt"
 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/remove_duplicates.sh  "$OUTDIR/nuclei/all.txt"
 mv nuclei-output-all.txt  "$OUTDIR/nuclei/"
 

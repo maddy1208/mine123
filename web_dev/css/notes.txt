@@ -318,7 +318,356 @@ Centering inline/inline-block elements inside a block
 
 CSS GRID,FLEX,ADVANCED CONCEPTS:
 
+FLEX:
+display:flex => full widtha eduthukum
+display:inline-flex => acc to content widtha eduthukum
+
+flex-wrap:no-wrap => browser size decrease pnaa elemts apde irukum
+flex-wrap: wrap =>browser size decrease pnaa elemts keela varum,so elo elemtsum visiblaa irukum even browsr size china dhaanalum
+flex-wrap:wrap-reverse => similar to wrap but,browser sizaa decrease pnaa elemts mela pogum
+flex-flow: combination 0f both flex-direction + flex-wrap
+flex-flow: <flex-direction> <flex-wrap>
+  simpla one liner maari instead of 2 separate properties
+
+gap: determines gap between elemts in flex-container
+row-gap: gap space between roows
+column-gap: gap space between columns
+gap: 40px  20px
+gap: row   column
+gap: 40x (simplaa elo sidelayu(row+column))
+
+align-items: stretch/no-stretch (particular contentku size)
+align-items: flex-start/flex-end/center
+align-items: baseline (even oru sila elemt oda fontsize perusaa irundhaalum, ore line la elo align aagum)
+
+align-content:(mothama content closaa irukum instead of separate elemt, basicaa nerya gap reduce aagum)
+
+order: can decide which elemt to align in order
+
+flex-grow: 1 (remaining gap eduthukum,total flex container la irukaedha)
+
+flex-shrink: 1(browser chinadhachinaa shrink aagum)
+
+flex-basis:400px (initialla particular elementku size assin paniklaam)
+
+flex: <grow> <shrink> <basis> (like oneliner)
+
+align:self (particular itemaa alogn paniklaam)
+
+GRID::::
+
+=> 2d styling
+display: grid =>
+display: inline-grid => complete widtha eduthukaama,particular content ku work aagum
+
+grid-template-columns:
+    grid-template-columns: 150px 100px 250px 500px 600px;
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-template-columns: repeat(3,400px);
+    grid-template-columns: repeat(3,400px) 100px;
+    grid-template-columns: repeat(3,3fr); //fr = fraction correcta size vailam
+    grid-template-columns: repeat(3,minmax(200px,2fr));
+
+(columns oda sizaa control panlaam)
+
+grid-template-rows:
+  similar to above,but rows sizaa control panlaam
+
+grid-template: <row> /<column> (one liner)
+
+gap:
+gap: <row+column>
+gap: <roe> <column>
+gap-column: <column>
+gap-row: <roe>
+
+justify-items: x axisaa control panlamm elo ,acc to elemt 
+align-items: y axisaa control panlam,acc to elemt
+placeitems: <alignitem> <justufyitem> //oneliner maari
+
+
+justify-content: mothama elo elemtyasyu x axis la control panlaam
+align-content: mothamm elo elemtsayuu y axis la control panlaam
+placecontent: <justifyconent> <alignpcontent>
+
+
+grid-auto-flow: row/column (to choose the flow of grid)
+grid-auto-rows: 100px (can size tge rows)
+grid-auto-columns:100px (can size the columns)
+
+
+    grid-column-start: 1;
+    grid-column-end: 4; // evlo boxes cover agnumnu, like grid lines a base pani
+
+    grid-rows-end: 1
+    grid-rows-start: 4 // evlo boxes row wise cover aagnumnu 
+
+grid-colun: <grid-column-start>  <grid-column-end> //oneliner
+grid-row: <grid-row-start>  <grid-row-end> //oneliner
+
+
+//particuarra oru elemt oda positiona mathanumnaa idha use panlaam
+justify-self
+align-self
+place-sefl
+
+
 CSS TRANSITION:
+transition-property: width,height,bg-color;
+transition-duration: 1s 2s 3s //ipdi specificaa select paniklaam
+
+elo elemtskum at a time same transitiinku,
+transition: all 1s //ipfi kodiklaam
+transitiom: height,width 1s,2s; //ipiyum podlaam
+transition-delay: 2s //delay for transition
+transitiin: all 2s ease-in: //timing-function use paniklaam
+
 
 MORE ABOUT SELECTORS,COMBINATORS,PSEUDOO CLASSES,PSEUDO ELEMENTS:
+
+Selectors:
+
+Universal selector(*) 
+    Elo elementskum work aagum
+    *{}
+
+Element Selector
+    particular tag la work paniklaam
+    p{}
+
+Class Selector
+    particular classku work aagum
+    .class{}
+
+ID Selector
+    particular id la wprk panlamm
+    #id{}
+
+Specific class selector
+    h1.class{} //means h1 with .class tags so,h1+.class
+
+Grouping Selector
+   nreya elemtsku style podlaam
+   h1,h2,p{}
+   .class,.class2{}
+
+Descendant Selector
+   div p {} //div kulle irukra para tag ,but idhu div kulle irukra non childkum work aagumso simplaa kulee irukra elothukum
+
+Child Selector
+   div > p{} //div oda chuld matum sleect aagum
+
+Adjacent Selector 
+   div + p{ } //div ku pakathula para irundha slt aagum
+
+General Sibling Selector
+   div ~ p{} //div pakathulka iruka para elom slt aagum
+
+-------------------------------Pseudo-Elemnt------------------------------------------------------------
+
+::
+p::first-line{} //first line matum selct panlaam, also block leevl elemts ku matu work aggumeg:span ku la work aagadhu
+
+h2::first-letter{} //first lettera matum change panlaam,also udhuvum black elemntku matu work aagum
+
+p::firstlibe{}
+p::first-letter{} //ipdi multiple psedu properties apply panlaam
+
+p::before{ conetet:"oi"}
+p::after{content:"oi"} //beforekum,afterkum work agum
+
+
+   
+::marker // list oda styles andh numbers,roman letters
+
+ul li ::marker{
+    content: '<emoji>';
+}
+
+h3{
+    counter-increment:mylist  //nama oru variable maari declare pandro,
+}
+h3::marker{
+    display: list-item; //note even h3 kooda list itema change panlam
+    content :"#" counter (mylist) ""; //andha increement varialaa use pandrom
+}
+
+::selection{} //user selct panaa work aagum
+
+::placeholder{} //inputs kule irukra placeholdera style paniklaam
+
+ATTRIBUTE SELECTORS
+
+input[title]{} //input with title attributes elom select agum
+a[target]{} //a with target attr elom style agum
+img[alt]{}
+
+input [title="oi"] //titlle eaxcta oi na matum select aagum
+input [type="text"] //typwe exacta text na matum select aagum
+img [width="75px] //width exacta 75px na matum select agum
+
+
+input [title~="oi"] //even nerya class irundhaalum title oi match agum,
+input [title^-"oi"] //title oi start la irundhaa matum aagum
+input [title$-"oi"] //title oi end la irundhaa matum aagum
+input [title*="oi"] //just oi irunshale select agum
+input [title|="oi"] //oi ku aprm "-" irundhaa select agum eg: <input title="oi-sam">
+
+
+input:enabled{}
+input:disabled{}
+input[type="radio"]:checked{}
+input[type="radio"]:not(:checked){}
+
+input:placeholder-shown{} //placeholder visiblaa irukumpodhuu
+input:not(placeholder-shown){} //placeholder visiblaa iladhapodhu style paniklaam
+
+input:focus{} //input type panumpodho,click panumpodhi style paniklaam
+
+input:valid{} //validaa input vandhchunaa style paniklaam (eg:incase we specified type=email)
+input:invalid{} //invalidna indha style vachiklaam
+
+input:required{} //required fieldsa style paniklaaam
+input:optional{} //optional fieldsaa style paniklaam
+
+input:read-only{}
+input:read-write{}
+
+input:in-range{} //eg: <input type="numner" min="1" max="5"> 
+input:out-of-range{} // incase user range la iladha numberaa type pana
+
+option:default{} //
+input: default  + label{ color:green} //eg:checkbox checked la irundhaa,adhoda pakathu label style panikroo
+
+
+:link {}
+:hover {} //hover panumpodhu
+:visited{} //eg:linksaa visit panna
+:active{}  // eg: link clickpanumpodhu
+:target  //particular content target aagumpodhu
+
+-------------------parent,child-----------------
+
+:first-child //1st childaa irundhaa style panlam eg:li:first-child
+:last-child //last childaa irundhaa style panlam eg:li:last-style
+
+:first-of-type //even parent ilanaalum elemysku work aagum
+:last-of-type //even parent ilanaalum work aagum, elo elemtsku
+
+
+:nth-child(odd)
+:nth-child(even)
+:nth-child(2n/2n+1/3n,etc...) //epdi venalum select paniklaam
+:nth-last-child() //last la irundhu select paniklaam
+
+:nth-of-type(1) //idhu elothukum style panum,even parent ilanaalum
+:nth-last-of-type(1) //idhu elothukum style panum reverse la irundhu,even parent ilanaalum
+
+:only-child //it works only for elemts that is only one child for the parent
+:only-of-type() //similar but even parent ilanaalum work aagum
+
+:empty{} //empty elemts ku work aagum eg: div:empty{} //div emptyaa irundhaa style apply aagum
+
+outline offset: gap between outine and brder
+
+Use Multiple Google Fonts:
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+
+priority(specificity):
+Inline style >Id selectors>Classes and pseudo-classes >Attributes [type="text"] >Elements and pseudo-elements
+
+CSS MATH func:
+  width: max(50%, 300px);
+  width: min(50%, 300px);
+  width: calc(100% - 100px);
+
+CSS PERFORMANCE
+1. Use Simple Selectors
+
+Complex selectors take longer for the browser to match. Keep them simple when possible.
+Bad Example
+ul li a.button:hover {
+  background-color: blue;
+}
+Better Example
+.button:hover {
+  background-color: blue;
+}
+2. Avoid Universal Selector for Styling
+
+Using * affects every element and can slow down page rendering.
+Bad Example
+* {
+  margin: 0;
+  padding: 0;
+}
+3. Avoid Inline Styles
+
+Inline styles make your HTML heavier and are harder to manage and cache.
+Bad Example
+<div style="color: red; font-size: 18px;">Hello</div>
+4. Combine and Minify CSS
+
+Use one CSS file when possible, and remove spaces and comments to reduce file size.
+
+You can use tools like:
+
+    CSS Minifier
+    PostCSS
+    Online compressors
+
+5. Load CSS Efficiently
+
+Place your main CSS in the <head> so it loads before your page is rendered.
+Example
+<link rel="stylesheet" href="style.css">
+
+Avoid using @import for loading CSS, as it delays stylesheet loading.
+6. Use Shorthand Properties
+
+Using shorthand properties saves space and is faster to parse.
+Example
+/* Long version */
+margin-top: 10px;
+margin-right: 20px;
+margin-bottom: 10px;
+margin-left: 20px;
+
+/* Shorthand version */
+margin: 10px 20px;
+7. Cache Your CSS
+
+Make sure your CSS file is cached by the browser by giving it a long expiration time in your server settings. This reduces how often users need to re-download it.
+Summary
+
+    Keep selectors short and simple
+    Avoid layout-thrashing operations
+    Use external, minified, and cached stylesheets
+    Use efficient hiding and animation techniques
+
+double bg:
+  background: url(img_flwr.gif) right bottom no-repeat, url(paper.gif) left top repeat;
+
+CSS IMAEG STYLING, CSS pagination,ma querries,animation,sass: REFER
+
+cCENTERING:
+img {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+CSS Resizing
+
+The resize property specifies if (and how) an element should be resizable by the user.
+EG: div {
+  resize: both;
+  overflow: auto;
+}
+
+In many browsers, <textarea> is resizable by default. Here, we have used the resize property to disable the resizability:
+Example
+textarea {
+  resize: none;
+}
 

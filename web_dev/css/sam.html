@@ -1,71 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-    <link rel="stylesheet" href="oi.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
-
-<!-- 
-<body>
-
-<h1>
-  Hello Guys!
-</h1>
-  
 <style>
-  h1{
- 
-    width:50vmax;
-    height:50vmax;
-    color: orange;
-    background-color: green;
-    transition:all 0.5s ease;
+  *{
+    padding: 0px;
+    margin: 0px;
   }
-  h1:hover{
-    height:60px;
-    width:60px;
+
+  body{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    box-sizing: border-box;
+    grid-template-areas: 
+    'one one one' 'two two two' 
+    'three four four' 
+    'five six seven'
+    'eight eight eight';
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr 3fr 2fr .5fr;
+    
+  }
+
+  .one, .two, .three,.four,.five,.six,.seven,.eight,.nine{
     background-color: orangered;
+    color: #fff;
+
+
+ 
+ margin: 1px ;
+
+
   }
-</style>
-</body> -->
-<style>
+
+  .one{
+    background-color: rgb(244, 244, 133);
+    grid-area: one;
+
+  }
+  .two{
+    grid-area: two;
+    background-color: rgb(237, 138, 138);
+  }
+
+  .three{
+    grid-area: three;
+    background-color: violet;
+  }
+  .four{
+    grid-area: four;
+        background-color: rgb(187, 228, 187);
+
+  }
+  .five{
+    grid-area: five;
+    background-color: rosybrown;
+
+  }
+
+  .six{
+    grid-area: six;
+    background-color: rgb(224, 181, 181);
+  }
+
+  .seven{
+    grid-area: seven;
+            background-color: violet;
+
+  }
+
+  .eight{
+    grid-area: eight;
+    background-color: gray;
+  }
+
 
 </style>
-
 <body>
-  <div class="navbar">
-    <ul>
-      <li><a href="#">Products</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Downloads</a></li>
-      <li><a href="#">Contact us</a></li>
-    </ul>
-  </div>
-  <h2>Simple Gallery</h2>
-  <div class="gallery">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
-    <img src="https://cdn.pixabay.com/photo/2024/05/22/21/51/dog-8781844_960_720.jpg" alt="">
+<div class="one">header</div>
+<div class="two">header1</div>
+<div class="three">sidebar</div>
+<div class="four">main</div>
+<div class="five">five</div>
+<div class="six">six</div>
+<div class="seven">seven</div>
+<div class="eight">footer</div>
 
-  </div>
-
-
+  
 </body>
-
-
-
-
-
 </html>
