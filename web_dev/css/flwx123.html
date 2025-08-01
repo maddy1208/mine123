@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLex Box</title>
+
+    <style>
+*{margin: 0;
+padding: 0;}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.box{
+    margin-top: 20px;
+ 
+    height: 50%;
+    width: 90%;
+    display: flex;
+   background-color: rgb(203, 201, 201);
+   flex-direction: row;
+   box-sizing: border-box;
+   flex-wrap: wrap;
+   align-content: space-evenly;
+
+
+}
+
+.div1{
+    margin: 20px;
+
+       background-color: blue;
+       height: 10%;
+       width: 100%;
+       display: flex;
+       padding: 20px;
+       justify-content: space-between;
+       gap:10px
+}
+
+.one{
+    height: 100%;
+   flex-grow: 2;
+    background-color: yellow;
+    
+
+}
+.two{
+     height: 100%;
+flex-grow: 1; 
+   background-color: yellow;
+}
+.three{
+      height: 100%;
+flex-grow: 2;
+    background-color: yellow;
+}
+
+.four{
+margin: 15px 20px;
+    background-color: rgb(221, 124, 124);
+    flex-grow: 3;
+    align-self: flex-start;
+    height: 40%;
+ 
+
+}
+.five{
+        margin: 15px 20px;
+
+    background-color: rgb(22, 18, 18);
+    flex-grow: 1.5;
+    align-self: flex-start;
+    height: 40%;
+
+}
+
+.six{
+        margin: 10px 20px;
+
+    background-color: rgb(225, 30, 30);
+    flex-grow: 1.5;
+    align-self: flex-end;
+    height: 40%;
+    justify-self: flex-end;
+}
+
+.div2{ 
+    margin: 20px;
+       background-color: blue;
+       height: 10%;
+       width: 100%;
+       display: flex;
+       padding: 20px;
+       justify-content: space-evenly;
+       flex-direction: row;
+}
+.seven{
+background-color: rgb(140, 140, 149);
+height: 100%;
+flex-grow: 3;
+align-self: self-start;
+margin-right: 10px;
+
+}
+
+.eight{background-color: rgb(219, 185, 122);
+height: 100%;
+flex-grow: 1.5;
+margin-right: 10px;
+}
+
+.nine{background-color: rgb(234, 234, 162);
+height: 100%;
+flex-grow: 1.5;
+margin-right: 10px;
+
+
+}
+
+.ten{background-color: rgb(205, 205, 219);
+height: 100%;
+flex-grow: 3;
+}
+    </style>
+</head>
+<body>
+    <h2>FLex Box</h2>
+    <div class="box">
+        <div class="div1">
+            <div class="one"></div>
+            <div class="two"></div>
+            <div class="three"></div>
+        </div>
+      <div class="four"></div>
+      <div class="five"></div>
+      <div class="six"></div>
+
+        <div class="div2">
+         
+            <div class="seven"></div>
+            <div class="eight"></div>
+            <div class="nine"></div>
+            <div class="ten"></div>
+        </div>
+    </div>
+    
+</body>
+</html>

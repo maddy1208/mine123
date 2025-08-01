@@ -1,15 +1,34 @@
 --------------------------------------------------------------------------------PRIVATE PROGRAMS----------------------------------------------------------------
-
+BBP'S:
 1. OWN ID (bounty)
 2. LYFT (bounty)
 3. EARNEST (bounty)
-4. Kaseya
+4. Broswerstack (bounty)
+
+VDP'S:
+1. simplycook
+2.
+3.
+4.
 5. HRB Tax Group, Inc.
 6. Paubox
 7. Webtoon
 8. QUICKNODE
 9. Little Caesars Enterprises
-
+10. QinetiQ 
+11. charityvest
+12. gamma
+13. Zulip
+14. CORSair
+15. Assurant
+16. Sephora
+17. Kaseya 
+18. Flat
+19. getboxlock
+20. American airlines
+21. Manulife
+22. Versa Networks
+23. Guide book
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------
 
 

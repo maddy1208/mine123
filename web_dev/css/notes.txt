@@ -1,7 +1,6 @@
 -------------------------------CSS NOTES-------------------------------------
 CSS FUNDAMENTALS:
 
-
 Link rules:
 inline,internal,external
 
@@ -88,7 +87,7 @@ COMMENT:
 
 DISPLAY PROPS:
 
-    p,span,etc..=>block level elements means parent oda full widthaa eduthukum
+    p,etc..=>block level elements means parent oda full widthaa eduthukum
     b,i => idhu block level elementx ila
 
     b{
@@ -169,7 +168,7 @@ normal position la irundhu position maarum
 absolute will postion acc to the parent which has relative property
 [Positioned relative to the nearest positioned ancestor (i.e., parent with position: relative, absolute, or fixed)
 
-If no such ancestor, then it uses the <html> (the page) as reference.]]
+If no such ancestor, then it uses the <html> (the page) as reference.]
 4.FIXED
  It never moves, even user scrolls 
  also idhu html documnet ku base pani work aagum
@@ -236,7 +235,7 @@ instead of position at a particular column);
 
 
 CSS UNITS:
-ABsolute: (screen ku ethamaari set aagum)
+ABsolute: 
 px :
 (size maarave maardhu)
 
@@ -286,6 +285,9 @@ transition delay
 transition timing function:linera,ease,ease-in,ease-out,etc..
 transition: all 0.5s ease-in 1s (short property)
 
+
+-----------------CSS GRID,FLEX,ADVANCED CONCEPTS-----------------------------------
+
 FLEX-BOX:
 display:flex (to make flex container)
 flex-direction: (decides the direction flow of flex elements)
@@ -310,13 +312,6 @@ Aligning text inside a block (div, p, span, etc.)
 Centering inline/inline-block elements inside a block
 
 
-
-
-
-
-
-
-CSS GRID,FLEX,ADVANCED CONCEPTS:
 
 FLEX:
 display:flex => full widtha eduthukum
