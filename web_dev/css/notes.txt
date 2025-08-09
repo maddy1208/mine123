@@ -369,6 +369,7 @@ grid-template-rows:
   similar to above,but rows sizaa control panlaam
 
 grid-template: <row> /<column> (one liner)
+//basocaa template rows,column countaa manage panna
 
 gap:
 gap: <row+column>
@@ -405,6 +406,15 @@ grid-row: <grid-row-start>  <grid-row-end> //oneliner
 justify-self
 align-self
 place-sefl
+
+//grid template areas: 
+   grid-template-areas: 
+    'header header header' 
+    'nav content sidebar' 
+    'footer footer footer';
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: 1fr 5fr  1fr;
+
 
 
 CSS TRANSITION:
@@ -465,8 +475,8 @@ p::first-line{} //first line matum selct panlaam, also block leevl elemts ku mat
 
 h2::first-letter{} //first lettera matum change panlaam,also udhuvum black elemntku matu work aagum
 
-p::firstlibe{}
-p::first-letter{} //ipdi multiple psedu properties apply panlaam
+p::firstline{}
+p::first-letter{} //ipdi multiple psedu properties apply panlaam, oru elemnt ku
 
 p::before{ conetet:"oi"}
 p::after{content:"oi"} //beforekum,afterkum work agum
@@ -563,6 +573,8 @@ input: default  + label{ color:green} //eg:checkbox checked la irundhaa,adhoda p
 
 :empty{} //empty elemts ku work aagum eg: div:empty{} //div emptyaa irundhaa style apply aagum
 
+
+-----------------------------------------------------
 outline offset: gap between outine and brder
 
 Use Multiple Google Fonts:
@@ -643,7 +655,7 @@ Summary
 double bg:
   background: url(img_flwr.gif) right bottom no-repeat, url(paper.gif) left top repeat;
 
-CSS IMAEG STYLING, CSS pagination,ma querries,animation,sass: REFER
+CSS IMAEG STYLING: ,ma querries,animation,sass: REFER
 
 cCENTERING:
 img {

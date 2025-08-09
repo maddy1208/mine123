@@ -115,8 +115,8 @@ if [[ -s "$LIVEDOMAINS" ]]; then
     cat "$LIVEDOMAINS" | jaeles scan -c 50 -o "$JAELES_OUT/jaeles_domain_out"
 
     echo "[+] Running Nuclei on live domains..."
-    nuclei -l "$LIVEDOMAINS" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain1_out" -stats -retries 2
-    nuclei -l "$LIVEDOMAINS" -t "/home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain3_out" -stats -retries 2
+    nuclei -l "$LIVEDOMAINS" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain1_out" -stats -retries 3
+    nuclei -l "$LIVEDOMAINS" -t "/home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/nuclei-temp/lostsec" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain3_out" -stats -retries 3
 else
     echo "[!] $LIVEDOMAINS not found or empty. Skipping domain scans."
 fi
@@ -145,7 +145,7 @@ rm live_urls.txt all_param_urls urls.txt
 
 # DAST scan
 if [[ -s "$ALLPARAMS" ]]; then
-    nuclei -l "$ALLPARAMS" -dast -retries 2 -o "$NUCLEI_OUT/dast_out.txt" -stats
+    nuclei -l "$ALLPARAMS" -dast -retries 3 -o "$NUCLEI_OUT/dast_out.txt" -stats
 
     echo "[*] SQLi testing..."
     proxychains nuclei -tags sqli,injection -l "$ALLPARAMS" --rate-limit 200 --retries 2 -o "$OUTDIR/sqli_results.txt" -stats
@@ -160,7 +160,7 @@ if [[ -s "$ALLPARAMS" ]]; then
     python3 ~/techiee/bug_bounty/2_phase_recon_autom/tools/unique_urls.py urls.txt 
     cp unique_urls.txt "$OUTDIR/redirect_params.txt" 
     cat "$OUTDIR/redirect_params.txt" | qsreplace "https://canarytokens.com/abc" | httpx -silent -fr -no-color -status-code | grep "\[3" >> "$OUTDIR/open_httpx_out.txt" || true
-    cat "$OUTDIR/redirect_params.txt" | qsreplace "https://canarytokens.com/abc" | nuclei -tags redirect -c 30 -o "$OUTDIR/open_nuclei_out.txt" -retries 2 -stats
+    cat "$OUTDIR/redirect_params.txt" | qsreplace "https://canarytokens.com/abc" | nuclei -tags redirect -c 30 -o "$OUTDIR/open_nuclei_out.txt" -retries 3 -stats
     echo "testing..."
     cat "$OUTDIR/redirect_params.txt" | qsreplace 'https://pipedream.net/ssrf-test' >> "$OUTDIR/ssrf_urls_ffuf"
     ffuf -c -w "$OUTDIR/ssrf_urls_ffuf" -u FUZZ | tee -a "$OUTDIR/ssrf_ffuf_output.txt"

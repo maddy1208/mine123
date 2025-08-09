@@ -1,11 +1,11 @@
-Totol bugs found: 31
+Totol bugs found: 68
 
 DUPLICATES: 4
 
 LOW      : 4
-MEDIUM   : 25
+MEDIUM   : 61
 HIGH     : 1
-CRITICAL : 1
+CRITICAL : 2
 
 
 BOUNTIES      : $0
@@ -39,3 +39,11 @@ DES:
 29. XSS on vodafone
 30. XSS on koroneiki.liferay.com
 31. XSS on noaa.gov
+32-37. XSS on assurant
+38. xss on datto
+39. RCE on manulife
+40-45. xss on choicehotels
+45-51. xss on basf
+52-65. refer reports 14xss
+65,66. xss on tesla
+67. xss on coa.nl

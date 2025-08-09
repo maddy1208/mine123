@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Practice</title>
+    <style>
+
+*{padding:0;
+margin: 0;}
+
+body{
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh;
+width: 100vw;
+
+}
+
+
+
+.container{
+    box-sizing: border-box;
+    height: 70%;
+  display: grid;
+width: 50%;
+grid-template-areas:
+ 'navbar navbar navbar'
+'box1 box2 box3'
+'sidebar main main';
+grid-template-rows: 1fr 1.1fr 2.5fr;
+grid-template-columns: 1fr 1fr 1fr;
+   padding: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+gap: 25px;
+}
+
+.navbar{
+   background-color: aqua;
+   grid-area: navbar;
+   border-radius: 8px;
+
+}
+.box1{background-color: violet;
+       grid-area: box1;
+          border-radius: 10px;
+          text-align: center;
+         position: relative;
+       
+      
+}
+.box1 p{
+        position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+.box2{
+    background-color: black;
+       grid-area: box2;
+
+          border-radius: 10px;
+          position: relative;
+
+
+
+}
+.box2 p{
+        position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.box3{
+    background-color: brown;
+       grid-area: box3;
+          border-radius: 10px;
+position: relative;
+
+ 
+
+}
+.box3 p{
+        position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sidebar{
+    background-color: blue;
+    grid-area: sidebar;
+    border-radius: 10px 0 0 10px;
+}
+
+.main{
+    background-color: blueviolet;
+       grid-area: main;
+       text-align: center;
+       position: relative;
+        overflow: hidden;
+        padding: 10px;
+        box-sizing: content-box;
+        border-radius: 0px 10px 10px 0px;
+
+
+}
+.main h2{
+    margin: 10px;
+    text-transform: uppercase;
+    
+    
+}
+.main p{
+    margin: 10px 25px;
+  position: absolute;
+  text-align: justify;
+
+
+
+}
+
+
+.nav-flex{
+    border-radius: inherit;
+
+    height: 100%;
+    width: 100%;
+    background-color: goldenrod;
+    display: flex;
+justify-content: space-evenly;
+align-items: center;
+}
+.nav-flex ul li{
+    font-size: 20px;
+    font-weight: 200px;
+    padding: 10px;
+    list-style-type: none;
+    display: inline;
+}
+
+.sidebar{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+.sidebar a{
+color: rgb(0, 0, 0);
+text-decoration: none;
+text-transform: uppercase;
+}
+
+.box1,.box2,.box3,.sidebar,.main{
+    background-color: transparent;
+    border: 5px solid goldenrod;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+
+<div class="nav-flex">
+    <h2>LOGO</h2>
+    <ul>
+        <li>Home</li>
+        <li>About</li>
+        <li>Services</li>
+        <li>Contact</li>
+    </ul>
+</div>
+
+        </div>
+        <div class="box1"><p>Feature 1</p></div>
+        <div class="box2"><p>Feature 2</p></div>
+        <div class="box3"><p>Feature 30</p></div>
+       
+            <div class="sidebar">
+                <h3>SIDEBAR</h3>
+                <a href="">Navigation</a>
+                <a href="">Links</a>
+            </div>
+            <div class="main">
+
+                <h2>Main Content</h2>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi recusandae magni reprehenderit ea unde iusto, inventore mollitia voluptatem esse nulla ratione dicta voluptas, officiis ut ducimus optio sed? At, delectus!Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis nisi blanditiis quis dolores nam enim, sed autem provident tenetur mollitia odio possimus, velit et cum adipisci voluptate fugit? Voluptatibus, sapiente.</p>
+            </div>
+       
+    </div>
+    
+</body>
+</html>

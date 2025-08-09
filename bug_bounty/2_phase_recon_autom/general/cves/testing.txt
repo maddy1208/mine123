@@ -44,3 +44,6 @@ done < live_subdomains.txt > ips_for_lazy.txt
 python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lazyhunter.py -f ips_for_lazy.txt | tee lazy_output
 //output: lazy_output
 
+
+---------------------------------------------------------------------
+

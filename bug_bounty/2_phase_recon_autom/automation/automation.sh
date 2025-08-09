@@ -41,9 +41,9 @@ if [[ -s "$LIVEDOMAINS" ]]; then
     cat "$LIVEDOMAINS" | jaeles scan  -c 50  -o "$JAELES_OUT/jaeles_domain_out"
     
     echo "[+] Running Nuclei on $LIVEDOMAINS ..."
-    nuclei -l "$LIVEDOMAINS" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain1_out" -stats -retries 2 
-    nuclei -l "$LIVEDOMAINS" -t "$DOWNLOADED_TEMP" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain2_out" -stats -retries 2 
-    nuclei -l "$LIVEDOMAINS" -t "$LOSTSEC_TEMP" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain3_out" -stats  -retries 2 
+    nuclei -l "$LIVEDOMAINS" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain1_out" -stats -retries 3 
+    nuclei -l "$LIVEDOMAINS" -t "$DOWNLOADED_TEMP" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain2_out" -stats -retries 3 
+    nuclei -l "$LIVEDOMAINS" -t "$LOSTSEC_TEMP" -s critical,high,medium,low -o "$NUCLEI_OUT/nuclei_domain3_out" -stats  -retries 3 
 
  
 else
@@ -61,12 +61,12 @@ if [[ -s "$JSURLS" ]]; then
   -t /home/maddy/nuclei-templates/javascript \
   -s critical,high,medium,low \
   -o "$NUCLEI_OUT/nuclei_js_1" \
-  -stats -retries 2 
+  -stats -retries 3 
     nuclei -l clean_js.txt \
    -t /home/maddy/nuclei-templates/http/exposures \
   -s critical,high,medium,low \
   -o "$NUCLEI_OUT/nuclei_js_2" \
-  -stats -retries 2 
+  -stats -retries 3 
     rm clean_js.txt
 
 else
@@ -169,7 +169,7 @@ cat "$OUTDIR/redirect_params.txt" | qsreplace "https://ahz0j4r17hwqqfdo3ibmaa5nl
 
 
 echo "[*] Open Redirect using nuclei..."
-cat "$OUTDIR/redirect_params.txt" | qsreplace "https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com" | nuclei -tags redirect -c 30 -o  "$OUTDIR/open_nuclei_out.txt" -retries 2 -stats 
+cat "$OUTDIR/redirect_params.txt" | qsreplace "https://ahz0j4r17hwqqfdo3ibmaa5nl.canarytokens.com" | nuclei -tags redirect -c 30 -o  "$OUTDIR/open_nuclei_out.txt" -retries 3 -stats 
 
 rm -f  unique_urls.txt
 
@@ -186,8 +186,8 @@ echo "[*] Running FFUF for SSRF URLs..."
 ffuf -c -w "$OUTDIR/ssrf_urls_ffuf" -u FUZZ | tee -a "$OUTDIR/ssrf_ffuf_output.txt"
 
 echo "[*] SSRF Nuclei testing (Blind SSRF and Response SSRF)..."
-cat "$OUTDIR/redirect_params.txt" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/blind-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_blind.txt" -stats
-cat "$OUTDIR/redirect_params.txt" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/response-ssrf.yaml --retries 2 --dast -o  "$OUTDIR/ssrf_nuclei_response.txt" -stats
+cat "$OUTDIR/redirect_params.txt" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/blind-ssrf.yaml -retries 3 --dast -o  "$OUTDIR/ssrf_nuclei_blind.txt" -stats
+cat "$OUTDIR/redirect_params.txt" | nuclei -t ~/nuclei-templates/dast/vulnerabilities/ssrf/response-ssrf.yaml -retries 3 --dast -o  "$OUTDIR/ssrf_nuclei_response.txt" -stats
 
 cat "$OUTDIR/redirect_params.txt" \
 | sort -u \
@@ -217,7 +217,7 @@ echo "[*] Detecting WordPress vulnerabilities with nuclei..."
 # ----------------------------------------------
 
 echo "[*] Checking CORS configurations..."
-nuclei -l live_subdomains.txt -tags cors -o  "$OUTDIR/nuclei_cors.txt" -stats 
+nuclei -l live_subdomains.txt -tags cors -o  "$OUTDIR/nuclei_cors.txt" -stats -retries 3 
 
 # ----------------------------------------------
 # 8. CRLF Injection

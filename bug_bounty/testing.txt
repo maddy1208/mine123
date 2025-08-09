@@ -1,4 +1,6 @@
-  PHASE 1 => SELECTING TARGET 
+------------------------------------------------BBP'S-------------------------------------------------
+  
+ PHASE 1 => SELECTING TARGET 
   
   PHASE 2 => RECON & ANALYSIS
             [recon,automation & analysis]
@@ -19,3 +21,44 @@
 	     and send request urls to burp using katan proxy,
 	     subfinder -d hackerone.com | httpx -timeout 10 | katana -proxy http://127.0.0.1:8080 -jc -aff 
 
+
+----------------------------------------------------VDP'S-----------------------------------------
+  
+ PHASE 1 => SELECTING TARGET 
+  
+  PHASE 2 => RECON & ANALYSIS
+            [ mini automation]
+
+  PHASE 3 => PRE HUNT
+             loxs tool
+             gdork
+             github recon
+             shodan
+           
+  PHASE 4 => MANUAL HUNT ON ALL DOMAINS
+           1. general.txt 
+           2. vuln hunting + Burpsuite
+            + burp extensions ready
+            
+           Scan ssrf and lfi:
+	     use autorepeater and make reqiest param, with regex https?://(www.)?[-a-zA-Z0–9@:%.+~#=]{1,256}.[a-zA-Z0–9()]{1,6}\b([-a-zA-Z0–9()@:%+.~#?&//=]*)   and replace collb url
+	     and send request urls to burp using katan proxy,
+	     subfinder -d hackerone.com | httpx -timeout 10 | katana -proxy http://127.0.0.1:8080 -jc -aff 
+
+
+------------------------------------------------------CVE'S------------------------------------------------------
+
+3. Cve's hunting + pulling all possible domains for hunting (dorks,h1,gg,intifrit,yeswe hack,...)
+ => mostly automate or dorking
+ particular cve hunt
+
+searchg here = https://www.cisa.gov/
+             = youtube 
+get details here = https://www.cvedetails.com/cve/CVE-2025-4388/
+get poc here    = https://github.com/nomi-sec/PoC-in-GitHub
+
+
+automate using =>public tools
+               =>nuclei
+               => create own tool on specific cve
+ 
