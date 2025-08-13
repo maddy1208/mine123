@@ -10,6 +10,7 @@ BBP'S:
 8. Redzone (bounty)
 9. Deriv
 10. mastercalass
+11. TRading view
 
 VDP'S:
 1. simplycook
@@ -35,7 +36,7 @@ VDP'S:
 21. Manulife
 22. Versa Networks
 23. Guide book
-24. 
+24. Mend vdp
 25. 
 26. Sprinklr 
 27. 

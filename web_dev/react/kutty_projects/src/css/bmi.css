@@ -1,0 +1,91 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+
+body{
+    background-color: rgb(91, 78, 78);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.container{
+  display: flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: white;
+    padding: 20px;
+    height: 500px;
+    gap: 10px;
+border-radius: 5px;
+
+}
+
+.image{
+    height: 450px;
+    background-color: aqua;
+    width: 400px;
+ background-image: url("https://media.istockphoto.com/id/1139929498/vector/happy-woman-exercising-in-the-park-vector-illustration-in-flat-style-concept-illustration.webp?s=2048x2048&w=is&k=20&c=W6nXHAX8Dan4cMVtIpfJZedpFNs-i7okCW_O5gBSv98=");
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+   
+}
+
+.contents{
+  border-radius: 5px;
+
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgba(255, 228, 196,0.5);
+   
+}
+
+h2{
+    margin: 0px auto 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+label{
+    padding: 10px;
+}
+
+input{
+    padding: 10px;
+    outline: none;
+    border: none;
+    
+}
+input:last-of-type{
+    margin-bottom: 20px;
+}
+
+button{
+    background-color: rgb(55, 55, 255);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.result{
+    border:1px solid  rgb(55, 55, 255);
+    padding: 15px;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.result p{
+    margin: 10px;
+}
+.result p:first-child{
+    font-weight: 900;
+}

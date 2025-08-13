@@ -1,0 +1,76 @@
+*{
+    padding:0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    
+}
+
+table{
+    margin: 100px auto;
+    padding: 10px;
+border-collapse: collapse;
+    border: 1px solid black;
+    user-select: none;
+}
+
+
+table td{
+    padding: 15px 20px;;
+border: 1px solid orangered;
+text-align: center;
+
+}
+
+table td:first-child{
+    font-weight: 900;
+    background-color: rgba(255, 69, 0,0.8);
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+
+  border: none;
+
+
+}
+
+table td:last-child:hover  {
+    transform: scale(1.01);
+    background-color: rgba(255, 69, 0,0.3);
+  
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+input[type="text"] ,input[type="number"]{
+
+    padding: 10px ;
+}
+
+
+input[type="checkbox"]{
+    margin: auto 10px;
+}
+
+textarea{
+    padding: 20px;
+
+}
+select{
+    padding: 10px 60px;
+    background-color:orangered;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+input[type="radio"]{
+    margin: 5px 10px;
+}

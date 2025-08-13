@@ -4,8 +4,8 @@
 
 
 -----------------------KUTTY PROJECTS-----------------------------
-PROFILE CARD
-QR COD EGENERATOR
+PROFILE CARD \/
+QR COD EGENERATOR \/
 REACT FORM
 ADVICE APP
 BMI CAL
@@ -23,7 +23,7 @@ RANDOM QUOTE GENERATOR
 CALENDER
 
 ----------------------HOOKS-------------------------------------
-USESTATAE
+USESTATE
 USEEFFECT
 USEREF
 USEREDUCER

@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client'
-import Profile_card from './kutty/profile_card.jsx'
+import BMI_app from './kutty/BMI_app.jsx'
 
 createRoot(document.getElementById('root')).render(
 
-   <Profile_card/>
- 
+<BMI_app/>
+
 )
