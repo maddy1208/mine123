@@ -69,7 +69,7 @@ input:last-of-type{
 }
 
 button{
-    background-color: rgb(55, 55, 255);
+    background-color: rgb(85, 85, 253);
     color: white;
     font-size: 16px;
     font-weight: 600;
@@ -77,8 +77,9 @@ button{
 }
 
 .result{
-    border:1px solid  rgb(55, 55, 255);
+    border:1px solid  rgb(82, 82, 254);
     padding: 15px;
+
     text-align: center;
     margin-top: 25px;
 }
@@ -88,4 +89,17 @@ button{
 }
 .result p:first-child{
     font-weight: 900;
+}
+
+.error{
+    color: red;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+button:hover{
+    background-color: blue;
+    transition: all 0.5s ease;
 }

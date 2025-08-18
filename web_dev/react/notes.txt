@@ -4,13 +4,13 @@
 
 
 -----------------------KUTTY PROJECTS-----------------------------
-PROFILE CARD \/
+PROFILE CARD      \/
 QR COD EGENERATOR \/
-REACT FORM
-ADVICE APP
-BMI CAL
+REACT FORM        \/
+ADVICE APP        \/
+BMI CAL           \/
 CURR CONVERTER
-DIG CLOCK
+DIG CLOCK         \/
 PASS GENERATOR
 FAQ ACCORDIN
 QUIZ APP
@@ -23,7 +23,7 @@ RANDOM QUOTE GENERATOR
 CALENDER
 
 ----------------------HOOKS-------------------------------------
-USESTATE
+USESTATE         \/
 USEEFFECT
 USEREF
 USEREDUCER

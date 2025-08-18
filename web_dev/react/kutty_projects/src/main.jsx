@@ -1,8 +1,7 @@
 import { createRoot } from 'react-dom/client'
-import BMI_app from './kutty/BMI_app.jsx'
+import Simple_downloader from './kutty/Simple_downloader'
 
 createRoot(document.getElementById('root')).render(
 
-<BMI_app/>
-
+<Simple_downloader/>
 )

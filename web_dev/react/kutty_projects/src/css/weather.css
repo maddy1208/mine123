@@ -1,0 +1,134 @@
+*{
+
+    margin:0;
+    padding: 0;
+}
+
+body{
+height: 100vh;
+width: 100vw;
+
+
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+
+    padding: 25px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    justify-content: center;
+}
+
+.container .search{
+border: 3px solid skyblue;
+border-radius: 7px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+padding: 10px;
+
+
+}
+
+.search img{
+    width: 35px;
+
+
+}
+.search input{
+    border: none;
+  
+   
+   
+}
+
+.search input::placeholder{
+    font-size: 16px;
+}
+
+.whole{
+    display: flex;
+    flex-direction: column;
+  align-items: center;
+}
+
+.whole .weather_img{
+  margin: 20px;
+}
+
+.whole .temp{
+    font-size: 25px;
+    font-weight: 800;
+}
+.whole .city{
+    color: rgba(255, 196, 0, 0.729);
+    font-size: 25px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+.whole .country{
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.l{
+    margin: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    gap: 50px;
+}
+.l label{
+    display: block;
+        background-color: rgba(255, 215, 0,0.8);
+        padding: 10px;
+        font-weight: 600;
+
+}
+.l span{
+    display: block;
+    text-align: center;
+    margin: 5px;
+}
+
+.hw{
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+   box-sizing: border-box;
+   padding: 20px;
+  
+}
+
+.hw span{
+     font-weight: 600;
+}
+
+.hw .humidity span,label{
+    display: block;
+    text-align: center;
+   
+ 
+}
+.hw .windspeed span {
+    display: block;
+    text-align: center;
+
+}
+.copyright{
+    margin-top: 20px;
+    text-align: center;
+    color: rgb(97, 96, 96);
+}
+
+.copyright span{
+    color: black;
+}
