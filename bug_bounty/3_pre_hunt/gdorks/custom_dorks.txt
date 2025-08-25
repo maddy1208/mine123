@@ -508,6 +508,7 @@ inurl:cv_uploads filetype:docx site:*.target.com
 filetype:csv "contact list" "target"
 filetype:xlsx "phone number" "target"
 intext:"SSN" filetype:xls "target"
+site:http://ideone.com | site:http://codebeautify.org | site:http://codeshare.io | site:http://codepen.io | site:http://repl.it | site:http://justpaste.it | site:http://pastebin.com | site:http://jsfiddle.net | site:http://trello.com | site:*.atlassian.net | site:bitbucket.org "target"
 
 #PROMETHEUS SENS FILES:
 "Prometheus Time Series Collection and Processing Server" -site:prometheus.io "target"

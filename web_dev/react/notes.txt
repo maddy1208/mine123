@@ -9,9 +9,9 @@ QR COD EGENERATOR \/
 REACT FORM        \/
 ADVICE APP        \/
 BMI CAL           \/
-CURR CONVERTER
+CURR CONVERTER    \/
 DIG CLOCK         \/
-PASS GENERATOR
+PASS GENERATOR    \/
 FAQ ACCORDIN
 QUIZ APP
 FILTERABLE TABLE
@@ -24,11 +24,49 @@ CALENDER
 
 ----------------------HOOKS-------------------------------------
 USESTATE         \/
-USEEFFECT
+USEEFFECT        \/
+
+useeffect(fun(){}) //normalaa elomm changes layu render aagum
+useeffect (fun(){},[]) //first mount la matum render aagum
+useefce(fun(){},[var]) //particular variable change aana matum render aagum
+
+useeffect(fun(){ return <cleaneup code> }) //normalaa elomm changes layu render+cleanp aagum
+useeffect (fun(){ return <cleaneup code> },[]) //first mount la matum render+cleanup aagum
+useefce(fun(){ return <cleaneup code> },[var]) //particular variable change aana matum render+cleanup aagum
+
+note: cleanup unmount aagumpodhu matumee work aagum
+
 USEREF
 USEREDUCER
 USEMEMO 
 USEMEMO & CALLBACK
+
+USECONTEXT:
+What is useContext?
+
+
+
+ useContext is a React hook for accessing shared values across components
+ without manually passing props through each level.
+ 
+ # Create a Context
+import {createContext} from 'react';
+
+export const cartContext= createContext();
+
+ # Provide the Context
+<cartContext.Provider value={value}>
+
+ <child/>
+ <child/>
+<child/>
+
+ </cartContext.Provider>
+
+
+# Consume the Context
+import { cartContext } from "./cartContext";
+ const { cart } = useContext(cartContext);
 
 
 ---------------------KOMJAM PERIYA PROJECTS--------------------------------

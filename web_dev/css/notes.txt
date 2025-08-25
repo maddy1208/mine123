@@ -390,7 +390,7 @@ placecontent: <justifyconent> <alignpcontent>
 grid-auto-flow: row/column (to choose the flow of grid)
 grid-auto-rows: 100px (can size tge rows)
 grid-auto-columns:100px (can size the columns)
-
+(similar to grid-template but automatucaa work aagum,eve we add rows or columns)
 
     grid-column-start: 1;
     grid-column-end: 4; // evlo boxes cover agnumnu, like grid lines a base pani

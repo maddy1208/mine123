@@ -55,7 +55,7 @@ eg: if any txt files,pdf's are there then check whether backup is found
 	nuclei -l urls_endpoints.txt -tags geoserver -severity critical,high,medium
 
 6.intitle:dashboard-confluence "target" (#related CVE: CVE-2019-3396)
-	ruby /home/maddy/techiee/bug_bounty/2_phase_recon_autom/automation/tools/cve-2019-3396.rb -t  https://licet.ac.in  --scan
+	ruby /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/cve-2019-3396.rb -t  https://licet.ac.in  --scan
 
 7.using rust scanner: (inp:redirect_params.txt)
 	cargo build

@@ -1,11 +1,23 @@
 import '../css/downloader.css'
 const Simple_downloader = () => {
+
+
+function copy(obj){
+ 
+const pare=obj.target.parentElement.parentElement;
+navigator.clipboard.writeText(pare.querySelector('pre')[0].innerText)
+
+}
+
   return (
+
+
    <>
    <div className="conatiner">
+    {"sam"}
    <h3>Simple Downloader</h3>
    <div className="sam-code">
-   <div className="copy">
+   <div className="copy" onClick={copy}>
     <img src="https://img.icons8.com/?size=100&id=86206&format=png&color=000000" alt="" />
    </div>
    <div className="down">
@@ -24,7 +36,7 @@ function Example() {
 
    </div>
    <div className="sam-code">
-      <div className="copy">
+      <div className="copy" onClick={copy}>
     <img src="https://img.icons8.com/?size=100&id=86206&format=png&color=000000" alt="" />
    </div>
    <div className="down">

@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    background-color: gray;
+}
+
+.container{
+ width: 800px;
+    margin: 100px auto;
+    user-select: none;
+    cursor: pointer;
+
+ 
+
+}
+
+.faq_div{
+    border-radius: 5px;
+        background-color: bisque;
+
+
+    border: 1px solid  rgb(80, 78, 78);
+}
+
+.faq_div .ques{
+
+ background-color: rgb(80, 78, 78);
+ color: white;
+ font-size: 16px;
+ padding: 15px 10px;
+ border-radius: 5px;
+}
+
+.faq_div .ans{
+   max-height: 0;
+overflow: hidden;
+
+}
+
+.ans.show{
+    padding: 10px;
+    max-height: inherit;
+    transition: all 0.3s ease;
+}

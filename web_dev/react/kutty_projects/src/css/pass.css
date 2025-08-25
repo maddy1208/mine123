@@ -1,0 +1,97 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+ 
+}
+
+.container{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+   height: 400px;
+   align-items: start;
+   justify-content: center;
+   padding: 5px 30px;
+   width: 400px;
+
+}
+
+h2{
+    text-transform: uppercase;
+    color: rgb(51, 51, 245);
+}
+
+
+#lenn{
+ font-weight: 900;
+ margin: 10px auto 5px auto;
+}
+.len label{
+    display: block;
+}
+
+
+input{
+    padding: 10px 30px;
+}
+
+.up,.low,.num,.sym{
+    margin:  5px 10px;
+}
+
+.up{
+    margin-top: 10px;
+}
+
+.sym{
+    margin-bottom: 10px;
+}
+
+.up input,.low input,.num input,.sym input {
+    margin-right: 10px;
+}
+
+.gen {
+   padding: 10px 20px;
+   margin-bottom: 15px;
+   background-color: rgb(76, 76, 255);
+   color: white;
+   border-radius: 5px;
+}
+
+.copy input{
+    margin-right: 0;
+}
+
+.copy button{
+    padding: 10px 15px;
+    background-color: brown;
+    margin-left: 0;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.copy button:hover{
+    background-color: rgb(83, 19, 19);
+    transition: all 0.5s ease;
+}
+
+.gen:hover{
+    background-color: blue;
+        transition: all 0.5s ease;
+
+}
+button{
+    font-size: 15px;
+    font-weight: 600;
+}

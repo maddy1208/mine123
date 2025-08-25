@@ -1,0 +1,9 @@
+[
+
+
+    {"id":1,"question":"Does csrf requires interaction?","options":["yes","No","partially","sometimes"],"correct":"yes"},
+    {"id":2,"question":"Does XSS requires interaction?","options":["yes","No","partially","sometimes"],"correct":"partially"},
+
+      {"id":3,"question":"Does SQLI requires interaction?","options":["yes","No","partially","sometimes"],"correct":"No"}
+
+]

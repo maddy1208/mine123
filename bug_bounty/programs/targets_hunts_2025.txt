@@ -17,7 +17,12 @@ BBP'S:
 15. Curative
 16. Calendy
 17. Marks and spencer
-
+18. Galaxy Digital LP
+19. Transmit Security
+20. Poker Stars
+21. Notion Labs, Inc.
+22. notion 
+23. Pluralsight
 
 VDP'S:
 1. simplycook
@@ -49,6 +54,11 @@ VDP'S:
 27. upGrad au
 28. writer
 29. Howard County Maryland
+30. l3harris
+31. draken
+32. Chobani
+33. Allianz VDP
+34. Ryan VDP
 
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------

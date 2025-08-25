@@ -271,3 +271,5 @@ xmlrpc_server
 xmlrpc_server.php
 zone
 zones
+WEB-INF/
+WEB-INF

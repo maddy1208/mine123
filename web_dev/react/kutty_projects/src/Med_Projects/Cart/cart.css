@@ -1,0 +1,124 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  height: 100vh;
+  width: 100vw;
+    background-color: rgb(145, 135, 126);
+
+}
+
+
+
+.header{
+  background-color: rgb(134, 132, 132);
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 15px ;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.header ul li{
+  list-style-type: none;
+  display: inline;
+  margin: 10px;
+}
+
+.cart-container{
+  background-color: rgb(145, 135, 126);
+display: flex;
+flex-wrap: wrap;
+height: 100%;
+width: 100%;
+gap:  15px;
+padding: 15px;
+
+}
+
+.cart-element{
+  background-color: blanchedalmond;
+  height: 250px;
+  width: 200px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  
+  
+}
+
+p{
+  text-align: center;
+  margin:  3px;
+}
+
+.cart-element button{
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+img{
+    object-fit: contain;
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+button:hover{
+    transform:scale(1.03);
+    background-color: rgb(188, 216, 240);
+color: black;
+}
+
+
+.mycart{
+    background-color: beige;
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.mycart h2{
+    text-align: center;
+    font-weight: 900;
+  
+}
+
+.items{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 25px;
+    box-sizing: border-box;
+
+}
+
+.item{
+    background-color: rgb(200, 191, 191);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.item img{
+    height: 100%;
+    width: 150px;;
+}
+
+.item p{
+    text-align: left;
+    font-weight: 700;
+}
