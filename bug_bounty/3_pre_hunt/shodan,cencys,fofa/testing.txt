@@ -2320,3 +2320,26 @@ X-Amz-Server-Side-Encryption
 "X-Powered-By: PHP"
 "X-Recruiting:"
 "X-TYPO3-Parsetime: 0ms"
+
+
+--------------------------------------------------------------FOFA-----------------------------------------------------
+body="firebasestorage.googleapis.com"
+
+#keywords to combine
+/upload
+/attachments
+/internal
+/private
+/folder
+/images
+/confidential
+/2025
+/YYYY
+/data
+/pdfs
+
+#target filtering
+body="...." && domain="example.com"
+
+#example
+body="firebasestorage.googleapis.com" && body="/attachments" && domain="example.com"

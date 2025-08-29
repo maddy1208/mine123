@@ -47,3 +47,19 @@ python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/lazyhunter.py -
 
 ---------------------------------------------------------------------
 
+MORE REF'S:
+https://github.com/mchklt/CVE-2025-30406
+
+
+
+
+
+-----------------------------------------------------------------------
+Finding Exploits:
+1.  NOrmal search
+2.  https://exploits.shodan.io/
+3.  searchsploit 
+4.  https://sploitus.com/
+5.  https://sploitify.haxx.it/
+6.  https://search-vulns.com/
+7.  python3 pompem.py -s "apache 2.4.29"

@@ -1,0 +1,88 @@
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.buttons{
+    display: flex;
+    gap: 10px;
+}
+
+button{
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: white;
+}
+
+.toast{
+    
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    background-color: gray;
+    padding: 20px ;
+    animation: slide 1s ;
+    cursor: pointer;
+    color: white;
+     font-size: 20px;
+   
+}
+
+@keyframes slide{
+    0%{ transform: translateX(100%);}
+    100%{
+transform:translateX(00%)
+    }
+}
+
+
+.pos{
+    background-color: green;
+}
+
+.neg{
+    background-color: red;
+}
+.med{
+    background-color: orangered;
+}
+
+.info{
+    background-color: gray;
+}
+
+.times:hover {
+    background-color: rgb(56, 58, 60);
+    
+    
+}
+
+.times{
+   
+    font-size: 25px;
+    padding: 0px 5px;
+  
+}
+
+
+.toast-container {
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    z-index: 9999;
+}

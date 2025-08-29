@@ -1,10 +1,11 @@
 import { createRoot } from 'react-dom/client'
-import Cart from './Med_Projects/Cart/Cart'
+import {Toast} from './kutty/Toast'
 
 
 
 createRoot(document.getElementById('root')).render(
 
-    <Cart/>
+
+    <Toast/>
 
 )

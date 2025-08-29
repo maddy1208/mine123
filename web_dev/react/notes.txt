@@ -12,15 +12,15 @@ BMI CAL           \/
 CURR CONVERTER    \/
 DIG CLOCK         \/
 PASS GENERATOR    \/
-FAQ ACCORDIN
-QUIZ APP
-FILTERABLE TABLE
-TOAST NOTIFICATION
-PROGRESS BAR
+FAQ ACCORDIN      \/
+QUIZ APP          \/
+FILTERABLE TABLE  \/
+TOAST NOTIFICATION \/
+PROGRESS BAR     
 COLOR PICKER
-WEATHER APP
-RANDOM QUOTE GENERATOR
-CALENDER
+WEATHER APP        \/
+RANDOM QUOTE GENERATOR 
+CALENDER          \/
 
 ----------------------HOOKS-------------------------------------
 USESTATE         \/
@@ -71,7 +71,7 @@ import { cartContext } from "./cartContext";
 
 ---------------------KOMJAM PERIYA PROJECTS--------------------------------
 SHOPPING CART (2)
-TODO LIST
+TODO LIST 
 MOVIE-APP
 TODOLIST WITH LOCALSTORAGE
 

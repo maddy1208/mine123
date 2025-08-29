@@ -1,0 +1,108 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: rgb(145, 145, 231);
+    height: 100%;
+    width: 100%;
+}
+
+.container{
+
+    margin: 100px auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ background-color: rgb(255, 255, 255);
+ padding: 20px;
+ 
+
+}
+
+ h3{
+    color: rgb(221, 128, 21);
+
+}
+
+input{
+    padding: 10px 15px;
+    margin: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    outline: none;
+}
+input::placeholder{
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+button{
+    padding: 12px;
+    background-color:rgb(43, 43, 122) ;
+    border: none;
+
+    color: white;
+    margin-left: 0;
+}
+
+.tasks{
+    background-color: rgb(255, 213, 136);
+    padding: 10px;
+}
+
+.tasks h3{
+    color: #f88989;
+    margin-bottom: 10px;
+}
+.task{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    background-color: rgb(255, 255, 255);
+}
+
+.task p{
+float: left;
+cursor: pointer;
+
+
+}
+
+.task img{
+    height: 12px;
+    padding: 4px;
+  
+   
+}
+
+.task img:hover{
+   background-color: rgb(230, 103, 103);
+   transition: all 0.5s ease;
+}
+button:hover{
+    background-color: rgb(3, 3, 110);
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.task:hover{
+    background-color: rgb(243, 243, 243);
+    transition: all 0.05s ease;
+ 
+
+}
+
+.task p.strike{
+    text-decoration: line-through;
+    background-color: #f88989;
+    display: block;
+}
+
