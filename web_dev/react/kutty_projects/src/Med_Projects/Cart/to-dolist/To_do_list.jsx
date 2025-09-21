@@ -1,11 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './todo.css'
 export const To_do_list = () => {
 const [task,settask]=useState("sam")
-const [tasks,settasks]=useState([{"id":1,"taskname":"reading","iscomplete":false},{"id":2,"taskname":"writing","iscomplete":true},{"id":3,"taskname":"hanging","iscomplete":false}]) 
- 
+const [tasks,settasks]=useState(
+    localStorage.getItem("todo")?JSON.parse(localStorage.getItem("todo")):[])
 
  
+const [setlocal,getlocal]=useState([])
+
+useEffect(function(){
+
+    localStorage.setItem("todo", JSON.stringify(tasks))
+
+},
+[tasks])
+
+ // todos=[]
 function add(task1){
 console.log(tasks,task1)
     settasks((prev)=>([...prev,{"id":Math.floor(Math.random()*1000),"taskname":task1,"iscomplete":false }]))

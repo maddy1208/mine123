@@ -23,6 +23,38 @@ BBP'S:
 21. Notion Labs, Inc.
 22. notion 
 23. Pluralsight
+24. ICANN
+25. thredUP BBP
+26. DailyPay_BBP
+27. Postman
+28. VF Corporation
+29. Move works
+30. Redis bounty
+31. Varonis (VIP)
+32. Feeld
+33. Vercel
+34. wallethub
+35. Orderly Network
+36. Telia Eesti
+37. SIX Group Private
+38. Mondoo
+39. Whatnot
+40. Gamma Entertainment
+41. ONE ZERO BBP
+41. BBPOS Limited
+42. Visible Ideas, Inc.
+43. Flo Health
+
+
+
+
+
+
+
+
+
+
+
 
 VDP'S:
 1. simplycook
@@ -60,6 +92,26 @@ VDP'S:
 33. Allianz VDP
 34. Ryan VDP
 35. Rockwell Automation
+36. Vectra AI, Inc. (Response)
+37. Blackhawk Network VDP
+38. Roke
+39. Mistral AI
+40. Babcock
+41. Semtech
+42. Ares Management
+43. Katalon
+44. CCC Intelligent Solutions Inc.
+45. Qioptiq
+46. Whirpool
+47. Evidation Health VDP
+48. Pilot VDP
+49. Georgia Technology Authority
+
+
+
+
+
+
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------
 

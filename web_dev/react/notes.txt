@@ -36,15 +36,31 @@ useefce(fun(){ return <cleaneup code> },[var]) //particular variable change aana
 
 note: cleanup unmount aagumpodhu matumee work aagum
 
-USEREF
-USEREDUCER
+USEREF           \/
+variabla manage panaa, use pnadrom, whole component affect pannama
+
+=>particula variableaa madify use panlaam
+=> dom properties a koda access panlam
+
+
+
+USEREDUCER       \/
+      const [tasks,dispatch]=useReducer(reducer,initialstate) 
+
+      tasks=>actual datava hold panirukum
+      dispatch() => idhavachu dhaa tasks oda stata changepanamudyu, idhu argsa directaa reducer ku call panirukum
+      function reducer(state,action){} 
+      // actualla reduce la return pani dhaa tasks oda statea change panmudyum
+      //state arg=> andha tasksa hold panirukum
+      //action arg=> dipactch enna pass panucho adha hold panitukum
+
+
+
 USEMEMO 
 USEMEMO & CALLBACK
 
-USECONTEXT:
+USECONTEXT:      \/
 What is useContext?
-
-
 
  useContext is a React hook for accessing shared values across components
  without manually passing props through each level.
@@ -70,14 +86,24 @@ import { cartContext } from "./cartContext";
 
 
 ---------------------KOMJAM PERIYA PROJECTS--------------------------------
-SHOPPING CART (2)
-TODO LIST 
+SHOPPING CART (2) \/         
 MOVIE-APP
-TODOLIST WITH LOCALSTORAGE
+TODOLIST WITH LOCALSTORAGE  \/
 
 --------------------OTHER COMPONENTS--------------------------
 PAGINATION
-REACT-ROUTER
+REACT-ROUTER:
+browserrouter => old method , just link+eoute vachi use panlaam
+cretebrowserrouter =>modern +simple method
+
+outlet=>route oda child automaticaa root la laod agidum
+usenavigate()= >vachi endha endha route venalum, programaticalla polam,even button,div ku la kooda use pani, specifi routeku polam
+useloader=>   particylar route oda loader function return pandra valueaa eduthuklaam
+useRouteerror => particular route la enna error vardho aadha edukulaam
+
+
+
+
 TANSTACK
 SIMPLE PAGINATION
 

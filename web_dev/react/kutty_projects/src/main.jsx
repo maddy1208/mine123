@@ -1,11 +1,9 @@
 import { createRoot } from 'react-dom/client'
-import {Toast} from './kutty/Toast'
 
-
-
+import  RRouter  from './Med_Projects/Router/M1'
 createRoot(document.getElementById('root')).render(
 
 
-    <Toast/>
+   <RRouter/>
 
 )

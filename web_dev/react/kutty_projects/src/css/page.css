@@ -1,0 +1,68 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+button.active{
+
+    background-color: gold;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conatiner{
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+padding: 25px;
+box-sizing: border-box;
+cursor: pointer;
+}
+
+h3{
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+
+}
+
+ul li{
+    list-style-type: none;
+    padding: 10px 8px;
+    background-color: rgb(235, 235, 235);
+    margin: 5px;
+
+}
+
+ul li:hover{
+    background-color:  rgb(230, 228, 228);
+}
+
+button{
+    padding: 10px;
+    outline: none;
+    border: none;
+    margin-right: 07px;
+    background-color: rgb(27, 215, 121);
+    font-size: 15px;
+    color: white;
+    font-weight: 700;
+    box-sizing: border-box;
+}
+
+button:hover{
+    background-color: rgb(9, 175, 9);
+    transition: all 0.1s ease-in;
+}
+
+.buttons{
+    margin-top: 15px;
+}
+button:disabled{
+    opacity: 0.4;
+    cursor:no-drop;
+}
