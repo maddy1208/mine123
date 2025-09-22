@@ -42,7 +42,31 @@
 
 2.look for admin pages and try default passwords
 
+
+
 3.curl -X GET https://www.target.com | grep -i -E 'pass|pwd|passphrase|cred|encrypt|appkey|token|secret|auth|authorization|key|private'
+
+
+curl -I http://staging.customer.fintech.com
+
+(we can get details like X-Powered-By: Express
+X-Debug-Token: 5d4fae2b )
+
+#simple file check
+for file in .env .git/config wp-config.php backup.zip; do
+    curl -s "https://target.com/$file" | head -1 | grep -v "404" && echo "[!] Found: $file"
+done
+
+#simple git check
+Finding a .git directory is common. Exploiting it is where you get paid. Most tools fail if the directory returns a 403. git-dumper does not. It pieces the repo together from leaked fragments.
+
+# How to actually dump a forbidden .git directory
+python3 /tools/git-dumper.py https://target.com/.git/ ./output-dir
+
+What I found: On a bug bounty program for a popular app, git-dumper reconstructed the entire source code from a forbidden .git folder. In a file called config.py.backup, I found hardcoded credentials for their cloud storage.
+
+
+
 
 4.take a look at archieved urls, 
 

