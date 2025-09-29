@@ -7,17 +7,16 @@ const Modern_route = () => {
         createRoutesFromElements(
 
             <Route path='/' element={<Root/>}>
+               <Route index element={<Home></Home>}></Route>
+               <Route path='home' element={<Home></Home>}></Route>
+               <Route path='services' element={<Services/>}></Route>
 
-            <Route index element={<Home></Home>}></Route>
-            <Route path='home' element={<Home></Home>}></Route>
-         <Route path='services' element={<Services/>}></Route>
-
-         <Route path='contact' element={<Contact/>}>
-         <Route index element={<Ind/>}></Route>
+               <Route path='contact' element={<Contact/>}>
+                  <Route index element={<Ind/>}></Route>
          
-            <Route path='info' element={<Contact_info/>}></Route>
-            <Route path='form' element={<Contact_form/>}></Route>
-         </Route>
+                   <Route path='info' element={<Contact_info/>}></Route>
+                   <Route path='form' element={<Contact_form/>}></Route>
+                                                 </Route>
 
 
          <Route path='about' element={<About/>}></Route>
@@ -41,6 +40,7 @@ function loaduser(){
   console.log("data",data)
   return data;
 }
+
 function Root(){
     return <>
     <Nav/>
