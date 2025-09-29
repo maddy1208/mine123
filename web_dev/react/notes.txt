@@ -47,12 +47,12 @@ variabla manage panaa, use pnadrom, whole component affect pannama
 USEREDUCER       \/
       const [tasks,dispatch]=useReducer(reducer,initialstate) 
 
-      tasks=>actual datava hold panirukum
+      tasks=>actual datava hold panirukum 
       dispatch() => idhavachu dhaa tasks oda stata changepanamudyu, idhu argsa directaa reducer ku call panirukum
       function reducer(state,action){} 
-      // actualla reduce la return pani dhaa tasks oda statea change panmudyum
-      //state arg=> andha tasksa hold panirukum
-      //action arg=> dipactch enna pass panucho adha hold panitukum
+      // actualla reduce la return pani dhaa tasks oda statea change panmudyum 
+      //state arg=> andha tasksa hold panirukum 
+      //action arg=> dipactch enna pass panucho adha hold panitukum 
 
 
 
@@ -67,7 +67,6 @@ What is useContext?
  
  # Create a Context
 import {createContext} from 'react';
-
 export const cartContext= createContext();
 
  # Provide the Context
@@ -91,7 +90,7 @@ MOVIE-APP
 TODOLIST WITH LOCALSTORAGE  \/
 
 --------------------OTHER COMPONENTS--------------------------
-PAGINATION
+PAGINATION  
 REACT-ROUTER:
 browserrouter => old method , just link+eoute vachi use panlaam
 cretebrowserrouter =>modern +simple method

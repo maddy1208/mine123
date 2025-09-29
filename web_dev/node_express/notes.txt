@@ -167,3 +167,9 @@ emitob.on('onlog',(msg)=>{ lf(msg)})
 emitob.emit('onlog',"my message")
 
 
+Event loop order:
+
+process.nextTick → fastest, immediate
+Promise.then → next fastest
+setTimeout(..., 0) → next event loop (timers phase)
+setImmediate → check phase (after timers & I/O)

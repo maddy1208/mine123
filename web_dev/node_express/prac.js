@@ -131,29 +131,43 @@
 // math=require('./mod')
 // console.log(math.mul(8,9))
 
-const http=require('http')
-const fs=require('fs')
-const url=require('url')
+// const http=require('http')
+// const fs=require('fs')
+// const url=require('url')
 
-http.createServer(function(req,res){
- path1="."+url.parse(req.url,true).pathname;
- console.log("path",path1)
+// http.createServer(function(req,res){
+//  path1="."+url.parse(req.url,true).pathname;
+//  console.log("path",path1)
  
- fs.readFile("index.html",(err,data)=>{
+//  fs.readFile("index.html",(err,data)=>{
 
-if(err){
-    res.writeHead(404,{'content-type':'text/html'});
-    res.write('./404.html')
-    res.end()
+// if(err){
+//     res.writeHead(404,{'content-type':'text/html'});
+//     res.write('./404.html')
+//     res.end()
 
-}
-  res.writeHead(200,{'content-type':'text/html'});
-  console.log("data",path1)
-    res.write(data)
-    res.end()
+// }
+//   res.writeHead(200,{'content-type':'text/html'});
+//   console.log("data",path1)
+//     res.write(data)
+//     res.end()
 
 
- })
+//  })
 
     
-}).listen(9000)
+// }).listen(9000)
+
+require("dotenv").config()
+console.log(process.env.pa)
+console.log(`V8 version: ${process.versions.v8}`);
+
+
+const fs=require('fs')
+
+
+console.log(fs.readFileSync('.env','utf-8'))
+
+
+console.log("after read")
+Promise.resolve().then(() => console.log('3. Promise'));

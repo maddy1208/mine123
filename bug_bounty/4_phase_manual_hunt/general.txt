@@ -125,11 +125,15 @@ echo "[*] Finding Hidden Parameters using Arjun..."
 eg: python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap/sqlmap.py -r request --dump --batch --dbs [ here, request=>raw http request burp la irudhu copy pnadhu ]
 
 
-12. recuesive bruteforce  on 200 endpoints..
+12. gau target.com | grep ".js.map" (sometimes .ma files may revela sens info/direct)
+
+13. recuesive bruteforce  on 200 endpoints..
 
 ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 \
   -of csv -o "$outdir/ffuf_${domain}_${name}.csv" \
   -e .php,.html,.txt,.bak,.zip,.old,.inc,.json,.env,.log,.sql,.conf,.config,.bkp,.backup,.db,.asp,.aspx,.cgi,.csv,.jar,.sql~,.tar,.tar.bz2,.tar.gz,.wadl,.xml \
   -H "User-Agent: Mozilla/5.0" \
   -H "X-Forwarded-For: 127.0.0.1" < /dev/null
+
+
 
