@@ -1,1 +1,5 @@
 -------------------------------------JS NOTES------------------------------------------
+Promise.all([p1,p2,p3]) //elom mudinja aprm triger agum
+Promise.any([p1,p2,p3]) //edhachu onu mudinja kooda call agidum
+Promise.race([p1,p2,p3]) //edhu 1st result tarudho adhu
+Promise.allSettled([p1,p2,p3]) //eloom mudinja aprm call agum

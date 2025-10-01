@@ -10,12 +10,74 @@
     <h1 onClick="oi(this)">sam</h1>
   <h2>The</h2>
     <script>
-      function oi (o){
-        console.log(o)
+
+      const sam=new Promise((res,rej)=>{
+if(true) res()
+else rej()
+
+      })
+
+      sam.then(()=>console.log(
+        "success"
+      )).catch(()=>console.log("unsuccess"))
+
+
+      //setTimeout(()=>{console.log("OI 1")},500)
+ 
+/*
+      function timeout(duration){
+        return new Promise((res,rej)=>{
+             setTimeout(()=>res(),duration)
+        })
+        
       }
 
-   document.getElementsByTagName('h2')[0].ONClick=alert(1)
-   
+      timeout(500).then(()=> {console.log("p");return timeout(500)}).then(()=>console.log("va"))
+
+*/
+
+      function event(typee){
+        return new Promise((res,rej)=>{
+          const h1=document.querySelector('h1')
+        
+          h1.addEventListener(typee,res)
+
+        })
+      }
+
+
+      event("click").then((obj)=>console.log("clicked",obj))
+
+
+
+      getposts=()=>{
+        return new Promise((res,rej)=>{
+       let  posts=["post1","post2","post3"]
+         
+
+          setTimeout(()=>{res(posts)},2000)
+
+        })
+
+      }
+         getcomments=()=>{
+        return new Promise((res,rej)=>{
+       let  comments=["comment1","comment2","comment3"]
+         
+
+          setTimeout(()=>{res(comments)},5000)
+
+        })
+
+      }
+
+      Promise.all([getposts(),getcomments()]).then((res)=>{
+const[p,c]=res;
+console.log(p,c)
+
+      }
+   ).catch((err)=>console.log(err))
+
     </script>
 </body>
 </html>

@@ -173,3 +173,12 @@ process.nextTick → fastest, immediate
 Promise.then → next fastest
 setTimeout(..., 0) → next event loop (timers phase)
 setImmediate → check phase (after timers & I/O)
+
+
+Node ASYNC:
+Key Takeaways
+✅ Use async/await for better readability
+✅ Always handle errors with try/catch
+✅ Run independent operations in parallel with Promise.all
+❌ Avoid mixing sync and async code patterns
+❌ Don't forget to await promises
