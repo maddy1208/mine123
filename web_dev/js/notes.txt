@@ -1,5 +1,194 @@
 -------------------------------------JS NOTES------------------------------------------
+
+Javascript:
+"The programming language of the Web"
+
+
+**Statements and Comments**:
+    const a=9;  //semicolon
+    const a=9   //can use without semicolon
+    //const a=9 //single line Comment
+    /* const a=9 */ //can comment multiple lines
+
+
+**Variables**:
+
+    Hoisting:
+    Function declarations → fully hoisted (can call them before definition).
+    var variables → hoisted and initialized as undefined.
+    let and const variables → hoisted but not initialized (TDZ error if accessed before declaration).
+
+    let 
+    const
+    Var  (not recommended)
+    automatic  (not recommended)
+
+    var=>global scope,recdeclare,reassign
+    let=> {} scope,no redeclere, reassign
+    const=> {} scope, no redeclare, no reassign
+
+
+
+Remember:
+    It's a good programming practice to declare all variables at the beginning of a script.
+
+
+**Datatypes**:
+A JavaScript variable can hold 8 types of data:
+
+String	   A text of characters enclosed in quotes
+Number	   A number representing a mathematical value
+Bigint	   A number representing a large integer
+Boolean	   A data type representing true or false
+Object	   A collection of key-value pairs of data
+Undefined  A primitive variable with no assigned value
+Null	   A primitive value representing object absence
+Symbol	   A unique and primitive identifier
+
+
+**Operators**:
+    Arithmetic:
+    +, -, *, **, /, %, ++,--
+
+    Assignment:
+    =, +=, -=, *=, **=, /=, %=
+
+    Comparison:
+    ==, ===, !=, !==
+
+    Relational:
+    >, <, <=, >=
+
+    Logical:
+    &&, ||, !
+
+    Conditional or Ternary:
+    a>18?"con1":"con2"
+
+    Bitwise:
+    &, |, ~, ^, <<, >> , >>>
+
+    Nullish coalesing operator:
+    const a=null??'<condition>'
+    const b=45??'No value'
+
+    user.city??="salem"
+
+    var b;
+    b??=78;
+
+**Conditionals**:
+
+    If:
+    if (condition) {
+    //  block of code to be executed if the condition is true
+    }
+
+    If else:
+    if (condition) {
+    //  block of code to be executed if the condition is true
+    } else {
+    //  block of code to be executed if the condition is false
+    }
+
+    switch:
+    switch(expression) {
+    case x:
+        // code block
+        break;
+    case y:
+        // code block
+        break;
+    default:
+        // code block
+    }
+
+    Js Boolean:
+    true or false
+    Boolean("input") //takes  some value and returns true or false
+    Boolean(10 > 9) //true
+        0 is false
+        "" is false
+        undefined is false
+        null is false
+        NaN is false
+        false is false
+
+**Loops**:
+    1. For Loop:
+    for (exp 1; exp 2; exp 3) {
+    // code block to be executed
+    }
+
+    2. While Loop:
+    while (condition) {
+    // code block to be executed
+    }
+
+    3. do While Loop:
+    do {
+    // code block to be executed
+    }
+    while (condition);
+
+    break => stops the Loop
+    constinue => skips the current iteration
+
+
+**Strings**:
+can use ', ", `` to represent String
+
+Escape chars:
+\'	Single quote
+\"	Double quote
+\\	Backslash
+\b	Backspace
+\f	Form Feed
+\n	New Line
+\r	Carriage Return
+\t	Horizontal Tabulator
+\v	Vertical Tabulator
+
+
+String Template:
+`` => can use variables inside this
+   => support multiline string values
+
+String Methods:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Promise.all([p1,p2,p3]) //elom mudinja aprm triger agum
 Promise.any([p1,p2,p3]) //edhachu onu mudinja kooda call agidum
 Promise.race([p1,p2,p3]) //edhu 1st result tarudho adhu
 Promise.allSettled([p1,p2,p3]) //eloom mudinja aprm call agum
+
+
+Async => use panale function promisaa maridum
