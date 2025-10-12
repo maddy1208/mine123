@@ -28,6 +28,7 @@ secret inurl:js filetype:txt "target"
 
 #GDOCS:
 site\:docs.google.com inurl:"/d/" "target"
+site:*.target intext:"docs.google.com/spreadsheets"
 
 #ONEDRIVE:
 site:onedrive.live.com "target"

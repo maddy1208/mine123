@@ -101,7 +101,12 @@ eg: if any txt files,pdf's are there then check whether backup is found
 	 =>likewise check webarchieve,it may contain sens endpoints
 	 =>if they put disalow, try all the endpoints and analyze sourcecode, try param finding on all endpoints (hepls to xss,OR)
 	 
-10.xss testing,sql testing, hidden params on param urls
+	 
+10. Manually check http:// versions of all domain
+if it is accessible via http, then we can easily steal steal creds from local network,
+so leads to ATO :)
+
+11.xss testing,sql testing, hidden params on param urls
 
 # echo "[*] Testing for SQLi using  sqlmap..."
 # script -q -c " python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap/sqlmap.py -m "$ALLPARAMS" --level 5 --risk 3 --batch --dbs --tamper=between --random-agent" "$OUTDIR/sqlmap_output.txt"
@@ -121,13 +126,13 @@ echo "[*] Finding Hidden Parameters using Arjun..."
 # done < "$ALLPARAMS" 
 
 
-11.sql ttest on login,other endpoints:
+12.sql ttest on login,other endpoints:
 eg: python3 /home/maddy/techiee/bug_bounty/2_phase_recon_autom/tools/sqlmap/sqlmap.py -r request --dump --batch --dbs [ here, request=>raw http request burp la irudhu copy pnadhu ]
 
 
-12. gau target.com | grep ".js.map" (sometimes .ma files may revela sens info/direct)
+13. gau target.com | grep ".js.map" (sometimes .ma files may revela sens info/direct)
 
-13. recuesive bruteforce  on 200 endpoints..
+14. recuesive bruteforce  on 200 endpoints..
 
 ffuf -u "$url/FUZZ" -w "$wordlist" -t 200 -fc 404 \
   -of csv -o "$outdir/ffuf_${domain}_${name}.csv" \
