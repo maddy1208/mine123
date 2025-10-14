@@ -113,6 +113,9 @@ VDP'S:
 52. Baird
 53. Divvy Homes
 54. Drumgrange VDP
+55. Ytel
+56. Avidity Biosciences
+57. Teamsnap
 
 
 
