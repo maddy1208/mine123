@@ -1,0 +1,5 @@
+80min -gui
+1 sess -gy
+40min -web dev
+2 hr   -bb
+20min  -en

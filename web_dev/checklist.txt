@@ -1,0 +1,38 @@
+1.-----------------HTML----------------
+
+Just revise the notes
+
+
+2.------------------CSS---------------
+
+revise the notes
+any 15+ flex and grid projects
+
+
+3.--------------------Js---------------
+
+revise all notes
+tutor joes
+w3 schools js
+
+
+4.--------------------React--------------
+revise all notes
+titor joes react playlist
+w3 schools react
+
+
+5. --------------------NOde-------------
+w3 schools node
+tutor joes all
+jvl code all 
+balachandra express
+
+https://www.youtube.com/watch?v=RiOoYPxJAzk&list=PL4unWLKFsZfeAwF8UfzMBIht-qxE-ofln
+
+
+any 7 real application projects
+
+6. -------------------My sql--------------------
+
+7.--------------------Mongo db---------------

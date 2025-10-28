@@ -54,6 +54,11 @@ BBP'S:
 48. ArenaNet
 49. Helvetia
 50. HudApp Bug Bounty
+51. Doximity
+52. Symphony
+53. Mendix BBP
+54. Public
+
 
 
 
@@ -116,18 +121,25 @@ VDP'S:
 55. Ytel
 56. Avidity Biosciences
 57. Teamsnap
-
-
-
-
-
+58. Typeform Vulnerability Disclosure
+59. Thornton tomasetti
+60. Synthesia
+61. Circles.Life
+62. FanDuel Response
+63. Space and Time
+64. Agilix Labs
+65. Atomicwork
+66. Henkel
+67. Stanley Black & Decker
+68. Qodo
 
 
 Bugcrowd:
 
 BBP'S:
-1.New Blue Website (NBW) - VWFS Bug Bounty Program
-
+1. New Blue Website (NBW) - VWFS Bug Bounty Program
+2. The Hut Group: Managed Bug Bounty Program
+3. Sezzle
 
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------
