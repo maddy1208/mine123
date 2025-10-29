@@ -132,6 +132,7 @@ VDP'S:
 66. Henkel
 67. Stanley Black & Decker
 68. Qodo
+69. American Eagle
 
 
 Bugcrowd:
@@ -140,6 +141,7 @@ BBP'S:
 1. New Blue Website (NBW) - VWFS Bug Bounty Program
 2. The Hut Group: Managed Bug Bounty Program
 3. Sezzle
+4. Mercedes-Benz Managed Bug Bounty Program
 
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------
