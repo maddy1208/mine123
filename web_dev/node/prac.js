@@ -183,14 +183,15 @@
 // console.log(d)
 
 // console.log()
-console.log(process.platform,process.arch,process.memoryUsage(),process.version)
-console.log(process.env.SAm)
+// console.log(process.platform,process.arch,process.memoryUsage(),process.version)
+// console.log(process.env.SAm)
 
-process.on('beforeExit',(code)=>{
-    console.log("code",code)
-})
+// process.on('beforeExit',(code)=>{
+//     console.log("code",code)
+// })
 
 
-console.log(process.env.API_KEY)
-process.exit(0)
+// console.log(process.env.API_KEY)
+// process.exit(0)
+
 

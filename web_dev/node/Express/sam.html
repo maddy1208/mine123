@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maddy’s Tech Blog</title>
+
+  <style>
+    /* === Base Styles === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* === Header === */
+    header {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2563eb;
+    }
+    nav a {
+      margin-left: 1.2rem;
+      color: #555;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    /* === Hero Section === */
+    .hero {
+      background: #e0edff;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #1e40af;
+    }
+    .hero p {
+      color: #555;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+    .hero a {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .hero a:hover {
+      background: #1e3a8a;
+    }
+
+    /* === Blog Grid === */
+    main {
+      max-width: 1100px;
+      margin: 3rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 0 1.5rem;
+    }
+    article {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    article:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+    article img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    article .content {
+      padding: 1.5rem;
+    }
+    article h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      color: #111;
+    }
+    article p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    /* === Footer === */
+    footer {
+      background: #111827;
+      color: #d1d5db;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: #60a5fa;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">Maddy’s Tech Blog</div>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Articles</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Exploring the Web, One Bug at a Time</h2>
+    <p>Security research, automation, and real-world insights — written by a passionate hacker & tech explorer.</p>
+    <a href="#">Read Latest Post</a>
+  </section>
+
+  <!-- Blog Posts -->
+  <main>
+    <article>
+      <img src="https://source.unsplash.com/800x400/?cybersecurity" alt="Cybersecurity">
+      <div class="content">
+        <h3>Understanding XSS Attacks — A Practical Guide</h3>
+        <p>Cross-Site Scripting (XSS) remains one of the most common web vulnerabilities. Let’s explore how it works and how to prevent it...</p>
+        <a href="#">Read more →</a>
+      </div>
+    </article>
+
+    <article>
+      <img src="https://source.unsplash.com/800x400/?programming,code" alt="Coding">
+      <div class="content">
+        <h3>Automation for Bug Bounty Recon — My Custom Toolkit</h3>
+        <p>From passive recon to endpoint discovery, here’s how I built a simple pipeline to automate my daily recon process...</p>
+        <a href="#">Read more →</a>
+      </div>
+    </article>
+
+    <article>
+      <img src="https://source.unsplash.com/800x400/?hacking,terminal" alt="Hacking">
+      <div class="content">
+        <h3>Why I Love HackerOne’s Private Invites</h3>
+        <p>Private programs offer great opportunities — but how do you choose between HackerOne and Bugcrowd when starting out?</p>
+        <a href="#">Read more →</a>
+      </div>
+    </article>
+
+    <article>
+      <img src="https://source.unsplash.com/800x400/?linux,terminal" alt="Linux">
+      <div class="content">
+        <h3>Setting Up a Perfect Linux Pentesting Environment</h3>
+        <p>A step-by-step guide to optimizing your system for speed, efficiency, and stealth — tailored for bug bounty hunters.</p>
+        <a href="#">Read more →</a>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Maddy’s Tech Blog. Built with ❤️ and caffeine.</p>
+    <p style="margin-top: 0.5rem;">
+      Follow on <a href="#">Twitter</a> • <a href="#">GitHub</a>
+    </p>
+  </footer>
+</body>
+</html>

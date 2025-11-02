@@ -1,5 +1,9 @@
-80min -gui
-1 sess -gy
-40min -web dev
-2 hr   -bb
-20min  -en
+FROM: 27 
+6/65
+
+1 sess  -vertiac
+230 min -gui
+5 sess  -gy
+130 min   -web dev
+14 hr    -bb
+60min   -en

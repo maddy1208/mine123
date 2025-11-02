@@ -58,7 +58,9 @@ BBP'S:
 52. Symphony
 53. Mendix BBP
 54. Public
-
+55. betsson
+56. Singapore Press Holdings
+57. Elisa
 
 
 
@@ -133,7 +135,9 @@ VDP'S:
 67. Stanley Black & Decker
 68. Qodo
 69. American Eagle
-
+70. Honda
+71. fieldwire
+72. MSCI
 
 Bugcrowd:
 
