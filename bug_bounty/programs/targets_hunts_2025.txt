@@ -146,6 +146,7 @@ BBP'S:
 2. The Hut Group: Managed Bug Bounty Program
 3. Sezzle
 4. Mercedes-Benz Managed Bug Bounty Program
+5. Washington Post: Bug Bounty Program
 
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------

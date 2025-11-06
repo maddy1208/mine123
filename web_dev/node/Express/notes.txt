@@ -14,3 +14,13 @@ res.sendFile(path.join(__dirname,'package.json'));next()},
 },
 ).listen('5000')
 // next vachi nerya function particular middlewarekulle execute panlaam
+
+
+
+Middlewares:
+
+helps to set protocols for al requests:
+eg: log, sesssion manage..
+
+app.use(morgan) //helps to log as we used morgan a third part logger
+app.use(<middleware1>)...//actualla idhu elothukum run aagum,
