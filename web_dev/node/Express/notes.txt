@@ -24,3 +24,23 @@ eg: log, sesssion manage..
 
 app.use(morgan) //helps to log as we used morgan a third part logger
 app.use(<middleware1>)...//actualla idhu elothukum run aagum,
+
+app.use(express.json()) works like,
+express.json = function (options) {
+  return function jsonMiddleware(req, res, next) {
+    // This is the actual middleware Express needs
+    // It reads, parses, and assigns req.body
+    next();
+  }
+} //bcz app.use(function(req,res)) kulle function dha irukanum,not call with paranthesis()
+
+
+PUT=> completaa poitu data vaikum
+PATCH=> already irukardhukooda append pannum
+
+
+
+app.use("/",<custom middleware>,(req,res)) //here our custom middleware will work before this executes,
+
+so, instead of using app.use(<custom middleware>)//idhu elothukum execute aagum,
+but app.use("/",<custom middleware>,(req,res))   //particular routeku matum work aagum.

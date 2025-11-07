@@ -75,7 +75,7 @@ import express, { json } from 'express'
 const app=express()
 
 
-const users_data=[
+let users_data=[
   {"id":1,"name":"sam"},
   {"id":3,"name":"sam1"},
   {"id":3,"name":"sam2"},
@@ -92,12 +92,6 @@ app.get("/",
 
 app.get('/users',(req,res)=>{
 
-
-console.log(req.query.name1)
-  if(filter && value){
-    return res.status(200).send(users_data.filter((obj)=>obj[String(filter.toLowerCase())]===String(value.toLowerCase())))
-
-  }
   
   res.send((users_data))
 })
@@ -108,7 +102,7 @@ app.get('/users/:id',(req,res)=>{
   if(false){}
   else{
 
-    if( isNaN(_id) |_id==null | _id<0 |_id >users_data.length){
+    if( isNaN(_id) |_id==null | _id<=0 |_id >users_data.length){
       res.status(400).send("Invalid data")
     }
     else{
@@ -116,6 +110,9 @@ res.status(200).send(users_data.find((obj)=>obj.id==_id))}
 
   }
 })
+
+
+
 app.get("/123",
   (req,res,next)=>{
     res.contentType('text/html')
@@ -126,17 +123,77 @@ app.get("/123",
 )
 
 
+
+
+app.use(express.json())
+
+app.post("/users",(req,res)=>{
+
+  const newuesr={"id":users_data.length===0?1:users_data[(users_data.length)-1].id+1,...req.body}
+  users_data.push(newuesr)
+  res.status(201).send(users_data)
+
+
+})
+
+
+function getindex(req,res,next){
+  const data=req.body
+console.log(req.body)
+const _id=req.params.id
+
+
+    if( isNaN(_id) |_id==null | _id<=0 |_id >users_data.length){
+      res.status(400).send("Invalid data")
+    }
+    else{
+      
+const obj_index=users_data.findIndex((obj)=>obj.id==_id)
+
+if(obj_index==null ||  obj_index==-1){
+  res.status(400).send("user not found")
+
+}
+else{  req.obj_index=obj_index;
+  next();
+}}
+}
+
+
+app.put("/users/:id",getindex,(req,res)=>{
+  const obj_index=req.obj_index
+
+users_data[obj_index]={"id":req.params.id,...req.body}
+res.status(200).send([{"msg":"user updated"},{"uu":users_data[obj_index]}])
+})
+
+
+
+app.patch("/users/:id",getindex,(req,res)=>{
+const obj_index=req.obj_index
+users_data[obj_index]={...users_data[obj_index],...req.body}
+res.status(200).send([{"msg":"user updated"},{"uu":users_data[obj_index]}])
+
+})
+
+
+app.delete("/users/:id",getindex,(req,res)=>{
+const obj_index=req.obj_index
+users_data=users_data.filter((obj,index)=>index!==obj_index)
+res.status(200).send([{"msg":"delete updated"},{users_data}])
+})
+
+
 app.use((req,res)=>{
   res.contentType('text/json')
   res.status(404).send("Something have LOst!")
   res.end()
 })
 
-
 app.listen(3000,(err)=>{
   console.log("server running at 3000")
 })
 
 
-app
+
 
