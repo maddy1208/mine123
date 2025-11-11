@@ -44,3 +44,128 @@ app.use("/",<custom middleware>,(req,res)) //here our custom middleware will wor
 
 so, instead of using app.use(<custom middleware>)//idhu elothukum execute aagum,
 but app.use("/",<custom middleware>,(req,res))   //particular routeku matum work aagum.
+
+
+EXPRESS-Validator:
+import {checkSchema,validationResult,matchedData} from 'express-validator'
+
+checkSchema (<ourschema validation obj)=> basicaa namaku thevayana validationa object la store pani,idhuku pass pandrom (so telling our constraint to express-validator)
+validationResult(req) => result of the checkschema
+matchedData => finala ena result matchacho adhu,so idha req.bodyaa set paniklaam.
+
+eg: 
+app.post("/users",checkSchema(validate_schema),(req,res)=>{
+  const result=validationResult(req)
+  if(result.errors.length>0){
+    return res.status(400).send(result.errors)
+  }
+req.body=matchedData(req)
+console.log("usual",req.body)
+  const newuesr={"id":users_data.length===0?1:users_data[(users_data.length)-1].id+1,...req.body}
+  users_data.push(newuesr)
+  res.status(201).send(users_data)})
+
+see, idhu actaulla middlewara work aidum,so nama separata kooda idha pass panidlaam
+eg:
+app.use(checkSchema(validate_schema))
+
+
+Cookie:
+cookie-parser => cookiesa json la manage pana use pandrom,also acts as a middleware
+eg: app.use(cookieparser("secret123"))
+    res.cookie("user","admin",{maxAge:60000,signed:true})
+    req.signedCookies => idhula irukum ,nama set panadhaa
+
+
+express-Session:
+
+app.use(session()) ///ipdi ddhaa use pannum
+app.use(session({
+  secret:"sample",
+  saceUninitialized: false,
+  cookie:{
+    maxAge: 60000*60
+  }}))
+
+
+saceuninitoalized => 🚫 The session will not be saved (and no cookie sent) until you store something inside it.
+
+Example: app.get('/login', (req, res) => {
+  req.session.user = 'Madhan'; // ✅ now the session is initialized
+  res.send('Logged in!');
+}); // Only after req.session.user = 'Madhan' will Express save the session and send a cookie.
+
+saveUninitialized: true	“Even if user just looks at the site, give them a session cookie.”
+saveUninitialized: false	“Only give them a session cookie if they actually do something (like log in).”
+
+
+TYpes of session expiry:
+
+Fixed expiry	Session dies exactly after 10 min, no matter what.	Banking sites — they log you out strictly after 10 min.
+Sliding expiry	If the user keeps using the site, the timer resets, so they stay logged in longer.	Gmail, Facebook — stay logged in as long as you’re active.
+
+eg: Case 1 — Fixed expiry
+
+Even if you keep browsing, at 10:10 you’re logged out.
+✅ Secure
+❌ Annoying for active users.
+
+Case 2 — Sliding expiry
+
+If you click something at 10:08, the timer resets:
+→ new expiry = 10:18
+→ If you click again at 10:15 → new expiry = 10:25
+
+⚙️ So where does resave fit in?
+
+Older session systems didn’t know the user was still active unless you explicitly saved the session again.
+That’s what resave: true does:
+
+“Every time the user sends a new request, save the session again (so the expiry resets).”
+It gives you that sliding expiry behavior.
+
+If you don’t want that, you just keep resave: false,
+and the session will expire exactly after your maxAge time — even if user is still active.
+
+
+resave:false: ipo,users site la endha activities panlanaa,session already irukardhee irukum
+resave:true: for evry request,session refresh aagum,even anam req.session change aaglanaa kooda
+
+
+💡 “Manually refresh expiry” = calling req.session.touch()
+
+If you want to keep the session alive without changing any data, you can “touch” it:
+
+req.session.touch();
+This tells express-session:
+“Hey, update the expiry timestamp on this session in the store — but don’t rewrite all the session data.”
+Internally, the store will call its .touch() method (e.g., in connect-mongo), which updates the TTL in Mongo.
+
+
+saveUninitialized: false
+Don’t save the session (or set a cookie) until something is actually stored in it.
+(so namma req.session emptyaa irundhaa db la store aagadhu,Yes, a session ID is created immediately in memory —
+but it’s not sent to the client and not written to the store until the session is actually used (i.e., modified).)
+
+
+Flow:
+User visits → Express creates req.session = {}.
+You don’t modify it.
+Express checks at the end:
+“Session is uninitialized (empty)? → don’t save it.”
+No cookie sent, nothing saved in MongoDB.
+Later, when you do set something (e.g. req.session.user = user),
+it will save for the first time.
+
+
+
+Session store => acyual place where we can store session,
+eg: db, redis, ram (by default)
+incase db la store achinaa every request db operation nadakum,to verfy the session,bcz while express assigns the sesssion,it stores inside the db with unique id and other details
+
+What if we dont use cooke attribute?
+If you don’t specify the cookie option:
+→ You still get a cookie, but it’s temporary — it’s deleted when you close your browser.
+
+If you do specify cookie: { maxAge: ... }:
+→ The cookie becomes persistent — it stays even if you close and reopen your browser (until time runs out).

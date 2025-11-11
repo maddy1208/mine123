@@ -61,6 +61,9 @@ BBP'S:
 55. betsson
 56. Singapore Press Holdings
 57. Elisa
+58. Small Improvements
+
+
 
 
 
@@ -138,6 +141,7 @@ VDP'S:
 70. Honda
 71. fieldwire
 72. MSCI
+73. Vodafone
 
 Bugcrowd:
 

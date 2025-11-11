@@ -72,6 +72,10 @@
 
 
 import express, { json } from 'express'
+import {checkSchema,validationResult,matchedData} from 'express-validator'
+import  {validate_schema} from './utils/validate_user.mjs'
+import cookieparser from 'cookie-parser'
+
 const app=express()
 
 
@@ -81,9 +85,13 @@ let users_data=[
   {"id":3,"name":"sam2"},
   {"id":4,"name":"sam3"},
 ]
+
+app.use(cookieparser("secret123"))
 app.get("/",
   (req,res)=>{
     res.contentType('text/html')
+    res.cookie("user","admin",{maxAge:60000,signed:true})
+    res.cookie("ad","gg")
     res.status(200).send("<h1>HOme</h1>")
    
    
@@ -91,9 +99,17 @@ app.get("/",
 )
 
 app.get('/users',(req,res)=>{
+  if(req.signedCookies.user==="admin"){
+      res.send((users_data))
 
+
+  }
+  else{
+
+    res.status(401).send({"msg":"You are unauthorized"})
+
+  }
   
-  res.send((users_data))
 })
 
 app.get('/users/:id',(req,res)=>{
@@ -127,8 +143,25 @@ app.get("/123",
 
 app.use(express.json())
 
-app.post("/users",(req,res)=>{
+//withoud validation
+// app.post("/users",(req,res)=>{
 
+//   const newuesr={"id":users_data.length===0?1:users_data[(users_data.length)-1].id+1,...req.body}
+//   users_data.push(newuesr)
+//   res.status(201).send(users_data)
+
+
+// })
+
+//with validation
+app.post("/users",checkSchema(validate_schema),(req,res)=>{
+  const result=validationResult(req)
+  if(result.errors.length>0){
+    return res.status(400).send(result.errors)
+
+  }
+req.body=matchedData(req)
+console.log("usual",req.body)
   const newuesr={"id":users_data.length===0?1:users_data[(users_data.length)-1].id+1,...req.body}
   users_data.push(newuesr)
   res.status(201).send(users_data)
@@ -168,8 +201,16 @@ res.status(200).send([{"msg":"user updated"},{"uu":users_data[obj_index]}])
 })
 
 
+app.use(checkSchema(validate_schema))
 
 app.patch("/users/:id",getindex,(req,res)=>{
+  const result=validationResult(req)
+  if(result.errors.length>0){
+    return res.status(400).send(result.errors)
+
+  }
+req.body=matchedData(req)
+
 const obj_index=req.obj_index
 users_data[obj_index]={...users_data[obj_index],...req.body}
 res.status(200).send([{"msg":"user updated"},{"uu":users_data[obj_index]}])
