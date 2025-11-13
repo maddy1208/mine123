@@ -169,3 +169,117 @@ If you don’t specify the cookie option:
 
 If you do specify cookie: { maxAge: ... }:
 → The cookie becomes persistent — it stays even if you close and reopen your browser (until time runs out).
+
+Working flow of Passport :
+
+1.Strategy => we define the basic verification mechanism,
+if success we call like (null,<userinfo>) //userinfo =>just a small info about the user
+note: we fetched userinfo from db 
+
+2.Serialize =>once the login success,with the help of passed <userinfo>,
+serializeUser() runs once after successful authentication.
+Its job is to tell Passport what minimal data should go into the session (not the whole user).
+passport creates an entry in express session, eg: req.session.passport={userinfo:1}
+note: Passport doesn’t directly write to the session store —
+it only modifies req.session
+
+3.so,express notes there is something changed in session obj,so it writes the updated object inside the store
+eg: {sessis:"12344buj",passport:{userinfo:1}} 
+
+4.if the further request comes,express session gets the sess info with help of sid in cookie,
+so express gets the whole object {sessis:"12344buj",passport:{userinfo:1}} ..
+So yes — the entire session object is fetched from Mongo (or Redis, or MemoryStore) and attached as req.session
+
+5. passport notes that {sessis:"12344buj",passport:{userinfo:1}}  has passport attribute,
+so it callls desiralize()
+
+6. deserialize takes that <userinfo> from sess, and fetches corresponding information from db,
+and attaches to req object, eg:req.user
+//instead of manually fetch we got all details about the user.
+
+
+7.Every upcoming request, express gets sess info from store or mem,passport notices the passport obj,and desrialize calls(),
+also we dont nee dto worry about the expiry time even on stores,with help of ttl,that will automaticaly expires.
+//we can even crete ttl for normal entriesi db,mem
+
+
+
+(err, user, info) → comes from the strategy after it finishes checking credentials.
+Not called after serialization — serialization only happens when you call req.logIn(user) (or automatically in the default redirect form).
+You can think of it like:Verify credentials → done() → custom callback → optionally log in → serialize → session
+
+1️⃣ Two ways to handle login with Passport
+a) Simple redirect version
+app.post('/login',
+  passport.authenticate('my-login', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login'
+  })
+);
+
+
+Passport runs your strategy first (LocalStrategy).
+
+Strategy calls done(null, user) → user is passed internally.
+
+Passport automatically calls req.logIn(user) for you.
+
+Only after req.logIn does it call serializeUser to store the user in the session.
+
+Then it performs the redirect.
+
+b) Manual callback version
+app.post('/login', (req, res, next) => {
+  passport.authenticate('my-login', (err, user, info) => {
+    if (err) return next(err);
+    if (!user) return res.status(401).send(info?.msg || 'Invalid credentials');
+
+    // Serialization happens here:
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      res.send('Login success');
+    });
+
+  })(req, res, next);
+});
+
+
+1️⃣ Two ways to handle login with Passport
+1. simple redirect:
+app.post('/login',
+  passport.authenticate('my-login', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login'
+  })
+);
+Passport runs your strategy first (LocalStrategy).
+Strategy calls done(null, user) → user is passed internally.
+Passport automatically calls req.logIn(user) for you.
+Only after req.logIn does it call serializeUser to store the user in the session.
+Then it performs the redirect.
+
+2.manual callback
+app.post('/login', (req, res, next) => {
+  passport.authenticate('my-login', (err, user, info) => {
+    if (err) return next(err);
+    if (!user) return res.status(401).send(info?.msg || 'Invalid credentials');
+
+    // Serialization happens here:
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      res.send('Login success');
+    });
+
+  })(req, res, next);
+});
+Strategy runs → calls done(null, user) → your callback (err, user, info) runs.
+Serialization hasn’t happened yet.
+When you call req.logIn(user), Passport calls serializeUser(user, done) at that moment.
+After serialization completes, the user is stored in the session, and the request is considered authenticated.
+
+2️⃣ Key takeaway
+serializeUser only runs when Passport logs the user into the session.
+That happens:
+Automatically in the simple redirect form.
+Manually when you call req.logIn(user) in the custom callback.
+The (err, user, info) callback is called before serialization.
