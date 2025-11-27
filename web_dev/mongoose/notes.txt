@@ -1,0 +1,122 @@
+MOngo:
+
+-No SQL DB
+- can handle very huge data
+-shrading:
+eg: im having 10000 records, if i want 9000th record,insteda of serching among 10000 records,
+1-1000,1000-2000,2000-3000,...9000-10000 =>ipdi irukum,so easyaa particular shrade la easyaa find panidlaam
+-Replication 
+duplicate create pani vaikum,so neya server la distribute pani manage paniklaam
+
+
+REq:
+mongod => actual server
+mongosh,compass => tools to interact with server
+sudo tail -n 50 /var/log/mongodb/mongod.log => for logs
+
+show dbs =>to list databases
+show tables => to list collection
+use <dbname> => to create db
+sam> db.courses.insertOne({"name":sam,"courses":89,"dur":78}) =>to insret one document
+sam> db.courses.find() =>to see the collection data
+sam> db.courses.insertMany([{"name":"sam","courses":89,"dur":78}],{"name":"vada"}) => inserting many documentsd
+db.courses.insertMany(
+[{details:{"name":"maddy","courses":89,"dur":78},
+addinfo:["theone","unique"],
+ot:{"date":new Date(),"ismarried":false,"age":21,"immpcat":21.5}
+}]
+)
+
+note: we can only insert on for of objects in mongo collection with {}
+
+sam> db.courses.find({dur:78},{courses:true,age:true}) => pnly will show these results (courses,age)
+sam> db.courses.find({dur:78},{courses:true,age:true,_id:false})
+  
+sam> db.courses.find(   {dur:78,sam:123},          {courses:true,age:true,_id:false})
+                       //doc constraint    //filter constrint
+
+sam> db.courses.find().sort({duration:1}) =>sorting  asscending acc to specific entry
+sam> db.courses.find().sort({duration:-1}) =>sorting  desscending acc to specific entry
+.limit(2) => can limit the output 
+
+Update:
+sam> db.courses.updateOne({sam2: { dur: 78, inserted_new: 2 }},{$set:{name:"vada"}}) //to modify entries
+sam> db.courses.updateOne({sam2: { dur: 78, inserted_new: 2 }},{$unset:{name:"vada"}}) //to remove entries
+                          //filter cond                         //set or unset operation
+
+sam> db.courses.updateMany({name:{$exists:false}},{$set:{"noname":true}})
+sam> db.courses.updateMany({name:'Vada'},{$set:{"summa":false}})
+$exists =>to chcek that entry exists
+
+note: we can also put 0,1 instead of false,true eg:{$set:1}
+
+Upsert: 
+
+update+insert:
+sam> db.courses.update({"name":"man"},{$set:{"new":1}},{upsert:true})
+
+Delete:
+db.courses.deleteOne({"name":"sam"})
+db.courses.deleteMany({"name":"sam"})
+
+Comp OPer: 
+db.courses.find({"age":{$lt:30}})   //less than
+db.courses.find({"age":{$gt:30}})   //greater than
+db.courses.find({"age":{$lte:30}})  //less than equal to
+db.courses.find({"age":{$gte:30}})  //greter than equal to
+db.courses.find({"name":{$in:["maddy","santy"]}})   //like includes maari
+db.courses().skip(2) //we can avoid outputs
+
+Logical OPs:
+sam> db.courses.find({$and:[{name:"sam"},{courses:89}]}) //and ope
+sam> db.courses.find({$or:[{name:"sam"},{courses:89}]})  //or ope
+sam> db.courses.find({$nor:[{name:"sam"},{courses:89}]})  //nor ope
+
+
+Array func:
+sam> db.courses.update({"name":"Vada"},{$push:{crt:"three"}})       // to push items  inside crt
+sam> db.courses.update({"name":"Vada"},{$push:{crt:["three","one"]}})
+sam> db.courses.update({"name":"Vada"},{$addToSet:{crt:"three"}})       // to push items  inside crt without duplicates
+sam> db.courses.update({"name":"Vada"},{$pull:{crt:"three"}})  //to remove elemets
+
+
+Aggregation pipelines:
+sam> db.courses.aggregate([{$match:{name:"Vada"}},{$sort:{crt:1}},{$limit:2}]) //to match
+sam> db.courses.aggregate([{$group:{_id:"$name",total:{$sum:"$duration"}}}])  //to group 
+sam> db.courses.aggregate([{$group:{_id:"$name",total:{$max:"$duration"}}}])  //to group 
+sam> db.courses.aggregate([{$group:{_id:"$name",total:{$min:"$duration"}}}])  //to group 
+sam> db.courses.aggregate([{$group:{_id:"$name",total:{$avg:"$duration"}}}])  //to group 
+sam> db.courses.aggregate([{$group:{_id:"$name",total:{$avg:"$duration"}}},{$out:"samu"}])  //will cretae new db for output
+sam> db.courses.aggregate([{$group:{_id:"$name",total:{$avg:"$duration"}}},{$count:"$name"}])  //to count the output
+
+
+SChema Validation:
+note: straightaa insert pana table cretaeaggum, but validate pnanumnaa properaa createcollection us epni dha create pnum
+
+db.createCollection("orders",{validator:{
+
+$jsonSchema:{
+bsonType:"object",
+required:["item","description","customer_id","price"],
+properties:{ item:{"description":"item name",bsonType:"string"},
+description:{"description":"detail description on ",bsonType:"string"},
+customer_id:{"description":"id of customer",bsonType:"objectId"},
+price:{"description":"priceuu",bsonType:"number"}}
+
+}}})
+
+MOngo join/lookup
+bd.courses.aggregate({$lookup:{from:db,localFIeld:key,foreignField:foreignkey,as:outputname}})
+
+
+Indexing:
+
+list pnumbodhu edha base pnai list pnudhonu namma decide paniklaam,defauktaa _id base pnai list aagum.
+db.courses.getIndexes()  //to get the index of our collection
+db.courses.createIndex({name:1}) //ipo name base pani list aagum
+db.courses.createIndex({name:1,sort:1,duration:-1}) //multiple insdex set paniklaam
+
+note: we just can set the index,the listing will be automatically enhanced by mongo eg: searching 99999th entry in 1 crore entry,
+will be searcehd upo index,if we set the right index, then it will be efective
+
+note: endha attributaa adhigamaa use pnuvomo adha indexaa set pnaa effectivaa irukum.

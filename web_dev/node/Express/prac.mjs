@@ -75,7 +75,8 @@ import express, { json } from 'express'
 import {checkSchema,validationResult,matchedData} from 'express-validator'
 import  {validate_schema} from './utils/validate_user.mjs'
 import cookieparser from 'cookie-parser'
-
+import mongoose  from 'mongoose'
+import {user_t} from './utils/mongoose_schema.js'
 const app=express()
 
 
@@ -84,7 +85,14 @@ let users_data=[
   {"id":3,"name":"sam1"},
   {"id":3,"name":"sam2"},
   {"id":4,"name":"sam3"},
-]
+] 
+
+try{
+const db_connect=await  mongoose.connect("mongodb://127.0.0.1:27017/sam").then(console.log("db conn established"))}
+catch(err){
+    console.log("error while connecting to db")
+}
+
 
 app.use(cookieparser("secret123"))
 app.get("/",
@@ -94,23 +102,17 @@ app.get("/",
     res.cookie("ad","gg")
     res.status(200).send("<h1>HOme</h1>")
    
-   
   }
 )
 
 app.get('/users',(req,res)=>{
   if(req.signedCookies.user==="admin"){
       res.send((users_data))
-
-
   }
   else{
 
     res.status(401).send({"msg":"You are unauthorized"})
-
-  }
-  
-})
+  }})
 
 app.get('/users/:id',(req,res)=>{
   const _id=Number(req.params.id)
@@ -154,17 +156,22 @@ app.use(express.json())
 // })
 
 //with validation
-app.post("/users",checkSchema(validate_schema),(req,res)=>{
+app.post("/users",checkSchema(validate_schema),async (req,res)=>{
   const result=validationResult(req)
   if(result.errors.length>0){
     return res.status(400).send(result.errors)
 
   }
 req.body=matchedData(req)
-console.log("usual",req.body)
-  const newuesr={"id":users_data.length===0?1:users_data[(users_data.length)-1].id+1,...req.body}
-  users_data.push(newuesr)
-  res.status(201).send(users_data)
+console.log("matched",matchedData(req))
+try{const newuser=new user_t(matchedData(req))
+await newuser.save()
+res.send(newuser)}
+catch(e){
+  console.log("error while inserting",e)
+  res.status(400).send("something went wrong")
+}
+
 
 
 })
@@ -209,6 +216,7 @@ app.patch("/users/:id",getindex,(req,res)=>{
     return res.status(400).send(result.errors)
 
   }
+  console.log("matched",matchedData(req))
 req.body=matchedData(req)
 
 const obj_index=req.obj_index

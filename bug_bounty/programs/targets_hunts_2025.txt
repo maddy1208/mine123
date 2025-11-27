@@ -151,6 +151,7 @@ BBP'S:
 3. Sezzle
 4. Mercedes-Benz Managed Bug Bounty Program
 5. Washington Post: Bug Bounty Program
+6. Powerschool - Intersect 2025
 
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------

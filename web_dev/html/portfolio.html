@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSec Portfolio | Web Developer & Security Researcher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --secondary: #10B981;
+            --dark: #111827;
+            --darker: #0F172A;
+            --light: #F8FAFC;
+            --gray: #94A3B8;
+            --accent: #F59E0B;
+            --card-bg: rgba(30, 41, 59, 0.5);
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar.scrolled {
+            padding: 15px 50px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--light);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--gray);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.8s;
+        }
+
+        .highlight {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: expandLine 1s forwards 1.5s;
+        }
+
+        @keyframes expandLine {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.1s;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0.1;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .shape1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .shape3 {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            right: 30%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            padding: 8px 15px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .about-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .visual-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            animation: float 5s infinite ease-in-out;
+        }
+
+        .card-header {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .card-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .red { background: #FF5F57; }
+        .yellow { background: #FFBD2E; }
+        .green { background: #28CA42; }
+
+        .card-title {
+            flex: 1;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .progress-item {
+            margin-bottom: 15px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: fillBar 1.5s forwards;
+        }
+
+        @keyframes fillBar {
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category h3 i {
+            color: var(--primary);
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: fillBar 1.5s forwards;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            object-fit: contain !important;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .project-icon {
+            
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            padding: 10px;
+          
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            padding: 5px 10px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        /* Achievements Section */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .achievement-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .achievement-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+
+        .achievement-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .achievement-card p {
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .contact-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-text p {
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .projects-grid,
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Navbar Component
+        function Navbar() {
+            const [scrolled, setScrolled] = useState(false);
+            const [activeSection, setActiveSection] = useState('home');
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    const isScrolled = window.scrollY > 50;
+                    setScrolled(isScrolled);
+
+                    // Update active section based on scroll position
+                    const sections = ['home', 'about', 'skills', 'projects', 'achievements', 'contact'];
+                    const currentSection = sections.find(section => {
+                        const element = document.getElementById(section);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            return rect.top <= 100 && rect.bottom >= 100;
+                        }
+                        return false;
+                    });
+
+                    if (currentSection) {
+                        setActiveSection(currentSection);
+                    }
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+                    <div className="logo">DevSecPortfolio</div>
+                    <ul className="nav-links">
+                        <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
+                        <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>Who Am I</a></li>
+                        <li><a href="#skills" className={activeSection === 'skills' ? 'active' : ''}>Skills</a></li>
+                        <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>Projects</a></li>
+                        <li><a href="#achievements" className={activeSection === 'achievements' ? 'active' : ''}>Achievements</a></li>
+                        <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>Contact</a></li>
+                    </ul>
+                    <div className="hamburger">
+                        <i className="fas fa-bars"></i>
+                    </div>
+                </nav>
+            );
+        }
+
+        // Hero Section Component
+        function Hero() {
+            return (
+                <section id="home" className="hero">
+                    <div className="container">
+                        <div className="hero-content">
+                            <h1>Hi, I'm a <span className="highlight">Web Developer</span> & <span className="highlight">Security Researcher</span></h1>
+                            <p>Building secure, scalable web applications while uncovering vulnerabilities in digital systems. I bridge the gap between development and security to create robust digital solutions.</p>
+                            <div style={{display: 'flex', gap: '15px', flexWrap: 'wrap'}}>
+                                <a href="#projects" className="btn">
+                                    <i className="fas fa-code"></i> View My Work
+                                </a>
+                                <a href="#contact" className="btn btn-outline">
+                                    <i className="fas fa-paper-plane"></i> Get In Touch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="floating-shapes">
+                        <div className="shape shape1"></div>
+                        <div className="shape shape2"></div>
+                        <div className="shape shape3"></div>
+                    </div>
+                </section>
+            );
+        }
+
+        // About Section Component
+        function About() {
+            return (
+                <section id="about" className="about">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>Who Am I</h2>
+                        </div>
+                        <div className="about-content">
+                            <div className="about-text">
+                                <p>I’m a JavaScript-focused Web Developer who loves building clean, modern, and functional web applications. My development journey started with the basics—HTML, CSS, and JavaScript—and quickly grew into a strong passion for developing full-stack applications using React on the frontend and Node.js on the backend</p>
+                               
+                                <p>I work confidently with React, crafting dynamic interfaces, reusable components, and smooth user experiences. I enjoy designing UI layouts, understanding user flow, and making the frontend both beautiful and efficient. React is my comfort zone—I love working with it, experimenting with hooks, and building interactive pages.</p>
+                                <p>Alongside development, I’m an active Bug Bounty Hunter and Security Researcher with hands-on experience identifying and reporting real-world vulnerabilities. I’ve built solid credibility in the community, earning 100+ reputation on HackerOne, receiving 100+ private program invitations, and reporting 100+ valid security findings across various platforms and applications.</p>
+                                <div className="skills-tags">
+                                    <div className="skill-tag">React JS</div>
+                                    <div className="skill-tag">Node JS</div>
+                                    <div className="skill-tag">Penetration Testing</div>
+                                    <div className="skill-tag">Vulnerability Assessment</div>
+                                    <div className="skill-tag">Secure Coding</div>
+                                    <div className="skill-tag">Web API Testing</div>
+                                </div>
+                            </div>
+                            <div className="about-visual">
+                                <div className="visual-card">
+                                    <div className="card-header">
+                                        <div className="card-buttons">
+                                            <div className="card-button red"></div>
+                                            <div className="card-button yellow"></div>
+                                            <div className="card-button green"></div>
+                                        </div>
+                                        <div className="card-title">Expertise Overview</div>
+                                    </div>
+                                    <div className="card-content">
+                                        <div className="stats">
+                                            <div className="stat">
+                                                <span className="stat-value">15+</span>
+                                                <span className="stat-label">Projects</span>
+                                            </div>
+                                            <div className="stat">
+                                                <span className="stat-value">2+</span>
+                                                <span className="stat-label">Years</span>
+                                            </div>
+                                            <div className="stat">
+                                                <span className="stat-value">100+</span>
+                                                <span className="stat-label">Vulnerabilities</span>
+                                            </div>
+                                        </div>
+                                        <div className="progress-item">
+                                            <div className="progress-label">
+                                                <span>Web Development</span>
+                                                <span>80%</span>
+                                            </div>
+                                            <div className="progress-bar">
+                                                <div className="progress-fill" style={{width: '95%'}}></div>
+                                            </div>
+                                        </div>
+                                        <div className="progress-item">
+                                            <div className="progress-label">
+                                                <span>Security Research</span>
+                                                <span>90%</span>
+                                            </div>
+                                            <div className="progress-bar">
+                                                <div className="progress-fill" style={{width: '90%'}}></div>
+                                            </div>
+                                        </div>
+                                        <div className="progress-item">
+                                            <div className="progress-label">
+                                                <span>Problem Solving</span>
+                                                <span>90%</span>
+                                            </div>
+                                            <div className="progress-bar">
+                                                <div className="progress-fill" style={{width: '92%'}}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Skills Section Component
+        function Skills() {
+            return (
+                <section id="skills" className="skills">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>My Skills</h2>
+                        </div>
+                        <div className="skills-container">
+                            <div className="skill-category">
+                                <h3><i className="fas fa-code"></i> Web Development</h3>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>React & Frontend</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '95%'}}></div>
+                                    </div>
+                                </div>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>Node.js & Backend</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '90%'}}></div>
+                                    </div>
+                                </div>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>Database Design</span>
+                                        <span>70%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '85%'}}></div>
+                                    </div>
+                                </div>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>UI/UX Design</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '80%'}}></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="skill-category">
+                                <h3><i className="fas fa-shield-alt"></i> Security Research</h3>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>Penetration Testing</span>
+                                        <span>92%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '92%'}}></div>
+                                    </div>
+                                </div>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>Vulnerability Assessment</span>
+                                        <span>88%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '88%'}}></div>
+                                    </div>
+                                </div>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>Secure Coding</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '90%'}}></div>
+                                    </div>
+                                </div>
+                                <div className="skill-item">
+                                    <div className="skill-info">
+                                        <span>Web API Testing</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div className="skill-bar">
+                                        <div className="skill-progress" style={{width: '85%'}}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Projects Section Component
+        function Projects() {
+            const projects = [  {
+    name: "Movie App",
+    des: "A movie information app that displays real-time movie updates, details, and search results using external APIs and React Router.",
+    tags: ["React", "API", "React Router", "CSS"]
+  },
+  {
+    name: "Shopping Cart",
+    des: "A simple cart application built with React, demonstrating state management using hooks, useContext, and routing.",
+    tags: ["React", "Hooks", "React Router", "useContext", "CSS"]
+  },
+  {
+    name: "Router Showcase App",
+    des: "A lightweight app showcasing basic navigation, routing structure, and page transitions using React Router.",
+    tags: ["React", "React Router", "CSS"]
+  },
+  {
+    name: "To-Do List",
+    des: "A simple CRUD to-do application using React and useReducer for predictable state management.",
+    tags: ["React", "useReducer", "CSS", "CRUD"]
+  },
+  {
+    name: "Advice Generator",
+    des: "A minimal app that fetches and displays random advice using a public API.",
+    tags: ["React", "Web API", "CSS"]
+  },
+  {
+    name: "BMI Calculator",
+    des: "A clean and simple BMI calculator built with React and React Hooks for real-time calculations.",
+    tags: ["React", "Hooks", "CSS"]
+  },
+  {
+    name: "Currency Converter",
+    des: "A simple currency converter using real-time exchange rates fetched through an API.",
+    tags: ["React", "API", "CSS"]
+  },
+  {
+    name: "Digital Clock",
+    des: "A basic digital clock built with React and core JavaScript functions to show live time.",
+    tags: ["React", "JavaScript", "CSS"]
+  },
+  {
+    name: "QR Generator",
+    des: "A simple QR code generator that converts text or links into QR codes using an external API.",
+    tags: ["React", "API", "CSS"]
+  },
+  {
+    name: "Quiz App",
+    des: "A simple quiz application featuring a timer, questions, scoring logic, and smooth UX using React Hooks.",
+    tags: ["React", "Hooks", "CSS"]
+  },
+  {
+    name: "Weather App",
+    des: "A real-time weather application that fetches location-based weather data through an API.",
+    tags: ["React", "API", "CSS"]
+  }
+];
+
+            return (
+                <section id="projects" className="projects">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>My Projects</h2>
+                        </div>
+                        <div className="projects-grid">
+                            
+                            
+                            <div className="project-card">
+                                <div className="project-header">
+                                    <div className="project-icon">
+                                        <i className="fas fa-bug"></i>
+                                    </div>
+                                    <div>
+                                        <h3>Vulnerability Scanner</h3>
+                                        <p>Automated web application security testing tool</p>
+                                    </div>
+                                </div>
+                                <div className="project-content">
+                                    <div className="project-tags">
+                                        <div className="project-tag">Python</div>
+                                          <div className="project-tag">Bash</div>
+                                        <div className="project-tag">Security</div>
+                                        <div className="project-tag">Automation</div>
+                                    </div>
+                                </div>
+                            </div>
+                            {projects.map((obj,ind)=> <div className="project-card">
+                                <div className="project-header">
+                                    <div className="project-icon">
+                                        <i className="fas fa-lock"></i>
+                                    </div>
+                                    <div>
+                                        <h3>{obj.name}</h3>
+                                        <p>{obj.des}</p>
+                                    </div>
+                                </div>
+                                <div className="project-content">
+                                    <div className="project-tags">
+                                        {obj.tags.map((obj2,ind)=><div className="project-tag">{obj2}</div>)}
+                                        
+                                     
+                                    </div>
+                                </div>
+                            </div>   )}
+                          
+
+
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Achievements Section Component
+        function Achievements() {
+            return (
+                <section id="achievements" className="achievements">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>Achievements</h2>
+                        </div>
+                        <div className="achievements-grid">
+                            <div className="achievement-card">
+                                <div className="achievement-icon">
+                                    <i className="fas fa-trophy"></i>
+                                </div>
+                                <h3>Bug Bounty Hunter</h3>
+                                <p>Trusted by multiple organizations for identifying critical security flaws, earning invitations to 100+ private bug bounty programs.</p>
+                            </div>
+                            <div className="achievement-card">
+                                <div className="achievement-icon">
+                                    <i className="fas fa-certificate"></i>
+                                </div>
+                                <h3>Security Vulnerabilties</h3>
+                                <p>Discovered and reported 100+ vulnerabilities across different scopes, covering RCE, SSRF, XSS, IDOR, UUID bypasses, and other impactful security issues.</p>
+                            </div>
+                            <div className="achievement-card">
+                                <div className="achievement-icon">
+                                    <i className="fas fa-medal"></i>
+                                </div>
+                               <h3>Open Source Contributor</h3>
+                               <p>I’m actively developing an open-source automated tool focused on offensive security testing, helping security teams identify vulnerabilities faster and more efficiently.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Contact Section Component
+        function Contact() {
+            return (
+                <section id="contact" className="contact">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>Get In Touch</h2>
+                        </div>
+                        <div className="contact-container">
+                            <div className="contact-info">
+                                <div className="contact-item">
+                                    <div className="contact-icon">
+                                        <i className="fas fa-envelope"></i>
+                                    </div>
+                                    <div className="contact-text">
+                                        <h3>Email</h3>
+                                        <p>madhan.r@licet.ac.in</p>
+                                    </div>
+                                </div>
+                                <div className="contact-item">
+                                    <div className="contact-icon">
+                                        <i className="fas fa-phone"></i>
+                                    </div>
+                                    <div className="contact-text">
+                                        <h3>Phone</h3>
+                                        <p>+91 6380076528</p>
+                                    </div>
+                                </div>
+                                <div className="contact-item">
+                                    <div className="contact-icon">
+                                        <i className="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div className="contact-text">
+                                        <h3>Location</h3>
+                                        <p>Chennai, IN</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="mailto:madhan.r@licet.ac.in" className="btn">
+                                <i className="fas fa-paper-plane"></i> Send Me an Email
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Footer Component
+        function Footer() {
+            return (
+                <footer>
+                    <div className="container">
+                        <div className="social-links">
+                            <a href="https://github.com/maddy1208" className="social-link">
+                                <i className="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/madhan-mohan-7bb574267" className="social-link">
+                                <i className="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://x.com/Maddy1208_" className="social-link">
+                                <i className="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://https://medium.com/@madhanmohan.26csb" className="social-link">
+                                <i className="fab fa-medium-m"></i>
+                            </a>
+                        </div>
+                        <p className="copyright">© 2023 DevSec Portfolio. All rights reserved.</p>
+                    </div>
+                </footer>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            return (
+                <div>
+                    <Navbar />
+                    <Hero />
+                    <About />
+                    <Skills />
+                    <Projects />
+                    <Achievements />
+                    <Contact />
+                    <Footer />
+                </div>
+            );
+        }
+
+        // Render the App
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
