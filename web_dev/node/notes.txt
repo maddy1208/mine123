@@ -15,7 +15,8 @@ console.log(path.parse(__filename))
 
 exporting:
 
-module.exports={add,sub} or module.export=add
+module.exports={add,sub} or 
+ module.export=add //acts like default import 
 require vachi import pani use panlam
 
 also .mjs extension use pani es module syntaxa use panlaam

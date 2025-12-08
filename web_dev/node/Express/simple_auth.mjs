@@ -6,6 +6,7 @@ import { checkSchema,validationResult,matchedData} from 'express-validator'
 import  {validate_post_user_schema}  from './utils/validate_post_users.js'
 import mongoose from 'mongoose'
 import mongo_auth_val from './utils/simple_auth_mongoschema.js'
+import { user_t } from './utils/mongoose_schema.js'
 const app=express()
 
 //mongo connection
@@ -22,10 +23,10 @@ app.use(session({
     saveUninitialized:false,
     resave: false,
     cookie:{
-        maxAge: 60*60*60
+        maxAge: 60*60*60*1000
     }
 }))
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -53,7 +54,9 @@ done(null,id)
 })
 
 passport.deserializeUser(async (id,done)=>{
-    const userdetails=await mongo_auth_val.findOne({user})
+
+    const userdetails=await mongo_auth_val.findById(id)
+    console.log("deserialze details,",userdetails)
     done(null,userdetails)
 
 
@@ -61,8 +64,16 @@ passport.deserializeUser(async (id,done)=>{
 })
 
 app.get("/",(req,res)=>{
-    console.log(req.user)
-    res.send("Your Profile + ",req.user.name)
+
+  if(req.isAuthenticated()){
+  console.log("user",req.user.name)
+
+
+
+    res.send(["Your Profile + ",req.user.name])}
+    else{
+        res.status(400).send("Please login")
+    }
 })
 
 
@@ -95,10 +106,34 @@ app.post("/users",checkSchema(validate_post_user_schema),async (req,res)=>{
 
 
 )
+app.get("/login",(req,res)=>{
+    res.status(405).send("method not allowed")
 
-app.post("/login",passport.authenticate('simple-auth',{"successRedirect":"/","failureRedirect":"/login"})
+})
+//simple redirect
+// app.post("/login",passport.authenticate('simple-auth',{"successRedirect":"/","failureRedirect":"/login"})
 
-)
+// )
+
+
+//more customized login
+app.post("/login",(req,res,next)=>{
+
+    passport.authenticate("simple-auth",async (err,userinfo,msg)=>{
+        if(err){ return next(err)}
+        if(!userinfo){ return res.status(400).send(msg)}
+           req.logIn(userinfo,(err)=> {
+            if(err) console.log("error")   
+
+            else   return res.status(302).redirect("/")
+           })
+      
+
+
+    })(req,res,next)
+
+
+})
 
 app.listen('3000',(err)=>{
     console.log("server runnign in 3000")

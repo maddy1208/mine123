@@ -3,7 +3,7 @@ import exps from 'express-session'
 import passport  from 'passport'
 import { Strategy as local } from 'passport-local'
 import mongoose from 'mongoose'
-import {user} from './utils/mongoose_schema'
+// import {user} from './utils/mongoose_schema.js'
 const users=[{"id":1,"name":"maddy","password":123}]
 const app=express()
 
@@ -82,6 +82,7 @@ app.post("/login",(req,res,next)=>{
         });
         }
     })(req,res,next)
+    
 })
 
 
@@ -94,6 +95,17 @@ console.log(req.user,req.userdetails)
     }
 
 
+})
+
+app.use("/sam",(req,res,next)=>{
+    next("oihb")
+})
+
+app.use((req,res)=>{
+    console.log("test")
+})
+app.use((err,req,res,next)=>{
+    console.log("error called")
 })
 
 

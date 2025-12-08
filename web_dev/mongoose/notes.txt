@@ -37,7 +37,7 @@ sam> db.courses.find(   {dur:78,sam:123},          {courses:true,age:true,_id:fa
 
 sam> db.courses.find().sort({duration:1}) =>sorting  asscending acc to specific entry
 sam> db.courses.find().sort({duration:-1}) =>sorting  desscending acc to specific entry
-.limit(2) => can limit the output 
+.limit(2) => can limit the output
 
 Update:
 sam> db.courses.updateOne({sam2: { dur: 78, inserted_new: 2 }},{$set:{name:"vada"}}) //to modify entries
@@ -85,7 +85,7 @@ sam> db.courses.aggregate([{$match:{name:"Vada"}},{$sort:{crt:1}},{$limit:2}]) /
 sam> db.courses.aggregate([{$group:{_id:"$name",total:{$sum:"$duration"}}}])  //to group 
 sam> db.courses.aggregate([{$group:{_id:"$name",total:{$max:"$duration"}}}])  //to group 
 sam> db.courses.aggregate([{$group:{_id:"$name",total:{$min:"$duration"}}}])  //to group 
-sam> db.courses.aggregate([{$group:{_id:"$name",total:{$avg:"$duration"}}}])  //to group 
+sam> db.courses.aggregate([{$group:{_id:"$name",total:{$avg:"$duration"}}}])  //to group ,_id = the value that defines each group
 sam> db.courses.aggregate([{$group:{_id:"$name",total:{$avg:"$duration"}}},{$out:"samu"}])  //will cretae new db for output
 sam> db.courses.aggregate([{$group:{_id:"$name",total:{$avg:"$duration"}}},{$count:"$name"}])  //to count the output
 

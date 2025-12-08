@@ -331,6 +331,7 @@ session = {
     user: "12345"
   }
 } 
+
 sO,PASSPORT NOTICESS THAT REQ.SESSION.PAASPORT.USER EXITS AND IT PASSES THIS TO DESERILAIZE
 
 Note:
@@ -381,3 +382,110 @@ newuser.save()
       Pre-save middleware/hooks (pre("save"))
       Type casting
       Default values
+
+
+Monggose Model:
+
+type: String/Number //to spefify type
+required: [true,"plesae enter this field"]
+maxLength: [7,"enter less than 7"]
+default: 5 //default value
+trim: true //helps to trim
+
+timestamps:true //heps to track the modification
+validate: validator.isemail() //heps to validate ,here we used validator package
+select: false //query onumpodhu password select agaudhu,used for paswords
+
+
+notes:
+Model.find() returns a Query object, which is chiainable:
+Mongoose query is lazy, it does not hit the DB immediately.
+Every .find(), .sort(), .limit() modifies the same query object.
+Even if you write:
+Product.find().find({a:1}).find({b:2}).sort().limit()
+👉 Only one query executes at the end.
+Not multiple.
+It just merges filters until you execute.
+
+
+All .find() calls run line-by-line, but they only build/modify the query
+✔ Only the final combined query is executed
+✔ DB hit occurs just once
+
+notes:
+Why do we need next() if it’s just a function?”
+
+Because pre-save hooks are middleware inside Mongoose — they work just like Express middleware:
+Mongoose pauses the save() operation…
+…runs your pre("save") hook…
+…and waits for you to say: “Ok, continue!” → that’s next()
+If you don’t call next() (or return a Promise):
+Mongoose thinks your middleware is still running
+So save() never finishes
+Your code may freeze / never insert data into DB
+
+
+Do update and delete create new objects and assign to variables?
+Yes → for findOneAndUpdate() and findOneAndDelete()
+No → for updateOne(), updateMany(), deleteOne(), deleteMany()
+Same object reused → for save()
+
+
+
+NOtes on Error handling:
+WE use custom error handlers , to more customize eg: default error  cant hold status code,or any other messages,
+but with custom error handlers, we can customize more..
+eg:
+class HandleError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+    this.name = "HandleError";
+
+    // Captures the stack trace for debugging
+    Error.captureStackTrace(this, HandleError); //just make debbuging easier,withput unwanted lines
+  }
+}
+
+Also, 
+middlewares:
+1. normal middlewares (req,res,next)
+2. error handling middlewares (err,req,res,next) //specified err at first
+
+puttig return only breaks the current middleware,
+calling next() helps to execute next midlleware
+putting error object next(err) , only triggers all error handling middlewares, without executing normal middlewares
+
+eg:
+// NORMAL MIDDLEWARE
+app.use((req, res, next) => {
+  console.log("normal 1");
+  next(new Error("boom!"));   // <-- here is the important part
+});
+app.use(( req, res, next) => {
+  console.log("boom2");
+  next(err);
+});
+// ERROR-HANDLING MIDDLEWARES
+app.use((err, req, res, next) => {
+  console.log("error 1");
+  next(err);
+});
+app.use((err, req, res, next) => {
+  console.log("error 2");
+  res.send("done");
+});
+
+here it skipped the normal middleware and trigger all error handling middleware bcz we passed next(err)
+These all trigger error-handling middleware,If the value is truthy, Express treats it as an error,
+next("boom");
+next(123);
+next(true);
+next({ msg: "error" });
+next(new Error("boom"));
+
+
+server.close(()=>process.exit(1)) // graceful shtdown after completed all pending process
+proces.exit(1) =>directly //just stops all process evne without competion
+
+

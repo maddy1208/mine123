@@ -62,7 +62,7 @@ BBP'S:
 56. Singapore Press Holdings
 57. Elisa
 58. Small Improvements
-
+59. 
 
 
 
@@ -142,6 +142,7 @@ VDP'S:
 71. fieldwire
 72. MSCI
 73. Vodafone
+74. Bank United
 
 Bugcrowd:
 
@@ -152,6 +153,8 @@ BBP'S:
 4. Mercedes-Benz Managed Bug Bounty Program
 5. Washington Post: Bug Bounty Program
 6. Powerschool - Intersect 2025
+7. Peabody Managed Bug Bounty Engagement
+8. Vouri Managed Bug bounty 
 
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------
