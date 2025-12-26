@@ -360,6 +360,16 @@ async function start() {
 start();
 
 2.using mongoose
+
+basic queries:
+model.find()
+model.findOne()
+model.create()      
+model.findbyidandupdate()  //put
+model..findByIdAndUpdate(id, {
+}, { overwrite: true });   //patch
+model.findbyidanddelete()  //delete
+
 mongoose words:
 findOne() //to search
 findById()  //to find entry by id

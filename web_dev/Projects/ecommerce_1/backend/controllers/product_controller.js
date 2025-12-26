@@ -2,6 +2,7 @@ import { custom_error } from "../helper/error_handler.js"
 import  product  from "../model/product_model.js"
 import {APIhelper} from "../helper/api_helper.js"
 export const get_all_product=async (req,res,next)=>{
+   
     const get_product_query_object=new APIhelper(product.find(),req.query).search().filter();
     const querycopy=get_product_query_object.query.clone()
     const total_count=await querycopy.countDocuments()
@@ -9,13 +10,15 @@ export const get_all_product=async (req,res,next)=>{
     if(req.query.page>total_count || total_count<=0){
         return next(new custom_error("page not found",404))
     }
-    const products=await get_product_query_object.pagination(1).query
+    const products=await get_product_query_object.pagination(4).query
     if(!products){ next(new custom_error("products empty",204))}
     res.status(200).send({"msg":true,"page":Number(req.query.page),"products":products})
 }
 
 
 export const add_product=async (req,res,next)=>{
+    console.log("req.user",req.user)
+    req.body.user=req.user.id
   
 const new_product=req.body
     await product.create(new_product)

@@ -42,6 +42,12 @@ const product_db_schema = new mongoose.Schema({
       comment: { type: mongoose.SchemaTypes.String },
     },
   ],
+  user:{
+    type:mongoose.SchemaTypes.ObjectId,
+    ref: "user",
+    required: true
+  },
+  
   createdAt: {
     type: Date,
     default: Date.now,

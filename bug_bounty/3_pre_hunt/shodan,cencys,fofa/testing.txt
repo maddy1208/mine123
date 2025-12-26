@@ -293,7 +293,7 @@ hostname:target.com http.html:"phpMyAdmin"
 hostname:target.com "Server: GoAhead-Webs"
 hostname:target.com "Server: AVTech"
 hostname:target.com "Server: uc-httpd"
-
+Ssl.cert.subject.CN:”domain.com”
 
 
 OTHERS:
@@ -1773,6 +1773,7 @@ SSH-2.0-ROSSSH
 ssl:"AsyncRAT Server"
 ssl.cert.issuer.cn:"QNAP NAS",title:"QNAP Turbo NAS"
 ssl.cert.serial:146473198
+Ssl.cert.subject.CN:”domain.com”
 ssl.cert.subject.cn:"Onimai Academies CA"
 ssl.cert.subject.cn:"Quasar Server CA"
 ssl:”Covenant” http.component:”Blazor”

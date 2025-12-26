@@ -1,0 +1,9 @@
+REQUIREMENTS:
+
+1. 90 Days Report <=40
+2. All types of assets (ios,and,wildcard,domains)
+3. More Wildcard
+4. Should Have Recent Updates
+5. Hactivity with bounties
+6. Less Response Time (1st res + triage time + Bounty Time)
+7. Its ok on less bounty

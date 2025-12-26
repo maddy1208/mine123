@@ -62,7 +62,9 @@ BBP'S:
 56. Singapore Press Holdings
 57. Elisa
 58. Small Improvements
-59. 
+59. Hyatt Private
+
+
 
 
 
@@ -155,7 +157,14 @@ BBP'S:
 6. Powerschool - Intersect 2025
 7. Peabody Managed Bug Bounty Engagement
 8. Vouri Managed Bug bounty 
-
+9. Discord
+10. Skechers Managed Bug Bounty Engagement
+11. VR Public Managed Bug Bounty Engagement
+12. AvalonBay Communities
+13. AvalonBay Communities
+14. https://loyalty.skechers.com/ , https://www.skechers.com/ , https://www.vr.fi/
+15. Sumo Logic Managed Bug Bounty Program
+16. Adidas
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------
 
