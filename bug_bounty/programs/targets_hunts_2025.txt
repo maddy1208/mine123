@@ -63,11 +63,8 @@ BBP'S:
 57. Elisa
 58. Small Improvements
 59. Hyatt Private
-
-
-
-
-
+60. Joyn
+61. CLear
 
 
 VDP'S:
@@ -145,8 +142,10 @@ VDP'S:
 72. MSCI
 73. Vodafone
 74. Bank United
+75. Hexagon VDP
 
 Bugcrowd:
+
 
 BBP'S:
 1. New Blue Website (NBW) - VWFS Bug Bounty Program
@@ -160,7 +159,7 @@ BBP'S:
 9. Discord
 10. Skechers Managed Bug Bounty Engagement
 11. VR Public Managed Bug Bounty Engagement
-12. AvalonBay Communities
+12. Magic Labs Managed Bug Bounty Engagement
 13. AvalonBay Communities
 14. https://loyalty.skechers.com/ , https://www.skechers.com/ , https://www.vr.fi/
 15. Sumo Logic Managed Bug Bounty Program

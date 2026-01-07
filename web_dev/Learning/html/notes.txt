@@ -1,0 +1,75 @@
+Container Tags: opening+closing
+<html></html>
+Standalone Tags: 
+<img />
+
+p-paragraph
+b-bold
+i-italic
+u-underline
+s-strike
+sub-subscript
+sup-superscript
+font-font
+code
+pre 
+
+semantic tags:
+Semantic tags in HTML are elements that clearly describe the meaning and purpose of the content inside them—both to browsers and developers.
+
+They improve:
+✅ Accessibility (screen readers)
+✅ SEO
+✅ Code readability & maintenance
+
+<header>     <!-- Top section of a page or section -->
+<nav>        <!-- Navigation links -->
+<main>       <!-- Main content (only one per page) -->
+<section>   <!-- Thematic grouping of content -->
+<article>   <!-- Independent, reusable content -->
+<aside>     <!-- Sidebar / related content -->
+<footer>    <!-- Bottom section -->
+Text Semantics
+<h1> to <h6>   <!-- Headings -->
+<p>            <!-- Paragraph -->
+<address>      <!-- Contact information -->
+<time>         <!-- Date / time -->
+<mark>         <!-- Highlighted text -->
+<cite>         <!-- Reference -->
+<blockquote>   <!-- Long quotations -->
+<figure>      <!-- Self-contained content -->
+<figcaption>  <!-- Caption for figure -->
+<form>
+<label>
+<fieldset>
+<legend>
+<table>
+<thead>
+<tbody>
+<tfoot>
+strong
+small
+em
+del
+code
+
+HTML Lists:
+-Ordered Lists
+-Unordered Lists
+-Description list (dt dl)
+
+<ul type="A" start=4>
+<ul type="a">
+<ul type="I">  
+<ul type="i">
+<ol reversed>
+
+
+TABLES:
+<caption - tag to tell seomething
+cellspacing - space between cells 
+cellpadding - padding on a single cell
+ rowspan-  <td rowspan=2>
+ colspan - <td colspan=2>
+ align - to tell where the text should be aligned 
+  <td colspan=2 align="right" >

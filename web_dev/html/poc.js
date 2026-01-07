@@ -1,4 +1,9 @@
 
+const app=require('express')
+
+
+
+app.get("/",(req,res,next)=>{
 
 fetch("https://community.deriv.com/u/acronyx-altezza-2.json", {
   method: "GET",
@@ -29,3 +34,8 @@ fetch("https://community.deriv.com/u/acronyx-altezza-2.json", {
 .catch(err => console.error(err));
 
 
+})
+
+
+
+app.listen(8000,(daata)=>console.log("server running"))
