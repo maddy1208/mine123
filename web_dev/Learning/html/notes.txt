@@ -1,3 +1,11 @@
+The <!DOCTYPE html> declaration defines that this document is an HTML5 document
+The <html> element is the root element of an HTML page
+The <head> element contains meta information about the HTML page
+The <title> element specifies a title for the HTML page (which is shown in the browser's title bar or in the page's tab)
+
+favicon:   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+
 Container Tags: opening+closing
 <html></html>
 Standalone Tags: 
@@ -41,6 +49,8 @@ Text Semantics
 <figcaption>  <!-- Caption for figure -->
 <form>
 <label>
+<kbd>
+<prpgress>
 <fieldset>
 <legend>
 <table>
@@ -52,6 +62,24 @@ small
 em
 del
 code
+title attribute=> mouse hover pna display agu
+<br> => gap varu
+<hr> => line varu
+<s> => strike
+<strong> => similar to bold
+<small> => kutty
+<sub> => base la varu
+<sup> => power la varu
+<pre> => specific format la htmla varu
+<marquee bgcolor="orange" width="800px"> => odum
+    direction => to specify flow
+    behaviour => slide,alter,scroll 
+    scrollamount=> odra speeda control pnu
+    scrolldelay => slowa pogu
+    loop =>totala ethana times pogumnu specify
+
+multiple =>select tagkum,image tagsku la atributa use panlaam multiple files select pana
+
 
 HTML Lists:
 -Ordered Lists
@@ -73,3 +101,133 @@ cellpadding - padding on a single cell
  colspan - <td colspan=2>
  align - to tell where the text should be aligned 
   <td colspan=2 align="right" >
+
+
+FORM:
+id=> just helps to create an identity
+for=> helps to tell which is the dude for the elements
+
+min=>to set minimum value inputes
+max=>to set maximum value for inputs
+type=date|color|range|file|
+multiple=> helps to select multiple files ,input
+
+name=> helps also in type radio to select 1 value
+we can also use inputs insie label to make focus 
+
+
+rows,cols =>used in textarea to control input
+
+select tag=>can have multiple option inside this
+
+
+INPUT:
+target=> helps to tells what to be loaded
+eg: 
+a target=box
+iframe name=box
+
+target tag:
+    blank => completea vera tab la open panum
+    self =>  current contenta replace panum
+    parent => parent la repalce panum
+    top => complete paga replace panum 
+    eg: nama iframes embedd pani,links la vachirundha navigations a control pnlaam
+
+    _self - Default. Opens the document in the same window/tab as it was clicked
+    _blank - Opens the document in a new window or tab
+    _parent - Opens the document in the parent frame
+    _top - Opens the document in the full body of the window
+
+
+    The target attribute is only valid on certain HTML elements, primarily:
+        <a> (links)
+        <form>
+        <base>
+        <area>
+        <iframe>
+
+
+<a href="iframe.html" target="oi">clickhere</a>
+<iframe src="" name="oi" frameborder="0" height="400px" width="400px"></iframe>
+=>ipdi targeta iframe la open panikalmm just with name value vachi
+
+
+
+ a tag for navigation:
+    <h2 id="C4">Chapter 4</h2>
+    <a href="#C4">Jump to Chapter 4</a> 
+
+    <h2 name="oi">Chapter 4</h2>
+    <a target="oi">Jump to Chapter 4</a> 
+
+
+Video:
+<video width="400" controls>
+<source src="test.mp4" />
+<track kind="subtitles" src="subtitles.vtt"
+srclang="en" label="english" />
+
+<audio controls>
+<source src='song.mp3' type='audio/mpeg'/>
+<source src='song.ogg' type='audio/ogg'/>
+your browser does not support audio elem
+</audio>
+
+
+
+Link to an Email Address:
+Use mailto: inside the href attribute to create a link that opens the user's email program (to let them send a new email):
+Example
+<a href="mailto:someone@example.com">Send email</a> 
+
+The HTML <noscript> tag defines an alternate content to be displayed to users that have disabled scripts in their browser or have a browser that doesn't support scripts:
+eg: <noscript>Sorry, your browser does not support JavaScript!</noscript> 
+
+
+
+-----------YouTube --------
+- Autoplay + Muted:
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1">
+</iframe> 
+
+-Loop:
+
+Add playlist=videoID and loop=1 to let your video loop forever.
+loop=0 (default) - The video will play only once.
+
+loop=1 - The video will loop (forever).
+YouTube - Loop forever
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1">
+</iframe> 
+
+Controls:
+Add controls=0 to NOT display controls in the video player.
+controls=0 - Player controls does not display.
+
+controls=1 (default) - Player controls is displayed.
+YouTube - Controls
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0">
+</iframe> 
+
+
+
+
+
+
+
+
+
+Notes:
+use figcaption for images,
+use caption only for tables,
+use labels for inputs
+
+
+Tools:
+just color picker => helps to pick any color
+flat ui => helps to get single,combination color
+

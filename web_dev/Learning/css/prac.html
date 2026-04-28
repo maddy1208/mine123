@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    ul {
+      list-style-type: none;
+      counter-reset: incree;
+    }
+
+    ul li::before {
+      content: "Chapter " counters(incree, ".") " ";
+      counter-increment: incree;
+    }
+  </style>
+  <body>
+    <ul>
+      <li>Chapter 1</li>
+      <li>Chapter 2</li>
+      <li>Chapter 3</li>
+      <ul>
+        <li>Chapter 3.1</li>
+        <li>Chapter 3.2</li>
+        <li>CHapter 3.3</li>
+        <li>Chapter 3.4</li>
+        <ul>
+          <li>Chapter 3.3.1</li>
+          <li>Chapter 3.3.2</li>
+          <li>Chapter 3.3.3</li>
+        </ul>
+      </ul>
+      <li>CHapter 4</li>
+      <ul>
+        <li>CHapter 4.1</li>
+        <ul>
+          <li>4.1.1</li>
+          <li>4.2.2</li>
+        </ul>
+        <li>CHapter 4.2</li>
+      </ul>
+    </ul>
+  </body>
+</html>

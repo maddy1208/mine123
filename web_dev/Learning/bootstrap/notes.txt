@@ -1,0 +1,180 @@
+---------------------Bootstrap Notes----------------------------
+
+COntainer:
+container 
+container-fluid
+container-sm
+container-md
+container-lg
+container-xl
+container-xxl
+container-xxxl
+
+Row::
+col
+col-1 ... col-12
+col-sm-1 ... col-sm-12
+col-md-1 ... col-md-12
+col-lg-1 ... col-lg-12
+col-xl-1 ... col-xl-12
+col-xxl-1 ... col-xxl-12
+col-xxxl-1 ... col-xxxl-12
+
+
+note: the belows are better than indivisually putting many responsive cols,bcz
+we can just put col in all and can contril at div level once.
+row-cols-1 ... 12
+row-cols-sm-1 ... 12
+row-cols-md-1 ... 12
+row-cols-lg-1 ... 12
+row-cols-xl-1 ... 12
+row-cols-xxl-1 ... 12
+row-cols-xxxl-1 ... 12
+
+eg:
+ <div class="row row-cols-xl-6">
+        <div class="col">col1</div>
+        <div class="col">col2</div>
+        <div class="col">col3</div>
+
+
+Margin:
+m all
+mt top
+mb bottom
+ms start
+me end 
+mx x axis
+my y axis
+
+[
+    0=0px
+    1 = 16px * 0.25 = 4px
+    2 = 16px * 0.5 = 8px
+    3 = 16px * 1 = 16px
+    4 = 16px * 1.5 = 24px
+    5 = 16px * 3 = 48px
+
+]
+
+Padding;
+p  all
+pt top
+pb bottom
+ps start
+pe end 
+px x axis
+py y axis
+
+
+
+Heading,display:
+    h1..h6
+    display-1...display-6
+
+List:
+    list-inline
+    list-inline-item
+
+
+glutter:
+    g =>glutter [colums gap a control pnlaa]
+    g-8
+    gx-6
+    gy-9
+
+border:
+    border-1
+    border-gray-subtle
+
+border-radius:
+    rounded
+    rounded-circle
+
+text-colr:
+    text-[primary/secondary/success..]
+
+bg-colr:
+    bg-[primary/secondary/success..]
+    bg-success bg-gradient [helps to have gradient color in ng]
+
+Others:
+mark => like highlight
+lead => useful for para
+card
+card-title
+card-body
+card-text
+sticky-top
+img-fluid =>fit image to parent
+h-100 //helps images to fit parent height
+w-100 //helps images to fit parent width
+
+Fonts:
+fw-bold [weight]
+text-decoration-underline
+fs-[1..6] [size]
+fst-[italic]
+text-[uppercase/capitalize] [transform]
+
+Table:
+table-[primary/secondar..] [colr]
+table-striped [helps for 2n colr]
+table-striped-columns
+table-hover
+table-active
+table-bordered/borderless
+caption-top/bottom
+table-responsive [heps to make table res inside div]
+
+Figure:
+figure 
+img-fluid, figure-img
+figure-caption
+
+Form:
+form-label
+form-control,form-control-sm,form-control-lg
+form-text
+btn,btn-primary,btn-danger..
+form-control-color =>used for color input
+form-range => fro range input
+form-select =>used for seleect tag
+form-check => for div contains checkbox,radiobox
+form-check-inline =>used to make inline
+form-switch => for div contains checkbox,radiobox
+form-check-input => for checkbox input,radiobox
+form-check-label => for checkbox label,radiobox
+form-floating=>helps to make a div with floatig label,input
+
+input-group
+input-group-text
+
+Accordian:
+accordian-item
+accordian-header
+accordian-button
+accordian-button
+
+Alert,badge:
+alert
+alert-heading
+alert-dismissible => hepls to make that close
+alert-[success/danger..]
+alert-link
+badge =>can used in span tags eg: message count
+
+Breadcrumb:
+Breadcrumb
+breadcrumb-item
+
+Buttons:
+btn
+btn-group =>helps to create button group
+btn-[primary/secondary/danger..]
+
+
+
+note: 
+if we dont specify  sm,md,lg then it will take full width
+also, bg-primary text-bg-primary =>helps to have nice matching colors

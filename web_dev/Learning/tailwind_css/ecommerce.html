@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecommerce Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <nav
+      class="flex items-center justify-evenly p-4 py-5 bg-white/80 shadow-sm backdrop-blur-xl sticky inset-0 z-1"
+    >
+      <div class="flex items-center gap-2">
+        <i
+          class="bi bi-shop text-3xl bg-blue-500 text-white p-2 rounded-xl"
+        ></i>
+        <h1
+          class="text-2xl font-black text-transparent bg-linear-to-r from-indigo-500 to-purple-500 bg-clip-text"
+        >
+          ShopKart
+        </h1>
+      </div>
+      <div class="sm:hidden md:flex gap-x-10 font-medium text-gray-700">
+        <a class="hover:text-blue-500 transition-colors duration-300" href=""
+          >Discover</a
+        >
+        <a class="hover:text-blue-500 transition-colors duration-300" href=""
+          >Categories</a
+        >
+        <a class="hover:text-blue-500 transition-colors duration-300" href=""
+          >Collections</a
+        >
+      </div>
+      <div>
+        <i
+          class="bi bi-search text-2xl text-gray-700 inline-block me-4 cursor-pointer hover:bg-gray-200 p-2 rounded-full transition-colors duration-300"
+        ></i>
+        <div class="inline-block relative">
+          <i
+            class="bi bi-bag text-2xl text-gray-700 hover:bg-gray-200 p-2 cursor-pointer rounded-full transition-colors duration-300"
+          ></i>
+          <div
+            class="absolute h-2 w-2 top-0 -right-1 rounded-full bg-red-600"
+          ></div>
+        </div>
+      </div>
+    </nav>
+    <main class="bg-gray-50 pb-20">
+      <div
+        class="sm:max-w-full md:max-w-[65%] mx-auto flex justify-between pt-10"
+      >
+        <div>
+          <p class="uppercase font-medium text-l text-indigo-500">
+            Curated collection
+          </p>
+          <h3 class="capitalize text-gray-900 text-5xl font-black ms-2 mt-2">
+            Trending now
+          </h3>
+        </div>
+        <div class="flex gap-x-5 items-end">
+          <div
+            class="flex gap-1 border-1 border-gray-400 rounded-3xl px-4 py-1 cursor-pointer"
+          >
+            <p class="capitalize font-medium text-gray-700">Filters</p>
+            <i class="bi bi-filter text-xl"></i>
+          </div>
+          <div
+            class="flex gap-1 border-1 border-gray-400 rounded-3xl px-4 py-2 cursor-pointer"
+          >
+            <p class="capitalize font-medium text-gray-700">sort by</p>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+      <div
+        class="sm:max-w-full mx-auto grid grid-cols-1 md:max-w-[65%] md:grid-cols-4 gap-8 mt-14 bg-white-900"
+      >
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="shadow-lg rounded-3xl overflow-hidden relative group hover:shadow-2xl hover:ring:4xl hover:ring-gray-300 transition duration-300 hover:translate-y-[-5px] cursor-pointer"
+        >
+          <div class="h-[50%] overflow-hidden">
+            <img
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              src="https://images.unsplash.com/photo-1546435770-a3e426bf472b"
+              alt=""
+            />
+            <p
+              class="absolute top-5 left-5 bg-slate-200 capitalize font-bold text-xs tracking-wide px-2 py-1 rounded-full"
+            >
+              audio
+            </p>
+            <i
+              class="bi bi-heart-fill text-xl text-gray-600 absolute top-4 right-5 bg-slate-200 capitalize font-bold tracking-wide px-2 py-1 rounded-full hover:text-red-600 transition-colors duration-300"
+            ></i>
+          </div>
+          <div class="p-6">
+            <div class="">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <i class="bi bi-star text-yellow-400"></i>
+              <span class="ml-2 font-medium text-sm text-gray-700">4.0</span>
+            </div>
+            <h2 class="mt-2 text-gray-900 text-2xl font-black">
+              Sony WH-1000XM5
+            </h2>
+            <p class="text-gray-500 mt-2 mb-3 line-clamp-2">
+              Industry-leading noise cancelling with two processors and eight
+              dimension audio feature
+            </p>
+            <hr class="text-gray-200 max-w-[90%] mx-auto" />
+            <div
+              class="flex items-center justify-between pt-6 pb-10 px-3 text-gray-700"
+            >
+              <p class="text-gray-900 text-2xl font-extrabold">$398.00</p>
+              <i
+                class="bi bi-arrow-right text-xl text-gray-400 bg-gray-100 p-1 px-2 rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="max-w-[65%] mx-auto py-10">
+      <div
+        class="flex items-start justify-between font-medium p-10 border-b-1 border-gray-300"
+      >
+        <div>
+          <i
+            class="bi bi-shop text-1xl float-left mr-2 bg-blue-500 text-white p-2 rounded-xl"
+          ></i>
+          <h1
+            class="text-lg font-black text-transparent bg-linear-to-r from-indigo-500 to-purple-500 bg-clip-text"
+          >
+            ShopKart
+          </h1>
+          <p class="mt-6 text-gray-400 max-w-xs">
+            Discover premium products curated for your lifestyle.Quality and
+            design at the forefront
+          </p>
+          <div class="my-6">
+            <i
+              class="bi bi-twitter bg-gray-200 mr-4 text-gray-400 text-md p-2 rounded-full"
+            ></i>
+            <i
+              class="bi bi-instagram bg-gray-200 mr-4 text-gray-400 text-md p-2 rounded-full"
+            ></i>
+            <i
+              class="bi bi-facebook bg-gray-200 mr-2 text-gray-600 text-md p-2 rounded-full"
+            ></i>
+          </div>
+        </div>
+        <div class="flex flex-col gap-y-4 capitalize">
+          <h2 class="text-gray-700 font-black">Shop</h2>
+          <li class="list-none text-gray-400">New Arrivals</li>
+          <li class="list-none text-gray-400">Best Sellers</li>
+          <li class="list-none text-gray-400">Trending</li>
+          <li class="list-none text-gray-400">Collections</li>
+        </div>
+        <div class="flex flex-col gap-y-4 capitalize">
+          <h2 class="text-gray-700 font-black">Support</h2>
+          <li class="list-none text-gray-400">help center</li>
+          <li class="list-none text-gray-400">returns & refunds</li>
+          <li class="list-none text-gray-400">Track Order</li>
+          <li class="list-none text-gray-400">Contact Us</li>
+        </div>
+        <div>
+          <h2 class="text-gray-700 font-black">Stay Connected</h2>
+          <p class="mt-2 text-gray-400 max-w-xs">
+            Subscribe to get special offers,free giveaways, and updates
+          </p>
+          <div class="mt-2 flex gap-x-2 items-center">
+            <input
+              class="my-2 border-1 border-gray-300 rounded-xl py-1 px-2 placeholder-gray-300 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition duration-300"
+              type="text"
+              placeholder="Enter your email"
+            />
+            <button
+              class="bg-gray-900 p-2 rounded-xl text-olive-50 font-bold capitalize text-sm"
+            >
+              subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <p class="text-center text-gray-500 text-sm py-4">
+          &copy; 2026 ShopKart. All rights reserved.
+        </p>
+        <ul class="flex gap-x-4">
+          <li class="mt-2 text-gray-500 text-sm py-4">Privacy policy</li>
+          <li class="mt-2 text-gray-500 text-sm py-4">Terms of use</li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

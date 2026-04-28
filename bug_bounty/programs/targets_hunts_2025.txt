@@ -164,6 +164,10 @@ BBP'S:
 14. https://loyalty.skechers.com/ , https://www.skechers.com/ , https://www.vr.fi/
 15. Sumo Logic Managed Bug Bounty Program
 16. Adidas
+17. Virtru
+18. Upstart Managed Bug Bounty Engagement
+19. Gainsight Aptrinsic
+
 
 ---------------------------------------------------------------------------------GENERAL PROGRAMS--------------------------------------------------------------
 

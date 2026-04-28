@@ -1,0 +1,659 @@
+/* Font */
+
+@import url("https://fonts.googleapis.com/css2?family=Inder&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Playwrite+NZ+Basic:wght@100..400&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inder&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Playwrite+NZ+Basic:wght@100..400&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Headline:wght@200..700&display=swap");
+/* global styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.active {
+  color: var(--clr-secondary);
+}
+
+/* variables */
+
+:root {
+  --clr-very-nav: #323953;
+  --mytrans: all 0.3s linear;
+  --clr-primary: #24116a;
+  --clr-secondary: #3284a9;
+}
+
+body {
+  font-family: "Inder", sans-serif;
+  overflow-x: hidden;
+}
+
+/* before navbar */
+.very-nav {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: rgb(50, 31, 110);
+  background-color: var(--clr-very-nav);
+  color: #d3d7d8;
+  align-items: center;
+  height: 2.7rem;
+  font-size: 14px;
+}
+
+.very-nav-icon {
+  width: 1rem;
+  height: 1rem;
+  overflow: hidden;
+  vertical-align: middle;
+  transform: scale(1);
+  transition: var(--mytrans);
+}
+
+.very-nav-p {
+  margin-right: 1.7rem;
+  margin-left: 0.2rem;
+}
+
+.very-nav div,
+svg,
+p {
+  display: inline-block;
+}
+
+.very-nav .icons {
+  margin-left: 1rem;
+}
+
+.very-nav .icons svg {
+  margin-left: 0.5rem;
+}
+
+.very-nav .icons svg:hover {
+  transform: scale(1.1);
+}
+
+.very-nav .right {
+  cursor: pointer;
+}
+
+.very-nav .right p:hover {
+  transform: scale(1.03);
+  transition: var(--mytrans);
+}
+
+/* Nav bar  */
+
+.nav {
+  display: flex;
+  justify-content: space-evenly;
+  color: #d3d7d8;
+  align-items: center;
+  height: 6rem;
+  color: #535458;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.nav-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  overflow: hidden;
+  vertical-align: middle;
+  transform: scale(1);
+  transition: var(--mytrans);
+  margin-left: 0.5rem;
+}
+
+.nav ul li {
+  list-style-type: none;
+  display: inline-block;
+  margin: auto 1.5rem;
+  font-size: 18px;
+}
+
+.nav ul li:hover {
+  transform: scale(1.1);
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+
+.nav ul {
+  display: inline-block;
+}
+
+.nav p {
+  margin: auto 1.3rem;
+}
+
+.nav .logo img {
+  width: 40%;
+  vertical-align: middle;
+  margin: 0;
+  transform: scale(1.1);
+}
+
+.nav .logo h2 {
+  margin-left: 0;
+  display: inline-block;
+  font-size: 35px;
+  font-weight: 900;
+  vertical-align: middle;
+  font-family: "Stack Sans Headline", sans-serif;
+  color: var(--clr-secondary);
+  letter-spacing: 1px;
+}
+
+.nav .logo h2 span {
+  color: var(--clr-primary);
+}
+
+.nav svg {
+  fill: #90939f;
+  transition: all 0.3s linear;
+}
+
+.nav svg:hover {
+  transform: scale(1.1);
+  fill: black;
+}
+
+/* BANNER DIV */
+
+.banner-main {
+  position: relative;
+}
+
+.banner-main .div1 {
+  background-image: radial-gradient(
+    circle at 80% 110%,
+    #3482a8 20%,
+    #24146c 40%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5rem;
+  padding-top: 4rem;
+  padding-left: 15rem;
+  padding-bottom: 5rem;
+}
+
+.div1 .img {
+  overflow: hidden;
+  height: 500px;
+  width: 50%;
+}
+
+.div1 .img img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.div1 .contents {
+  color: white;
+}
+
+.div1 .contents h1 {
+  font-size: 65px;
+  max-width: 700px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: "Stack Sans Headline", sans-serif;
+  letter-spacing: 3px;
+}
+.div1 .contents p {
+  font-size: 23px;
+  max-width: 700px;
+  display: block;
+  margin-top: 1.2rem;
+}
+
+.div1 .contents p span {
+  color: #ff9700;
+  font-weight: 900;
+}
+
+.div5 .head {
+  display: block;
+  margin: 3rem auto;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.div5 .head h2 {
+  font-family: "Stack Sans Headline", sans-serif;
+  font-family: 900;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.div5 .head p {
+  margin-top: 1.3rem;
+  max-width: 600px;
+  color: #7b7a7a;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.div5 .others {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 2rem;
+  height: 100%;
+  margin-left: 18rem;
+}
+
+.div5 img {
+  transform: scale(0.8);
+  align-self: flex-end;
+}
+
+.div5 .others .content {
+  align-self: flex-start;
+}
+.div5 .others .content ul {
+  list-style-type: none;
+  border-bottom: 1px solid rgb(210, 210, 210);
+  display: block;
+  width: 50%;
+}
+
+.div5 .others .content ul li {
+  display: inline-block;
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.div5 .others .content ul li:hover {
+  border-bottom: 1px solid black;
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+
+.div5 .others .sec {
+  padding-top: 2rem;
+}
+.div5 .others .content .q-a {
+  margin-top: 1rem;
+  margin-left: 0;
+}
+.div5 .others .content .q-a .ques {
+  position: relative;
+  color: #333333;
+  font-size: 1.3rem;
+  padding-bottom: 0.5rem;
+  margin-left: 0;
+  transition: all 0.3s ease;
+}
+
+.div5 .others .content .q-a .ques:hover::after {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  content: "";
+  display: inline-block;
+  height: 0.1rem;
+  width: 40%;
+  border-bottom: 1px solid rgb(210, 210, 210);
+}
+
+.div5 .others .content .q-a .ques::before {
+  display: inline-block;
+  content: ">";
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.div5 .others .content .q-a .ques:hover::before {
+  content: "⌵";
+}
+.div5 .others .content .q-a .ques:hover {
+  cursor: pointer;
+}
+
+.div5 .others .content .q-a .ques:hover ~ .ans {
+  max-height: 100%;
+}
+
+.div5 .others .content .q-a .ans {
+  transition: all 0.3s ease;
+
+  max-height: 0rem;
+  overflow: hidden;
+  color: grey;
+  margin: 1rem;
+  margin-left: 0;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+}
+
+.contact {
+  background-color: #f8f7fd;
+  padding-top: 0.5rem;
+  padding: 3rem;
+}
+
+.contact .head {
+  display: block;
+  margin: 3rem auto;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.contact .head h2 {
+  font-family: "Stack Sans Headline", sans-serif;
+  font-family: 900;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.contact .head p {
+  margin-top: 1.3rem;
+  max-width: 600px;
+  color: #7b7a7a;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+.contact .form {
+  margin: 1rem auto;
+  width: 800px;
+  margin-bottom: 2rem;
+}
+
+.contact .form input {
+  border: 1px solid rgb(205, 204, 204) !important;
+  margin-bottom: 2rem;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 1rem 1rem;
+  display: block;
+}
+.contact .form input:nth-child(1) {
+  width: 48%;
+  float: left;
+  margin-right: 2rem;
+}
+
+.contact .form input:nth-child(2) {
+  width: 48%;
+}
+
+.contact .form input::placeholder {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.contact .form textarea::placeholder {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.contact .form textarea {
+  resize: none;
+  padding: 1rem 1rem;
+  height: 150px;
+  border: 1px solid rgb(205, 204, 204) !important;
+  outline: none;
+  border: none;
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.contact .form button {
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: white;
+  background-color: #1d1465;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  margin: 1rem auto;
+  display: block;
+  transition: all 0.2s linear;
+}
+
+.contact .form button:hover {
+  background-color: #261a86;
+}
+
+.very-footer {
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4rem;
+  position: relative;
+}
+
+.very-footer img:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.footer {
+  background-color: #1d1465;
+  padding: 4rem 23rem;
+  padding-bottom: 0;
+}
+
+.footer .row1,
+.footer .row2,
+.footer .row3,
+.footer .row4 {
+  text-align: left;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  column-gap: 5.5rem;
+  color: white;
+  font-weight: 550;
+}
+
+.footer li:hover {
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+.footer li,
+.footer p {
+  color: #c5c4ca;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+  margin: 0.5rem;
+  max-width: 680px;
+  line-height: 1.6rem;
+}
+
+.footer .row1 p {
+  font-size: 1.3rem;
+  color: white;
+}
+
+.footer .icon {
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  vertical-align: middle;
+  transform: scale(1);
+  transition: var(--mytrans);
+}
+
+.footer hr {
+  margin: 3rem;
+  width: 100%;
+  border: none;
+  border-top: 1px solid #3827a9;
+  margin: 3rem auto;
+}
+
+.footer .last {
+  margin-bottom: 1rem;
+}
+
+.footer .row2 .content h1,
+.footer .row3 h1 {
+  font-family: "Stack Sans Headline", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.footer .row2 .content span {
+  display: inline-block;
+}
+.footer .row2 .content span:nth-child(2) {
+  margin-left: 5rem;
+}
+.footer .row2 .content {
+  max-width: 550px;
+}
+
+.footer .row2 .content p {
+  text-transform: capitalize;
+  max-width: 300px;
+  display: block;
+}
+
+.footer .row2 .content input {
+  outline: none;
+  border: none;
+  background-color: #fff;
+  padding: 0.7rem 1rem;
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.footer .row2 .content button {
+  border: none;
+  outline: none;
+  background-color: #43e8e1;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  transition: all 0.2s linear;
+}
+
+.footer .row2 .content button:hover {
+  background-color: #1d1465;
+  color: white;
+  border: 1px solid white;
+}
+
+.footer .row2 .content ul,
+.footer .row2 .content p {
+  margin-top: 3rem;
+}
+.footer .row2 .content ul li {
+  list-style-type: none;
+  max-width: 600px;
+}
+
+.footer .footer-icon {
+  background-color: none;
+  border: 1px solid #43e8e1;
+  border-radius: 50%;
+  padding: 0.6rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  overflow: hidden;
+  vertical-align: middle;
+  transform: scale(1);
+  transition: var(--mytrans);
+  margin-left: 0.5rem;
+  transition: all 0.3s linear;
+}
+
+.footer .row3 svg {
+  fill: #43e8e1;
+}
+
+.footer .row3 .footer-icon:hover {
+  background-color: #43e8e1;
+  fill: #1d1465 !important; /* Keep this for the center dot */
+}
+
+.footer .icons {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.footer .row3 .logo h2 {
+  color: #3484a9;
+  font-size: 2.4rem;
+  font-family: "Stack Sans Headline", sans-serif;
+}
+
+.footer .row3 .logo h2::before {
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  display: inline-block;
+  height: 6rem;
+  width: 6rem;
+  background-image: url("/images/logo.png");
+}
+
+.footer .row3 .logo h2 span {
+  margin-right: 0.1rem;
+  color: white;
+}
+
+.row3 div {
+  align-self: center;
+}
+
+.row4 {
+  padding-bottom: 1rem;
+  padding-top: 0;
+}
+
+.footer h1::after {
+  width: 8rem;
+  height: 0.1rem;
+  background-color: #3727ab;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 150%;
+}
+
+.footer h1::before {
+  width: 3.5rem;
+  height: 0.1rem;
+  background-color: #ffffff;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 150%;
+  z-index: 2;
+}
+
+.footer .row4 .copyright p {
+  font-size: 1rem;
+}

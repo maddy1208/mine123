@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Technical Support",
+    "description": "Software, hardware, and network issues"
+  },
+  {
+    "id": 2,
+    "name": "Management Support",
+    "description": "management and organization"
+  },
+  {
+    "id": 3,
+    "name": "Admin Support",
+    "description": "admin activities"
+  },
+  {
+    "id": 4,
+    "name": "Others",
+    "description": "other issues"
+  }
+]

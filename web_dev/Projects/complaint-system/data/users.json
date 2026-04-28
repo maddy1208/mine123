@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "password": "$2y$10$examplehash...",
+        "role": "user",
+        "created_at": "2026-03-20 10:00:00"
+    },
+    {
+        "id": 2,
+        "name": "rahul",
+        "email": "rahul@gmail.com",
+        "password": "$2y$10$HoAv0RkJGKWdU83jFoFeI.fPsZVcJKSoqOKCNcW7w2zx6btD2UVmi",
+        "role": "user",
+        "created_at": "2026-04-08 07:14:37"
+    }
+]

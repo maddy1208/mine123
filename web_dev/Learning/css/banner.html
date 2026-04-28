@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        .banner{
+            width: 100vw;
+            height: 50%;
+             position: relative;
+            background-color: black;
+            overflow: hidden;
+        }
+
+      .banner-img-container{
+        height: 100%;
+        width: 100%;
+      
+
+
+      }
+
+      .banner img{
+       
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        z-index: 1;
+        opacity: 0.4;
+        transition: 0.5s;
+      }
+
+      .banner-content{
+        display: flex;
+        flex-flow: column;
+        gap:10px;
+        justify-content: center;
+        align-items: center;
+     color: white;
+     
+
+     height: 100%;
+     width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      }
+        
+      .banner-content button{
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: rgb(106, 106, 255);
+        color: black;
+        font-weight: 600;
+      }
+
+      .banner:hover img{
+        transform: scale(1.1);
+      }
+button{
+    transition: 0.3s;
+}
+      button:hover{
+        transform: translateY(-5px)
+      }
+    </style>
+
+ 
+    <div class="banner">
+      <div class="banner-img-container">
+        <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891" alt="image"/>
+      </div>
+      <div class="banner-content">
+        <h2>Meet the Histoy Makers!</h2>
+        <p>Wanna know how really this works? let's see</p>
+        <button>Get Started</button>
+      </div>
+    </div>
+ 
+</html>
+</body>
+</html>

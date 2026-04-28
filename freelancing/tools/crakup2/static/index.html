@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FreelanceAI — Web Dev Client Tool</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07111f;--bg2:#0b1a2e;--bg3:#0f2040;--card:#102236;--card2:#152d4a;
+  --border:#1d3a5c;--b2:#2a5080;
+  --blue:#1e9fff;--teal:#00e5c8;--green:#00d68f;--red:#ff4757;
+  --amber:#ffb347;--purple:#9c6fff;
+  --text:#ddeeff;--soft:#7aa8cc;--muted:#3d6080;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;overflow:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
+
+/* SIDEBAR */
+.sb{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:10}
+.sb-brand{padding:20px 16px 14px;border-bottom:1px solid var(--border)}
+.sb-logo{font-size:18px;font-weight:800;color:var(--blue);letter-spacing:-.3px}
+.sb-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.sb-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--amber);margin-right:5px;animation:pulse 2s infinite}
+.sb-dot.on{background:var(--green);animation:none}
+.sb-dot.off{background:var(--red);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.nav{padding:10px 8px;flex:1}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500;transition:all .12s;margin-bottom:1px;border:1px solid transparent}
+.nav-item:hover{background:var(--bg3);color:var(--soft)}
+.nav-item.active{background:var(--bg3);color:var(--blue);border-color:var(--border)}
+.nav-item .ic{font-size:15px;width:18px;text-align:center}
+.sb-foot{padding:12px;border-top:1px solid var(--border)}
+.profile-name{font-size:12px;color:var(--soft);margin-bottom:6px;font-weight:500}
+.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;transition:width .4s}
+.sb-btn{width:100%;margin-top:8px;padding:7px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;transition:all .12s}
+.sb-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* MAIN */
+.main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.page{display:none;height:100%;overflow-y:auto;padding:24px 28px}
+.page.active{display:block}
+.ph{margin-bottom:20px}.pt{font-size:22px;font-weight:700;display:flex;align-items:center;gap:8px}.ps{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px}
+.card.blue{border-color:rgba(30,159,255,.3)}
+.card.teal{border-color:rgba(0,229,200,.3)}
+.card.green{border-color:rgba(0,214,143,.3)}
+
+/* INPUTS */
+input,textarea,select{background:var(--bg3);border:1px solid var(--border);border-radius:9px;color:var(--text);font-family:inherit;font-size:13px;padding:9px 13px;outline:none;transition:border-color .12s;width:100%}
+input:focus,textarea:focus,select:focus{border-color:var(--blue)}
+textarea{resize:vertical}select{cursor:pointer}
+::placeholder{color:var(--muted)}
+.lbl{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:9px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid;transition:all .12s;white-space:nowrap}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-blue{background:rgba(30,159,255,.1);border-color:var(--blue);color:var(--blue)}
+.btn-blue:hover:not(:disabled){background:rgba(30,159,255,.2);box-shadow:0 0 14px rgba(30,159,255,.2)}
+.btn-teal{background:rgba(0,229,200,.08);border-color:var(--teal);color:var(--teal)}
+.btn-teal:hover:not(:disabled){background:rgba(0,229,200,.15)}
+.btn-green{background:rgba(0,214,143,.08);border-color:var(--green);color:var(--green)}
+.btn-green:hover:not(:disabled){background:rgba(0,214,143,.15)}
+.btn-red{background:rgba(255,71,87,.08);border-color:var(--red);color:var(--red)}
+.btn-red:hover:not(:disabled){background:rgba(255,71,87,.15)}
+.btn-amber{background:rgba(255,179,71,.08);border-color:var(--amber);color:var(--amber)}
+.btn-amber:hover:not(:disabled){background:rgba(255,179,71,.15)}
+.btn-ghost{background:transparent;border-color:var(--border);color:var(--muted)}
+.btn-ghost:hover:not(:disabled){border-color:var(--soft);color:var(--soft)}
+.btn-purple{background:rgba(156,111,255,.1);border-color:var(--purple);color:var(--purple)}
+.btn-purple:hover:not(:disabled){background:rgba(156,111,255,.2)}
+
+/* ROW/GRID */
+.row{display:flex;gap:10px;align-items:flex-start}
+.row.center{align-items:center}
+.col{flex:1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gap{gap:10px}
+.mt{margin-top:10px}.mt2{margin-top:16px}.mt3{margin-top:20px}
+.sec{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;margin-top:18px}
+.sec:first-child{margin-top:0}
+.divider{height:1px;background:var(--border);margin:14px 0}
+
+/* AI OUTPUT */
+.out{background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:16px;font-size:13px;line-height:1.75;color:var(--soft);min-height:80px;max-height:420px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+.out.active{border-color:var(--teal)}
+.out .placeholder{color:var(--muted);font-style:italic}
+.cursor{display:inline-block;width:8px;height:13px;background:var(--teal);animation:blink .6s infinite;vertical-align:text-bottom;margin-left:2px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* SCORE RING */
+.ring-wrap{position:relative;width:72px;height:72px;flex-shrink:0}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-val{font-size:19px;font-weight:800}
+.ring-lbl{font-size:9px;color:var(--muted)}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge.green{background:rgba(0,214,143,.1);color:var(--green);border:1px solid rgba(0,214,143,.3)}
+.badge.yellow{background:rgba(255,179,71,.1);color:var(--amber);border:1px solid rgba(255,179,71,.3)}
+.badge.red{background:rgba(255,71,87,.1);color:var(--red);border:1px solid rgba(255,71,87,.3)}
+
+/* RESULT CARD */
+.result{margin-top:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;animation:fadeup .25s ease}
+.result-top{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--card2);border-bottom:1px solid var(--border)}
+.result-body{padding:14px 18px}
+.info-row{display:flex;gap:10px;background:var(--bg3);border-radius:7px;padding:8px 12px;margin-bottom:5px;font-size:12px}
+.info-lbl{color:var(--muted);min-width:100px;font-weight:600}
+.info-val{color:var(--text);line-height:1.5}
+.result-actions{display:flex;gap:7px;padding:0 18px 16px;flex-wrap:wrap}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{color:var(--muted);font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+td{padding:9px 10px;border-bottom:1px solid rgba(29,58,92,.4);color:var(--soft)}
+tr:hover td{background:rgba(15,32,64,.5)}
+.tbl-wrap{overflow-x:auto}
+
+/* STATS */
+.stats{display:flex;gap:8px;margin-bottom:16px}
+.stat{flex:1;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 14px;text-align:center}
+.stat-val{font-size:24px;font-weight:800}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:1px}
+
+/* ONBOARDING */
+#ob-overlay{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:200}
+.ob-card{background:var(--card);border:1px solid var(--b2);border-radius:20px;padding:40px;width:480px;max-width:95vw;box-shadow:0 0 50px rgba(30,159,255,.1);animation:fadeup .3s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.ob-prog{height:3px;background:var(--border);border-radius:2px;margin-bottom:20px;overflow:hidden}
+.ob-prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;transition:width .35s}
+.ob-step{font-size:11px;color:var(--muted);margin-bottom:12px}
+.ob-q{font-size:16px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:18px}
+.ob-opts{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow-y:auto;margin-bottom:18px}
+.ob-opt{padding:10px 14px;border-radius:9px;border:1px solid var(--border);cursor:pointer;font-size:13px;color:var(--soft);transition:all .12s}
+.ob-opt:hover{border-color:var(--blue);color:var(--blue);background:rgba(30,159,255,.05)}
+.ob-opt.sel{border-color:var(--blue);color:var(--blue);background:rgba(30,159,255,.08)}
+.ob-nav{display:flex;justify-content:space-between;align-items:center}
+.ob-txt{margin-bottom:18px}
+
+/* BULK TABLE */
+.bulk-row{display:flex;gap:8px;align-items:center;padding:8px;background:var(--bg3);border-radius:8px;margin-bottom:6px}
+.bulk-row input{flex:1}
+
+/* OBJECTION GRID */
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.obj-opt{padding:10px 13px;border-radius:9px;border:1px solid var(--border);color:var(--muted);font-size:12px;cursor:pointer;transition:all .12s}
+.obj-opt:hover,.obj-opt.active{border-color:var(--purple);color:var(--purple);background:rgba(156,111,255,.07)}
+
+/* PLATFORM TABS */
+.ptabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.ptab{padding:5px 12px;border-radius:7px;border:1px solid var(--border);color:var(--muted);font-size:12px;cursor:pointer;transition:all .12s}
+.ptab.active{border-color:var(--blue);color:var(--blue);background:rgba(30,159,255,.07)}
+
+/* COPY BTN */
+.copy-btn{padding:5px 11px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;transition:all .12s}
+.copy-btn:hover{border-color:var(--teal);color:var(--teal)}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card2);border:1px solid var(--b2);border-radius:10px;padding:10px 16px;font-size:13px;z-index:999;animation:fadeup .2s ease;max-width:280px}
+.toast.ok{border-color:var(--green)}.toast.err{border-color:var(--red)}
+
+.spin{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:sp .5s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- ONBOARDING OVERLAY -->
+<div id="ob-overlay" style="display:none">
+  <div class="ob-card" id="ob-card"></div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="sb-brand">
+    <div class="sb-logo">⚡ FreelanceAI</div>
+    <div class="sb-sub">
+      <span class="sb-dot" id="ai-dot"></span>
+      <span id="ai-txt">Checking Ollama...</span>
+    </div>
+  </div>
+  <nav class="nav" id="nav">
+    <div class="nav-item active" data-page="prospect"><span class="ic">🎯</span>Prospect Finder</div>
+    <div class="nav-item" data-page="audit"><span class="ic">🔍</span>Website Auditor</div>
+    <div class="nav-item" data-page="email"><span class="ic">📧</span>Email Writer</div>
+    <div class="nav-item" data-page="bulk"><span class="ic">📨</span>Bulk DM/Email</div>
+    <div class="nav-item" data-page="negotiate"><span class="ic">🧠</span>Negotiation AI</div>
+    <div class="nav-item" data-page="tracker"><span class="ic">📋</span>Prospect Tracker</div>
+    <div class="nav-item" data-page="icp"><span class="ic">🎯</span>My ICP</div>
+    <div class="nav-item" data-page="settings"><span class="ic">⚙️</span>Settings</div>
+  </nav>
+  <div class="sb-foot">
+    <div class="profile-name" id="sb-name">Not set up yet</div>
+    <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+    <button class="sb-btn" id="redo-ob">↺ Redo Setup</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- PROSPECT FINDER -->
+<div class="page active" id="page-prospect">
+  <div class="ph"><div class="pt">🎯 Prospect Finder</div><div class="ps">Paste a prospect's bio/profile → get instant score + pain point</div></div>
+  <div class="card">
+    <div class="sec">Platform</div>
+    <div class="ptabs" id="ptabs">
+      <div class="ptab active" data-p="Instagram">Instagram</div>
+      <div class="ptab" data-p="LinkedIn">LinkedIn</div>
+      <div class="ptab" data-p="X / Twitter">X / Twitter</div>
+      <div class="ptab" data-p="Facebook">Facebook</div>
+      <div class="ptab" data-p="Website">Website</div>
+      <div class="ptab" data-p="WhatsApp">WhatsApp</div>
+      <div class="ptab" data-p="Other">Other</div>
+    </div>
+    <div class="row mt" style="gap:10px">
+      <div class="col"><div class="lbl">Prospect Name</div><input id="p-name" placeholder="e.g. Chennai Bites Restaurant"></div>
+    </div>
+    <div class="mt"><div class="lbl">Paste their bio / about / posts / anything you found</div>
+    <textarea id="p-bio" rows="7" placeholder="Paste as much as possible for better accuracy...&#10;&#10;Examples:&#10;• Instagram bio&#10;• LinkedIn about section&#10;• Their website's about page&#10;• Any text describing their business"></textarea></div>
+    <div class="mt2"><button class="btn btn-blue" id="score-btn">🔍 Score Prospect</button></div>
+  </div>
+  <div id="prospect-result"></div>
+</div>
+
+<!-- WEBSITE AUDITOR -->
+<div class="page" id="page-audit">
+  <div class="ph"><div class="pt">🔍 Website Auditor</div><div class="ps">Paste any URL — get a brutal audit + your pitch angle</div></div>
+  <div class="card">
+    <div class="lbl">Website URL</div>
+    <div class="row mt center gap">
+      <input id="audit-url" placeholder="https://example.com or just paste the URL">
+      <button class="btn btn-blue" id="audit-btn" style="white-space:nowrap">🔍 Audit Site</button>
+    </div>
+  </div>
+  <div class="card mt2">
+    <div class="row center" style="margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:var(--soft)">Audit Result</span>
+      <div style="flex:1"></div>
+      <button class="copy-btn" id="audit-copy">📋 Copy</button>
+    </div>
+    <div class="out" id="audit-out"><span class="placeholder">Enter a URL and click Audit Site →</span></div>
+  </div>
+</div>
+
+<!-- EMAIL WRITER -->
+<div class="page" id="page-email">
+  <div class="ph"><div class="pt">📧 Email / DM Writer</div><div class="ps">AI writes personalized outreach based on their pain point</div></div>
+  <div class="card">
+    <div class="grid2">
+      <div><div class="lbl">Prospect Name</div><input id="e-name" placeholder="e.g. Raj Kumar"></div>
+      <div><div class="lbl">Platform</div><input id="e-platform" placeholder="e.g. Instagram, LinkedIn"></div>
+    </div>
+    <div class="mt"><div class="lbl">Their Pain Point</div><input id="e-pain" placeholder="e.g. no website, slow site, not getting leads online"></div>
+    <div class="grid2 mt">
+      <div><div class="lbl">Message Style</div>
+        <select id="e-style">
+          <option>Instagram DM</option>
+          <option>LinkedIn Message</option>
+          <option>Cold Email</option>
+          <option>WhatsApp Message</option>
+          <option>Twitter/X DM</option>
+        </select>
+      </div>
+      <div><div class="lbl">Your Price (optional)</div><input id="e-price" placeholder="e.g. ₹15,000 one-time"></div>
+    </div>
+    <div class="mt"><div class="lbl">Their Bio / Info (optional, for personalization)</div>
+    <textarea id="e-bio" rows="3" placeholder="Paste their bio for a more personalized message..."></textarea></div>
+    <div class="mt2 row gap">
+      <button class="btn btn-teal" id="email-btn">✍️ Write Message</button>
+      <button class="btn btn-ghost" id="email-regen">🔄 Regenerate</button>
+    </div>
+  </div>
+  <div class="card mt2">
+    <div class="row center" style="margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:var(--soft)">Your Message</span>
+      <div style="flex:1"></div>
+      <button class="copy-btn" id="email-copy">📋 Copy</button>
+    </div>
+    <div class="out" id="email-out"><span class="placeholder">Fill in the details above and click Write Message →</span></div>
+  </div>
+</div>
+
+<!-- BULK DM -->
+<div class="page" id="page-bulk">
+  <div class="ph"><div class="pt">📨 Bulk DM / Email Writer</div><div class="ps">Add multiple prospects — AI writes personalized messages for all of them at once</div></div>
+  <div class="card">
+    <div class="row center" style="margin-bottom:12px">
+      <span style="font-size:13px;font-weight:600;color:var(--soft)">Prospects List</span>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost" id="bulk-add" style="font-size:12px;padding:6px 12px">+ Add Prospect</button>
+    </div>
+    <div id="bulk-list"></div>
+    <div class="mt row gap">
+      <div class="col"><div class="lbl">Message Style</div>
+        <select id="bulk-style">
+          <option>Instagram DM</option>
+          <option>LinkedIn Message</option>
+          <option>Cold Email</option>
+          <option>WhatsApp Message</option>
+        </select>
+      </div>
+    </div>
+    <div class="mt2"><button class="btn btn-purple" id="bulk-btn">🤖 Generate All Messages</button></div>
+  </div>
+  <div id="bulk-results"></div>
+</div>
+
+<!-- NEGOTIATE -->
+<div class="page" id="page-negotiate">
+  <div class="ph"><div class="pt">🧠 Negotiation AI</div><div class="ps">Handle any objection — get word-for-word scripts</div></div>
+  <div class="card">
+    <div class="sec" style="margin-top:0">Select Objection</div>
+    <div class="obj-grid">
+      <div class="obj-opt active" data-obj="I can't afford it right now">💸 Can't afford it</div>
+      <div class="obj-opt" data-obj="Can you make it cheaper?">📉 Make it cheaper</div>
+      <div class="obj-opt" data-obj="I need to think about it">🤔 Need to think</div>
+      <div class="obj-opt" data-obj="I already have a developer">👤 Have a developer</div>
+      <div class="obj-opt" data-obj="What results can you guarantee?">📊 Guarantee results?</div>
+      <div class="obj-opt" data-obj="I'll just use Wix or do it myself">🔨 Will use Wix / DIY</div>
+      <div class="obj-opt" data-obj="Send me your portfolio first">📁 Portfolio first</div>
+      <div class="obj-opt custom" data-obj="custom">✏️ Custom...</div>
+    </div>
+    <input id="custom-obj" placeholder="Type your custom objection..." style="display:none;margin-bottom:10px">
+    <div class="lbl">Your Offer Context (optional)</div>
+    <input id="neg-ctx" placeholder="e.g. ₹20,000 for a 5-page website with 1 month support">
+    <div class="mt2"><button class="btn btn-purple" id="neg-btn">🧠 Get Script</button></div>
+  </div>
+  <div class="card mt2">
+    <div class="row center" style="margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:var(--soft)">Negotiation Script</span>
+      <div style="flex:1"></div>
+      <button class="copy-btn" id="neg-copy">📋 Copy</button>
+    </div>
+    <div class="out" id="neg-out"><span class="placeholder">Select an objection and click Get Script →</span></div>
+  </div>
+</div>
+
+<!-- TRACKER -->
+<div class="page" id="page-tracker">
+  <div class="ph"><div class="pt">📋 Prospect Tracker</div><div class="ps">All your scored prospects in one place</div></div>
+  <div id="tracker-content"></div>
+</div>
+
+<!-- ICP -->
+<div class="page" id="page-icp">
+  <div class="ph"><div class="pt">🎯 My Ideal Client Profile</div><div class="ps">AI-generated profile of your perfect client based on your onboarding</div></div>
+  <div class="card" style="margin-bottom:12px">
+    <button class="btn btn-teal" id="icp-btn">✨ Generate My ICP</button>
+    <span style="font-size:11px;color:var(--muted);margin-left:10px">Takes ~30 seconds with Ollama</span>
+  </div>
+  <div class="card">
+    <div class="row center" style="margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:var(--soft)">Your ICP</span>
+      <div style="flex:1"></div>
+      <button class="copy-btn" id="icp-copy">📋 Copy</button>
+    </div>
+    <div class="out" id="icp-out"><span class="placeholder">Click Generate to build your Ideal Client Profile →</span></div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="ph"><div class="pt">⚙️ Settings</div><div class="ps">Ollama setup and profile management</div></div>
+  <div class="card blue" style="max-width:520px;margin-bottom:12px">
+    <div class="sec" style="margin-top:0">🟢 Ollama Status</div>
+    <div id="ollama-status" style="font-size:13px;color:var(--muted);margin-bottom:12px">Checking...</div>
+    <button class="btn btn-blue" id="check-ollama">🔄 Check Again</button>
+  </div>
+  <div class="card" style="max-width:520px;margin-bottom:12px">
+    <div class="sec" style="margin-top:0">📦 Setup Commands</div>
+    <div style="background:var(--bg);border-radius:8px;padding:12px;font-family:monospace;font-size:12px;color:var(--teal);line-height:2">
+      curl -fsSL https://ollama.com/install.sh | sh<br>
+      ollama serve<br>
+      ollama pull llama3
+    </div>
+  </div>
+  <div class="card" style="max-width:520px">
+    <div class="sec" style="margin-top:0">⚡ AI Model</div>
+    <div class="lbl">Model name (default: llama3)</div>
+    <div class="row gap mt">
+      <input id="model-input" placeholder="llama3" style="flex:1">
+      <button class="btn btn-ghost" id="save-model">Save</button>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px">Other options: llama3.2, mistral, gemma2</div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── STATE ────────────────────────────────────────────────────────────────────
+let activePlatform = 'Instagram';
+let activeObj = "I can't afford it right now";
+let obAnswers = {};
+let obStep = 0;
+let obQuestions = [];
+let currentProspect = null;
+let bulkRows = [];
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  wireNav();
+  wirePlatformTabs();
+  wireObjOptions();
+  wireButtons();
+  checkStatus();
+  addBulkRow();
+  addBulkRow();
+  addBulkRow();
+});
+
+// ── NAV ──────────────────────────────────────────────────────────────────────
+function wireNav() {
+  document.querySelectorAll('.nav-item').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var page = el.dataset.page;
+      document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+      document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+      el.classList.add('active');
+      document.getElementById('page-' + page).classList.add('active');
+      if (page === 'tracker') loadTracker();
+      if (page === 'settings') checkOllamaStatus();
+    });
+  });
+  document.getElementById('redo-ob').addEventListener('click', startOnboarding);
+}
+
+function wirePlatformTabs() {
+  document.querySelectorAll('.ptab').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.ptab').forEach(function(t){ t.classList.remove('active'); });
+      el.classList.add('active');
+      activePlatform = el.dataset.p;
+    });
+  });
+}
+
+function wireObjOptions() {
+  document.querySelectorAll('.obj-opt').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.obj-opt').forEach(function(o){ o.classList.remove('active'); });
+      el.classList.add('active');
+      activeObj = el.dataset.obj;
+      var ci = document.getElementById('custom-obj');
+      ci.style.display = activeObj === 'custom' ? 'block' : 'none';
+    });
+  });
+}
+
+function wireButtons() {
+  document.getElementById('score-btn').addEventListener('click', scoreProspect);
+  document.getElementById('audit-btn').addEventListener('click', runAudit);
+  document.getElementById('audit-copy').addEventListener('click', function(){ copyOut('audit-out'); });
+  document.getElementById('email-btn').addEventListener('click', writeEmail);
+  document.getElementById('email-regen').addEventListener('click', writeEmail);
+  document.getElementById('email-copy').addEventListener('click', function(){ copyOut('email-out'); });
+  document.getElementById('bulk-btn').addEventListener('click', runBulk);
+  document.getElementById('bulk-add').addEventListener('click', addBulkRow);
+  document.getElementById('neg-btn').addEventListener('click', runNegotiate);
+  document.getElementById('neg-copy').addEventListener('click', function(){ copyOut('neg-out'); });
+  document.getElementById('icp-btn').addEventListener('click', genICP);
+  document.getElementById('icp-copy').addEventListener('click', function(){ copyOut('icp-out'); });
+  document.getElementById('check-ollama').addEventListener('click', checkOllamaStatus);
+  document.getElementById('save-model').addEventListener('click', saveModel);
+}
+
+// ── STATUS ───────────────────────────────────────────────────────────────────
+function checkStatus() {
+  fetch('/api/status').then(function(r){ return r.json(); }).then(function(d) {
+    var dot = document.getElementById('ai-dot');
+    var txt = document.getElementById('ai-txt');
+    if (d.ollama) {
+      dot.className = 'sb-dot on';
+      txt.textContent = 'Ollama: Ready';
+    } else {
+      dot.className = 'sb-dot off';
+      txt.textContent = 'Ollama: Offline';
+    }
+    if (d.name) {
+      document.getElementById('sb-name').textContent = d.name;
+    }
+    var keys = Object.keys(d.profile || {}).length;
+    document.getElementById('prog').style.width = Math.min(100, keys * 7) + '%';
+
+    if (!d.onboarded) {
+      startOnboarding();
+    }
+  }).catch(function() {
+    document.getElementById('ai-txt').textContent = 'Server offline';
+  });
+}
+
+function checkOllamaStatus() {
+  var box = document.getElementById('ollama-status');
+  box.textContent = 'Checking...';
+  fetch('/api/status').then(function(r){ return r.json(); }).then(function(d) {
+    if (d.ollama) {
+      box.innerHTML = '<span style="color:var(--green)">✅ Ollama is online and ready!</span>';
+    } else {
+      box.innerHTML = '<span style="color:var(--red)">❌ Ollama is offline.</span> Run <code style="color:var(--teal)">ollama serve</code> in terminal.';
+    }
+  });
+}
+
+function saveModel() {
+  var m = document.getElementById('model-input').value.trim();
+  if (!m) return;
+  fetch('/api/profile/save', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({_model: m})
+  }).then(function(){ toast('Model saved! Restart server to apply.', 'ok'); });
+}
+
+// ── ONBOARDING ────────────────────────────────────────────────────────────────
+function startOnboarding() {
+  obAnswers = {}; obStep = 0;
+  fetch('/api/questions').then(function(r){ return r.json(); }).then(function(qs) {
+    obQuestions = qs;
+    showObOverlay();
+    renderObStep();
+  });
+}
+
+function showObOverlay() {
+  document.getElementById('ob-overlay').style.display = 'flex';
+}
+
+function hideObOverlay() {
+  document.getElementById('ob-overlay').style.display = 'none';
+}
+
+function renderObStep() {
+  if (obStep >= obQuestions.length) {
+    finishOnboarding();
+    return;
+  }
+  var q = obQuestions[obStep];
+  var pct = ((obStep + 1) / obQuestions.length * 100).toFixed(0);
+  var isFirst = obStep === 0;
+  var isLast  = obStep === obQuestions.length - 1;
+
+  var inputHTML = '';
+  if (q.type === 'text') {
+    inputHTML = '<div class="ob-txt"><input type="text" id="ob-inp" placeholder="' + (q.placeholder||'') + '" style="font-size:14px;padding:11px 14px"></div>';
+  } else {
+    inputHTML = '<div class="ob-opts">' +
+      (q.opts || []).map(function(o) {
+        var sel = obAnswers[q.key] === o ? ' sel' : '';
+        return '<div class="ob-opt' + sel + '" data-val="' + o + '">' + o + '</div>';
+      }).join('') +
+      '</div>';
+  }
+
+  document.getElementById('ob-card').innerHTML =
+    '<div class="ob-prog"><div class="ob-prog-fill" style="width:' + pct + '%"></div></div>' +
+    '<div class="ob-step">Step ' + (obStep+1) + ' of ' + obQuestions.length + '</div>' +
+    '<div class="ob-q">' + q.q + '</div>' +
+    inputHTML +
+    '<div class="ob-nav">' +
+    (isFirst ? '<div></div>' : '<button class="btn btn-ghost" id="ob-back">← Back</button>') +
+    '<button class="btn btn-blue" id="ob-next">' + (isLast ? '✅ Finish' : 'Next →') + '</button>' +
+    '</div>';
+
+  // Wire option clicks
+  document.querySelectorAll('.ob-opt').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.ob-opt').forEach(function(o){ o.classList.remove('sel'); });
+      el.classList.add('sel');
+      obAnswers[q.key] = el.dataset.val;
+    });
+  });
+
+  var nextBtn = document.getElementById('ob-next');
+  if (nextBtn) nextBtn.addEventListener('click', function() {
+    if (q.type === 'text') {
+      var v = document.getElementById('ob-inp');
+      obAnswers[q.key] = v ? v.value.trim() || 'Not specified' : 'Not specified';
+    } else if (!obAnswers[q.key] && q.opts) {
+      obAnswers[q.key] = q.opts[0];
+    }
+    obStep++;
+    renderObStep();
+  });
+
+  var backBtn = document.getElementById('ob-back');
+  if (backBtn) backBtn.addEventListener('click', function() {
+    obStep = Math.max(0, obStep - 1);
+    renderObStep();
+  });
+
+  var inp = document.getElementById('ob-inp');
+  if (inp && obAnswers[q.key]) inp.value = obAnswers[q.key];
+}
+
+function finishOnboarding() {
+  document.getElementById('ob-card').innerHTML =
+    '<div style="text-align:center">' +
+    '<div style="font-size:48px;margin-bottom:12px">✅</div>' +
+    '<div style="font-size:20px;font-weight:700;color:var(--blue);margin-bottom:8px">Profile Complete!</div>' +
+    '<div style="color:var(--muted);font-size:13px">Saving your answers...</div>' +
+    '</div>';
+
+  fetch('/api/profile/save', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(obAnswers)
+  }).then(function() {
+    document.getElementById('sb-name').textContent = obAnswers.name || 'You';
+    document.getElementById('prog').style.width = '100%';
+    setTimeout(hideObOverlay, 1500);
+    toast('Profile saved! You\'re ready to go 🚀', 'ok');
+  });
+}
+
+// ── PROSPECT SCORING ──────────────────────────────────────────────────────────
+function scoreProspect() {
+  var name = document.getElementById('p-name').value.trim() || 'Unknown';
+  var bio  = document.getElementById('p-bio').value.trim();
+  if (!bio) { toast('Paste some bio/profile text first!', 'err'); return; }
+
+  var btn = document.getElementById('score-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spin"></div> Scoring...';
+
+  fetch('/api/prospect/score', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({name: name, bio: bio})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    btn.disabled = false;
+    btn.innerHTML = '🔍 Score Prospect';
+    currentProspect = {name: name, platform: activePlatform, bio: bio, ...d};
+    renderProspectResult(d, name);
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.innerHTML = '🔍 Score Prospect';
+    toast('Error scoring prospect', 'err');
+  });
+}
+
+function renderProspectResult(d, name) {
+  var col = d.signal === 'GREEN' ? 'var(--green)' : d.signal === 'YELLOW' ? 'var(--amber)' : 'var(--red)';
+  var badgeClass = d.signal === 'GREEN' ? 'green' : d.signal === 'YELLOW' ? 'yellow' : 'red';
+  var r = 28; var circ = 2 * Math.PI * r;
+  var fill = (d.score / 100) * circ;
+
+  document.getElementById('prospect-result').innerHTML =
+    '<div class="result">' +
+    '<div class="result-top">' +
+    '<div class="ring-wrap">' +
+    '<svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="' + r + '" fill="none" stroke="var(--border)" stroke-width="6"/>' +
+    '<circle cx="36" cy="36" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="6" stroke-dasharray="' + fill + ' ' + circ + '" stroke-linecap="round"/></svg>' +
+    '<div class="ring-text"><div class="ring-val" style="color:' + col + '">' + d.score + '</div><div class="ring-lbl">/100</div></div>' +
+    '</div>' +
+    '<div style="flex:1">' +
+    '<div class="badge ' + badgeClass + '" style="margin-bottom:6px">' + (d.signal==='GREEN'?'✅':'d.signal'==='YELLOW'?'⚠️':'❌') + ' ' + d.signal + ' SIGNAL</div>' +
+    '<div style="font-weight:700;font-size:15px;color:var(--text)">' + name + '</div>' +
+    '<div style="font-size:11px;color:var(--muted);margin-top:2px">' + activePlatform + ' · Web Developer</div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="result-body">' +
+    '<div class="info-row"><div class="info-lbl">Pain Point</div><div class="info-val">' + d.pain + '</div></div>' +
+    '<div class="info-row"><div class="info-lbl">Reason</div><div class="info-val">' + d.reason + '</div></div>' +
+    (d.hits && d.hits.length ? '<div class="info-row"><div class="info-lbl">Matched</div><div class="info-val">' + d.hits.join(', ') + '</div></div>' : '') +
+    (d.red && d.red.length ? '<div class="info-row"><div class="info-lbl">Red Flags</div><div class="info-val" style="color:var(--red)">' + d.red.join(', ') + '</div></div>' : '') +
+    '</div>' +
+    '<div class="result-actions">' +
+    '<button class="btn btn-green" id="save-green">✅ Save to Tracker</button>' +
+    '<button class="btn btn-red" id="save-red">❌ Reject</button>' +
+    '<button class="btn btn-teal" id="send-to-email">📧 Write Email</button>' +
+    '</div>' +
+    '</div>';
+
+  document.getElementById('save-green').addEventListener('click', function(){ saveProspect('qualified'); });
+  document.getElementById('save-red').addEventListener('click', function(){ saveProspect('rejected'); });
+  document.getElementById('send-to-email').addEventListener('click', sendToEmail);
+}
+
+function saveProspect(status) {
+  if (!currentProspect) return;
+  fetch('/api/prospect/save', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({...currentProspect, status: status})
+  }).then(function() {
+    toast(status === 'qualified' ? '✅ Saved to tracker!' : '❌ Rejected.', status === 'qualified' ? 'ok' : '');
+    document.getElementById('prospect-result').innerHTML =
+      '<div class="card mt2" style="text-align:center;padding:20px;color:var(--muted)">' +
+      (status === 'qualified' ? '✅ Saved! Paste the next prospect.' : '❌ Rejected. Paste the next prospect.') +
+      '</div>';
+    currentProspect = null;
+  });
+}
+
+function sendToEmail() {
+  if (!currentProspect) return;
+  document.getElementById('e-name').value = currentProspect.name || '';
+  document.getElementById('e-pain').value = currentProspect.pain || '';
+  document.getElementById('e-bio').value  = currentProspect.bio  || '';
+  document.getElementById('e-platform').value = currentProspect.platform || '';
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelector('[data-page="email"]').classList.add('active');
+  document.getElementById('page-email').classList.add('active');
+}
+
+// ── AUDIT ────────────────────────────────────────────────────────────────────
+function runAudit() {
+  var url = document.getElementById('audit-url').value.trim();
+  if (!url) { toast('Enter a URL first', 'err'); return; }
+  var btn = document.getElementById('audit-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spin"></div> Auditing...';
+  streamTo('audit-out', '/api/audit', {url: url}, function() {
+    btn.disabled = false; btn.innerHTML = '🔍 Audit Site';
+  });
+}
+
+// ── EMAIL ────────────────────────────────────────────────────────────────────
+function writeEmail() {
+  var data = {
+    name:     document.getElementById('e-name').value.trim() || 'them',
+    platform: document.getElementById('e-platform').value.trim(),
+    pain:     document.getElementById('e-pain').value.trim(),
+    style:    document.getElementById('e-style').value,
+    price:    document.getElementById('e-price').value.trim(),
+    bio:      document.getElementById('e-bio').value.trim()
+  };
+  var btn = document.getElementById('email-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spin"></div> Writing...';
+  streamTo('email-out', '/api/email', data, function() {
+    btn.disabled = false; btn.innerHTML = '✍️ Write Message';
+  });
+}
+
+// ── BULK ─────────────────────────────────────────────────────────────────────
+function addBulkRow() {
+  var id = Date.now();
+  bulkRows.push(id);
+  var div = document.createElement('div');
+  div.className = 'bulk-row';
+  div.id = 'br-' + id;
+  div.innerHTML =
+    '<input placeholder="Name" class="br-name" style="max-width:130px">' +
+    '<input placeholder="Platform (e.g. Instagram)" class="br-platform" style="max-width:150px">' +
+    '<input placeholder="Pain point (e.g. no website)" class="br-pain" style="flex:2">' +
+    '<button style="background:transparent;border:none;color:var(--red);cursor:pointer;font-size:18px;padding:0 4px" onclick="removeBulkRow(' + id + ')">×</button>';
+  document.getElementById('bulk-list').appendChild(div);
+}
+
+function removeBulkRow(id) {
+  var el = document.getElementById('br-' + id);
+  if (el) el.remove();
+  bulkRows = bulkRows.filter(function(r){ return r !== id; });
+}
+
+function runBulk() {
+  var prospects = [];
+  document.querySelectorAll('.bulk-row').forEach(function(row) {
+    var n = row.querySelector('.br-name').value.trim();
+    var p = row.querySelector('.br-platform').value.trim();
+    var pa = row.querySelector('.br-pain').value.trim();
+    if (n || pa) prospects.push({name: n || 'Prospect', platform: p || '', pain: pa || ''});
+  });
+  if (!prospects.length) { toast('Add at least one prospect!', 'err'); return; }
+
+  var btn = document.getElementById('bulk-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spin"></div> Generating ' + prospects.length + ' messages...';
+  var style = document.getElementById('bulk-style').value;
+
+  fetch('/api/bulk-email', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({prospects: prospects, style: style})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    btn.disabled = false; btn.innerHTML = '🤖 Generate All Messages';
+    if (!d.ok || !d.messages) {
+      document.getElementById('bulk-results').innerHTML =
+        '<div class="card mt2"><div class="out">' + (d.raw || 'Failed to generate') + '</div></div>';
+      return;
+    }
+    var html = '<div style="margin-top:16px">';
+    d.messages.forEach(function(m, i) {
+      html += '<div class="card" style="margin-bottom:10px">' +
+        '<div class="row center" style="margin-bottom:8px">' +
+        '<span style="font-weight:700;color:var(--text)">' + (m.name || 'Prospect ' + (i+1)) + '</span>' +
+        '<div style="flex:1"></div>' +
+        '<button class="copy-btn" onclick="copyText(' + JSON.stringify(m.subject ? m.subject + '\n\n' + m.message : m.message) + ')">📋 Copy</button>' +
+        '</div>' +
+        (m.subject ? '<div style="font-size:12px;color:var(--amber);margin-bottom:6px">Subject: ' + m.subject + '</div>' : '') +
+        '<div class="out" style="max-height:180px">' + (m.message || '—') + '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+    document.getElementById('bulk-results').innerHTML = html;
+    toast('Generated ' + d.messages.length + ' messages!', 'ok');
+  })
+  .catch(function(e) {
+    btn.disabled = false; btn.innerHTML = '🤖 Generate All Messages';
+    toast('Error: ' + e.message, 'err');
+  });
+}
+
+// ── NEGOTIATE ────────────────────────────────────────────────────────────────
+function runNegotiate() {
+  var obj = activeObj === 'custom'
+    ? document.getElementById('custom-obj').value.trim()
+    : activeObj;
+  if (!obj) { toast('Enter an objection', 'err'); return; }
+  var ctx = document.getElementById('neg-ctx').value.trim();
+  var btn = document.getElementById('neg-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spin"></div> Generating...';
+  streamTo('neg-out', '/api/negotiate', {objection: obj, context: ctx}, function() {
+    btn.disabled = false; btn.innerHTML = '🧠 Get Script';
+  });
+}
+
+// ── ICP ──────────────────────────────────────────────────────────────────────
+function genICP() {
+  var btn = document.getElementById('icp-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="spin"></div> Generating...';
+  streamTo('icp-out', '/api/icp', {}, function() {
+    btn.disabled = false; btn.innerHTML = '✨ Generate My ICP';
+  });
+}
+
+// ── TRACKER ───────────────────────────────────────────────────────────────────
+function loadTracker() {
+  fetch('/api/prospects').then(function(r){ return r.json(); }).then(function(rows) {
+    var el = document.getElementById('tracker-content');
+    if (!rows.length) {
+      el.innerHTML = '<div class="card" style="text-align:center;padding:30px;color:var(--muted)">No prospects yet. Go to Prospect Finder and score some!</div>';
+      return;
+    }
+    var total = rows.length;
+    var qualified = rows.filter(function(r){ return r.status === 'qualified'; }).length;
+    var green = rows.filter(function(r){ return r.signal === 'GREEN'; }).length;
+    var avgScore = Math.round(rows.reduce(function(s,r){ return s + (r.score||0); }, 0) / total);
+
+    el.innerHTML =
+      '<div class="stats">' +
+      '<div class="stat"><div class="stat-val" style="color:var(--blue)">' + total + '</div><div class="stat-lbl">Total</div></div>' +
+      '<div class="stat"><div class="stat-val" style="color:var(--green)">' + qualified + '</div><div class="stat-lbl">Qualified</div></div>' +
+      '<div class="stat"><div class="stat-val" style="color:var(--teal)">' + green + '</div><div class="stat-lbl">Green Signals</div></div>' +
+      '<div class="stat"><div class="stat-val" style="color:var(--amber)">' + avgScore + '</div><div class="stat-lbl">Avg Score</div></div>' +
+      '</div>' +
+      '<div class="card" style="margin-bottom:10px">' +
+      '<div class="row center" style="margin-bottom:12px">' +
+      '<span style="font-size:13px;font-weight:600;color:var(--soft)">All Prospects</span>' +
+      '<div style="flex:1"></div>' +
+      '<a href="/api/export" style="text-decoration:none"><button class="btn btn-ghost" style="font-size:12px;padding:6px 12px">⬇️ Export CSV</button></a>' +
+      '</div>' +
+      '<div class="tbl-wrap"><table><thead><tr>' +
+      '<th>Name</th><th>Platform</th><th>Score</th><th>Signal</th><th>Pain</th><th>Status</th><th>Actions</th>' +
+      '</tr></thead><tbody>' +
+      rows.map(function(r) {
+        var sc = r.score >= 65 ? 'var(--green)' : r.score >= 40 ? 'var(--amber)' : 'var(--red)';
+        var sg = r.signal === 'GREEN' ? 'var(--green)' : r.signal === 'YELLOW' ? 'var(--amber)' : 'var(--red)';
+        return '<tr>' +
+          '<td style="color:var(--text);font-weight:600">' + (r.name||'—') + '</td>' +
+          '<td>' + (r.platform||'—') + '</td>' +
+          '<td style="color:' + sc + ';font-weight:700">' + (r.score||0) + '</td>' +
+          '<td style="color:' + sg + '">' + (r.signal||'—') + '</td>' +
+          '<td style="max-width:160px;overflow:hidden;text-overflow:ellipsis">' + (r.pain||'—') + '</td>' +
+          '<td><span style="color:' + (r.status==='qualified'?'var(--green)':r.status==='rejected'?'var(--red)':'var(--muted)') + '">' + (r.status||'new') + '</span></td>' +
+          '<td><button class="btn btn-red" style="padding:4px 10px;font-size:11px" onclick="deleteProspect(' + r.id + ')">🗑️</button></td>' +
+          '</tr>';
+      }).join('') +
+      '</tbody></table></div></div>';
+  });
+}
+
+function deleteProspect(id) {
+  if (!confirm('Delete this prospect?')) return;
+  fetch('/api/prospect/delete', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({id: id})
+  }).then(function(){ loadTracker(); toast('Deleted', ''); });
+}
+
+// ── STREAMING ────────────────────────────────────────────────────────────────
+function streamTo(outId, endpoint, body, onDone) {
+  var out = document.getElementById(outId);
+  out.textContent = '';
+  out.classList.add('active');
+  out.innerHTML = '<div class="cursor"></div>';
+  var text = '';
+
+  fetch(endpoint, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  }).then(function(r) {
+    var reader = r.body.getReader();
+    var decoder = new TextDecoder();
+    function read() {
+      reader.read().then(function(result) {
+        if (result.done) { out.classList.remove('active'); if(onDone) onDone(); return; }
+        var lines = decoder.decode(result.value).split('\n');
+        lines.forEach(function(line) {
+          if (!line.startsWith('data:')) return;
+          var data = line.slice(5).trim();
+          if (data === '[DONE]') { out.classList.remove('active'); if(onDone) onDone(); return; }
+          try {
+            var parsed = JSON.parse(data);
+            if (parsed.t) { text += parsed.t; out.textContent = text; out.scrollTop = out.scrollHeight; }
+          } catch(e) {}
+        });
+        read();
+      });
+    }
+    read();
+  }).catch(function(e) {
+    out.textContent = '[Error: ' + e.message + ']';
+    out.classList.remove('active');
+    if (onDone) onDone();
+  });
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function copyOut(id) {
+  var el = document.getElementById(id);
+  navigator.clipboard.writeText(el.textContent).then(function(){ toast('Copied!','ok'); });
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(function(){ toast('Copied!','ok'); });
+}
+
+function toast(msg, type) {
+  var t = document.createElement('div');
+  t.className = 'toast ' + (type||'');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 2800);
+}
+</script>
+</body>
+</html>

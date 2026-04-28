@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Box</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      width: 100%;
+      background-color: rgb(250, 242, 231);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      height: 80%;
+      width: 400px;
+      max-width: 800px;
+      background-color: antiquewhite;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-flow: column;
+    }
+    .chats {
+      display: flex;
+      flex-flow: column;
+      overflow-y: auto;
+      flex-grow: 1;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      overflow: scroll;
+      gap: 15px;
+    }
+    .chat-header {
+      padding: 12px 16px;
+      color: white;
+      font-weight: 500;
+      background-color: rgb(27, 148, 88);
+    }
+    .input {
+      background-color: aliceblue;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-evenly;
+      gap: 10px;
+    }
+
+    .input input {
+      padding: 7px;
+      border: none;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-left: 10px;
+      flex-grow: 1;
+    }
+    .input button {
+      border: none;
+      background-color: rgb(27, 148, 88);
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    .chat {
+      width: 70%;
+      background-color: wheat;
+      padding: 8px 10px;
+      margin: auto 15px;
+      font-size: 14px;
+      border-radius: 10px;
+    }
+
+    .right {
+      align-self: end;
+      background-color: rgb(217, 255, 230);
+    }
+
+    .left {
+      align-items: start;
+      background-color: whitesmoke;
+    }
+
+    .time {
+      font-size: 10px;
+      position: relative;
+      top: 7px;
+      left: -2px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="chat-header">Maddyy Online</div>
+      <div class="chats">
+        <div class="chat right">
+          Hey Whtsapp we are planning something
+          <div class="time">10.33 a.m</div>
+        </div>
+        <div class="chat left">
+          Hoo what is it?
+          <div class="time">10.33 a.m</div>
+        </div>
+        <div class="chat right">
+          planning a trip on ooty,you interested?
+          <div class="time">10.33 a.m</div>
+        </div>
+        <div class="chat left">
+          Yeah Absolutely
+          <div class="time">10.33 a.m</div>
+        </div>
+        <div class="chat left">
+          When it is?
+          <div class="time">10.33 a.m</div>
+        </div>
+        <div class="chat right">
+          next week bhaii
+          <div class="time">10.33 a.m</div>
+        </div>
+        <div class="chat left">
+          When it is?
+          <div class="time">10.33 a.m</div>
+        </div>
+        <div class="chat right">
+          next week bhaii
+          <div class="time">10.33 a.m</div>
+        </div>
+      </div>
+      <div class="input">
+        <input type="text" placeholder="Type Message..." />
+        <button>></button>
+      </div>
+    </div>
+  </body>
+</html>

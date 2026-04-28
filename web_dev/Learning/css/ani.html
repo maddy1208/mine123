@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Ani</title>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 200px auto;
+    }
+    .con {
+      width: calc(100px * 8);
+      display: flex;
+      gap: 10px;
+      animation: slide 10s linear 0s infinite;
+      animation-delay: 1s;
+    }
+
+    .slider {
+      width: 400px;
+      overflow: hidden;
+    }
+    @keyframes slide {
+      0% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(0);
+      }
+      35%,
+      50% {
+        transform: translateX(-33%);
+      }
+
+      75%,
+      90% {
+        transform: translateX(-66%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+  </style>
+  <body>
+    <div class="slider">
+      <div class="con">
+        <img src="https://picsum.photos/id/10/400/200" alt="img1" />
+        <img src="https://picsum.photos/id/20/400/200" alt="img1" />
+
+        <img src="https://picsum.photos/id/30/400/200" alt="img1" />
+        <img src="https://picsum.photos/id/40/400/200" alt="img1" />
+        <img src="https://picsum.photos/id/50/400/200" alt="img1" />
+
+        <img src="https://picsum.photos/id/60/400/200" alt="img1" />
+
+        <img src="https://picsum.photos/id/70/400/200" alt="img1" />
+
+        <img src="https://picsum.photos/id/80/400/200" alt="img1" />
+      </div>
+    </div>
+  </body>
+</html>

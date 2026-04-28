@@ -16,10 +16,10 @@ FAQ ACCORDIN      \/
 QUIZ APP          \/
 FILTERABLE TABLE  \/
 TOAST NOTIFICATION \/
-PROGRESS BAR     
-COLOR PICKER
+PROGRESS BAR       
+COLOR PICKER       \/
 WEATHER APP        \/
-RANDOM QUOTE GENERATOR 
+RANDOM QUOTE GENERATOR  \/
 CALENDER          \/
 
 ----------------------HOOKS-------------------------------------
@@ -72,9 +72,9 @@ export const cartContext= createContext();
  # Provide the Context
 <cartContext.Provider value={value}>
 
- <child/>
- <child/>
 <child/>
+<child/>
+<child/> 
 
  </cartContext.Provider>
 
@@ -89,10 +89,11 @@ SHOPPING CART (2) \/
 MOVIE-APP
 TODOLIST WITH LOCALSTORAGE  \/
 
+
 --------------------OTHER COMPONENTS--------------------------
 PAGINATION  
 REACT-ROUTER:
-browserrouter => old method , just link+eoute vachi use panlaam
+browserrouter => old method , just link+route vachi use panlaam
 cretebrowserrouter =>modern +simple method
 
 outlet=>route oda child automaticaa root la laod agidum

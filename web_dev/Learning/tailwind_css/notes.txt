@@ -1,0 +1,312 @@
+List of CSS Properties
+1. Box Model
+    -Width & Height
+        w-full,w-[100%],
+        w-1/1,w-1/2,w-1/4 (similar to parent size )
+        w-screen,w-[100vw] (browser window size)
+        min-h-screen
+        max-w-screen
+        w-dwh (useful for mobiles bcz of addressbar at top)
+        min-w-[]
+        max-w-[]
+        
+    -Padding & Margin
+    	p
+    	pt,pb,ps,pe
+    	px,py
+    
+    -Border & Outline
+    	border-0,border-1..
+    	border-solid,border-dashed..
+    	border-gray-900...
+    	border-t-2,border-b-2,border-s-2,border-e-2,border-x-2,border-y-2
+    	
+    -Border-radius
+        rounded-sm,rounded,rounded-md,rounded-lg,roundex-xl,..rounded-full
+        
+    -box-sizing
+    	box-border
+    	box-content
+    	
+2.Typography
+    -family
+        font-[sans/serif/mono]
+    -color 
+     	text-gray-600
+    -font-size 
+    	text-xs,text-sm,text-base/md,text-lg...
+    -font-weight
+    	font-thin,font-extralight,font-light,font-normal,font-medium,font-semibold/bold/extrabold/black
+    -font-style
+    	italic,non-italic
+    -line-Height
+    	leading-[0/2/..]
+    	leading-[tight/normal/relaxed/loose]
+    -text-align (left,right,center,justify)
+    	text-[left/center/right/justify]
+    -text-decoration (line-through,underline,overline)
+        underline,overline,line-through,no-underline
+        decoration-[1,2..] (line thick)
+        decoration-[solid,dashed,wavy..]
+    -text-transform (uppercase/lowercase/capitalize)
+    	uppercase,lowercase,capitalize,normal-case
+    -letter-spacing 
+    	tracking-[tighter,tight,wide,wider,widest]
+    -word-spacing  
+    	word-spacing-[0,2,3]
+    -word-wrap:
+    	whitespace-nowrap =>helps to kepp words in exact  signle line
+    	break-words,break-keep => helpas to prevent broken words
+    	break-all => breaks words
+    -line-clamp-[1...]
+    	helps to hide extra lines
+
+
+4. Background
+    Background-clip:
+    	bg-clip-[border,padding,content,text]
+    Background-color:
+    	bg-gray-900...
+    Background-image
+    	bg-[url('https://oi.img')]
+    Background-repeat
+    	bg-no-repeat,bg-repeat,bg-repeat-x,bg-repeat-y
+    Background-position 
+    	bg-[top/bottom/left/right/center]
+    	Specific Pixels: bg-[left_20px_top_10px]
+	Percentages: bg-[50%_25%] (50% horizontal, 25% vertical) 
+    Background-size:  
+    	bg-auto,bg-cover,bg-contain
+    Background-attachment  
+    	bg-fixed,bg-scroll,bg-local
+    Background-origin: border-box/padding-box/content-box
+    	bg-origin-[border/padding/content]
+    bg-image: url()
+    //linear
+    bg-linear-to-r from-blue-500 to-purple-500
+    bg-linear-to-bl
+    bg-linear-45: 45-degree angle.     
+    //radial
+    bg-radial from-blue-500 to-purple-500
+
+
+5. List Properties:
+    list-[none/disc/circle/decimal/..]
+    list-image-[url(path/to/icon.png)]
+    list-[inside/outside]
+
+    marker:text-blue-500
+    marker:text-xl
+    list-image-[url('/path/to/marker.png')]
+    marker:content-['✅']
+
+
+5.Position
+    static
+    relative top-0 right-0 left-0 bottom-0 //relates to static position, body is border
+    absolute  top-0 right-0 left-0 bottom-0 //relates to parent with(relative) ,also gets out from content
+    fixed  //relates to body
+    sticky  //Sticky sticks inside the nearest ancestor that scrolls
+
+    margin-collapse: if we put margin-top to a heading,it also moves the whole div. so to avoid this,we can uppercase
+
+
+6.Display
+    block;  //will take the parent width
+    display: inline;  //will take the contained width
+    inline-block; //will take the contained width+ we can have block properties for editing
+    hidden
+    table
+    table-row <tr>
+    table-cell <td>
+    table-header-group <thead>
+    table=footer-group  <tfoot>
+    table-column-group <colgroup>
+    table-column   <col>
+
+7.Flex
+    container properties:
+    flex,inline-flex(wont cover full width)
+    flex-direction:
+        flex-row
+        flex-row-reverse
+        flex-col
+        flex-col-reverse
+    flex-wrap:
+        flex-nowrap
+        flex-wrap
+        flex-wrap-reverse
+    gap:
+        gap-4
+        gap-x-4
+        gap-y-4
+    justify-content:
+        justify-[start/center/end/around/evenly/between]
+    align-items:    
+        items-[center/start/end/baseline/stretch]
+    align-content:
+        content-[center/start/end/around/stretch/between]
+
+    item properties:
+    order:
+        order-[first/last/1,2,3..]
+        -order-[1,2..]
+    flex-grow:
+        grow-[0,1,2..]
+    flex-shrink:
+        shrink-[0,1,2..]
+    flex-basis //to allocate initial width size
+        basis-[auto/full/1,2..]
+    align-self:
+        self-[start/center/end/stretch/auto]
+
+8. Grid:
+
+    display: grid =>
+    display: inline-grid => complete widtha eduthukaama,particular content ku work aagum
+
+    grid-template-columns:     (columns oda count,sizaa control panlaam)
+        grid-cols-[1,2..]
+        grid-cols-[200px_1fr_200px]
+
+    grid-template-rows:   (rows oda count,sizaa control panlaa)
+        grid-rows-[1,2..]
+        grid-rows-[200px_1fr_200px]
+    gap:
+    gap-[1,2,..]
+    gap-x-[1,2,..]
+    gap-y-[1,2,..]
+    justify-items: x axisaa control panlamm elo ,acc to elemt
+        justify-items-{} 
+    align-items: y axisaa control panlam,acc to elemt
+        items-{}
+    justify-content: mothama elo elemtyasyu x axis la control panlaam
+        justify-{}
+    align-content: mothamm elo elemtsayuu y axis la control panlaam
+        content-{}
+    grid-auto-flow: 
+        grid-flow-[row/col]
+
+    Element props:
+        column-start-[1,2..]
+        column-end-[1,2..] // evlo boxes cover agnumnu, like grid lines a base pani
+        row-start-[1,2..] // evlo boxes row wise cover aagnumnu 
+        row-end-[1,2..]
+
+    //particuarra oru elemt oda positiona mathanumnaa idha use panlaam
+    justify-self-{}
+    align-self-{}
+
+    //grid template areas: 
+    <div class="grid 
+    grid-cols-3 
+    grid-rows-[auto_1fr_auto] 
+    grid-areas-['header_header_header' 'nav_main_main' 'footer_footer_footer']">
+    
+    <header class="[grid-area:header] bg-blue-500">Header</header>
+    <nav class="[grid-area:nav] bg-green-500">Nav</nav>
+    <main class="[grid-area:main] bg-white">Main Content</main>
+    <footer class="[grid-area:footer] bg-gray-500">Footer</footer>
+    </div>
+
+
+9. Transform:
+    Translate:
+    translate-x-4: 
+    -translate-x-4: 
+    translate-y-2: 
+    -translate-y-2: 
+    translate-z-8: 
+    -translate-z-8:
+
+
+    Scale:
+    scale-50
+    scale-x-125
+    -scale-x-125
+    scale-y-125
+    -scale-y-125
+
+    Rotate:
+    rotate-45
+    -rotate-45
+
+    Skew:
+    skew-x-5
+    -skew-x-5
+    skew-y-5
+    -skew-y-5
+
+
+10. Transition Properties:
+    transition-[all/colors/transform]
+    duration-[75]
+    delay-[50]
+    ease-in,ease-out
+
+
+11.Animation:
+    animate-spin: Constant 360° clockwise rotation.
+    animate-ping: Element grows and fades like a radar ripple.
+    animate-pulse: Gently fades opacity in and out.
+    animate-bounce: Moves the element up and down playfully.
+    Custom duration: animate-[spin_3s_linear_infinite] (Makes it spin slower over 3 seconds).
+
+12.Overflow & opacity & float & z-index:
+    overflow-hidden
+    overflow-x-hidden
+    overflow-y-hidden
+    opacity-[0/25/50/75/100],bg-opacity-50,text-opacity-50,border-opacity-50
+    float-left
+    float-right
+    float-center
+    z-[0/10/20..]
+
+13.Box shadow & ring:
+    shadow-sm: A subtle, tiny shadow.
+    shadow: The standard default shadow.
+    shadow-md: Medium-sized shadow.
+    shadow-lg: Large, soft shadow (popular for cards).
+    shadow-xl: Extra-large shadow for significant elevation.
+    shadow-2xl: Maximum depth.
+    shadow-none: Removes any existing shadow.
+    shadow-blue-500: Adds a blue glow.
+    shadow-black/50: Adds a black shadow with 50% opacity.
+    shadow-indigo-500/40: Indigo shadow with specific transparency.
+
+    ring-1 
+    ring-gray-300
+
+14.Column properties:
+    columns-[2,4..]
+    columns-[xs,md..]
+    gap-[2,4..]
+    col-span-all: Maps to column-span: all.
+
+15. Pseudo classes, elements:
+    Common Pseudo-classes (States)
+    Interaction: hover:, focus:, active:, visited:, focus-within:, focus-visible:.
+    Form States: disabled:, required:, invalid:, checked:, read-only:, placeholder-shown:, autofill:.
+    Structure: first:, last:, odd:, even:, only:, nth-{n}:, first-of-type:, empty:. 
+
+    Pseudo-elements:
+    Content Injection: before:, after: (automatically sets content: "" if not specified).
+    Typography: first-letter:, first-line:, marker: (for list bullets).
+    Selection & Inputs: selection: (highlighted text), placeholder:, file: (file input buttons).
+
+    Advanced Selectors
+    group: Add this to a parent to style children based on parent state (e.g., group-hover:text-blue-500).
+    peer: Add this to a sibling to style subsequent siblings (e.g., peer-invalid:visible).
+    has-{condition}: Styles an element if it has a specific descendant (e.g., has-[:checked]:bg-blue-100).
+    *:text-sm [applies to all child]
+
+notes:
+always use inline css, outer,inner css in some places pnly
+
+The sm, md, lg system is only used for:
+Text Size: text-sm, text-xl
+Border Radius: rounded-sm, rounded-lg
+Max Width: max-w-md, max-w-4xl
+Shadows: shadow-sm, shadow-xl
+
+opacity:bg-gary-899/[<opacity> eg:50]
