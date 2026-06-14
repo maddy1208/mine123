@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pudhutech.com/sitemap.xml

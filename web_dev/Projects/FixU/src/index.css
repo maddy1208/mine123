@@ -1,0 +1,1520 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* --font-sans: "DM Sans", "Inter", ui-sans-serif, system-ui, sans-serif; */
+  --font-sans: "Rubik", sans-serif;
+  --font-display: "Syne", "Outfit", sans-serif;
+  --font-blog-title: "Titillium Web", sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-cyan: var(--cyan);
+  --color-purple: var(--purple);
+  --color-deep-blue: var(--deep-blue);
+  --color-glow: var(--glow);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+
+  --shadow-glow: 0 0 60px -10px oklch(0.7 0.2 285 / 0.45);
+  --shadow-glow-cyan: 0 0 60px -10px oklch(0.85 0.16 200 / 0.45);
+  --shadow-elevated: 0 30px 60px -20px oklch(0.55 0.18 270 / 0.18);
+
+  --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --gradient-glow: radial-gradient(circle at 50% 0%, oklch(0.7 0.2 285 / 0.25), transparent 60%);
+  --gradient-mesh:
+    radial-gradient(at 20% 10%, oklch(0.75 0.18 285 / 0.2) 0, transparent 50%),
+    radial-gradient(at 80% 30%, oklch(0.82 0.14 210 / 0.18) 0, transparent 50%),
+    radial-gradient(at 50% 90%, oklch(0.78 0.16 200 / 0.18) 0, transparent 50%);
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Light premium theme: white + cyan / blue / purple */
+  --background: #f0f4ff;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-2: #f8faff;
+
+  --card: rgba(255, 255, 255, 0.7);
+  --card-foreground: #0f172a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+
+  --secondary: #ede9fe;
+  --secondary-foreground: #0f172a;
+
+  --muted: #e0e7ff;
+  --muted-foreground: #475569;
+
+  --accent: #06b6d4;
+  --accent-foreground: #0f172a;
+
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: #ffffff;
+
+  --border: rgba(15, 23, 42, 0.08);
+  --input: rgba(15, 23, 42, 0.1);
+  --ring: #3b82f6;
+
+  --cyan: #00e5ff;
+  --purple: #8b5cf6;
+  --deep-blue: #3b82f6;
+  --glow: rgba(0, 229, 255, 0.4);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse at top, oklch(0.55 0.22 270 / 0.15), transparent 60%),
+      radial-gradient(ellipse at bottom right, oklch(0.78 0.18 210 / 0.1), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  #security_pricing,
+  #development_pricing,
+  #maintenance_pricing {
+    scroll-margin-top: 9rem; /* height of fixed header + some padding */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 20px 60px -20px rgba(59, 130, 246, 0.18);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #0f172a 0%, #3b82f6 40%, #8b5cf6 70%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+  }
+
+  .text-test {
+    color: #0f172a;
+  }
+
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-mesh {
+    background-image: var(--gradient-mesh);
+  }
+
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-cyan {
+    box-shadow: var(--shadow-glow-cyan);
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  @keyframes orb-move {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(30px, -20px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 15px) scale(0.95);
+    }
+  }
+  .animate-orb {
+    animation: orb-move 14s ease-in-out infinite;
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 18s linear infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  .animate-blink {
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.05);
+    }
+  }
+  .animate-pulse-glow {
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+}
+
+/* ─── Blog HTML Content ────────────────────────────────────────────────────────
+   Scoped styles for HTML pasted from Sanity via dangerouslySetInnerHTML.
+   Tailwind purges classes inside runtime strings, so we redeclare everything
+   here using plain CSS. Overrides the global h1-h6 font-family rule too.
+────────────────────────────────────────────────────────────────────────────── */
+.blog-html-content {
+  font-family: "DM Sans", sans-serif;
+  color: #334155;
+  line-height: 1.8;
+}
+
+/* Reset headings overridden by global h1-h6 rule */
+.blog-html-content h1,
+.blog-html-content h2,
+.blog-html-content h3,
+.blog-html-content h4,
+.blog-html-content h5,
+.blog-html-content h6 {
+  font-family: "Lora", Georgia, serif;
+  letter-spacing: -0.01em;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+/* Hide duplicate h1 — title lives in the header card, not inside article HTML */
+.blog-html-content h1 {
+  display: none;
+}
+
+.blog-html-content h2 {
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-weight: 700;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.1rem;
+  border-left: 4px solid #ea580c;
+  position: relative;
+}
+
+.blog-html-content h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 2.25rem;
+  margin-bottom: 0.9rem;
+}
+
+/* Body text */
+.blog-html-content p {
+  font-size: 1.075rem;
+  line-height: 1.9;
+  color: #334155;
+  margin-bottom: 1.5rem;
+}
+
+/* Italic lead paragraph */
+.blog-html-content p.italic {
+  font-family: "Lora", Georgia, serif;
+}
+
+/* Links */
+.blog-html-content a {
+  color: #ea580c;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #fdba74;
+  font-weight: 500;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
+}
+.blog-html-content a:hover {
+  color: #c2410c;
+  text-decoration-color: #ea580c;
+}
+
+/* Inline code */
+.blog-html-content code {
+  font-family: "Inconsolata", "Courier New", monospace;
+  font-size: 0.85em;
+  background-color: #f1f5f9;
+  color: #ea580c;
+  padding: 0.15em 0.45em;
+  border-radius: 0.35rem;
+  border: 1px solid #e2e8f0;
+}
+
+/* Blockquote — dark card style from HTML */
+.blog-html-content blockquote {
+  background-color: #28407d;
+  border-radius: 1rem;
+  padding: 2rem 2.25rem;
+  margin: 2.5rem 0;
+  box-shadow: 0 4px 24px -4px rgba(15, 23, 42, 0.18);
+}
+.blog-html-content blockquote p {
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: #f1f5f9;
+  margin-bottom: 0;
+}
+
+/* Orange left-border callout boxes */
+.blog-html-content div[class*="border-orange"],
+.blog-html-content div[class*="bg-orange"] {
+  background-color: #fff7ed;
+  border-left: 4px solid #ea580c;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 1px 4px rgba(234, 88, 12, 0.07);
+}
+.blog-html-content div[class*="border-orange"] p,
+.blog-html-content div[class*="bg-orange"] p {
+  margin-bottom: 0;
+  color: #431407;
+  font-size: 1rem;
+}
+.blog-html-content div[class*="border-orange"] strong,
+.blog-html-content div[class*="bg-orange"] strong {
+  color: #9a3412;
+}
+
+/* Conclusion dark card */
+.blog-html-content div[class*="bg-slate-9"],
+.blog-html-content div[class*="bg-slate-900"] {
+  background-color: #28407d;
+  border-radius: 1rem;
+  padding: 2rem 2.25rem;
+  margin: 2.5rem 0;
+  text-align: center;
+}
+.blog-html-content div[class*="bg-slate-9"] h2,
+.blog-html-content div[class*="bg-slate-900"] h2 {
+  color: #ffffff;
+  border-left: none;
+  padding-left: 0;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+.blog-html-content div[class*="bg-slate-9"] p,
+.blog-html-content div[class*="bg-slate-900"] p {
+  color: #cbd5e1;
+  margin-bottom: 0.75rem;
+}
+
+/* Lists */
+.blog-html-content ul,
+.blog-html-content ol {
+  margin: 1.25rem 0 1.75rem 1.5rem;
+  padding-left: 0.5rem;
+}
+.blog-html-content ul {
+  list-style-type: disc;
+}
+.blog-html-content ol {
+  list-style-type: decimal;
+}
+.blog-html-content li {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: #334155;
+  margin-bottom: 0.4rem;
+}
+.blog-html-content li strong {
+  color: #0f172a;
+}
+/* Orange list markers */
+.blog-html-content ol[class*="marker"] li::marker {
+  color: #ea580c;
+  font-weight: 600;
+}
+
+/* Horizontal rule */
+.blog-html-content hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 3rem 0;
+}
+
+/* Table */
+.blog-html-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.blog-html-content div[class*="overflow-x-auto"] {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+  margin: 2rem 0;
+}
+.blog-html-content thead {
+  background-color: #f8fafc;
+}
+.blog-html-content thead th {
+  padding: 0.85rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+}
+.blog-html-content tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.1s;
+}
+.blog-html-content tbody tr:last-child {
+  border-bottom: none;
+}
+.blog-html-content tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+.blog-html-content tbody tr:hover {
+  background-color: #fff7ed;
+}
+.blog-html-content tbody td {
+  padding: 0.85rem 1.25rem;
+  color: #334155;
+  vertical-align: top;
+}
+.blog-html-content tbody td:first-child {
+  font-weight: 600;
+  color: #0f172a;
+}
+.blog-html-content tbody td code {
+  font-size: 0.8rem;
+}
+
+/* Closing italic note */
+.blog-html-content p[class*="text-center"] {
+  text-align: center;
+  font-style: italic;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-top: 2.5rem;
+}
+
+/* strong / em */
+.blog-html-content strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+.blog-html-content em {
+  font-style: italic;
+}
+
+/* ─── Detail Work HTML Content ─────────────────────────────────────────────────
+   Scoped styles for project case study HTML rendered via dangerouslySetInnerHTML.
+   Uses the site's blue / purple / cyan palette defined in :root.
+   Tailwind purges runtime class strings — everything is plain CSS here.
+
+   TABLE OF CONTENTS
+   1. Root / reset
+   2. Headings
+   3. Body text & paragraphs
+   4. Links
+   5. Inline code
+   6. Code blocks (pre > code)
+   7. Blockquote
+   8. Lists  ← fully rebuilt
+   9. Horizontal rule
+  10. Table  ← fully rebuilt
+  11. Images & figures
+  12. Section label (eyebrow)
+  13. Callout box
+  14. Tech / tool tags
+  15. Badge (status labels)
+  16. Highlight (inline text accent)
+  17. Feature / outcome card grid
+  18. Process / timeline steps  ← fixed geometry
+  19. Two-column text layout
+  20. Conclusion / CTA card
+  21. Screenshot placeholder
+────────────────────────────────────────────────────────────────────────────── */
+
+/* ── 1. Root / reset ───────────────────────────────────────────────────────── */
+.detail-work-content {
+  font-family: "Rubik", sans-serif;
+  color: #475569;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+/* Tighten spacing between consecutive section components */
+.detail-work-content > * + * {
+  margin-top: 0;
+}
+
+/* ── 2. Headings ───────────────────────────────────────────────────────────── */
+.detail-work-content h1,
+.detail-work-content h2,
+.detail-work-content h3,
+.detail-work-content h4,
+.detail-work-content h5,
+.detail-work-content h6 {
+  font-family: "Syne", "Outfit", sans-serif;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* h1 is hidden — title lives in the DetailWork page header */
+.detail-work-content h1 {
+  display: none;
+}
+
+/* h2 — gradient text + left rule. Use inside .conclusion-card too (overridden there) */
+.detail-work-content h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+  font-weight: 700;
+  margin-top: 2.75rem;
+  margin-bottom: 0.9rem;
+  padding-left: 1rem;
+  border-left: 3px solid #3b82f6;
+  /* gradient text */
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* border-left color must be set separately because -webkit-text-fill overrides color */
+  position: relative;
+}
+
+.detail-work-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.6rem;
+  color: #1e293b;
+}
+
+.detail-work-content h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.4rem;
+  color: #1e293b;
+}
+
+.detail-work-content h5,
+.detail-work-content h6 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ── 3. Body text & paragraphs ─────────────────────────────────────────────── */
+.detail-work-content p {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #475569;
+  margin-top: 0;
+  margin-bottom: 1.1rem;
+}
+
+/* Last paragraph inside any container — remove bottom margin so it doesn't
+   add extra space before the container's own padding ends */
+.detail-work-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── 4. Links ──────────────────────────────────────────────────────────────── */
+.detail-work-content a {
+  color: #3b82f6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #93c5fd;
+  font-weight: 500;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
+}
+.detail-work-content a:hover {
+  color: #8b5cf6;
+  text-decoration-color: #8b5cf6;
+}
+
+/* ── 5. Inline code ────────────────────────────────────────────────────────── */
+.detail-work-content :not(pre) > code {
+  font-family: "Inconsolata", "Courier New", monospace;
+  font-size: 0.85em;
+  background-color: rgba(59, 130, 246, 0.08);
+  color: #6366f1;
+  padding: 0.15em 0.45em;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  white-space: nowrap;
+}
+
+/* ── 6. Code blocks (pre > code) ───────────────────────────────────────────── */
+.detail-work-content pre {
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  position: relative;
+}
+.detail-work-content pre code {
+  font-family: "Inconsolata", "Courier New", monospace;
+  font-size: 0.875rem;
+  color: #e2e8f0;
+  background: none;
+  border: none;
+  padding: 0;
+  white-space: pre;
+  -webkit-text-fill-color: #e2e8f0; /* override gradient fill from headings */
+}
+/* Language label — add via data-lang attribute on <pre> */
+.detail-work-content pre[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.6rem;
+  right: 0.9rem;
+  font-family: "Inconsolata", monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+}
+
+/* ── 7. Blockquote ─────────────────────────────────────────────────────────── */
+.detail-work-content blockquote {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-left: 4px solid #8b5cf6;
+  border-radius: 0 1rem 1rem 0;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+}
+.detail-work-content blockquote p {
+  font-size: 1.025rem;
+  font-style: italic;
+  color: #334155;
+  line-height: 1.75;
+}
+/* Attribution line inside blockquote */
+.detail-work-content blockquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 600;
+  color: #8b5cf6;
+  letter-spacing: 0.04em;
+}
+
+/* ── 8. Lists ──────────────────────────────────────────────────────────────── */
+
+/* --- Unordered list --- */
+.detail-work-content ul {
+  list-style: none; /* remove UA bullet; we draw our own */
+  margin: 0.75rem 0 1.25rem 0;
+  padding: 0;
+}
+
+.detail-work-content ul li {
+  position: relative;
+  padding-left: 1.5rem; /* space for the custom bullet */
+  margin-bottom: 0.5rem;
+  font-size: 0.975rem;
+  line-height: 1.75;
+  color: #475569;
+}
+
+/* Custom gradient bullet dot */
+.detail-work-content ul li::before {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.65em; /* vertical centre relative to cap-height */
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  flex-shrink: 0;
+}
+
+/* --- Ordered list --- */
+.detail-work-content ol {
+  list-style: none;
+  counter-reset: detail-ol;
+  margin: 0.75rem 0 1.25rem 0;
+  padding: 0;
+}
+
+.detail-work-content ol li {
+  position: relative;
+  counter-increment: detail-ol;
+  padding-left: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.975rem;
+  line-height: 1.75;
+  color: #475569;
+}
+
+/* Gradient counter number */
+.detail-work-content ol li::before {
+  content: counter(detail-ol);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 1.35rem;
+  height: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.35rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-size: 0.65rem;
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  color: #3b82f6;
+  line-height: 1;
+}
+
+/* --- Nested lists (ul inside ul, ul inside ol etc.) --- */
+.detail-work-content ul ul,
+.detail-work-content ol ul,
+.detail-work-content ul ol,
+.detail-work-content ol ol {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+  margin-left: 0.75rem;
+}
+
+/* Nested ul bullet — slightly smaller, cyan tint */
+.detail-work-content ul ul li::before {
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  top: 0.7em;
+}
+
+/* --- List inside a callout or card — inherit smaller size --- */
+.detail-work-content .callout ul li,
+.detail-work-content .callout ol li,
+.detail-work-content .card ul li,
+.detail-work-content .card ol li {
+  font-size: 0.875rem;
+}
+
+/* --- li strong --- */
+.detail-work-content li strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* --- li code --- */
+.detail-work-content li code {
+  font-size: 0.8em;
+}
+
+/* --- Definition list --- */
+.detail-work-content dl {
+  margin: 1rem 0 1.5rem;
+}
+.detail-work-content dt {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 1rem;
+  margin-bottom: 0.2rem;
+}
+.detail-work-content dd {
+  font-size: 0.925rem;
+  color: #475569;
+  padding-left: 1.25rem;
+  border-left: 2px solid rgba(59, 130, 246, 0.25);
+  margin-left: 0;
+  line-height: 1.7;
+}
+
+/* ── 9. Horizontal rule ────────────────────────────────────────────────────── */
+.detail-work-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.25) 20%,
+    rgba(139, 92, 246, 0.25) 80%,
+    transparent
+  );
+  margin: 2.5rem 0;
+}
+
+/* ── 10. Table ─────────────────────────────────────────────────────────────── */
+
+/* Wrapper div — always wrap <table> in <div class="table-wrap"> */
+.detail-work-content .table-wrap {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(59, 130, 246, 0.14);
+  box-shadow:
+    0 1px 3px rgba(59, 130, 246, 0.06),
+    0 4px 16px -4px rgba(59, 130, 246, 0.08);
+  margin: 2rem 0;
+  /* Prevent border-radius clipping on scroll */
+  -webkit-overflow-scrolling: touch;
+}
+
+.detail-work-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  min-width: 480px; /* force horizontal scroll on small screens */
+}
+
+/* Caption */
+.detail-work-content caption {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  text-align: left;
+  padding: 0.75rem 1.1rem 0.5rem;
+  background: transparent;
+}
+
+/* Header row */
+.detail-work-content thead tr {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(139, 92, 246, 0.07) 100%);
+}
+.detail-work-content thead th {
+  padding: 0.8rem 1.1rem;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #3b82f6;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+  white-space: nowrap;
+}
+/* Right-align numeric header */
+.detail-work-content thead th.num {
+  text-align: right;
+}
+
+/* Body rows */
+.detail-work-content tbody tr {
+  border-bottom: 1px solid rgba(59, 130, 246, 0.06);
+  transition: background-color 0.1s ease;
+}
+.detail-work-content tbody tr:last-child {
+  border-bottom: none;
+}
+.detail-work-content tbody tr:nth-child(even) {
+  background-color: rgba(59, 130, 246, 0.025);
+}
+.detail-work-content tbody tr:hover {
+  background-color: rgba(59, 130, 246, 0.055);
+}
+
+/* Body cells */
+.detail-work-content tbody td {
+  padding: 0.8rem 1.1rem;
+  color: #475569;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.detail-work-content tbody td:first-child {
+  font-weight: 600;
+  color: #1e293b;
+}
+/* Right-align numeric cell */
+.detail-work-content tbody td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: "Inconsolata", monospace;
+  color: #1e293b;
+}
+
+/* Footer row (totals etc.) */
+.detail-work-content tfoot tr {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.06) 100%);
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
+}
+.detail-work-content tfoot td {
+  padding: 0.8rem 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.875rem;
+}
+
+/* ── 11. Images & figures ──────────────────────────────────────────────────── */
+
+/*
+  IMAGE LAYOUT CLASSES — always wrap <img> in a <figure> with one of these:
+
+  Layout variants on <figure>:
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  (no class)          full-width desktop screenshot                  │
+  │  .img-desktop        explicitly full-width, capped at content width │
+  │  .img-tablet         ~70% width, centred                            │
+  │  .img-mobile         phone width (240px), centred                   │
+  │  .img-mobile-row     2–4 phones side by side in a flex row          │
+  │  .img-split          two images side by side (desktop pair)         │
+  └─────────────────────────────────────────────────────────────────────┘
+
+  Usage:
+    <figure class="img-mobile">
+      <img src="..." alt="Stock inventory screen" />
+      <figcaption>Stock inventory — product list view</figcaption>
+    </figure>
+
+    <div class="img-mobile-row">
+      <figure>
+        <img src="..." alt="Sell screen" />
+        <figcaption>Sell</figcaption>
+      </figure>
+      <figure>
+        <img src="..." alt="Profit screen" />
+        <figcaption>Profit tracker</figcaption>
+      </figure>
+    </div>
+*/
+
+/* ── Base img — never stretch raw images full width by default ── */
+.detail-work-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  box-shadow: 0 4px 24px -6px rgba(15, 23, 42, 0.12);
+}
+
+/* ── Base figure — resets margin, stacks image + caption ── */
+.detail-work-content figure {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+.detail-work-content figure img {
+  border-radius: 0.75rem 0.75rem 0 0;
+  border-bottom: none;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ── figcaption — shared across all layouts ── */
+.detail-work-content figcaption {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: center;
+  padding: 0.55rem 1rem 0.6rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  border-top: none;
+  border-radius: 0 0 0.75rem 0.75rem;
+  font-style: italic;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+/* Optional label prefix inside figcaption: <strong>Screen:</strong> description */
+.detail-work-content figcaption strong {
+  font-style: normal;
+  font-weight: 600;
+  color: #3b82f6;
+  -webkit-text-fill-color: #3b82f6;
+  margin-right: 0.3em;
+}
+
+/* ── Desktop / full-width screenshot ── */
+.detail-work-content figure.img-desktop {
+  width: 100%;
+}
+.detail-work-content figure.img-desktop img {
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* ── Tablet screenshot — ~70% width, centred ── */
+.detail-work-content figure.img-tablet {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Mobile / phone screenshot — fixed narrow width, centred ── */
+.detail-work-content figure.img-mobile {
+  width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.detail-work-content figure.img-mobile img {
+  border-radius: 1.25rem 1.25rem 0 0; /* rounder corners for phone UI */
+  object-fit: contain; /* don't crop portrait screenshots */
+}
+/* On very small screens, let it scale down but never go full width oddly */
+@media (max-width: 480px) {
+  .detail-work-content figure.img-mobile {
+    width: min(240px, 70%);
+  }
+}
+
+/* ── Mobile row — 2 to 4 phones side by side ── */
+.detail-work-content .img-mobile-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+.detail-work-content .img-mobile-row figure {
+  flex: 0 0 auto;
+  width: 200px;
+  margin: 0; /* row handles its own margin */
+}
+.detail-work-content .img-mobile-row figure img {
+  border-radius: 1.25rem 1.25rem 0 0;
+  object-fit: contain;
+  width: 100%;
+}
+.detail-work-content .img-mobile-row figcaption {
+  font-size: 0.7rem;
+  padding: 0.45rem 0.75rem 0.5rem;
+}
+/* Stack to 2-per-row on narrow screens */
+@media (max-width: 560px) {
+  .detail-work-content .img-mobile-row figure {
+    width: calc(50% - 0.625rem);
+  }
+}
+
+/* ── Split — two desktop/tablet screenshots side by side ── */
+.detail-work-content .img-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.detail-work-content .img-split figure {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .detail-work-content .img-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Screenshot placeholder — used until real images are available ── */
+.detail-work-content .screenshot-placeholder {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px dashed rgba(59, 130, 246, 0.28);
+  border-radius: 1rem;
+  padding: 2.5rem 1.5rem;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  text-align: center;
+  min-height: 160px;
+}
+.detail-work-content .screenshot-placeholder svg {
+  opacity: 0.4;
+}
+.detail-work-content .screenshot-placeholder span {
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* ── 12. Section label (eyebrow) ───────────────────────────────────────────── */
+.detail-work-content .section-label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+  /* Keep section-label flush if it follows an <hr> */
+}
+
+/* ── 13. Callout box ───────────────────────────────────────────────────────── */
+.detail-work-content .callout {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(139, 92, 246, 0.07) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-left: 4px solid #3b82f6;
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1.1rem 1.4rem;
+  margin: 1.75rem 0;
+}
+.detail-work-content .callout p {
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+.detail-work-content .callout strong {
+  color: #3b82f6;
+}
+
+/* Warning / caution variant */
+.detail-work-content .callout.warn {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.07), rgba(249, 115, 22, 0.06));
+  border-color: rgba(234, 179, 8, 0.3);
+  border-left-color: #eab308;
+}
+.detail-work-content .callout.warn strong {
+  color: #ca8a04;
+}
+
+/* Success variant */
+.detail-work-content .callout.success {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.07), rgba(6, 182, 212, 0.06));
+  border-color: rgba(34, 197, 94, 0.25);
+  border-left-color: #22c55e;
+}
+.detail-work-content .callout.success strong {
+  color: #16a34a;
+}
+
+/* ── 14. Tech / tool tags ──────────────────────────────────────────────────── */
+.detail-work-content .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.25rem 0;
+}
+.detail-work-content .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.45rem;
+  font-size: 0.72rem;
+  font-family: "Inconsolata", monospace;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: #475569;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+.detail-work-content .tag:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+  color: #3b82f6;
+}
+.detail-work-content .tag svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* ── 15. Badge (status labels) ─────────────────────────────────────────────── */
+/* Usage: <span class="badge">Default</span>
+         <span class="badge green">Completed</span>
+         <span class="badge yellow">In Progress</span>
+         <span class="badge red">Blocked</span>
+         <span class="badge cyan">Live</span>       */
+.detail-work-content .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  /* default — blue/purple */
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+.detail-work-content .badge.green {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+  border-color: rgba(34, 197, 94, 0.25);
+}
+.detail-work-content .badge.yellow {
+  background: rgba(234, 179, 8, 0.1);
+  color: #ca8a04;
+  border-color: rgba(234, 179, 8, 0.25);
+}
+.detail-work-content .badge.red {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+.detail-work-content .badge.cyan {
+  background: rgba(6, 182, 212, 0.1);
+  color: #0891b2;
+  border-color: rgba(6, 182, 212, 0.25);
+}
+.detail-work-content .badge.purple {
+  background: rgba(139, 92, 246, 0.1);
+  color: #7c3aed;
+  border-color: rgba(139, 92, 246, 0.25);
+}
+
+/* ── 16. Highlight (inline text accent) ────────────────────────────────────── */
+/* Usage: <mark class="highlight">text</mark> */
+.detail-work-content .highlight,
+.detail-work-content mark {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+  -webkit-text-fill-color: #1e293b;
+  color: #1e293b;
+  padding: 0.05em 0.3em;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+/* ── 17. Feature / outcome card grid ───────────────────────────────────────── */
+.detail-work-content .card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+
+.detail-work-content .card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 1rem;
+  padding: 1.25rem 1.4rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.detail-work-content .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -8px rgba(59, 130, 246, 0.18);
+}
+
+.detail-work-content .card-icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(139, 92, 246, 0.14));
+  color: #3b82f6;
+  margin-bottom: 0.75rem;
+}
+.detail-work-content .card-icon svg {
+  flex-shrink: 0;
+}
+
+.detail-work-content .card h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+.detail-work-content .card p {
+  font-size: 0.825rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+/* Cards with a list inside */
+.detail-work-content .card ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+.detail-work-content .card ul li {
+  font-size: 0.825rem;
+  color: #64748b;
+  margin-bottom: 0.3rem;
+}
+
+/* ── 18. Process / timeline steps ──────────────────────────────────────────── */
+
+/*
+  Geometry (no connecting line — dots only):
+  ┌─ .steps (padding-left: 1.75rem) ───────────────┐
+  │  ● ← dot at left: 0                             │
+  │    ┌─ .step content (padding-left: 1rem) ───┐   │
+  │    │  .step-title                            │   │
+  │    │  .step-desc                             │   │
+  │    └─────────────────────────────────────────┘   │
+  └─────────────────────────────────────────────────┘
+*/
+
+.detail-work-content .steps {
+  position: relative;
+  margin: 1.75rem 0;
+  padding-left: 1.75rem; /* space for dot only */
+}
+
+.detail-work-content .step {
+  position: relative;
+  padding: 0 0 1.5rem 1rem; /* left-pad for content; bottom for gap between steps */
+}
+.detail-work-content .step:last-child {
+  padding-bottom: 0;
+}
+
+/* Dot — standalone, no connecting line */
+.detail-work-content .step::before {
+  content: "";
+  position: absolute;
+  left: calc(-1rem - 5px); /* 1rem (step padding-left) + half dot width (5px) */
+  top: 0.3rem; /* align with first line of .step-title */
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.15),
+    0 0 0 6px rgba(59, 130, 246, 0.06);
+}
+
+/* Step title — NOT a <p> tag so the global p rule doesn't interfere */
+.detail-work-content .step-title {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.3rem 0;
+  font-family: "Syne", "Outfit", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Step description */
+.detail-work-content .step-desc {
+  display: block;
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Optional step number badge */
+.detail-work-content .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 0.25rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  font-family: "Syne", sans-serif;
+}
+
+/* ── 19. Two-column text layout ─────────────────────────────────────────────── */
+.detail-work-content .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1.75rem 0;
+}
+/* Stack on narrow screens */
+@media (max-width: 600px) {
+  .detail-work-content .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 20. Conclusion / CTA card ─────────────────────────────────────────────── */
+.detail-work-content .conclusion-card {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: 1rem;
+  padding: 2rem 2.25rem;
+  margin: 2.5rem 0;
+  text-align: center;
+}
+/* Override default h2 gradient+border inside conclusion */
+.detail-work-content .conclusion-card h2 {
+  border-left: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.detail-work-content .conclusion-card p {
+  color: #475569;
+}
+.detail-work-content .conclusion-card strong {
+  color: #3b82f6;
+  -webkit-text-fill-color: #3b82f6;
+}
+
+/* ── strong / em (global overrides inside content) ─────────────────────────── */
+.detail-work-content strong {
+  font-weight: 600;
+  color: #1e293b;
+}
+.detail-work-content em {
+  font-style: italic;
+}
+
+/* ── Responsive tweaks ──────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .detail-work-content h2 {
+    font-size: 1.25rem;
+  }
+  .detail-work-content .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .detail-work-content .conclusion-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .detail-work-content blockquote {
+    padding: 1rem 1.25rem;
+  }
+  .detail-work-content pre {
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+}
